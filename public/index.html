@@ -1897,19 +1897,16 @@ function updateSchedDayLabels() {
   });
 }
 
-async function fetchSchedulePage(hub, dir, timestamp, page) {
-  const cacheKey = `${hub}-${dir}-${timestamp}-${page}`;
-  if (schedCache[cacheKey]) return schedCache[cacheKey];
-  const url = `https://api.flightradar24.com/common/v1/airport.json?code=${hub}&plugin[]=schedule&plugin-setting[schedule][mode]=${dir}&plugin-setting[schedule][timestamp]=${timestamp}&page=${page}&limit=100`;
-  const resp = await fetch(url, {
-    headers: { 'Accept': 'application/json' }
-  });
-  if (!resp.ok) throw new Error(`FR24 ${resp.status}`);
+async function fetchScheduleAggregated(hub, dir, timestamp) {
+  const cacheKey = `agg-${hub}-${dir}-${timestamp}`;
+  if (schedCache[cacheKey]) return { ...schedCache[cacheKey], fromLocalCache: true };
+  const url = `/api/schedule?hub=${encodeURIComponent(hub)}&dir=${encodeURIComponent(dir)}&timestamp=${timestamp}`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`Schedule API ${resp.status}`);
   const data = await resp.json();
-  const sched = data?.result?.response?.airport?.pluginData?.schedule?.[dir];
-  if (!sched) throw new Error('No schedule data');
-  schedCache[cacheKey] = sched;
-  return sched;
+  if (data.error) throw new Error(data.error);
+  schedCache[cacheKey] = data;
+  return data;
 }
 
 function classifySchedStatus(flight) {
@@ -1951,43 +1948,21 @@ async function loadScheduleData() {
   const tableWrap = document.getElementById('sched-table-wrap');
   loadEl.style.display = 'block';
   tableWrap.style.display = 'none';
-  loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${schedCurrentHub} ${schedCurrentDir} for ${getSchedDayLabel(schedCurrentDay)}...<br><span style="font-size:10px">Fetching from FlightRadar24</span>`;
+  loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${schedCurrentHub} ${schedCurrentDir} for ${getSchedDayLabel(schedCurrentDay)}...<br><span style="font-size:10px">Fetching via server cache</span>`;
   const btn = document.getElementById('sched-refresh-btn');
   btn.disabled = true;
   btn.textContent = '⏳ Loading...';
 
   try {
     const timestamp = getSchedDayTimestamp(schedCurrentDay);
-    const dayEnd = timestamp + 86400;
     const hubKey = `${schedCurrentHub}-${schedCurrentDir}-${schedCurrentDay}`;
-    let allUAFlights = [];
-    let page = 1;
-    let totalPages = 1;
-    let fetched = 0;
-    const MAX_PAGES = 20;
 
-    while (page <= totalPages && page <= MAX_PAGES) {
-      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${schedCurrentHub} ${schedCurrentDir}...<br><span style="font-size:10px">Page ${page}${totalPages > 1 ? ' of ' + Math.min(totalPages, MAX_PAGES) : ''} · ${allUAFlights.length} UA flights found</span>`;
-      const sched = await fetchSchedulePage(schedCurrentHub, schedCurrentDir, timestamp, page);
-      totalPages = sched.page?.total || 1;
-      if (!sched.data || sched.data.length === 0) break;
+    const result = await fetchScheduleAggregated(schedCurrentHub, schedCurrentDir, timestamp);
+    const allUAFlights = result.flights || [];
 
-      for (const entry of sched.data) {
-        const fl = entry.flight;
-        if (!fl) continue;
-        const airline = fl.airline;
-        if (!airline || airline.code?.iata !== 'UA') continue;
-        // Check if flight is within our day window
-        const schedDep = fl.time?.scheduled?.departure;
-        const schedArr = fl.time?.scheduled?.arrival;
-        const flightTime = schedCurrentDir === 'departures' ? schedDep : schedArr;
-        if (flightTime && flightTime >= dayEnd) { page = MAX_PAGES + 1; break; } // Past our day, stop
-        allUAFlights.push(fl);
-      }
-      fetched += sched.data.length;
-      page++;
-      // Small delay to avoid rate limiting
-      if (page <= totalPages && page <= MAX_PAGES) await new Promise(r => setTimeout(r, 300));
+    // Show cache indicator
+    if (result.cached || result.fromLocalCache) {
+      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${schedCurrentHub} ${schedCurrentDir}...<br><span style="font-size:10px;color:#4ecdc4">⚡ Served from cache · ${allUAFlights.length} UA flights</span>`;
     }
 
     schedAllFlights = allUAFlights;
@@ -2245,4 +2220,40 @@ initMap();
 initFleetTab();
 showConfigGallery('737-800'); // default
 updateTicker();
-</script></body></html>
+
+// ═══ DISCLAIMER MODAL ═══
+function showDisclaimer() {
+  document.getElementById('disclaimer-modal').style.display = 'flex';
+}
+function hideDisclaimer() {
+  document.getElementById('disclaimer-modal').style.display = 'none';
+}
+</script>
+
+<!-- DISCLAIMER MODAL -->
+<div id="disclaimer-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;align-items:center;justify-content:center;padding:20px" onclick="if(event.target===this)hideDisclaimer()">
+  <div style="background:var(--ua-panel);border:1px solid var(--ua-border);border-radius:8px;max-width:600px;width:100%;padding:24px;max-height:80vh;overflow-y:auto">
+    <h2 style="color:var(--ua-blue);font-size:14px;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px">⚖️ Disclaimer & Attribution</h2>
+    <div style="font-size:11px;line-height:1.7;color:var(--ua-text)">
+      <p style="margin-bottom:12px"><strong style="color:var(--ua-yellow)">This project is not affiliated with, endorsed by, or connected to United Airlines, Inc.</strong> "United Airlines" and the United logo are trademarks of United Airlines, Inc. This is an independent, fan-built project by aviation enthusiasts.</p>
+      <p style="margin-bottom:12px"><strong>Data Sources & Attribution:</strong></p>
+      <ul style="margin:0 0 12px 20px;color:var(--ua-muted)">
+        <li><a href="https://www.flightradar24.com" target="_blank" style="color:var(--ua-accent)">Flightradar24</a> — Live flight positions and schedule data</li>
+        <li><a href="https://aviationweather.gov" target="_blank" style="color:var(--ua-accent)">Aviation Weather Center (NOAA)</a> — METAR weather observations</li>
+        <li><a href="https://nasstatus.faa.gov" target="_blank" style="color:var(--ua-accent)">FAA NAS Status</a> — Airport delay and closure information</li>
+        <li>Fleet configuration data sourced from publicly available records</li>
+      </ul>
+      <p style="margin-bottom:12px"><strong>Data Accuracy:</strong> All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. <strong style="color:var(--ua-red)">Do not use this dashboard for operational or safety-critical decisions.</strong> Always verify flight status directly with <a href="https://www.united.com" target="_blank" style="color:var(--ua-accent)">united.com</a> or your airline.</p>
+      <p style="margin-bottom:12px"><strong>Open Source:</strong> This project is open source. <a href="https://github.com/notjbg/united-noc" target="_blank" style="color:var(--ua-accent)">View on GitHub →</a></p>
+    </div>
+    <button onclick="hideDisclaimer()" style="margin-top:16px;background:var(--ua-blue);color:white;border:none;padding:8px 24px;font-family:var(--mono);font-size:11px;cursor:pointer;border-radius:4px;width:100%">Got it</button>
+  </div>
+</div>
+
+<!-- SITE FOOTER -->
+<div style="background:var(--ua-panel);border-top:1px solid var(--ua-border);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;font-size:9px;color:var(--ua-muted)">
+  <div>Not affiliated with United Airlines, Inc. · Data may be delayed · For informational purposes only · <a href="#" onclick="showDisclaimer();return false" style="color:var(--ua-accent);text-decoration:none">Disclaimer & Attribution</a></div>
+  <div>Data: <a href="https://www.flightradar24.com" target="_blank" style="color:var(--ua-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" style="color:var(--ua-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" style="color:var(--ua-muted);text-decoration:none">FAA</a></div>
+</div>
+
+</body></html>
