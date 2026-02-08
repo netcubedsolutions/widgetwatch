@@ -1924,7 +1924,9 @@ function classifySchedStatus(flight) {
   if (statusText === 'canceled' || txtLower.includes('cancel')) return { text: txt || 'Canceled', cls: 'canceled', key: 'canceled' };
   if (statusText === 'landed' || txtLower.includes('landed')) return { text: txt || 'Landed', cls: 'landed', key: 'landed' };
   if (statusText === 'departed' || txtLower.startsWith('departed')) return { text: txt || 'Departed', cls: 'departed', key: 'departed' };
-  if (statusText === 'en-route' || txtLower.includes('en route') || (s.live === true && statusText !== 'estimated')) return { text: txt || 'En Route', cls: 'enroute', key: 'enroute' };
+  // A flight is en-route if: FR24 says so, OR it's live with a real departure (actually airborne)
+  const isAirborne = s.live === true && (flight.time?.real?.departure != null);
+  if (statusText === 'en-route' || txtLower.includes('en route') || isAirborne) return { text: txt || 'En Route', cls: 'enroute', key: 'enroute' };
   if (statusText === 'scheduled') return { text: txt || 'Scheduled', cls: 'scheduled', key: 'scheduled' };
   if (statusText === 'estimated') {
     const schedTime = flight.time?.scheduled?.departure || flight.time?.scheduled?.arrival;
