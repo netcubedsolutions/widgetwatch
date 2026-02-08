@@ -495,9 +495,9 @@ tbody td{padding:5px 8px;white-space:nowrap}
   <div class="source-item">
     <div class="source-icon">📡</div>
     <div>
-      <div class="source-name">Flight Data — OpenSky Network <span class="freshness fresh-live">LIVE</span></div>
-      <div class="source-desc">Real-time ADS-B aircraft state vectors. Updates every 30 seconds.</div>
-      <a class="source-link" href="https://opensky-network.org" target="_blank">opensky-network.org →</a>
+      <div class="source-name">Flight Data — Flightradar24 <span class="freshness fresh-live">LIVE</span></div>
+      <div class="source-desc">Real-time flight tracking with registration, origin, destination, aircraft type, and flight number. Updates every 30 seconds.</div>
+      <a class="source-link" href="https://www.flightradar24.com" target="_blank">flightradar24.com →</a>
     </div>
   </div>
 
@@ -824,12 +824,18 @@ function icao24ToNNumber(hex) {
   return nnum;
 }
 
-function matchAircraft(icao24) {
-  const nnum = icao24ToNNumber(icao24);
-  if (!nnum) return null;
-  // Try exact match and variations
-  if (FLEET_BY_REG[nnum]) return { ...FLEET_BY_REG[nnum], nnum };
-  // Try without trailing letters
+function matchAircraft(f) {
+  // FR24 gives us registration directly — try that first
+  if (f.reg) {
+    const reg = f.reg.replace('-', '');
+    if (FLEET_BY_REG[reg]) return { ...FLEET_BY_REG[reg], nnum: reg };
+    if (FLEET_BY_REG[f.reg]) return { ...FLEET_BY_REG[f.reg], nnum: f.reg };
+  }
+  // Fallback to ICAO24 conversion
+  if (f.icao24) {
+    const nnum = icao24ToNNumber(f.icao24);
+    if (nnum && FLEET_BY_REG[nnum]) return { ...FLEET_BY_REG[nnum], nnum };
+  }
   return null;
 }
 
@@ -888,24 +894,42 @@ function toggleWeather() {
   }
 }
 
-// ═══ FLIGHT DATA ═══
+// ═══ FLIGHT DATA (FlightRadar24) ═══
 async function refreshFlights() {
   document.getElementById('btn-refresh').textContent = '⏳ Loading...';
   try {
-    const res = await fetch('https://opensky-network.org/api/states/all?operator=UAL');
+    const res = await fetch('https://data-cloud.flightradar24.com/zones/fcgi/feed.js?airline=UAL', {
+      headers: { 'Accept': 'application/json' }
+    });
     if (!res.ok) throw new Error(res.status);
     const data = await res.json();
-    allFlights = (data.states || []).map(s => ({
-      icao24: s[0], callsign: (s[1]||'').trim(), country: s[2],
-      lon: s[5], lat: s[6], alt: s[7], onGround: s[8],
-      spd: s[9], hdg: s[10], vr: s[11], squawk: s[14],
-      altGeo: s[13]
-    })).filter(f => f.lat && f.lon && f.callsign.startsWith('UAL'));
+    allFlights = [];
+    for (const [id, arr] of Object.entries(data)) {
+      if (id === 'full_count' || id === 'version' || id === 'stats' || !Array.isArray(arr)) continue;
+      const f = {
+        fr24id: id,
+        icao24: arr[0],
+        lat: arr[1], lon: arr[2], hdg: arr[3],
+        alt: arr[4] ? arr[4] / 3.28084 : 0, // FR24 gives feet, convert to meters for compatibility
+        spd: arr[5] ? arr[5] / 1.944 : 0,   // FR24 gives knots, convert to m/s for compatibility
+        vr: arr[15] ? arr[15] / 196.85 : 0,  // FR24 gives fpm, convert to m/s for compatibility
+        squawk: null,
+        acType: arr[8] || '',
+        reg: arr[9] || '',
+        origin: arr[11] || '',
+        dest: arr[12] || '',
+        flightIATA: arr[13] || '',
+        onGround: arr[14] === 1,
+        callsign: arr[16] || '',
+        airline: arr[18] || ''
+      };
+      if (f.lat && f.lon) allFlights.push(f);
+    }
 
     document.getElementById('status-dot').className = 'status-dot live';
     document.getElementById('status-text').textContent = 'LIVE';
   } catch (e) {
-    console.error('OpenSky error:', e);
+    console.error('FR24 error:', e);
     document.getElementById('status-dot').className = 'status-dot';
     document.getElementById('status-dot').style.background = '#ff9800';
     document.getElementById('status-text').textContent = 'ERROR';
@@ -932,10 +956,9 @@ function getFilteredFlights() {
   return allFlights.filter(f => {
     if (activeHubFilter) {
       const hub = HUBS.find(h => h.iata === activeHubFilter);
-      const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
-      const matchesHub = (route.origin && route.origin.iata === activeHubFilter) ||
-                         (route.dest && route.dest.iata === activeHubFilter) ||
-                         (f.onGround && hub && haversine(f.lat, f.lon, hub.lat, hub.lon) < 93); // ~50nm
+      // FR24 gives real origin/dest — use those first, fall back to estimation
+      const matchesHub = f.origin === activeHubFilter || f.dest === activeHubFilter ||
+        (f.onGround && hub && haversine(f.lat, f.lon, hub.lat, hub.lon) < 93); // ~50nm
       if (!matchesHub) return false;
     }
     if (activePhaseFilter) {
@@ -985,25 +1008,38 @@ function showFlightPopup(f, marker) {
   // Remove old route line
   if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
 
-  const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
+  // FR24 gives us real route data — fall back to estimation only if missing
+  const hasRealRoute = f.origin && f.dest;
+  let originObj = null, destObj = null;
+  if (hasRealRoute) {
+    originObj = HUBS.find(h => h.iata === f.origin) || { iata: f.origin, lat: null, lon: null };
+    destObj = HUBS.find(h => h.iata === f.dest) || { iata: f.dest, lat: null, lon: null };
+  }
+  if (!hasRealRoute) {
+    const est = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
+    originObj = est.origin;
+    destObj = est.dest;
+  }
+
   const phaseInfo = getPhase(f.alt, f.vr, f.spd);
   const squawk = decodeSquawk(f.squawk);
-  const aircraft = matchAircraft(f.icao24);
-  const isStarlink = aircraft && STARLINK_TAILS.has(aircraft.r);
-  const flightNum = f.callsign.replace(/^UAL/, '');
+  const aircraft = matchAircraft(f);
+  const isStarlink = aircraft ? STARLINK_TAILS.has(aircraft.r) : (f.reg && STARLINK_TAILS.has(f.reg));
+  const flightNum = f.flightIATA || f.callsign.replace(/^UAL/, '');
+  const displayFlight = f.flightIATA || f.callsign || 'N/A';
 
   const altFt = f.alt ? Math.round(f.alt * 3.28084) : null;
   const spdKts = f.spd ? Math.round(f.spd * 1.944) : null;
   const altPct = altFt ? Math.min(100, (altFt / 41000) * 100) : 0;
   const mach = altFt && altFt > 28000 && spdKts ? (spdKts / 661).toFixed(2) : null;
 
-  const routeStr = (route.origin ? route.origin.iata : '???') + ' → ' + (route.dest ? route.dest.iata : '???');
+  const routeStr = (f.origin || originObj?.iata || '???') + ' → ' + (f.dest || destObj?.iata || '???');
 
   let html = `<div class="popup-card">`;
   html += `<div class="popup-header"><div>`;
-  html += `<div class="popup-callsign">${f.callsign || 'N/A'}</div>`;
+  html += `<div class="popup-callsign">${displayFlight}</div>`;
   html += `<div class="popup-route">${routeStr}</div>`;
-  html += `<div class="popup-route-est">estimated route</div>`;
+  if (!hasRealRoute) html += `<div class="popup-route-est">estimated route</div>`;
   html += `</div><div>`;
   html += `<span class="popup-phase ${phaseInfo.cls}">${phaseInfo.icon} ${phaseInfo.phase}</span>`;
   if (squawk) html += `<br><span class="${squawk.cls}">${squawk.text}</span>`;
@@ -1017,6 +1053,7 @@ function showFlightPopup(f, marker) {
   html += `<div class="popup-field"><span class="popup-field-label">V/S</span><span class="popup-field-value">${f.vr ? Math.round(f.vr * 196.85) + ' fpm' : 'N/A'}</span></div>`;
   html += `</div>`;
 
+  // Aircraft info — FR24 type + fleet DB match
   if (aircraft) {
     html += `<div class="popup-aircraft">`;
     html += `<div class="popup-aircraft-type">${aircraft.t} <span style="color:var(--ua-muted);font-size:10px">${aircraft.r}</span></div>`;
@@ -1030,22 +1067,35 @@ function showFlightPopup(f, marker) {
       html += `<span style="font-size:9px;color:var(--ua-muted);margin-left:4px">(${aircraft.tot} total)</span></div>`;
     }
     html += `</div>`;
-  } else if (f.icao24) {
-    const nnum = icao24ToNNumber(f.icao24);
-    if (nnum) html += `<div style="font-size:10px;color:var(--ua-muted);margin:4px 0">Reg: ${nnum} (not in fleet DB)</div>`;
+  } else {
+    // Show FR24 data even without fleet match
+    let acInfo = [];
+    if (f.acType) acInfo.push(f.acType);
+    if (f.reg) acInfo.push(f.reg);
+    if (acInfo.length) html += `<div style="font-size:10px;color:var(--ua-muted);margin:4px 0">${acInfo.join(' · ')} (not in mainline fleet DB — likely United Express)</div>`;
   }
 
   html += `<div class="popup-links">`;
-  if (flightNum) html += `<a href="https://flightaware.com/live/flight/UAL${flightNum}" target="_blank">FlightAware ↗</a>`;
-  if (aircraft) html += `<a href="https://www.planespotters.net/search?q=${aircraft.r}" target="_blank">Planespotters ↗</a>`;
+  const fltLink = flightNum.replace(/^UA/, '');
+  if (fltLink) html += `<a href="https://flightaware.com/live/flight/UAL${fltLink}" target="_blank">FlightAware ↗</a>`;
+  const regLink = aircraft?.r || f.reg;
+  if (regLink) html += `<a href="https://www.planespotters.net/search?q=${regLink}" target="_blank">Planespotters ↗</a>`;
   html += `<a href="https://globe.adsbexchange.com/?icao=${f.icao24}" target="_blank">ADS-B ↗</a>`;
   html += `</div></div>`;
 
   marker.bindPopup(html, { maxWidth: 320, closeButton: true }).openPopup();
 
-  // Draw great circle route line
-  if (route.origin && route.dest) {
-    const pts = greatCirclePoints(route.origin.lat, route.origin.lon, route.dest.lat, route.dest.lon, 50);
+  // Draw great circle route line using real airports
+  if (f.origin && f.dest) {
+    // Look up coordinates from HUBS or AIRPORTS array
+    const oApt = HUBS.find(h => h.iata === f.origin) || AIRPORTS.find(a => a.iata === f.origin);
+    const dApt = HUBS.find(h => h.iata === f.dest) || AIRPORTS.find(a => a.iata === f.dest);
+    if (oApt && dApt && oApt.lat && dApt.lat) {
+      const pts = greatCirclePoints(oApt.lat, oApt.lon, dApt.lat, dApt.lon, 50);
+      routeLine = L.polyline(pts, { color: '#005DAA', weight: 1.5, dashArray: '6,4', opacity: 0.6 }).addTo(map);
+    }
+  } else if (originObj && destObj && originObj.lat && destObj.lat) {
+    const pts = greatCirclePoints(originObj.lat, originObj.lon, destObj.lat, destObj.lon, 50);
     routeLine = L.polyline(pts, { color: '#005DAA', weight: 1.5, dashArray: '6,4', opacity: 0.6 }).addTo(map);
   }
 }
@@ -1095,8 +1145,9 @@ function updateStats() {
       if (f.alt) { totalAlt += f.alt * 3.28084; altCount++; }
       if (f.spd) { totalSpd += f.spd * 1.944; spdCount++; }
 
-      const ac = matchAircraft(f.icao24);
+      const ac = matchAircraft(f);
       if (ac && STARLINK_TAILS.has(ac.r)) starlinkAirborne++;
+      else if (f.reg && STARLINK_TAILS.has(f.reg)) starlinkAirborne++;
     }
   });
 
@@ -1167,9 +1218,9 @@ function updateHubStats() {
 
   allFlights.forEach(f => {
     if (f.onGround) return;
-    const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
-    if (route.origin && hubData[route.origin.iata] !== undefined) hubData[route.origin.iata].outbound++;
-    if (route.dest && hubData[route.dest.iata] !== undefined) hubData[route.dest.iata].inbound++;
+    // Use FR24's real origin/dest
+    if (f.origin && hubData[f.origin] !== undefined) hubData[f.origin].outbound++;
+    if (f.dest && hubData[f.dest] !== undefined) hubData[f.dest].inbound++;
   });
 
   let maxTotal = 0, busiestHub = '';
@@ -1202,17 +1253,15 @@ document.getElementById('search-input-side').addEventListener('input', function(
 
   const matches = allFlights.filter(f => {
     const cs = (f.callsign || '').toUpperCase();
-    const ac = matchAircraft(f.icao24);
-    const nnum = ac ? ac.r.toUpperCase() : '';
-    const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
-    const routeStr = (route.origin ? route.origin.iata : '') + (route.dest ? route.dest.iata : '');
-    return cs.includes(q) || nnum.includes(q) || routeStr.includes(q);
+    const flt = (f.flightIATA || '').toUpperCase();
+    const reg = (f.reg || '').toUpperCase();
+    const routeStr = ((f.origin || '') + (f.dest || '')).toUpperCase();
+    return cs.includes(q) || flt.includes(q) || reg.includes(q) || routeStr.includes(q);
   }).slice(0, 15);
 
   results.innerHTML = matches.map(f => {
-    const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
-    const routeStr = (route.origin ? route.origin.iata : '???') + '→' + (route.dest ? route.dest.iata : '???');
-    return `<div class="search-result" onclick="focusFlight('${f.icao24}')">${f.callsign || f.icao24} <span style="color:var(--ua-muted)">${routeStr}</span></div>`;
+    const routeStr = (f.origin || '???') + '→' + (f.dest || '???');
+    return `<div class="search-result" onclick="focusFlight('${f.icao24}')">${f.flightIATA || f.callsign || f.icao24} <span style="color:var(--ua-muted)">${routeStr} ${f.reg || ''}</span></div>`;
   }).join('') || '<div style="padding:6px 12px;color:var(--ua-muted);font-size:10px">No matches</div>';
 });
 
@@ -1564,14 +1613,11 @@ function updateAnalytics() {
     </div>`;
   }).join('');
 
-  // Route heatmap
+  // Route heatmap — FR24 gives real origin/dest
   const routeCount = {};
-  allFlights.filter(f => !f.onGround).slice(0, 200).forEach(f => {
-    const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
-    if (route.origin && route.dest) {
-      const key = route.origin.iata + '→' + route.dest.iata;
-      routeCount[key] = (routeCount[key] || 0) + 1;
-    }
+  allFlights.filter(f => !f.onGround && f.origin && f.dest).forEach(f => {
+    const key = f.origin + '→' + f.dest;
+    routeCount[key] = (routeCount[key] || 0) + 1;
   });
 
   const topRoutes = Object.entries(routeCount).sort((a, b) => b[1] - a[1]).slice(0, 20);
@@ -1598,22 +1644,33 @@ function updateLiveFleetPanel() {
   const typeCounts = {}; typeOrder.forEach(t => typeCounts[t] = { airborne: 0, total: 0 });
   FLEET_DB.forEach(a => { if (typeCounts[a.t]) typeCounts[a.t].total++; });
 
+  let matched = 0, unmatched = 0;
   allFlights.forEach(f => {
     if (f.onGround) return;
-    const nnum = icao24ToNNumber(f.icao24);
-    if (!nnum) return;
-    const ac = FLEET_BY_REG[nnum];
-    if (!ac) return;
+    const ac = matchAircraft(f);
+    if (!ac) { unmatched++; return; }
+    matched++;
     if (typeCounts[ac.t]) typeCounts[ac.t].airborne++;
-    const route = estimateRoute(f.lat, f.lon, f.hdg, f.alt ? f.alt * 3.28084 : null, f.vr);
+    // Use FR24's real route data
+    const routeStr = (f.origin || '???') + '→' + (f.dest || '???');
     const phase = getPhase(f.alt, f.vr, f.spd);
-    airborne.push({ reg: ac.r, type: ac.t, callsign: f.callsign, route: (route.origin ? route.origin.iata : '???') + '→' + (route.dest ? route.dest.iata : '???'), alt: f.alt ? Math.round(f.alt * 3.28084).toLocaleString() + 'ft' : '--', phase: phase.phase });
+    const isStar = STARLINK_TAILS.has(ac.r) || STARLINK_TAILS.has(f.reg);
+    airborne.push({
+      reg: ac.r, type: ac.t,
+      flight: f.flightIATA || f.callsign,
+      route: routeStr,
+      alt: f.alt ? Math.round(f.alt * 3.28084).toLocaleString() + 'ft' : '--',
+      phase: phase.phase,
+      starlink: isStar
+    });
   });
 
   airborne.sort((a, b) => a.type.localeCompare(b.type) || a.reg.localeCompare(b.reg));
 
+  const totalAirborne = allFlights.filter(f => !f.onGround).length;
   let html = `<div style="display:flex;align-items:center;gap:16px;margin-bottom:12px">`;
-  html += `<div><div class="big-number" style="display:flex;align-items:center;gap:8px"><span class="pulse-dot"></span>${airborne.length}</div><div class="big-number-label">of ${FLEET_DB.length} aircraft currently airborne</div></div>`;
+  html += `<div><div class="big-number" style="display:flex;align-items:center;gap:8px"><span class="pulse-dot"></span>${totalAirborne}</div>`;
+  html += `<div class="big-number-label">${matched} matched to fleet DB · ${unmatched} regional/partner</div></div>`;
   html += `</div>`;
 
   html += `<div class="type-breakdown">`;
@@ -1626,9 +1683,9 @@ function updateLiveFleetPanel() {
   html += `</div>`;
 
   if (airborne.length) {
-    html += `<div class="live-table-wrap"><table><thead><tr><th>Reg</th><th>Type</th><th>Callsign</th><th>Route (est)</th><th>Alt</th><th>Phase</th></tr></thead><tbody>`;
+    html += `<div class="live-table-wrap"><table><thead><tr><th>Reg</th><th>Type</th><th>Flight</th><th>Route</th><th>Alt</th><th>Phase</th><th></th></tr></thead><tbody>`;
     airborne.forEach(a => {
-      html += `<tr><td style="font-weight:700;color:var(--ua-accent)">${a.reg}</td><td>${a.type}</td><td>${a.callsign}</td><td>${a.route}</td><td>${a.alt}</td><td>${a.phase}</td></tr>`;
+      html += `<tr><td style="font-weight:700;color:var(--ua-accent)">${a.reg}</td><td>${a.type}</td><td>${a.flight}</td><td>${a.route}</td><td>${a.alt}</td><td>${a.phase}</td><td>${a.starlink ? '⚡' : ''}</td></tr>`;
     });
     html += `</tbody></table></div>`;
   }
