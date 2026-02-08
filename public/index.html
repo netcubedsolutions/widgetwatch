@@ -391,7 +391,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
     </div>
   </div>
   <div id="sched-pagination" style="display:none;text-align:center;padding:8px;font-size:10px;color:var(--ua-muted)"></div>
-  <div style="font-size:9px;color:var(--ua-muted);text-align:center;padding:6px 0">Schedule data via <a href="https://www.flightradar24.com" target="_blank" style="color:var(--ua-green)">Flightradar24</a> · United flights only · Times in local airport timezone</div>
+  <div id="sched-tz-footer" style="font-size:9px;color:var(--ua-muted);text-align:center;padding:6px 0">Schedule data via <a href="https://www.flightradar24.com" target="_blank" style="color:var(--ua-green)">Flightradar24</a> · United flights only · Times in local airport timezone</div>
 </div>
 
 <!-- TAB 3: FLEET -->
@@ -1824,6 +1824,7 @@ let schedLoading = false;
 function initScheduleTab() {
   if (!schedInitialized) {
     schedInitialized = true;
+    updateSchedDayLabels();
     // Day buttons
     document.querySelectorAll('.sched-day-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -1834,7 +1835,7 @@ function initScheduleTab() {
       });
     });
     // Filters
-    document.getElementById('sched-hub').addEventListener('change', () => { schedCurrentHub = document.getElementById('sched-hub').value; loadScheduleData(); });
+    document.getElementById('sched-hub').addEventListener('change', () => { schedCurrentHub = document.getElementById('sched-hub').value; updateSchedDayLabels(); loadScheduleData(); });
     document.getElementById('sched-dir').addEventListener('change', () => { schedCurrentDir = document.getElementById('sched-dir').value; loadScheduleData(); });
     document.getElementById('sched-status').addEventListener('change', renderScheduleTable);
     document.getElementById('sched-aircraft').addEventListener('change', renderScheduleTable);
@@ -1858,17 +1859,42 @@ function initScheduleTab() {
 }
 
 function getSchedDayTimestamp(dayOffset) {
+  // Use the selected hub's timezone for day boundaries (not browser local time)
+  const tz = SCHED_HUB_TZ[schedCurrentHub] || 'America/Chicago';
   const now = new Date();
-  const target = new Date(now);
-  target.setDate(target.getDate() + dayOffset);
-  target.setHours(0, 0, 0, 0);
-  return Math.floor(target.getTime() / 1000);
+  // Get current date string in the hub's timezone
+  const hubDateStr = now.toLocaleDateString('en-CA', { timeZone: tz }); // YYYY-MM-DD
+  const [y, m, d] = hubDateStr.split('-').map(Number);
+  // Build midnight in hub timezone by finding the UTC offset
+  const target = new Date(Date.UTC(y, m - 1, d + dayOffset, 12, 0, 0)); // noon UTC as seed
+  const hubNoon = new Date(target.toLocaleString('en-US', { timeZone: tz }));
+  const utcNoon = new Date(target.toLocaleString('en-US', { timeZone: 'UTC' }));
+  const offsetMs = utcNoon - hubNoon;
+  const midnight = new Date(Date.UTC(y, m - 1, d + dayOffset, 0, 0, 0) + offsetMs);
+  return Math.floor(midnight.getTime() / 1000);
 }
 
 function getSchedDayLabel(dayOffset) {
-  const d = new Date();
-  d.setDate(d.getDate() + dayOffset);
-  return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const tz = SCHED_HUB_TZ[schedCurrentHub] || 'America/Chicago';
+  const now = new Date();
+  const hubDateStr = now.toLocaleDateString('en-CA', { timeZone: tz });
+  const [y, m, d] = hubDateStr.split('-').map(Number);
+  const target = new Date(y, m - 1, d + dayOffset);
+  return target.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+}
+
+function getHubTzAbbrev(hub) {
+  const tz = SCHED_HUB_TZ[hub] || 'America/Chicago';
+  return new Date().toLocaleTimeString('en-US', { timeZone: tz, timeZoneName: 'short' }).split(' ').pop();
+}
+
+function updateSchedDayLabels() {
+  const names = { '-1': 'Yesterday', '0': 'Today', '1': 'Tomorrow' };
+  document.querySelectorAll('.sched-day-btn').forEach(btn => {
+    const day = btn.dataset.day;
+    const dateStr = getSchedDayLabel(parseInt(day));
+    btn.textContent = `${names[day]} (${dateStr})`;
+  });
 }
 
 async function fetchSchedulePage(hub, dir, timestamp, page) {
@@ -2057,11 +2083,20 @@ function sortScheduleFlights(flights) {
   });
 }
 
+function updateSchedTzFooter() {
+  const hub = schedCurrentHub || 'ORD';
+  const abbr = getHubTzAbbrev(hub);
+  const hubLabel = hub || 'selected hub';
+  const footer = document.getElementById('sched-tz-footer');
+  if (footer) footer.innerHTML = `Schedule data via <a href="https://www.flightradar24.com" target="_blank" style="color:var(--ua-green)">Flightradar24</a> · United flights only · All times ${hubLabel} local (<b>${abbr}</b>)`;
+}
+
 function renderScheduleTable() {
   const filtered = getFilteredScheduleFlights();
   const sorted = sortScheduleFlights(filtered);
   const tbody = document.getElementById('sched-tbody');
   const hub = schedCurrentHub;
+  updateSchedTzFooter();
 
   // Update sort indicators
   document.querySelectorAll('#sched-table th[data-sort]').forEach(th => {
