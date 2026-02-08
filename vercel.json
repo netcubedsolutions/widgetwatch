@@ -1,8 +1,6 @@
 {
   "buildCommand": null,
   "outputDirectory": "public",
-  "analytics": true,
-  "speedInsights": { "enabled": true },
   "headers": [
     {
       "source": "/api/(.*)",
