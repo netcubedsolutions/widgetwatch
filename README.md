@@ -2,9 +2,9 @@
 
 **An unofficial, real-time operations dashboard for United Airlines — built by flyers, for flyers.**
 
-**[→ Live Dashboard](https://united-noc-vercel.vercel.app)** · **[Buy Me a WiFi Day Pass ☕](https://buymeacoffee.com/notjbg)**
+**[→ Live Dashboard](https://theblueboard.co)** · **[Buy Me a WiFi Day Pass ☕](https://buymeacoffee.com/notjbg)**
 
-![The Blue Board — Live Operations Map](https://united-noc-vercel.vercel.app/og-image.png)
+![The Blue Board — Live Operations Map](https://theblueboard.co/og-image.png)
 
 ---
 
