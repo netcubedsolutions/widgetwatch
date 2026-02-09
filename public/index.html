@@ -468,7 +468,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 </div>
 
 <!-- HUB HEALTH BAR -->
-<div id="hub-health-bar"><span class="hh-label">Hub Health</span><span style="color:var(--ua-muted)">Loading…</span></div>
+<div id="hub-health-bar" title="On-Time Performance: % of operated flights departing within 15 min of schedule. 🟢 >80% · 🟡 65-80% · 🔴 <65%"><span class="hh-label">Hub Health</span><span style="color:var(--ua-muted)">Loading…</span></div>
 
 <!-- WATCH NOTIFICATION BANNER -->
 <div id="watch-notification"><span id="wn-text"></span><button class="wn-dismiss" data-action="dismiss-watch-notification">Dismiss</button></div>
@@ -3159,8 +3159,8 @@ function updateHubHealth() {
     if (pct === undefined) {
       html += `<span class="hh-hub"><span class="hh-code">${hub}</span> <span style="color:var(--ua-muted)">⚪ —</span></span>`;
     } else {
-      const emoji = pct > 85 ? '🟢' : pct >= 60 ? '🟡' : '🔴';
-      const color = pct > 85 ? '#22c55e' : pct >= 60 ? '#f59e0b' : '#ef4444';
+      const emoji = pct > 80 ? '🟢' : pct >= 65 ? '🟡' : '🔴';
+      const color = pct > 80 ? '#22c55e' : pct >= 65 ? '#f59e0b' : '#ef4444';
       html += `<span class="hh-hub"><span class="hh-code">${hub}</span> ${emoji} <span class="hh-pct" style="color:${color}">${pct}%</span></span>`;
     }
     if (i < hubs.length - 1) html += '<span class="hh-sep">│</span>';
@@ -3282,11 +3282,12 @@ function renderIrropsFromAPI(data) {
       if (!m || !m.total) {
         html += `<span class="hh-hub"><span class="hh-code">${hub}</span> <span style="color:var(--ua-muted)">⚪ —</span></span>`;
       } else {
-        const operated = m.total - m.cancellations;
-        const delayed = m.delayed30 + m.delayed60;
-        const pct = operated > 0 ? Math.round(((operated - delayed) / operated) * 100) : 0;
-        const emoji = pct > 85 ? '🟢' : pct >= 60 ? '🟡' : '🔴';
-        const color = pct > 85 ? '#22c55e' : pct >= 60 ? '#f59e0b' : '#ef4444';
+        // OTP = on-time flights / operated flights (within 15 min of schedule)
+        const operated = m.operated || (m.total - m.cancellations);
+        const onTime = m.onTime !== undefined ? m.onTime : Math.max(0, operated - m.delayed30);
+        const pct = operated > 0 ? Math.round((onTime / operated) * 100) : 0;
+        const emoji = pct > 80 ? '🟢' : pct >= 65 ? '🟡' : '🔴';
+        const color = pct > 80 ? '#22c55e' : pct >= 65 ? '#f59e0b' : '#ef4444';
         hubHealthData[hub] = pct;
         html += `<span class="hh-hub"><span class="hh-code">${hub}</span> ${emoji} <span class="hh-pct" style="color:${color}">${pct}%</span></span>`;
       }
