@@ -10,28 +10,38 @@
 
 ## What Is This?
 
-The Blue Board is a fan-built operations dashboard that lets you see United Airlines like an ops center would — live flight positions, hub schedules, fleet data, weather, and analytics, all in one dark, data-dense interface.
+The Blue Board is a fan-built operations dashboard that lets you see United Airlines like an ops center would — live flight positions, hub schedules, fleet data, delays, weather, and stats, all in one dark, data-dense interface.
 
-**Not affiliated with United Airlines, Inc.** This is an independent project by aviation enthusiasts.
+**Not affiliated with United Airlines, Inc.** This is an independent project by an aviation enthusiast.
 
 ---
 
 ## Features
 
-### 📡 Live Ops
-Real-time map tracking 600+ United flights. Filter by hub, flight phase, or search by flight number, tail, or route. Hub status sidebar shows departures/arrivals and identifies the busiest hub.
+### 📡 [Live Ops](https://theblueboard.co#live)
+Real-time map tracking 600+ United flights, updated every 30 seconds. Filter by hub, toggle longhaul routes, overlay NEXRAD weather radar. Hub status sidebar shows departure/arrival counts and identifies the busiest hub. Search any flight by number, tail, or route.
 
-### 📅 Schedule
-Departure and arrival schedules for all 7 UA hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX). Filter by status, aircraft type, or search. On-time performance stats. All times displayed in airport local timezone.
+### 📅 [Schedule](https://theblueboard.co#schedule)
+Departure and arrival boards for all 7 UA hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
 
-### ✈️ Fleet
-Complete database of 1,175+ mainline aircraft — searchable by type, registration, config, WiFi, and IFE. Starlink tracker for 258+ equipped aircraft. Live fleet status correlates airborne flights with the database.
+### ✈️ [Fleet](https://theblueboard.co#fleet)
+Complete database of 1,175+ mainline aircraft — searchable by type, registration, seat config, WiFi, and IFE. Starlink tracker for 258+ equipped aircraft. Live fleet status correlates airborne flights with the database.
 
-### 🌦 Weather
-METAR observations with plain-English explainers, NEXRAD radar overlay, and FAA NAS delay/ground stop alerts for every hub. Each hub gets a unified weather card with conditions, visibility, wind, and ceiling.
+### 🌦 [Delays · Weather · Hubs](https://theblueboard.co#weather)
+FAA NAS delay and ground stop alerts, METAR observations with plain-English explainers, NEXRAD radar overlay, and hub health indicators. Each hub gets a unified card with conditions, visibility, wind, ceiling, and current delay status.
 
-### 📊 Analytics
+### 📊 [Stats](https://theblueboard.co#stats)
 Fleet composition by aircraft type, seat configuration analysis, WiFi/IFE coverage stats, and utilization metrics.
+
+### 🔍 Flight Search
+Look up any UA flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
+
+### More
+- **Deep-link hashes** — Share direct links to any tab (`#live`, `#schedule`, `#fleet`, `#weather`, `#stats`)
+- **Flight watch** — Pin a flight and get browser push notifications on status changes
+- **Hub health bar** — At-a-glance delay severity across all 7 hubs
+- **Equipment swap alerts** — Badges when scheduled aircraft type changes
+- **Mobile responsive** — Full touch-optimized layout for phones and tablets
 
 ---
 
@@ -51,14 +61,16 @@ Fleet composition by aircraft type, seat configuration analysis, WiFi/IFE covera
     ┌──────────▼──────────────────────────────┐
     │        Vercel Serverless Functions       │
     │                                          │
-    │  /api/schedule  — FR24 schedule proxy    │
-    │                   (cached, rate-limited, │
-    │                    UA-filtered)          │
-    │  /api/fr24-feed — Live flight positions  │
-    │  /api/metar     — AWC weather proxy      │
-    │  /api/faa       — FAA NAS status proxy   │
-    │  /api/opensky   — OpenSky proxy          │
-    │  /api/fleet     — Fleet data proxy       │
+    │  /api/schedule    — FR24 schedule proxy  │
+    │                     (cached, rate-limited│
+    │                      UA-filtered)        │
+    │  /api/fr24-feed   — Live flight positions│
+    │  /api/fr24-flight — Flight lookup        │
+    │                     (official FR24 API)  │
+    │  /api/metar       — AWC weather proxy    │
+    │  /api/faa         — FAA NAS status proxy │
+    │  /api/opensky     — OpenSky proxy        │
+    │  /api/fleet       — Fleet data proxy     │
     └─────────────────────────────────────────┘
 ```
 
@@ -75,56 +87,35 @@ Fleet composition by aircraft type, seat configuration analysis, WiFi/IFE covera
 
 | Source | Data | Freshness | Notes |
 |--------|------|-----------|-------|
-| [Flightradar24](https://flightradar24.com) | Live positions + schedules | ~15s / ~60s | Server-side proxy with caching |
+| [Flightradar24](https://flightradar24.com) | Live positions, schedules, flight lookup | ~15s–60s | Server-side proxy with caching |
 | [Aviation Weather Center](https://aviationweather.gov) | METAR observations | ~5min | NOAA/CORS proxy |
-| [FAA NAS Status](https://nasstatus.faa.gov) | Delays & closures | ~5min | XML→JSON proxy |
+| [FAA NAS Status](https://nasstatus.faa.gov) | Delays & ground stops | ~5min | XML→JSON proxy |
 | [United Fleet Site](https://sites.google.com/site/unitedfleetsite/) | Fleet database | Daily | Community-maintained |
 | [Starlink Tracker](https://unitedstarlinktracker.com) | WiFi-equipped aircraft | Daily | [@martinamps](https://github.com/martinamps/ua-starlink-tracker) |
 | [Iowa State NEXRAD](https://mesonet.agron.iastate.edu) | Radar imagery | ~5min | Direct tile server |
-
-All sources are public. No API keys required.
-
----
-
-## Security
-
-- **Content Security Policy** — Strict CSP with `frame-ancestors 'none'` (clickjacking protection)
-- **Security headers** — `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`
-- **XSS protection** — All dynamic API data is HTML-escaped before DOM insertion
-- **URL encoding** — External link parameters use `encodeURIComponent`
-- **Tabnabbing protection** — All external links use `rel="noopener noreferrer"`
-- **CORS** — API endpoints locked to `theblueboard.co` origin (configurable via `ALLOWED_ORIGIN` env var for local dev)
-- **Input validation** — All API parameters (hub codes, timestamps, airline codes) are validated server-side
 
 ---
 
 ## Tech Stack
 
 - **Frontend:** Vanilla HTML/CSS/JS — no framework, no build step, single file
-- **Map:** [Leaflet](https://leafletjs.com) + OpenStreetMap
+- **Map:** [Leaflet](https://leafletjs.com) + OpenStreetMap + CartoDB dark tiles
 - **Radar:** Iowa State NEXRAD WMS tiles
 - **Font:** [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
 - **Hosting:** [Vercel](https://vercel.com) (serverless functions + edge CDN)
-- **Analytics:** Vercel Web Analytics
+- **Analytics:** Vercel Web Analytics + Speed Insights
 - **Design:** Dark NOC theme, inspired by Bloomberg terminals and airline ops centers
 
 ---
 
-## Local Development
+## Security
 
-```bash
-git clone https://github.com/notjbg/the-blue-board.git
-cd the-blue-board
-
-# Install Vercel CLI
-npm i -g vercel
-
-# Run locally (serves static files + serverless functions)
-vercel dev
-
-# Deploy to production
-vercel --prod
-```
+- **Content Security Policy** — Strict CSP with `frame-ancestors 'none'`
+- **Security headers** — `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`
+- **XSS protection** — All dynamic API data is HTML-escaped before DOM insertion
+- **CORS** — API endpoints locked to `theblueboard.co` origin
+- **Input validation** — All API parameters validated and sanitized server-side
+- **Tabnabbing protection** — All external links use `rel="noopener noreferrer"`
 
 ---
 
@@ -132,20 +123,19 @@ vercel --prod
 
 ```
 ├── public/
-│   ├── index.html       # The entire dashboard (~330KB single file)
-│   ├── og-image.png     # Social media preview image
+│   ├── index.html       # The entire dashboard (single file)
+│   ├── og-image.png     # Social media preview image (1200×630)
 │   ├── robots.txt       # Search engine directives
 │   └── sitemap.xml      # Sitemap
 ├── api/
 │   ├── schedule.js      # FR24 schedule proxy (cached, rate-limited, UA-filtered)
 │   ├── fr24-feed.js     # FR24 live flight feed proxy
+│   ├── fr24-flight.js   # FR24 official API flight lookup
 │   ├── metar.js         # AWC METAR weather proxy
 │   ├── faa.js           # FAA NAS status proxy (XML → JSON)
 │   ├── opensky.js       # OpenSky flight data proxy
 │   └── fleet.js         # Fleet data proxy
-├── vercel.json          # Vercel config + security headers
-├── rebuild-fleet.cjs    # Utility: rebuild inline fleet database from Google Sheets
-└── fix-fleet.cjs        # Utility: one-time fleet data cleanup
+└── vercel.json          # Vercel config + security headers
 ```
 
 ---
@@ -172,4 +162,4 @@ MIT — see [LICENSE](LICENSE) for details.
 
 ---
 
-*Built with ✈️ by [Jonah Berg](https://github.com/notjbg)*
+*Built on a ✈️ by [Jonah Berg](https://github.com/notjbg)*
