@@ -34,7 +34,7 @@ Complete database of 1,175+ mainline aircraft — searchable and sortable by typ
 FAA NAS delay and ground stop alerts, METAR observations with plain-English explainers, NEXRAD radar overlay, and hub health indicators. Each hub gets a unified card with conditions, visibility, wind, ceiling, and current delay status. Radar map renders instantly; weather data loads in parallel via batched API calls.
 
 ### 📊 [Stats](https://theblueboard.co#stats)
-Fleet composition by aircraft type, seat configuration analysis, WiFi/IFE coverage stats, and utilization metrics.
+Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Starlink coverage metrics. All live data updates every 30 seconds.
 
 ### 🔍 Flight Search
 Look up any UA flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
