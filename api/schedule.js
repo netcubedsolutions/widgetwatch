@@ -85,7 +85,9 @@ export default async function handler(req, res) {
     }
     // If timestamp is >24h old, use longer cache
     const isOld = (now - ts) > 86400;
-    const ttl = isOld ? 300000 : 60000; // 5 min or 1 min
+    const ttl = isOld ? 600000 : 300000; // 10 min (old) or 5 min (live) in-memory
+    const cdnMaxAge = isOld ? 3600 : 900; // 1hr (old) or 15min (live) at CDN edge
+    const swr = 300; // stale-while-revalidate: serve stale for 5min while refreshing
 
     // If single page requested, serve just that page (backward compat)
     if (page !== undefined) {
@@ -96,12 +98,12 @@ export default async function handler(req, res) {
       const cacheKey = `sched:${hub}:${dir}:${ts}:${pageNum}`;
       const cached = cacheGet(cacheKey);
       if (cached) {
-        res.setHeader('Cache-Control', `s-maxage=${Math.floor(ttl / 1000)}, stale-while-revalidate=60`);
+        res.setHeader('Cache-Control', `s-maxage=${cdnMaxAge}, stale-while-revalidate=${swr}`);
         return res.status(200).json({ ...cached.data, cached: true });
       }
       const sched = await fetchOnePage(hub, dir, ts, pageNum);
       cacheSet(cacheKey, sched, ttl);
-      res.setHeader('Cache-Control', `s-maxage=${Math.floor(ttl / 1000)}, stale-while-revalidate=60`);
+      res.setHeader('Cache-Control', `s-maxage=${cdnMaxAge}, stale-while-revalidate=${swr}`);
       return res.status(200).json({ ...sched, cached: false });
     }
 
@@ -109,7 +111,7 @@ export default async function handler(req, res) {
     const aggKey = `agg:${hub}:${dir}:${ts}`;
     const cached = cacheGet(aggKey);
     if (cached) {
-      res.setHeader('Cache-Control', `s-maxage=${Math.floor(ttl / 1000)}, stale-while-revalidate=60`);
+      res.setHeader('Cache-Control', `s-maxage=${cdnMaxAge}, stale-while-revalidate=${swr}`);
       return res.status(200).json({ ...cached.data, cached: true });
     }
 
@@ -153,7 +155,7 @@ export default async function handler(req, res) {
     };
 
     cacheSet(aggKey, result, ttl);
-    res.setHeader('Cache-Control', `s-maxage=${Math.floor(ttl / 1000)}, stale-while-revalidate=60`);
+    res.setHeader('Cache-Control', `s-maxage=${cdnMaxAge}, stale-while-revalidate=${swr}`);
     return res.status(200).json(result);
   } catch (e) {
     console.error('Schedule API error:', e);
