@@ -91,7 +91,7 @@ function computeMetrics(flightsByHub) {
         const delayMin = Math.round((realDep - schedT) / 60);
         if (delayMin > 30) hubMetrics[hub].delayed30++;
         if (delayMin > 60) hubMetrics[hub].delayed60++;
-        if (delayMin <= 15) hubMetrics[hub].onTime++;
+        if (delayMin <= 30) hubMetrics[hub].onTime++; // 30-min threshold for on-time
       } else {
         hubMetrics[hub].onTime++; // on time or early
       }

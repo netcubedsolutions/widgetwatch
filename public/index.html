@@ -529,7 +529,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 </div>
 
 <!-- HUB HEALTH BAR -->
-<div id="hub-health-bar" title="On-Time Performance: % of operated flights departing within 15 min of schedule. 🟢 >80% · 🟡 65-80% · 🔴 <65%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 15 min of schedule (DOT standard).<br>🟢 <span class="hh-explainer">ON-TIME %</span>gt;80% · 🟡 65–80% · 🔴 <span class="hh-explainer">ON-TIME %</span>lt;65%</span></span><span style="color:var(--ua-muted)">Loading…</span></div>
+<div id="hub-health-bar" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--ua-muted)">Loading…</span></div>
 
 <!-- WATCH NOTIFICATION BANNER -->
 <div id="watch-notification"><span id="wn-text"></span><button class="wn-dismiss" data-action="dismiss-watch-notification">Dismiss</button></div>
@@ -3202,7 +3202,7 @@ function updateHubHealth() {
       const schedT = fl.time?.scheduled?.departure || fl.time?.scheduled?.arrival || 0;
       const realT = fl.time?.real?.departure || fl.time?.real?.arrival || 0;
       if (!realT) { operated--; return; } // only count flights with real departure/arrival
-      if (realT && schedT && realT <= schedT + 900) onTime++;
+      if (realT && schedT && realT <= schedT + 1800) onTime++;
     });
     if (operated > 0) {
       hubHealthData[hub] = Math.round((onTime / operated) * 100);
@@ -3211,22 +3211,30 @@ function updateHubHealth() {
   }
 
   if (!hasData) {
-    bar.innerHTML = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 15 min of schedule (DOT standard).<br>🟢 <span class="hh-explainer">ON-TIME %</span>gt;80% · 🟡 65–80% · 🔴 <span class="hh-explainer">ON-TIME %</span>lt;65%</span></span><span style="color:var(--ua-muted)">Load schedule data for hub health</span>';
+    bar.innerHTML = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--ua-muted)">Load schedule data for hub health</span>';
     return;
   }
 
-  let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 15 min of schedule (DOT standard).<br>🟢 <span class="hh-explainer">ON-TIME %</span>gt;80% · 🟡 65–80% · 🔴 <span class="hh-explainer">ON-TIME %</span>lt;65%</span></span>';
+  let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span>';
   hubs.forEach((hub, i) => {
     const pct = hubHealthData[hub];
     if (pct === undefined) {
       html += `<span class="hh-hub"><span class="hh-code">${hub}</span> <span style="color:var(--ua-muted)">⚪ —</span></span>`;
     } else {
-      const emoji = pct > 80 ? '🟢' : pct >= 65 ? '🟡' : '🔴';
-      const color = pct > 80 ? '#22c55e' : pct >= 65 ? '#f59e0b' : '#ef4444';
+      const emoji = pct > 70 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
+      const color = pct > 70 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
       html += `<span class="hh-hub"><span class="hh-code">${hub}</span> ${emoji} <span class="hh-pct" style="color:${color}">${pct}%</span></span>`;
     }
     if (i < hubs.length - 1) html += '<span class="hh-sep">│</span>';
   });
+  // Network average label
+  const pcts2 = hubs.map(h => hubHealthData[h]).filter(p => p !== undefined);
+  if (pcts2.length) {
+    const avg = Math.round(pcts2.reduce((a,b)=>a+b,0) / pcts2.length);
+    const avgLabel = avg > 70 ? 'Smooth Ops' : avg >= 50 ? 'Some Delays' : 'Rough Day';
+    const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
+    html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
+  }
   bar.innerHTML = html;
 }
 
@@ -3338,23 +3346,31 @@ function renderIrropsFromAPI(data) {
   if (data.hubMetrics) {
     const bar = document.getElementById('hub-health-bar');
     const hubs = ['ORD','DEN','IAH','EWR','SFO','IAD','LAX'];
-    let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 15 min of schedule (DOT standard).<br>🟢 <span class="hh-explainer">ON-TIME %</span>gt;80% · 🟡 65–80% · 🔴 <span class="hh-explainer">ON-TIME %</span>lt;65%</span></span>';
+    let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span>';
     hubs.forEach((hub, i) => {
       const m = data.hubMetrics[hub];
       if (!m || !m.total) {
         html += `<span class="hh-hub"><span class="hh-code">${hub}</span> <span style="color:var(--ua-muted)">⚪ —</span></span>`;
       } else {
-        // OTP = on-time flights / operated flights (within 15 min of schedule)
+        // OTP = on-time flights / operated flights (within 30 min of schedule)
         const operated = m.operated || (m.total - m.cancellations);
         const onTime = m.onTime !== undefined ? m.onTime : Math.max(0, operated - m.delayed30);
         const pct = operated > 0 ? Math.round((onTime / operated) * 100) : 0;
-        const emoji = pct > 80 ? '🟢' : pct >= 65 ? '🟡' : '🔴';
-        const color = pct > 80 ? '#22c55e' : pct >= 65 ? '#f59e0b' : '#ef4444';
+        const emoji = pct > 70 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
+        const color = pct > 70 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
         hubHealthData[hub] = pct;
         html += `<span class="hh-hub"><span class="hh-code">${hub}</span> ${emoji} <span class="hh-pct" style="color:${color}">${pct}%</span></span>`;
       }
       if (i < hubs.length - 1) html += '<span class="hh-sep">│</span>';
     });
+    // Network average label
+    const pcts = hubs.map(h => hubHealthData[h]).filter(p => p !== undefined);
+    if (pcts.length) {
+      const avg = Math.round(pcts.reduce((a,b)=>a+b,0) / pcts.length);
+      const avgLabel = avg > 70 ? 'Smooth Ops' : avg >= 50 ? 'Some Delays' : 'Rough Day';
+      const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
+      html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
+    }
     bar.innerHTML = html;
   }
 
