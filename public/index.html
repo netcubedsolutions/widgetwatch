@@ -340,21 +340,30 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 /* ═══ MOBILE RESPONSIVE ═══ */
 @media(max-width:768px){
-  body{font-size:13px}
-  #header{flex-direction:column;gap:6px;padding:8px 12px;text-align:center}
-  #header h1{font-size:13px;letter-spacing:1px}
-  #global-search-wrap{flex:0 1 100%!important;order:3}
-  #header-right{font-size:10px;gap:10px;justify-content:center}
-  #tab-bar{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  #tab-bar::-webkit-scrollbar{display:none}
-  .tab-btn{flex:none;padding:12px 14px;font-size:10px;min-width:max-content;min-height:44px}
-  #tab-live{height:auto;min-height:calc(100vh - 140px)}
+  body{font-size:13px;padding-bottom:56px}
+  /* ── Compact Header ── */
+  #header{flex-direction:row;gap:0;padding:0 12px;height:44px;text-align:left;align-items:center}
+  #header h1{font-size:13px;letter-spacing:1px;white-space:nowrap}
+  #header h1 span[style]{display:none}
+  #global-search-wrap{position:absolute!important;top:44px;left:0;right:0;flex:none!important;order:0;display:none;padding:8px 12px;background:var(--ua-dark);border-bottom:1px solid var(--ua-border);z-index:999}
+  #global-search-wrap.mobile-search-open{display:block!important}
+  #header-right{font-size:10px;gap:8px;margin-left:auto}
+  #header-right #countdown,#header-right #clock{display:none}
+  #mobile-search-toggle{display:flex!important}
+  /* ── Hide top tab bar, show bottom nav ── */
+  #tab-bar{display:none!important}
+  #mobile-bottom-nav{display:flex!important}
+  /* ── Live Ops ── */
+  #tab-live{height:auto;min-height:calc(100vh - 100px)}
   #tab-live .ops-layout{flex-direction:column}
-  #tab-live .sidebar{width:100%;max-height:200px;border-right:none;border-bottom:1px solid var(--ua-border)}
+  /* Sidebar collapsed by default on mobile */
+  #tab-live .sidebar{width:100%;max-height:none;border-right:none;border-bottom:1px solid var(--ua-border);display:none;position:relative;z-index:10}
+  #tab-live .sidebar.mobile-sidebar-open{display:block;max-height:60vh;overflow-y:auto}
   #tab-live .sidebar #sidebar-extra-filters{display:none}
   #tab-live .sidebar #sidebar-filters-toggle{display:block}
   #tab-live .sidebar #sidebar-extra-filters.show{display:block}
-  #tab-live .map-area{height:50vh;min-height:300px}
+  #mobile-sidebar-toggle{display:flex!important}
+  #tab-live .map-area{height:calc(100vh - 100px);min-height:300px}
   #tab-live #map{height:100%}
   #tab-live #controls{top:6px;right:6px;gap:3px}
   .ctrl-btn{padding:8px 12px;font-size:11px;min-height:44px}
@@ -391,6 +400,16 @@ tbody td{padding:5px 8px;white-space:nowrap}
   /* Footer mobile */
   #disclaimer-modal > div{margin:10px;padding:16px}
 }
+/* ── Bottom Nav (hidden on desktop) ── */
+#mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:56px;background:var(--ua-panel);border-top:1px solid var(--ua-border);z-index:9998;align-items:stretch;justify-content:space-around}
+#mobile-bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:var(--ua-muted);font-family:var(--mono);font-size:9px;cursor:pointer;padding:4px 0;transition:color .2s}
+#mobile-bottom-nav button .bnav-icon{font-size:18px;line-height:1}
+#mobile-bottom-nav button.active{color:var(--ua-blue)}
+#mobile-bottom-nav button.active .bnav-label{color:var(--ua-blue)}
+/* ── Mobile search toggle (hidden on desktop) ── */
+#mobile-search-toggle{display:none!important;background:none;border:none;color:var(--ua-muted);font-size:16px;cursor:pointer;padding:4px;align-items:center;justify-content:center}
+/* ── Mobile sidebar toggle (hidden on desktop) ── */
+#mobile-sidebar-toggle{display:none!important;align-items:center;gap:4px;background:var(--ua-panel);border:1px solid var(--ua-border);border-radius:4px;color:var(--ua-accent);font-family:var(--mono);font-size:10px;padding:6px 12px;cursor:pointer;margin:6px 10px;width:calc(100% - 20px)}
 /* Schedule Tab */
 .sched-day-btn{background:none;border:1px solid var(--ua-border);color:var(--ua-muted);padding:3px 10px;font-family:var(--mono);font-size:10px;cursor:pointer;border-radius:3px;transition:all .2s}
 .sched-day-btn:hover{color:var(--ua-text);border-color:var(--ua-blue)}
@@ -546,6 +565,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <span id="countdown">Next refresh: --:--</span>
     <span id="clock" style="color:var(--ua-muted)"></span>
     <div style="position:relative"><button id="watch-header-btn" data-action="toggle-watch-panel" title="Watched flights" aria-label="Toggle watched flights panel">👁️<span class="watch-badge" id="watch-badge" style="display:none">0</span></button><div id="watch-panel"><div class="watch-panel-header"><span>👁️ Watched Flights</span><button data-action="clear-all-watched" style="background:none;border:none;color:var(--ua-muted);cursor:pointer;font-size:9px;font-family:var(--mono)">Clear All</button></div><div id="watch-panel-list"></div></div></div>
+    <button id="mobile-search-toggle" aria-label="Toggle search" title="Search">🔍</button>
     <button id="onboarding-help" title="About this dashboard" aria-label="About this dashboard">?</button>
   </div>
 </div>
@@ -560,9 +580,20 @@ tbody td{padding:5px 8px;white-space:nowrap}
   <button class="tab-btn" data-tab="tab-sources" role="tab" aria-selected="false" aria-controls="tab-sources"><span aria-hidden="true">ℹ️</span> SOURCES</button>
 </nav>
 
+<!-- MOBILE BOTTOM NAV -->
+<nav id="mobile-bottom-nav" aria-label="Mobile navigation">
+  <button data-tab="tab-live" class="active"><span class="bnav-icon">📡</span><span class="bnav-label">Live</span></button>
+  <button data-tab="tab-schedule"><span class="bnav-icon">📅</span><span class="bnav-label">Schedule</span></button>
+  <button data-tab="tab-fleet"><span class="bnav-icon">✈️</span><span class="bnav-label">Fleet</span></button>
+  <button data-tab="tab-weather"><span class="bnav-icon">🌦</span><span class="bnav-label">Weather</span></button>
+  <button data-tab="tab-analytics"><span class="bnav-icon">📊</span><span class="bnav-label">Stats</span></button>
+  <button data-tab="tab-sources"><span class="bnav-icon">ℹ️</span><span class="bnav-label">Sources</span></button>
+</nav>
+
 <!-- TAB 1: LIVE OPS -->
 <main><div class="tab-content active" id="tab-live" role="tabpanel" aria-label="Live flight operations map">
   <div class="ops-layout">
+    <button id="mobile-sidebar-toggle" aria-label="Toggle filters">🔍 Filters ▾</button>
     <div class="sidebar" id="sidebar">
       <h3>🏢 Hub Operations</h3>
       <div id="hub-stats"></div>
@@ -1142,6 +1173,50 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
 (function(){
   const h = location.hash;
   if (h && HASH_TABS[h]) switchToTab(HASH_TABS[h], false);
+})();
+
+// ═══ MOBILE BOTTOM NAV ═══
+document.querySelectorAll('#mobile-bottom-nav button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#mobile-bottom-nav button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    switchToTab(btn.dataset.tab);
+  });
+});
+// Sync bottom nav active state when switchToTab is called from elsewhere
+const _origSwitchToTab = switchToTab;
+switchToTab = function(tabId, updateHash) {
+  _origSwitchToTab(tabId, updateHash);
+  document.querySelectorAll('#mobile-bottom-nav button').forEach(b => {
+    b.classList.toggle('active', b.dataset.tab === tabId);
+  });
+};
+
+// ═══ MOBILE SEARCH TOGGLE ═══
+(function(){
+  const btn = document.getElementById('mobile-search-toggle');
+  const wrap = document.getElementById('global-search-wrap');
+  if (btn && wrap) {
+    btn.addEventListener('click', () => {
+      wrap.classList.toggle('mobile-search-open');
+      if (wrap.classList.contains('mobile-search-open')) {
+        document.getElementById('global-search-input').focus();
+      }
+    });
+  }
+})();
+
+// ═══ MOBILE SIDEBAR TOGGLE ═══
+(function(){
+  const btn = document.getElementById('mobile-sidebar-toggle');
+  const sidebar = document.getElementById('sidebar');
+  if (btn && sidebar) {
+    btn.addEventListener('click', () => {
+      sidebar.classList.toggle('mobile-sidebar-open');
+      btn.textContent = sidebar.classList.contains('mobile-sidebar-open') ? '🔍 Filters ▴' : '🔍 Filters ▾';
+      if (map) setTimeout(() => map.invalidateSize(), 300);
+    });
+  }
 })();
 
 // ═══ CLOCK ═══
