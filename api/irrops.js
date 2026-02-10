@@ -150,8 +150,11 @@ function computeMetrics(flightsByHub) {
 
 async function buildIrropsData() {
   const now = new Date();
-  // Use start of today (UTC) as the timestamp
-  const startOfDay = Math.floor(new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime() / 1000);
+  // Use start of today in US Eastern time (most UA operations are eastern-biased)
+  // This ensures we capture the full ops day even after midnight UTC
+  const etOffset = -5 * 60 * 60 * 1000; // EST (close enough, DST shifts by 1hr)
+  const etNow = new Date(now.getTime() + etOffset);
+  const startOfDay = Math.floor(new Date(Date.UTC(etNow.getUTCFullYear(), etNow.getUTCMonth(), etNow.getUTCDate())).getTime() / 1000);
 
   const flightsByHub = {};
 
