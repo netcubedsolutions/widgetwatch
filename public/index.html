@@ -1592,7 +1592,11 @@ function updateMarkers() {
       flightMarkers[f.icao24].setLatLng([f.lat, f.lon]).setIcon(icon);
     } else {
       const marker = L.marker([f.lat, f.lon], { icon }).addTo(map);
-      marker.on('click', () => showFlightPopup(f, marker));
+      marker._icao24 = f.icao24;
+      marker.on('click', () => {
+        const currentFlight = allFlights.find(fl => fl.icao24 === marker._icao24);
+        if (currentFlight) showFlightPopup(currentFlight, marker);
+      });
       flightMarkers[f.icao24] = marker;
     }
   });
