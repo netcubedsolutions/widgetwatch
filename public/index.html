@@ -1693,6 +1693,7 @@ function showFlightPopup(f, marker) {
   html += `<button class="watch-btn${popupWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(popupFlt)}" data-route="${escapeHtml(popupRoute)}" data-status="airborne" aria-label="${popupWatched ? 'Unwatch flight' : 'Watch flight'}" style="margin-left:auto">${popupWatched ? '👁️ Watching' : '👁 Watch'}</button>`;
   html += `</div></div>`;
 
+  if (marker.getPopup()) marker.unbindPopup();
   marker.bindPopup(html, { maxWidth: 320, closeButton: true }).openPopup();
 
   // Draw great circle route lines with traveled/remaining segments + endpoint markers
