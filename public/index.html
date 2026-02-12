@@ -1383,7 +1383,7 @@ function matchAircraft(f) {
 function initMap() {
   map = L.map('map', {
     center: [39, -98], zoom: 4, zoomControl: false,
-    attributionControl: false
+    attributionControl: false, worldCopyJump: true
   });
   L.control.zoom({ position: 'bottomright' }).addTo(map);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
@@ -1708,12 +1708,16 @@ function showFlightPopup(f, marker) {
     if (oApt && dApt && oApt.lat && dApt.lat) {
       const layers = [];
       const planePos = [f.lat, f.lon];
-      // Traveled segment: origin → plane (solid)
-      const traveledPts = greatCirclePoints(oApt.lat, oApt.lon, f.lat, f.lon, 30);
-      layers.push(L.polyline(traveledPts, { color: '#005DAA', weight: 2.5, opacity: 0.8 }));
-      // Remaining segment: plane → destination (dashed)
-      const remainPts = greatCirclePoints(f.lat, f.lon, dApt.lat, dApt.lon, 30);
-      layers.push(L.polyline(remainPts, { color: '#005DAA', weight: 1.5, dashArray: '6,4', opacity: 0.4 }));
+      // Traveled segment: origin → plane (solid) — split at antimeridian
+      const traveledPts = greatCirclePoints(oApt.lat, oApt.lon, f.lat, f.lon, 60);
+      splitAtAntimeridian(traveledPts).forEach(seg => {
+        layers.push(L.polyline(seg, { color: '#005DAA', weight: 2.5, opacity: 0.8 }));
+      });
+      // Remaining segment: plane → destination (dashed) — split at antimeridian
+      const remainPts = greatCirclePoints(f.lat, f.lon, dApt.lat, dApt.lon, 60);
+      splitAtAntimeridian(remainPts).forEach(seg => {
+        layers.push(L.polyline(seg, { color: '#005DAA', weight: 1.5, dashArray: '6,4', opacity: 0.4 }));
+      });
       // Origin marker
       const oLabel = oApt.iata + (IATA_CITIES[oApt.iata] ? ' — ' + IATA_CITIES[oApt.iata] : '');
       layers.push(L.circleMarker([oApt.lat, oApt.lon], {radius:5,color:'#005DAA',fillColor:'#005DAA',fillOpacity:0.7,weight:1}).bindTooltip(oLabel,{permanent:false,direction:'top'}));
@@ -1743,6 +1747,26 @@ function greatCirclePoints(lat1, lon1, lat2, lon2, n) {
     pts.push([toDeg(Math.atan2(z, Math.sqrt(x*x + y*y))), toDeg(Math.atan2(y, x))]);
   }
   return pts;
+}
+
+// Split a polyline's point array at antimeridian crossings into multiple segments
+function splitAtAntimeridian(pts) {
+  if (!pts || pts.length < 2) return [pts];
+  const segments = [];
+  let current = [pts[0]];
+  for (let i = 1; i < pts.length; i++) {
+    const prevLon = current[current.length - 1][1];
+    const curLon = pts[i][1];
+    if (Math.abs(curLon - prevLon) > 180) {
+      // Crossing detected — end current segment and start new one
+      segments.push(current);
+      current = [pts[i]];
+    } else {
+      current.push(pts[i]);
+    }
+  }
+  if (current.length > 0) segments.push(current);
+  return segments;
 }
 
 // ═══ STATS ═══
