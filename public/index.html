@@ -1536,8 +1536,8 @@ function isLonghaulFlight(f) {
 function createPlaneIcon(hdg, isLonghaul, phase) {
   const color = isLonghaul ? '#fbbf24' : (phase === 'Ground' ? '#6b7280' : '#60a5fa');
   const size = isLonghaul ? 14 : 10;
-  // SVG plane pointing north (0°) — rotate by heading directly, no platform-dependent offset
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="${color}" style="filter:drop-shadow(0 0 2px ${color})"><path d="M12 2L8 9h-5l1 2 4 1v6l-3 2v1l5-1.5 5 1.5v-1l-3-2v-6l4-1 1-2h-5z"/></svg>`;
+  // SVG plane pointing north (0°) — classic top-down aircraft silhouette, cross-platform consistent
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 256 256" fill="${color}" style="filter:drop-shadow(0 0 2px ${color})"><path d="M128 16c-4 0-8 3-9 7l-15 72-88 34c-3 1-4 4-4 7s2 5 5 6l87 20 4 52-28 18c-2 1-3 3-3 5v8c0 2 1 4 3 4l20-6h28l20 6c2 0 3-2 3-4v-8c0-2-1-4-3-5l-28-18 4-52 87-20c3-1 5-3 5-6s-1-6-4-7l-88-34-15-72c-1-4-5-7-9-7z"/></svg>`;
   return L.divIcon({
     html: `<div style="transform:rotate(${hdg||0}deg);line-height:0">${svg}</div>`,
     iconSize: [size, size], iconAnchor: [size/2, size/2], className: ''
