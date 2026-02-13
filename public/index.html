@@ -105,6 +105,31 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "United Airlines Live Flight & Fleet Data",
+  "description": "Real-time dataset of United Airlines flight positions, delays, cancellations, on-time performance across 7 hubs, and fleet information including 1,175+ aircraft with Starlink WiFi status, seat configurations, and equipment details. Updated every 30 seconds.",
+  "url": "https://theblueboard.co",
+  "license": "https://theblueboard.co",
+  "creator": {"@type": "Person", "name": "Jonah Berg", "url": "https://github.com/notjbg"},
+  "keywords": ["United Airlines", "flight tracking", "flight delays", "on-time performance", "Starlink WiFi", "fleet data", "aviation", "airline operations"],
+  "temporalCoverage": "2025/..",
+  "spatialCoverage": {"@type": "Place", "name": "United States"},
+  "variableMeasured": [
+    {"@type": "PropertyValue", "name": "Flight Status", "description": "Real-time position, delay, and cancellation status for every United Airlines flight"},
+    {"@type": "PropertyValue", "name": "Hub On-Time Performance", "description": "On-time percentage for ORD, DEN, IAH, EWR, SFO, IAD, LAX"},
+    {"@type": "PropertyValue", "name": "Starlink WiFi Equipment", "description": "Aircraft equipped with Starlink satellite internet by tail number"},
+    {"@type": "PropertyValue", "name": "Fleet Composition", "description": "Aircraft type, seat configuration, IFE, and equipment details"}
+  ],
+  "distribution": {
+    "@type": "DataDownload",
+    "encodingFormat": "text/html",
+    "contentUrl": "https://theblueboard.co"
+  }
+}
+</script>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
