@@ -170,22 +170,13 @@ a:hover{text-decoration:underline}
   <div class="live-panel">
     <div class="live-badge">● LIVE</div>
     <div id="live-status">
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="label">On-Time</div>
-          <div class="value" id="otp">—</div>
+      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+        <div class="stat-card" style="flex:1;min-width:140px">
+          <div class="label">Active United Flights</div>
+          <div class="value green" id="active">—</div>
         </div>
-        <div class="stat-card">
-          <div class="label">Active Flights</div>
-          <div class="value" id="active">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Delayed</div>
-          <div class="value" id="delayed">—</div>
-        </div>
-        <div class="stat-card">
-          <div class="label">Cancelled</div>
-          <div class="value" id="cancelled">—</div>
+        <div style="flex:2;min-width:200px">
+          <p style="color:var(--ua-muted);font-size:11px;margin:0">Live delay counts and on-time performance are calculated on the full dashboard using schedule comparison data.</p>
         </div>
       </div>
       <div class="updated" id="updated-time">Connecting to live data...</div>
@@ -295,61 +286,8 @@ a:hover{text-decoration:underline}
 
 <!-- Live Data Script -->
 <script>
-async function loadLiveData() {
-  try {
-    const res = await fetch('/api/fr24-feed?airline=UAL');
-    if (!res.ok) throw new Error('Feed unavailable');
-    const data = await res.json();
-
-    // Count flights relevant to ORD
-    let active = 0, delayed = 0, cancelled = 0;
-    const flights = data.result?.response?.data || data;
-
-    // FR24 feed is array-of-arrays or object
-    const entries = Array.isArray(flights) ? flights :
-      (typeof flights === 'object' ? Object.values(flights) : []);
-
-    entries.forEach(f => {
-      // f[11] = origin, f[12] = dest (IATA codes in FR24 format)
-      const orig = Array.isArray(f) ? f[11] : f?.origin;
-      const dest = Array.isArray(f) ? f[12] : f?.dest;
-      if (orig === 'ORD' || dest === 'ORD') {
-        active++;
-        // Basic delay heuristic: if status field indicates delay
-        const status = Array.isArray(f) ? f[21] : f?.status;
-        if (status && /delay/i.test(String(status))) delayed++;
-        if (status && /cancel/i.test(String(status))) cancelled++;
-      }
-    });
-
-    const otp = active > 0 ? Math.round(((active - delayed - cancelled) / active) * 100) : 0;
-
-    document.getElementById('active').textContent = active;
-    document.getElementById('delayed').textContent = delayed;
-    document.getElementById('cancelled').textContent = cancelled;
-
-    const otpEl = document.getElementById('otp');
-    otpEl.textContent = otp + '%';
-    otpEl.className = 'value ' + (otp >= 80 ? 'green' : otp >= 60 ? 'yellow' : 'red');
-
-    const delEl = document.getElementById('delayed');
-    delEl.className = 'value ' + (delayed === 0 ? 'green' : delayed <= 10 ? 'yellow' : 'red');
-
-    const canEl = document.getElementById('cancelled');
-    canEl.className = 'value ' + (cancelled === 0 ? 'green' : 'red');
-
-    document.getElementById('updated-time').textContent =
-      'Updated ' + new Date().toLocaleTimeString('en-US', {hour:'numeric',minute:'2-digit',timeZoneName:'short'});
-
-  } catch (e) {
-    document.getElementById('updated-time').textContent =
-      'Live data temporarily unavailable — visit The Blue Board for real-time status';
-    console.warn('Hub page live data error:', e);
-  }
-}
-// Initial load + refresh every 30s
-loadLiveData();
-setInterval(loadLiveData, 30000);
+async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=UAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='ORD'||ds==='ORD')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
+loadLiveData();setInterval(loadLiveData,30000);
 </script>
 
 </body>
