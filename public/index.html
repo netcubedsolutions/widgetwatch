@@ -1215,6 +1215,53 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   if (h && HASH_TABS[h]) switchToTab(HASH_TABS[h], false);
 })();
 
+// ═══ QUERY PARAM DEEP-LINKING (hub pages) ═══
+(function(){
+  const params = new URLSearchParams(location.search);
+  const tab = params.get('tab');
+  const hub = params.get('hub');
+  const filter = params.get('filter');
+  if (!tab) return;
+
+  // Map ?tab= values to internal tab IDs
+  const TAB_MAP = {
+    'live': 'tab-live',
+    'schedule': 'tab-schedule',
+    'fleet': 'tab-fleet',
+    'weather': 'tab-weather',
+    'irrops': 'tab-weather',  // IRROPS lives inside weather tab
+    'stats': 'tab-analytics',
+    'sources': 'tab-sources'
+  };
+
+  const tabId = TAB_MAP[tab];
+  if (!tabId) return;
+  switchToTab(tabId, false);
+
+  // After tab switch, handle sub-navigation
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      // Scroll to IRROPS section if requested
+      if (tab === 'irrops') {
+        const el = document.getElementById('irrops-section');
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      // Fleet tab: auto-select Starlink filter
+      if (tab === 'fleet' && filter === 'starlink') {
+        const sel = document.getElementById('fleet-filter-status');
+        if (sel) { sel.value = 'starlink'; sel.dispatchEvent(new Event('change')); }
+      }
+
+      // Schedule tab: filter by hub airport
+      if (tab === 'schedule' && hub) {
+        const searchInput = document.getElementById('sched-search');
+        if (searchInput) { searchInput.value = hub.toUpperCase(); searchInput.dispatchEvent(new Event('input')); }
+      }
+    }, 500); // wait for tab content to render
+  });
+})();
+
 // ═══ MOBILE BOTTOM NAV ═══
 document.querySelectorAll('#mobile-bottom-nav button').forEach(btn => {
   btn.addEventListener('click', () => {
