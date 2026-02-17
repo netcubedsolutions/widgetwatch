@@ -1,86 +1,142 @@
-const CACHE_NAME = 'blueboard-v4';
-const MAX_CACHE_ENTRIES = 100;
-const PRECACHE = [
-  '/',
-  '/index.html'
-];
+const CACHE_VERSION = 'v5';
+const PAGE_CACHE = `blueboard-pages-${CACHE_VERSION}`;
+const DATA_CACHE = `blueboard-data-${CACHE_VERSION}`;
+const STATIC_CACHE = `blueboard-static-${CACHE_VERSION}`;
+const CACHE_PREFIX = 'blueboard-';
 
-// Trim cache to MAX_CACHE_ENTRIES, evicting oldest entries first
+const PAGE_MAX = 20;
+const DATA_MAX = 80;
+const STATIC_MAX = 120;
+
+const APP_SHELL = ['/', '/index.html'];
+
 async function trimCache(cacheName, maxEntries) {
   const cache = await caches.open(cacheName);
-  const keys = await cache.keys();
-  if (keys.length > maxEntries) {
+  let keys = await cache.keys();
+  while (keys.length > maxEntries) {
     await cache.delete(keys[0]);
-    return trimCache(cacheName, maxEntries);
+    keys = await cache.keys();
   }
 }
 
-self.addEventListener('install', (e) => {
-  e.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(PRECACHE))
-      .then(() => self.skipWaiting())
-  );
+function isCacheable(response) {
+  if (!response || !response.ok) return false;
+  return response.type === 'basic' || response.type === 'cors';
+}
+
+function isHtmlResponse(response) {
+  if (!isCacheable(response)) return false;
+  const contentType = response.headers.get('content-type') || '';
+  return contentType.includes('text/html');
+}
+
+self.addEventListener('install', (event) => {
+  event.waitUntil((async () => {
+    const cache = await caches.open(PAGE_CACHE);
+    await cache.addAll(APP_SHELL);
+    await self.skipWaiting();
+  })());
 });
 
-self.addEventListener('activate', (e) => {
-  e.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k)))
-    ).then(() => self.clients.claim())
-  );
-});
-
-self.addEventListener('fetch', (e) => {
-  // Only cache GET requests
-  if (e.request.method !== 'GET') return;
-
-  const url = new URL(e.request.url);
-
-  // HTML navigations: network-first (bypass browser HTTP cache to get fresh deploys)
-  if (e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('.html')) {
-    e.respondWith(
-      fetch(e.request, { cache: 'no-cache' })
-        .then(res => {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(async cache => {
-            await cache.put(e.request, clone);
-            await trimCache(CACHE_NAME, MAX_CACHE_ENTRIES);
-          });
-          return res;
-        })
-        .catch(() => caches.match(e.request))
+self.addEventListener('activate', (event) => {
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(
+      keys
+        .filter((key) => key.startsWith(CACHE_PREFIX) && ![PAGE_CACHE, DATA_CACHE, STATIC_CACHE].includes(key))
+        .map((key) => caches.delete(key))
     );
+    await self.clients.claim();
+  })());
+});
+
+self.addEventListener('fetch', (event) => {
+  const { request } = event;
+  if (request.method !== 'GET') return;
+
+  // Required Chrome guard: these requests cannot be fulfilled with fetch() for non-same-origin mode.
+  if (request.cache === 'only-if-cached' && request.mode !== 'same-origin') return;
+
+  const url = new URL(request.url);
+
+  // Let the browser handle all cross-origin resources directly (Leaflet/CDNs/tiles/etc).
+  if (url.origin !== self.location.origin) return;
+
+  const isNavigation = request.mode === 'navigate' || request.destination === 'document' || url.pathname === '/' || url.pathname.endsWith('.html');
+  const isDataRequest = url.pathname.startsWith('/api/') || url.pathname.startsWith('/data/');
+
+  if (isNavigation) {
+    event.respondWith((async () => {
+      try {
+        const networkRequest = new Request(request, { cache: 'reload' });
+        const networkResponse = await fetch(networkRequest);
+        if (isHtmlResponse(networkResponse)) {
+          event.waitUntil((async () => {
+            const cache = await caches.open(PAGE_CACHE);
+            await cache.put(request, networkResponse.clone());
+            await trimCache(PAGE_CACHE, PAGE_MAX);
+          })());
+        }
+        return networkResponse;
+      } catch (_err) {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+        const fallback = await caches.match('/index.html');
+        if (fallback) return fallback;
+        return new Response('Offline', { status: 503, headers: { 'content-type': 'text/plain' } });
+      }
+    })());
     return;
   }
 
-  // API/data calls: network-first (bypass HTTP cache for fresh data)
-  if (url.origin !== location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/data/')) {
-    e.respondWith(
-      fetch(e.request, { cache: 'no-cache' })
-        .then(res => {
-          const clone = res.clone();
-          caches.open(CACHE_NAME).then(async cache => {
-            await cache.put(e.request, clone);
-            await trimCache(CACHE_NAME, MAX_CACHE_ENTRIES);
-          });
-          return res;
-        })
-        .catch(() => caches.match(e.request))
-    );
-    return;
-  }
-
-  // Static assets (JS, CSS, images): cache-first
-  e.respondWith(
-    caches.match(e.request)
-      .then(cached => cached || fetch(e.request).then(res => {
-        const clone = res.clone();
-        caches.open(CACHE_NAME).then(async cache => {
-          await cache.put(e.request, clone);
-          await trimCache(CACHE_NAME, MAX_CACHE_ENTRIES);
+  if (isDataRequest) {
+    event.respondWith((async () => {
+      try {
+        const networkRequest = new Request(request, { cache: 'no-store' });
+        const networkResponse = await fetch(networkRequest);
+        if (isCacheable(networkResponse)) {
+          event.waitUntil((async () => {
+            const cache = await caches.open(DATA_CACHE);
+            await cache.put(request, networkResponse.clone());
+            await trimCache(DATA_CACHE, DATA_MAX);
+          })());
+        }
+        return networkResponse;
+      } catch (_err) {
+        const cached = await caches.match(request);
+        if (cached) return cached;
+        return new Response(JSON.stringify({ error: 'offline' }), {
+          status: 503,
+          headers: { 'content-type': 'application/json' }
         });
-        return res;
-      }))
-  );
+      }
+    })());
+    return;
+  }
+
+  // Same-origin static assets: stale-while-revalidate.
+  event.respondWith((async () => {
+    const cached = await caches.match(request);
+    const networkPromise = fetch(request)
+      .then((networkResponse) => {
+        if (isCacheable(networkResponse)) {
+          event.waitUntil((async () => {
+            const cache = await caches.open(STATIC_CACHE);
+            await cache.put(request, networkResponse.clone());
+            await trimCache(STATIC_CACHE, STATIC_MAX);
+          })());
+        }
+        return networkResponse;
+      })
+      .catch(() => null);
+
+    if (cached) {
+      networkPromise.catch(() => null);
+      return cached;
+    }
+
+    const networkResponse = await networkPromise;
+    if (networkResponse) return networkResponse;
+    return new Response('Offline', { status: 503, headers: { 'content-type': 'text/plain' } });
+  })());
 });
