@@ -40,7 +40,7 @@ function isRateLimited() {
 
 function corsHeaders(req) {
   const origin = req.headers?.origin || '';
-  const allowed = origin === 'https://theblueboard.co' || origin.includes('localhost');
+  const allowed = origin === 'https://theblueboard.co' || /^http:\/\/localhost(:\d+)?$/.test(origin);
   return {
     'Access-Control-Allow-Origin': allowed ? origin : 'https://theblueboard.co',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',

@@ -2351,7 +2351,7 @@ function refreshFleetData() {
 
 // ═══ WEATHER TAB ═══
 let weatherInitialized = false;
-const HUB_NAMES = {EWR:"Newark Liberty",IAH:"Houston Intercontinental",ORD:"O'Hare International",DEN:"Denver International",SFO:"San Francisco Int'l",LAX:"Los Angeles Int'l",IAD:"Washington Dulles"};
+const HUB_NAMES = {EWR:"Newark Liberty",IAH:"Houston Intercontinental",ORD:"O'Hare International",DEN:"Denver International",SFO:"San Francisco Int'l",LAX:"Los Angeles Int'l",IAD:"Washington Dulles",NRT:"Tokyo Narita",GUM:"Guam Int'l"};
 const CAT_COLORS = {VFR:'#22c55e',MVFR:'#eab308',IFR:'#ef4444',LIFR:'#c026d3'};
 
 function parseMetarQuick(raw) {
@@ -2373,7 +2373,7 @@ async function initWeatherTab() {
   if (weatherInitialized) return;
   weatherInitialized = true;
 
-  const hubStations = {EWR:'KEWR',IAH:'KIAH',ORD:'KORD',DEN:'KDEN',SFO:'KSFO',LAX:'KLAX',IAD:'KIAD'};
+  const hubStations = {EWR:'KEWR',IAH:'KIAH',ORD:'KORD',DEN:'KDEN',SFO:'KSFO',LAX:'KLAX',IAD:'KIAD',NRT:'RJAA',GUM:'PGUM'};
   const hubs = Object.keys(hubStations);
 
   // Show loading skeletons for hub cards immediately
@@ -2691,7 +2691,7 @@ function updateLiveFleetPanel() {
   if (airborne.length) {
     html += `<div class="live-table-wrap"><table><thead><tr><th>Reg</th><th>Type</th><th>Flight</th><th>Route</th><th>Alt</th><th>Phase</th><th></th></tr></thead><tbody>`;
     airborne.forEach(a => {
-      html += `<tr><td style="font-weight:700;color:var(--ua-accent)">${a.reg}</td><td>${a.type}</td><td>${a.flight}</td><td>${a.route}</td><td>${a.alt}</td><td>${a.phase}</td><td>${a.starlink ? '⚡' : ''}</td></tr>`;
+      html += `<tr><td style="font-weight:700;color:var(--ua-accent)">${escapeHtml(a.reg)}</td><td>${escapeHtml(a.type)}</td><td>${escapeHtml(a.flight)}</td><td>${escapeHtml(a.route)}</td><td>${escapeHtml(a.alt)}</td><td>${escapeHtml(a.phase)}</td><td>${a.starlink ? '⚡' : ''}</td></tr>`;
     });
     html += `</tbody></table></div>`;
   }
@@ -2703,7 +2703,7 @@ function updateLiveFleetPanel() {
 // ═══ WEATHER EXPLAINERS ═══
 function explainMETAR(rawMetar, hub, cat) {
   if (!rawMetar) return '';
-  const hubNames = {EWR:"Newark",IAH:"Houston Intercontinental",ORD:"O'Hare",DEN:"Denver International",SFO:"San Francisco",LAX:"Los Angeles",IAD:"Washington Dulles"};
+  const hubNames = {EWR:"Newark",IAH:"Houston Intercontinental",ORD:"O'Hare",DEN:"Denver International",SFO:"San Francisco",LAX:"Los Angeles",IAD:"Washington Dulles",NRT:"Tokyo Narita",GUM:"Guam"};
   const name = hubNames[hub] || hub;
 
   const catExplain = {VFR:"Clear skies, good visibility — no impact on operations",MVFR:"Reduced visibility or low ceilings — some delays possible",IFR:"Instrument conditions — expect significant delays and possible diversions",LIFR:"Very low ceilings/visibility — major operational impact"};
