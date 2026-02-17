@@ -62,7 +62,7 @@ async function fetchHubSchedule(hub, timestamp) {
       break;
     }
     // Small delay between pages to avoid rate limiting
-    await new Promise(r => setTimeout(r, 1500));
+    await new Promise(r => setTimeout(r, 800));
   }
   return allFlights;
 }
@@ -167,10 +167,10 @@ function getStartOfDayForHub(hub) {
 async function buildIrropsData() {
   const flightsByHub = {};
 
-  // Fetch hubs in parallel batches of 2 to avoid rate limits
+  // Fetch hubs in parallel batches of 3 to balance speed vs rate limits
   // Each hub uses its own local timezone for "today" boundary
-  for (let i = 0; i < HUBS.length; i += 2) {
-    const batch = HUBS.slice(i, i + 2);
+  for (let i = 0; i < HUBS.length; i += 3) {
+    const batch = HUBS.slice(i, i + 3);
     const results = await Promise.allSettled(
       batch.map(hub => fetchHubSchedule(hub, getStartOfDayForHub(hub)))
     );
