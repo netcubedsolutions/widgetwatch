@@ -4026,7 +4026,7 @@ function hideDisclaimer() {
       </ul>
       <p style="margin-bottom:12px"><strong>Data Accuracy:</strong> All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. <strong style="color:var(--ua-red)">Do not use this dashboard for operational or safety-critical decisions.</strong> Always verify flight status directly with <a href="https://www.united.com" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">united.com</a> or your airline.</p>
       <p style="margin-bottom:12px"><strong>Open Source:</strong> This project is open source. <a href="https://github.com/notjbg/the-blue-board" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">View on GitHub →</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">Follow on X →</a></p>
-      <p style="margin-bottom:12px"><strong>Support:</strong> Built by a United flyer, not a corporation. If this helped you rebook, track a delay, or just ease the anxiety of watching a loved one's flight — <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">buy me a coffee ☕</a> or <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">suggest a feature →</a></p>
+      <p style="margin-bottom:12px"><strong>Support:</strong> Built by a United flyer, not a corporation. If Blue Board saved you a headache today, consider <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">supporting our site ☕</a> or <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">suggest a feature →</a></p>
     </div>
     <button data-action="hide-disclaimer" style="margin-top:16px;background:var(--ua-blue);color:white;border:none;padding:8px 24px;font-family:var(--mono);font-size:11px;cursor:pointer;border-radius:4px;width:100%">Got it</button>
   </div>
@@ -4072,7 +4072,7 @@ function hideDisclaimer() {
   // Trigger 1: After 5 minutes of active use
   setTimeout(function() {
     if (!bmacShownThisSession && !bmacDismissed) {
-      showBmacToast('Built by a United flyer, not a corporation. If Blue Board saved you a headache today — <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:700">☕ buy me a coffee</a>');
+      showBmacToast('Built by a United flyer, not a corporation. If Blue Board saved you a headache today, consider <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:700">supporting our site ☕</a>');
     }
   }, 5 * 60 * 1000);
 
