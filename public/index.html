@@ -3805,6 +3805,10 @@ function checkWatchedFlightChanges(flights) {
       if ('Notification' in window && Notification.permission === 'granted') {
         new Notification('The Blue Board', { body: `${ident}: ${newStatus} (was: ${oldStatus})` });
       }
+      // Show BMAC prompt when a watched flight lands
+      if (newStatus.toLowerCase().includes('landed') && typeof window.showBmacLandingToast === 'function') {
+        window.showBmacLandingToast(ident);
+      }
       changed = true;
     }
     watched[wIdx].status = newStatus;
@@ -3955,6 +3959,7 @@ document.addEventListener('click', function(e) {
       const toast = actionEl.closest('#bmac-toast');
       if (toast) toast.remove();
       else if (actionEl.parentElement) actionEl.parentElement.remove();
+      localStorage.setItem('bb-bmac-dismissed', Date.now());
       break;
     }
     case 'close-fr24-modal': {
@@ -4021,7 +4026,7 @@ function hideDisclaimer() {
       </ul>
       <p style="margin-bottom:12px"><strong>Data Accuracy:</strong> All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. <strong style="color:var(--ua-red)">Do not use this dashboard for operational or safety-critical decisions.</strong> Always verify flight status directly with <a href="https://www.united.com" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">united.com</a> or your airline.</p>
       <p style="margin-bottom:12px"><strong>Open Source:</strong> This project is open source. <a href="https://github.com/notjbg/the-blue-board" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">View on GitHub →</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">Follow on X →</a></p>
-      <p style="margin-bottom:12px"><strong>Support:</strong> Like what you see? <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">Help keep the servers running →</a> or <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">suggest a feature →</a></p>
+      <p style="margin-bottom:12px"><strong>Support:</strong> Built by a United flyer, not a corporation. If this helped you rebook, track a delay, or just ease the anxiety of watching a loved one's flight — <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">buy me a coffee ☕</a> or <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent)">suggest a feature →</a></p>
     </div>
     <button data-action="hide-disclaimer" style="margin-top:16px;background:var(--ua-blue);color:white;border:none;padding:8px 24px;font-family:var(--mono);font-size:11px;cursor:pointer;border-radius:4px;width:100%">Got it</button>
   </div>
@@ -4032,7 +4037,7 @@ function hideDisclaimer() {
   <div>The Blue Board · Unofficial · Not affiliated with United Airlines, Inc. · Data may be delayed · <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--ua-accent);text-decoration:none">About & Disclaimer</a></div>
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--ua-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--ua-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--ua-muted);text-decoration:none">FAA</a></span>
-    <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--ua-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">☕ Support Server Costs</a>
+    <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--ua-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">☕ Buy Me a Coffee</a>
     <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none">Follow @theblueboard</a></span>
   </div>
 </div>
@@ -4044,16 +4049,51 @@ function hideDisclaimer() {
   var overlay=document.getElementById('onboarding-overlay');
   var btn=document.getElementById('onboarding-dismiss');
   var helpBtn=document.getElementById('onboarding-help');
-  function hideOverlay(){overlay.classList.add('ob-hidden');localStorage.setItem('bb-onboarded','1');setTimeout(function(){overlay.style.display='none'},300);showBmacToast()}
+  function hideOverlay(){overlay.classList.add('ob-hidden');localStorage.setItem('bb-onboarded','1');setTimeout(function(){overlay.style.display='none'},300)}
   function showOverlay(){overlay.style.display='flex';overlay.classList.remove('ob-hidden');overlay.style.animation='none';overlay.offsetHeight;overlay.style.animation='obFadeIn .4s ease forwards'}
-  function showBmacToast(){
-    if(document.getElementById('bmac-toast'))return;
-    var t=document.createElement('div');t.id='bmac-toast';
-    t.style.cssText='position:fixed;bottom:16px;right:16px;background:var(--ua-panel);border:1px solid var(--ua-border);border-radius:6px;padding:10px 14px;z-index:9999;font-size:11px;color:var(--ua-text);box-shadow:0 4px 16px rgba(0,0,0,.4);display:flex;align-items:center;gap:8px;animation:fadeIn .3s ease';
-    t.innerHTML='Enjoying The Blue Board? ☕ <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:600">Help keep the servers running</a> · <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:600">Suggest a feature</a> <button data-action="close-bmac" aria-label="Dismiss support message" style="background:none;border:none;color:var(--ua-muted);cursor:pointer;font-size:14px;margin-left:4px">✕</button>';
+
+  // ═══ BMAC ENGAGEMENT-BASED PROMPTS ═══
+  var bmacDismissedAt = parseInt(localStorage.getItem('bb-bmac-dismissed') || '0');
+  var bmacDismissed = bmacDismissedAt && (Date.now() - bmacDismissedAt < 7 * 24 * 60 * 60 * 1000); // resets after 7 days
+  var bmacInteractions = 0;
+  var bmacShownThisSession = false;
+
+  function showBmacToast(message, duration) {
+    if (bmacShownThisSession || bmacDismissed) return;
+    if (document.getElementById('bmac-toast')) return;
+    bmacShownThisSession = true;
+    var t = document.createElement('div'); t.id = 'bmac-toast';
+    t.style.cssText = 'position:fixed;bottom:16px;right:16px;background:var(--ua-panel);border:1px solid var(--ua-border);border-radius:8px;padding:14px 16px;z-index:9999;font-size:12px;color:var(--ua-text);box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:340px;line-height:1.5;animation:fadeIn .3s ease';
+    t.innerHTML = message + ' <button data-action="close-bmac" aria-label="Dismiss" style="background:none;border:none;color:var(--ua-muted);cursor:pointer;font-size:16px;position:absolute;top:6px;right:8px">✕</button>';
     document.body.appendChild(t);
-    setTimeout(function(){if(t.parentElement)t.remove()},8000);
+    setTimeout(function(){ if(t.parentElement) { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(function(){ if(t.parentElement) t.remove() }, 300); } }, duration || 12000);
   }
+
+  // Trigger 1: After 5 minutes of active use
+  setTimeout(function() {
+    if (!bmacShownThisSession && !bmacDismissed) {
+      showBmacToast('Built by a United flyer, not a corporation. If Blue Board saved you a headache today — <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:700">☕ buy me a coffee</a>');
+    }
+  }, 5 * 60 * 1000);
+
+  // Trigger 2: After 10+ meaningful interactions (tab switches, searches, flight clicks)
+  document.addEventListener('click', function() {
+    bmacInteractions++;
+    if (bmacInteractions === 10 && !bmacShownThisSession && !bmacDismissed) {
+      showBmacToast('You\'re really digging in! 🛫 This dashboard is free, ad-free, and built with love. <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:700">☕ Support the project</a>');
+    }
+  });
+
+  // Trigger 3: Flight watch landing payoff (called from checkWatchedFlightChanges)
+  window.showBmacLandingToast = function(flight) {
+    if (bmacDismissed) return;
+    // Delay slightly so the watch notification shows first
+    setTimeout(function() {
+      bmacShownThisSession = false; // Allow this special one even if another showed
+      showBmacToast('Your flight ' + flight + ' landed! 🎉 If Blue Board helped ease the wait — <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--ua-accent);text-decoration:none;font-weight:700">☕ buy me a coffee</a>', 15000);
+    }, 3000);
+  };
+
   var visited=localStorage.getItem('bb-visited');
   if(!visited){localStorage.setItem('bb-visited','1');overlay.style.display='none'}
   else if(localStorage.getItem('bb-onboarded')){overlay.style.display='none'}
