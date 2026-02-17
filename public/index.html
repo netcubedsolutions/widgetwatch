@@ -164,7 +164,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--ua-blue:#005DAA;--ua-dark:#0a0e14;--ua-panel:#111827;--ua-border:#1e293b;--ua-text:#e2e8f0;--ua-muted:#64748b;--ua-accent:#8ab4f8;--ua-green:#22c55e;--ua-yellow:#eab308;--ua-red:#ef4444;--mono:'JetBrains Mono',monospace}
+:root{--ua-blue:#005DAA;--ua-dark:#0a0e14;--ua-panel:#111827;--ua-border:#1e293b;--ua-text:#e2e8f0;--ua-muted:#64748b;--ua-accent:#8ab4f8;--ua-green:#22c55e;--ua-yellow:#eab308;--ua-red:#ef4444;--bg-card:#111827;--mono:'JetBrains Mono',monospace}
 body{background:var(--ua-dark);color:var(--ua-text);font-family:var(--mono);overflow:hidden;font-size:12px;height:100vh;height:100dvh;display:flex;flex-direction:column}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 49px,rgba(30,41,59,.15) 50px),repeating-linear-gradient(90deg,transparent,transparent 49px,rgba(30,41,59,.15) 50px);pointer-events:none;z-index:0}
 
@@ -1976,7 +1976,7 @@ function updateStats() {
     ['✈️ Cruise', allCruise, 'Cruise'], ['↘️ Descent', allDescent, 'Descent'],
     ['🛬 Approach', allApproach, 'Approach']
   ].map(([label, val, key]) =>
-    `<div class="phase-row${activePhaseFilter === key ? ' phase-selected' : ''}" data-action="toggle-phase-filter" data-phase="${key}"><span style="color:var(--ua-muted)">${label}</span><span style="color:var(--ua-accent);font-weight:700">${val}</span></div>`
+    `<div class="phase-row${activePhaseFilter === key ? ' phase-selected' : ''}" data-action="toggle-phase-filter" data-phase="${key}" role="button" tabindex="0"><span style="color:var(--ua-muted)">${label}</span><span style="color:var(--ua-accent);font-weight:700">${val}</span></div>`
   ).join('');
 }
 
@@ -2099,7 +2099,7 @@ function updateTicker() {
   allFlights.forEach(f => {
     const sq = decodeSquawk(f.squawk);
     if (sq && sq.cls === 'squawk-alert') {
-      items.push({ text: `${sq.text}: ${f.callsign} (${f.squawk})`, cls: 'critical' });
+      items.push({ text: `${sq.text}: ${escapeHtml(f.callsign)} (${escapeHtml(f.squawk)})`, cls: 'critical' });
     }
   });
 
@@ -2109,7 +2109,7 @@ function updateTicker() {
     items.unshift({ text: `✅ All systems normal${countStr}`, cls: 'info' });
   }
 
-  const tickerHtml = items.map(i => `<span class="ticker-item ${i.cls}">${i.text}</span>`).join('');
+  const tickerHtml = items.map(i => `<span class="ticker-item ${escapeHtml(i.cls)}">${escapeHtml(i.text)}</span>`).join('');
   document.getElementById('ticker').innerHTML = tickerHtml + tickerHtml; // duplicate for seamless scroll
 }
 
@@ -2957,7 +2957,8 @@ function updateSchedDayLabels() {
 
 async function preloadScheduleData() {
   // Fetch all 9 hubs IN PARALLEL — no sequential waiting
-  const preloadHubs = ['ORD','DEN','EWR','IAH','SFO','LAX','IAD','NRT','GUM'];
+  // Only preload top 3 domestic hubs on startup; rest load on demand
+  const preloadHubs = ['ORD','DEN','EWR'];
   const timestamp = getSchedDayTimestamp(0); // today
   const results = await Promise.allSettled(
     preloadHubs.map(hub => fetchScheduleAggregated(hub, 'departures', timestamp).then(r => ({hub, result: r})))
@@ -3841,6 +3842,13 @@ function toggleScheduleMoreFilters() {
   btn.textContent = isHidden ? 'Less Filters ▴' : 'More Filters ▾';
 }
 
+// Keyboard support: Enter/Space triggers click on [data-action][role="button"] elements
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const el = e.target.closest('[data-action][role="button"]');
+    if (el) { e.preventDefault(); el.click(); }
+  }
+});
 document.addEventListener('click', function(e) {
   const actionEl = e.target.closest('[data-action]');
   if (!actionEl) return;
@@ -3981,8 +3989,9 @@ async function initApp() {
   updateTicker();
   // Preload IRROPS data from server-side cache
   fetchIrropsFromAPI();
-  // Background preload: silently fetch ORD departures so Schedule tab is instant
-  preloadScheduleData();
+  // Background preload: fetch top 3 hubs on idle so Schedule tab is fast without hammering mobile
+  const idlePreload = () => preloadScheduleData();
+  if ('requestIdleCallback' in window) requestIdleCallback(idlePreload); else setTimeout(idlePreload, 5000);
 }
 
 initApp();

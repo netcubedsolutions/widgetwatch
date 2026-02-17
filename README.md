@@ -80,7 +80,6 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
     │  /api/metar       — AWC weather proxy    │
     │                     (batched, all hubs)   │
     │  /api/faa         — FAA NAS status proxy │
-    │  /api/opensky     — OpenSky proxy        │
     │  /api/fleet       — Fleet data proxy     │
     └─────────────────────────────────────────┘
 ```
@@ -157,7 +156,6 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 │   ├── fr24-flight.js   # FR24 official API flight lookup
 │   ├── metar.js         # AWC METAR weather proxy (supports batched station IDs)
 │   ├── faa.js           # FAA NAS status proxy (XML → JSON)
-│   ├── opensky.js       # OpenSky flight data proxy
 │   └── fleet.js         # Fleet data proxy
 └── vercel.json          # Vercel config + security headers + CSP + caching
 ```

@@ -2,6 +2,7 @@
 // computes disruption metrics, caches for 5 minutes.
 
 const HUBS = ['ORD', 'DEN', 'IAH', 'EWR', 'SFO', 'IAD', 'LAX', 'NRT', 'GUM'];
+const HUB_TZ = {ORD:'America/Chicago',DEN:'America/Denver',IAH:'America/Chicago',EWR:'America/New_York',SFO:'America/Los_Angeles',IAD:'America/New_York',LAX:'America/Los_Angeles',NRT:'Asia/Tokyo',GUM:'Pacific/Guam'};
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 let cached = null;
 let cacheExpires = 0;
@@ -147,20 +148,31 @@ function computeMetrics(flightsByHub) {
   };
 }
 
-async function buildIrropsData() {
+function getStartOfDayForHub(hub) {
+  const tz = HUB_TZ[hub] || 'America/New_York';
+  // Get current date parts in the hub's timezone
   const now = new Date();
-  // Use start of today in US Eastern time (most UA operations are eastern-biased)
-  // This ensures we capture the full ops day even after midnight UTC
-  const etNow = new Date(now.toLocaleString('en-US', { timeZone: 'America/New_York' }));
-  const startOfDay = Math.floor(new Date(etNow.getFullYear(), etNow.getMonth(), etNow.getDate()).getTime() / 1000);
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+  }).formatToParts(now);
+  const get = (type) => parseInt(parts.find(p => p.type === type)?.value || '0');
+  const year = get('year'), month = get('month'), day = get('day');
+  const hour = get('hour'), minute = get('minute'), second = get('second');
+  // Calculate seconds since midnight in hub timezone, subtract from current UTC
+  const secondsSinceMidnight = hour * 3600 + minute * 60 + second;
+  return Math.floor((now.getTime() / 1000) - secondsSinceMidnight);
+}
 
+async function buildIrropsData() {
   const flightsByHub = {};
 
   // Fetch hubs in parallel batches of 2 to avoid rate limits
+  // Each hub uses its own local timezone for "today" boundary
   for (let i = 0; i < HUBS.length; i += 2) {
     const batch = HUBS.slice(i, i + 2);
     const results = await Promise.allSettled(
-      batch.map(hub => fetchHubSchedule(hub, startOfDay))
+      batch.map(hub => fetchHubSchedule(hub, getStartOfDayForHub(hub)))
     );
     for (let j = 0; j < batch.length; j++) {
       flightsByHub[batch[j]] = results[j].status === 'fulfilled' ? results[j].value : [];

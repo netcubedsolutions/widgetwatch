@@ -1,4 +1,4 @@
-const CACHE_NAME = 'blueboard-v1';
+const CACHE_NAME = 'blueboard-v2';
 const MAX_CACHE_ENTRIES = 100;
 const PRECACHE = [
   '/',
@@ -32,9 +32,29 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
+  // Only cache GET requests
+  if (e.request.method !== 'GET') return;
+
   const url = new URL(e.request.url);
 
-  // API calls and external resources: network-first
+  // HTML navigations: network-first (always get fresh UI after deploys)
+  if (e.request.mode === 'navigate' || url.pathname === '/' || url.pathname.endsWith('.html')) {
+    e.respondWith(
+      fetch(e.request)
+        .then(res => {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then(async cache => {
+            await cache.put(e.request, clone);
+            await trimCache(CACHE_NAME, MAX_CACHE_ENTRIES);
+          });
+          return res;
+        })
+        .catch(() => caches.match(e.request))
+    );
+    return;
+  }
+
+  // API/data calls: network-first
   if (url.origin !== location.origin || url.pathname.startsWith('/api/') || url.pathname.startsWith('/data/')) {
     e.respondWith(
       fetch(e.request)
@@ -51,7 +71,7 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  // Static assets: cache-first
+  // Static assets (JS, CSS, images): cache-first
   e.respondWith(
     caches.match(e.request)
       .then(cached => cached || fetch(e.request).then(res => {

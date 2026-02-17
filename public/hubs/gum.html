@@ -17,7 +17,9 @@
 <meta property="og:url" content="https://theblueboard.co/hubs/gum">
 <meta property="og:site_name" content="The Blue Board">
 <meta property="og:image" content="https://theblueboard.co/og-image.png">
+<meta property="og:image:alt" content="The Blue Board — United Airlines GUM Hub Status">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@jonahmbg">
 <meta name="twitter:title" content="United Airlines GUM Hub — Live Guam Status">
 <meta name="twitter:description" content="Real-time delays, cancellations, on-time performance at United's Western Pacific hub. Updated every 30 seconds.">
 <meta name="twitter:image" content="https://theblueboard.co/og-image.png">
@@ -246,7 +248,7 @@ nav.jump-nav a:hover{border-color:var(--ua-accent);color:var(--ua-accent);text-d
 
 <!-- Live Data Script -->
 <script>
-async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=UAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='GUM'||ds==='GUM')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
+async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=UAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='GUM'||ds==='GUM')a++});document.getElementById('active').textContent=a;const as=document.getElementById('active-stat');if(as)as.textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
 loadLiveData();setInterval(loadLiveData,30000);
 </script>
 

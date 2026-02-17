@@ -28,13 +28,38 @@ function setCache(key, data) {
   cache.set(key, { data, ts: Date.now() });
 }
 
-// Rate limiting: 10 req/min
-const requestLog = [];
-function isRateLimited() {
+// Rate limiting: 10 req/min per IP, 60 req/min global
+const rateLimitByIp = new Map();
+const globalLog = [];
+const MAX_PER_IP = 10;
+const MAX_GLOBAL = 60;
+let lastCleanup = Date.now();
+function getClientIp(req) {
+  const xff = req.headers?.['x-forwarded-for'];
+  const raw = Array.isArray(xff) ? xff[0] : (typeof xff === 'string' ? xff : '');
+  return raw.split(',')[0]?.trim() || req.headers?.['x-real-ip'] || 'unknown';
+}
+function isRateLimited(req) {
   const now = Date.now();
-  while (requestLog.length && requestLog[0] < now - 60_000) requestLog.shift();
-  if (requestLog.length >= 10) return true;
-  requestLog.push(now);
+  const ip = getClientIp(req);
+  // Global limit
+  while (globalLog.length && globalLog[0] < now - 60_000) globalLog.shift();
+  if (globalLog.length >= MAX_GLOBAL) return true;
+  // Per-IP limit
+  if (!rateLimitByIp.has(ip)) rateLimitByIp.set(ip, []);
+  const ipLog = rateLimitByIp.get(ip);
+  while (ipLog.length && ipLog[0] < now - 60_000) ipLog.shift();
+  if (ipLog.length >= MAX_PER_IP) return true;
+  globalLog.push(now);
+  ipLog.push(now);
+  // Periodic cleanup: evict stale IPs every 5 minutes
+  if (now - lastCleanup > 300_000) {
+    lastCleanup = now;
+    for (const [k, v] of rateLimitByIp) {
+      while (v.length && v[0] < now - 60_000) v.shift();
+      if (!v.length) rateLimitByIp.delete(k);
+    }
+  }
   return false;
 }
 
@@ -189,7 +214,7 @@ export default async function handler(req, res) {
   }
 
   // Rate limit
-  if (isRateLimited()) {
+  if (isRateLimited(req)) {
     return res.status(429).json({ success: false, error: 'Rate limited — max 10 requests/minute' });
   }
 
