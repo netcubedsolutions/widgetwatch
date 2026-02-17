@@ -1,4 +1,4 @@
-const CACHE_NAME = 'blueboard-v2';
+const CACHE_NAME = 'blueboard-v3';
 const MAX_CACHE_ENTRIES = 100;
 const PRECACHE = [
   '/',
