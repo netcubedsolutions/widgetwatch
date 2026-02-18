@@ -65,7 +65,7 @@
   "@context": "https://schema.org",
   "@type": "WebApplication",
   "name": "The Blue Board",
-  "alternateName": ["Unofficial United Airlines Flight Tracker", "United Airlines Operations Dashboard", "UA Flight Status Tracker"],
+  "alternateName": ["United Airlines Flight Tracker", "United Airlines Operations Dashboard", "UA Flight Status Tracker"],
   "description": "Track every United Airlines flight in real time. Live flight map updated every 30 seconds, delay and cancellation alerts across all 9 hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM), Starlink WiFi aircraft checker, full fleet database of 1,175+ aircraft, departure and arrival schedules, weather radar, and operational analytics. Free and independent — built for United flyers.",
   "url": "https://theblueboard.co",
   "applicationCategory": "Transportation",
@@ -593,7 +593,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 <div id="offline-banner" aria-live="assertive" role="alert">⚠ You are offline — data may be outdated. Reconnect to see live updates.</div>
 <noscript>
 <div style="background:#111827;color:#e2e8f0;padding:40px;text-align:center;font-family:monospace">
-<h1>The Blue Board — United Airlines Flight Tracker & Live Status</h1>
+<h2>The Blue Board — United Airlines Flight Tracker & Live Status</h2>
 <p>Track every United Airlines flight in real time with The Blue Board — a free, independent operations dashboard. See live flight positions on an interactive map updated every 30 seconds. Check delays, cancellations, and ground stops at all 9 United hubs: Chicago O'Hare (ORD), Denver (DEN), Houston (IAH), Newark (EWR), San Francisco (SFO), Washington Dulles (IAD), Los Angeles (LAX), Tokyo Narita (NRT), and Guam (GUM). Look up any flight by number to see status, aircraft type, and route. Browse the full United fleet database of 1,175+ aircraft and check which planes have Starlink WiFi. View departure and arrival schedules with on-time performance stats and equipment swap alerts. Monitor weather conditions with radar, METAR observations, and FAA NAS alerts. Explore fleet utilization, route analytics, and hub-to-hub traffic patterns. Built for the United community. Not affiliated with United Airlines, Inc. JavaScript is required.</p>
 </div>
 </noscript>
@@ -4039,6 +4039,18 @@ function hideDisclaimer() {
 <!-- SITE FOOTER -->
 <div style="background:var(--ua-panel);border-top:1px solid var(--ua-border);padding:8px 16px;font-size:9px;color:var(--ua-muted);text-align:center;line-height:1.8">
   <div>The Blue Board · Independent · Not affiliated with United Airlines, Inc. · Data may be delayed · <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--ua-accent);text-decoration:none">About & Disclaimer</a></div>
+  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin-top:4px">
+    <span>Hubs:</span>
+    <a href="/hubs/ord" style="color:var(--ua-accent);text-decoration:none">ORD</a> ·
+    <a href="/hubs/den" style="color:var(--ua-accent);text-decoration:none">DEN</a> ·
+    <a href="/hubs/iah" style="color:var(--ua-accent);text-decoration:none">IAH</a> ·
+    <a href="/hubs/ewr" style="color:var(--ua-accent);text-decoration:none">EWR</a> ·
+    <a href="/hubs/sfo" style="color:var(--ua-accent);text-decoration:none">SFO</a> ·
+    <a href="/hubs/iad" style="color:var(--ua-accent);text-decoration:none">IAD</a> ·
+    <a href="/hubs/lax" style="color:var(--ua-accent);text-decoration:none">LAX</a> ·
+    <a href="/hubs/nrt" style="color:var(--ua-accent);text-decoration:none">NRT</a> ·
+    <a href="/hubs/gum" style="color:var(--ua-accent);text-decoration:none">GUM</a>
+  </div>
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--ua-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--ua-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--ua-muted);text-decoration:none">FAA</a></span>
     <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--ua-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">Keep Blue Board Free ✈️</a>

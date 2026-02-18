@@ -3,3 +3,13 @@ Allow: /
 Disallow: /api/
 Disallow: /data/
 Sitemap: https://theblueboard.co/sitemap.xml
+
+# AI/LLM context
+# See https://llmstxt.org
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: Google-Extended
+User-agent: PerplexityBot
+User-agent: ClaudeBot
+User-agent: anthropic-ai
+Allow: /llms.txt

@@ -1,0 +1,67 @@
+# The Blue Board
+
+> A free, independent real-time operations dashboard for United Airlines flights. Built for the United community — not affiliated with United Airlines, Inc.
+
+## What It Does
+
+The Blue Board tracks every United Airlines flight in real time on a live map updated every 30 seconds. It monitors delays, cancellations, and ground stops at all 9 United hubs, checks which aircraft have Starlink WiFi, and provides fleet data, schedules, weather radar, and operational analytics.
+
+## Features
+
+- **Live Flight Map**: 600+ United flights tracked simultaneously, updated every 30 seconds via ADS-B data
+- **Hub Delay Alerts**: Real-time delay counts, cancellations, and on-time performance for all 9 hubs
+- **Ground Stop & FAA Monitoring**: NAS status alerts affecting United operations
+- **Starlink WiFi Checker**: 258+ United aircraft with Starlink satellite WiFi — search by tail number or flight
+- **Fleet Database**: 1,175+ aircraft with type, seat configuration, IFE details, and delivery dates
+- **Departure & Arrival Schedules**: Real-time schedules with on-time stats and equipment swap alerts
+- **NEXRAD Weather Radar**: Overlay on the live map showing precipitation affecting flights
+- **METAR Conditions**: Current weather observations at all hub airports
+- **Flight Search**: Look up any United flight by number, tail number, or airport code
+- **Flight Watch**: Browser push notifications when a watched flight changes status
+- **Hub-to-Hub Analytics**: Traffic flow matrix, top routes, fleet utilization, and airborne phase breakdown
+- **Fleet Age & Delivery Timeline**: Visual fleet composition and new aircraft deliveries
+
+## United Hubs Tracked
+
+| Hub | IATA | Airport |
+|-----|------|---------|
+| Chicago O'Hare | ORD | O'Hare International Airport |
+| Denver | DEN | Denver International Airport |
+| Houston | IAH | George Bush Intercontinental Airport |
+| Newark | EWR | Newark Liberty International Airport |
+| San Francisco | SFO | San Francisco International Airport |
+| Washington Dulles | IAD | Washington Dulles International Airport |
+| Los Angeles | LAX | Los Angeles International Airport |
+| Tokyo Narita | NRT | Narita International Airport |
+| Guam | GUM | Antonio B. Won Pat International Airport |
+
+## Data Sources
+
+- **Flight positions**: Flightradar24 (FR24) ADS-B network
+- **Delays & ground stops**: FAA National Airspace System Status
+- **Weather**: Aviation Weather Center (AWC) METAR observations, Iowa State NEXRAD radar
+- **Fleet & Starlink data**: Curated from public aviation databases and United fleet records
+
+## Hub Pages
+
+- https://theblueboard.co/hubs/ord — Chicago O'Hare
+- https://theblueboard.co/hubs/den — Denver
+- https://theblueboard.co/hubs/iah — Houston
+- https://theblueboard.co/hubs/ewr — Newark
+- https://theblueboard.co/hubs/sfo — San Francisco
+- https://theblueboard.co/hubs/iad — Washington Dulles
+- https://theblueboard.co/hubs/lax — Los Angeles
+- https://theblueboard.co/hubs/nrt — Tokyo Narita
+- https://theblueboard.co/hubs/gum — Guam
+
+## URL
+
+https://theblueboard.co
+
+## Creator
+
+Jonah Berg — https://x.com/theblueboard — https://github.com/notjbg
+
+## License
+
+Free to use. Not affiliated with United Airlines, Inc. All trademarks belong to their respective owners.
