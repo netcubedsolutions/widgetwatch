@@ -23,14 +23,18 @@ function cacheSet(key, data, ttlMs) {
   cache.set(key, { data, expires: Date.now() + ttlMs, time: Date.now() });
 }
 
-async function rateLimitedFetch(url) {
+async function rateLimitedFetch(url, deadlineMs) {
   const now = Date.now();
   const wait = Math.max(0, MIN_REQUEST_INTERVAL - (now - lastFR24Request));
   if (wait > 0) await new Promise(r => setTimeout(r, wait));
   lastFR24Request = Date.now();
 
+  // Use remaining time until deadline if provided, capped at 8s
+  const remaining = deadlineMs ? Math.max(500, deadlineMs - Date.now()) : 8000;
+  const fetchTimeout = Math.min(remaining, 8000);
+
   const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
+  const timeout = setTimeout(() => controller.abort(), fetchTimeout);
   try {
     const resp = await fetch(url, {
       signal: controller.signal,
@@ -47,9 +51,9 @@ async function rateLimitedFetch(url) {
   }
 }
 
-async function fetchOnePage(hub, dir, timestamp, page) {
+async function fetchOnePage(hub, dir, timestamp, page, deadlineMs) {
   const url = `https://api.flightradar24.com/common/v1/airport.json?code=${encodeURIComponent(hub)}&plugin[]=schedule&plugin-setting[schedule][mode]=${encodeURIComponent(dir)}&plugin-setting[schedule][timestamp]=${timestamp}&page=${page}&limit=100`;
-  const resp = await rateLimitedFetch(url);
+  const resp = await rateLimitedFetch(url, deadlineMs);
   if (!resp.ok) throw new Error(`FR24 returned ${resp.status}`);
   const data = await resp.json();
   const sched = data?.result?.response?.airport?.pluginData?.schedule?.[dir];
@@ -127,16 +131,25 @@ export default async function handler(req, res) {
       return res.status(200).json({ ...result, cached: true });
     }
 
+    const HANDLER_TIMEOUT = 8000; // Return partial results before Vercel kills us
     const aggPromise = (async () => {
+    const deadline = Date.now() + HANDLER_TIMEOUT;
     const dayEnd = ts + 86400;
     const allUAFlights = [];
     let pageNum = 1;
     let totalPages = 1;
     const MAX_PAGES = 20;
     let totalFetched = 0;
+    let partial = false;
 
     while (pageNum <= totalPages && pageNum <= MAX_PAGES) {
-      const sched = await fetchOnePage(hub, dir, ts, pageNum);
+      if (Date.now() > deadline - 1000) { partial = true; break; } // 1s buffer
+      try {
+        var sched = await fetchOnePage(hub, dir, ts, pageNum, deadline);
+      } catch (e) {
+        if (e.name === 'AbortError' && allUAFlights.length > 0) { partial = true; break; }
+        throw e;
+      }
       totalPages = sched.page?.total || 1;
       if (!sched.data || sched.data.length === 0) break;
 
@@ -163,11 +176,13 @@ export default async function handler(req, res) {
       pagesScanned: Math.min(pageNum, totalPages, MAX_PAGES),
       totalPages,
       cached: false,
+      partial,
       hub,
       dir
     };
 
-    cacheSet(aggKey, result, ttl);
+    // Only cache complete results for full TTL; partial gets short TTL
+    cacheSet(aggKey, result, partial ? 60000 : ttl);
     return result;
     })();
 
