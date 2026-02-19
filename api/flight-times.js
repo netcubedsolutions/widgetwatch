@@ -56,6 +56,79 @@ function epochToISO(epoch) {
   return new Date(epoch * 1000).toISOString();
 }
 
+async function tryFR24Summary(req, res, flight, cacheKey) {
+  if (!process.env.FR24_API_TOKEN) {
+    return res.status(404).json({ success: false, error: 'No flight data available' });
+  }
+  try {
+    // Convert UAL2221 -> UA2221 for FR24
+    const fr24Flight = flight.replace('UAL', 'UA');
+    const now = new Date();
+    const from = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+    const to = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    const resp = await fetch(
+      `https://fr24api.flightradar24.com/api/flight-summary/light?flights=${encodeURIComponent(fr24Flight)}&flight_datetime_from=${from.toISOString()}&flight_datetime_to=${to.toISOString()}`,
+      {
+        signal: controller.signal,
+        headers: {
+          'Authorization': `Bearer ${process.env.FR24_API_TOKEN}`,
+          'Accept': 'application/json',
+          'Accept-Version': 'v1',
+        },
+      }
+    );
+    clearTimeout(timeout);
+    if (!resp.ok) {
+      return res.status(404).json({ success: false, error: 'No flight data available' });
+    }
+    const data = await resp.json();
+    const flights = data?.data || [];
+    // Find the active/most recent flight
+    const f = flights.find(fl => !fl.flight_ended) || flights[0];
+    if (!f) {
+      return res.status(404).json({ success: false, error: 'No flight data available' });
+    }
+    const result = {
+      success: true,
+      flight: fr24Flight,
+      origin: { iata: '', name: '', terminal: '', gate: '', tz: '' },
+      destination: { iata: '', name: '', terminal: '', gate: '', tz: '' },
+      departure: {
+        gate: { scheduled: '', estimated: '', actual: '' },
+        takeoff: {
+          scheduled: '',
+          estimated: '',
+          actual: f.datetime_takeoff || '',
+        },
+      },
+      arrival: {
+        landing: {
+          scheduled: '',
+          estimated: '',
+          actual: f.datetime_landed || '',
+        },
+        gate: { scheduled: '', estimated: '', actual: '' },
+      },
+      aircraft: f.type || '',
+      status: f.flight_ended ? 'landed' : 'en-route',
+      cancelled: false,
+      diverted: f.dest_icao !== f.dest_icao_actual,
+      source: 'fr24-summary',
+      cached: false,
+    };
+    // Map ICAO to IATA for origin/dest
+    if (f.orig_icao) result.origin.iata = f.orig_icao;
+    if (f.dest_icao_actual || f.dest_icao) result.destination.iata = f.dest_icao_actual || f.dest_icao;
+    setCache(cacheKey, result);
+    res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=300');
+    return res.status(200).json(result);
+  } catch (e) {
+    return res.status(404).json({ success: false, error: 'No flight data available' });
+  }
+}
+
 export default async function handler(req, res) {
   const cors = corsHeaders(req);
   for (const [k, v] of Object.entries(cors)) res.setHeader(k, v);
@@ -95,7 +168,7 @@ export default async function handler(req, res) {
     clearTimeout(timeout);
 
     if (!resp.ok) {
-      return res.status(502).json({ success: false, error: 'FlightAware unavailable' });
+      return await tryFR24Summary(req, res, flight, cacheKey);
     }
 
     const html = await resp.text();
@@ -103,14 +176,15 @@ export default async function handler(req, res) {
     // Extract trackpollBootstrap JSON
     const match = html.match(/trackpollBootstrap\s*=\s*(\{.+?\});\s*(?:var|<\/script)/s);
     if (!match) {
-      return res.status(404).json({ success: false, error: 'No flight data found' });
+      // FlightAware blocked — try FR24 summary as fallback
+      return await tryFR24Summary(req, res, flight, cacheKey);
     }
 
     let bootstrap;
     try {
       bootstrap = JSON.parse(match[1]);
     } catch (e) {
-      return res.status(502).json({ success: false, error: 'Failed to parse flight data' });
+      return await tryFR24Summary(req, res, flight, cacheKey);
     }
 
     // Find the most recent/active flight
@@ -187,8 +261,7 @@ export default async function handler(req, res) {
     res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=300');
     return res.status(200).json(result);
   } catch (e) {
-    if (e.name === 'AbortError') return res.status(504).json({ success: false, error: 'Timeout' });
     console.error('FlightAware scrape error:', e);
-    return res.status(502).json({ success: false, error: 'FlightAware unavailable' });
+    return await tryFR24Summary(req, res, flight, cacheKey);
   }
 }
