@@ -23,6 +23,7 @@ function getClientIp(req) {
   const raw = Array.isArray(xff) ? xff[0] : (typeof xff === 'string' ? xff : '');
   return raw.split(',')[0]?.trim() || req.headers?.['x-real-ip'] || 'unknown';
 }
+let lastRateLimitCleanup = Date.now();
 function isRateLimited(req) {
   const now = Date.now();
   const ip = getClientIp(req);
@@ -31,6 +32,14 @@ function isRateLimited(req) {
   while (ipLog.length && ipLog[0] < now - 60_000) ipLog.shift();
   if (ipLog.length >= 5) return true;
   ipLog.push(now);
+  // Evict stale IPs every 5 minutes
+  if (now - lastRateLimitCleanup > 300_000) {
+    lastRateLimitCleanup = now;
+    for (const [k, v] of rateLimitByIp) {
+      while (v.length && v[0] < now - 60_000) v.shift();
+      if (!v.length) rateLimitByIp.delete(k);
+    }
+  }
   return false;
 }
 
@@ -45,7 +54,8 @@ function corsHeaders(req) {
 }
 
 function normalizeFlightNumber(raw) {
-  let q = (raw || '').trim().toUpperCase().replace(/\s+/g, '');
+  const str = Array.isArray(raw) ? raw[0] : (raw || '');
+  let q = String(str).trim().toUpperCase().replace(/\s+/g, '');
   if (q.startsWith('UA') && !q.startsWith('UAL')) q = 'UAL' + q.slice(2);
   if (/^\d{1,4}$/.test(q)) q = 'UAL' + q;
   return q;
@@ -114,13 +124,20 @@ async function tryFR24Summary(req, res, flight, cacheKey) {
       aircraft: f.type || '',
       status: f.flight_ended ? 'landed' : 'en-route',
       cancelled: false,
-      diverted: f.dest_icao !== f.dest_icao_actual,
+      diverted: !!(f.dest_icao_actual && f.dest_icao && f.dest_icao !== f.dest_icao_actual),
       source: 'fr24-summary',
       cached: false,
     };
-    // Map ICAO to IATA for origin/dest
-    if (f.orig_icao) result.origin.iata = f.orig_icao;
-    if (f.dest_icao_actual || f.dest_icao) result.destination.iata = f.dest_icao_actual || f.dest_icao;
+    // Map ICAO to IATA for origin/dest (strip leading K for US airports, else use ICAO as-is)
+    function icaoToIata(icao) {
+      if (!icao) return '';
+      if (icao.length === 4 && icao.startsWith('K')) return icao.slice(1);
+      // Common international mappings
+      const map = { RJAA: 'NRT', RJTT: 'HND', PGUM: 'GUM', EGLL: 'LHR', LFPG: 'CDG', EDDF: 'FRA', RCKH: 'KHH', VHHH: 'HKG', WSSS: 'SIN', NZAA: 'AKL', YSSY: 'SYD', LEMD: 'MAD', EHAM: 'AMS', OMDB: 'DXB', ZBAA: 'PEK' };
+      return map[icao] || icao;
+    }
+    if (f.orig_icao) result.origin.iata = icaoToIata(f.orig_icao);
+    if (f.dest_icao_actual || f.dest_icao) result.destination.iata = icaoToIata(f.dest_icao_actual || f.dest_icao);
     setCache(cacheKey, result);
     res.setHeader('Cache-Control', 's-maxage=120, stale-while-revalidate=300');
     return res.status(200).json(result);
@@ -197,7 +214,9 @@ export default async function handler(req, res) {
       if (!actLog.length) continue;
       // First entry is the most current
       const f = actLog[0];
-      if (!bestFlight || (f.gateDepartureTimes?.scheduled && (!bestFlight.gateDepartureTimes?.scheduled || f.gateDepartureTimes.scheduled > bestFlight.gateDepartureTimes.scheduled))) {
+      const fTime = f.gateDepartureTimes?.scheduled || f.gateDepartureTimes?.estimated || f.gateDepartureTimes?.actual || f.takeoffTimes?.scheduled || 0;
+      const bestTime = bestFlight ? (bestFlight.gateDepartureTimes?.scheduled || bestFlight.gateDepartureTimes?.estimated || bestFlight.gateDepartureTimes?.actual || bestFlight.takeoffTimes?.scheduled || 0) : 0;
+      if (!bestFlight || fTime > bestTime) {
         bestFlight = f;
         bestKey = key;
       }

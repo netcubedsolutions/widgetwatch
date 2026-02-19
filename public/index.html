@@ -1917,11 +1917,12 @@ function showFlightPopup(f, marker) {
         function deltaMin(schedIso, actualIso) {
           if (!schedIso || !actualIso) return null;
           try {
-            return Math.round((new Date(actualIso) - new Date(schedIso)) / 60000);
+            const diff = Math.round((new Date(actualIso) - new Date(schedIso)) / 60000);
+            return isNaN(diff) ? null : diff;
           } catch(e) { return null; }
         }
         function deltaBadge(diff) {
-          if (diff === null) return '';
+          if (diff === null || isNaN(diff)) return '';
           if (Math.abs(diff) <= 5) return ' <span class="time-delta ontime">On time</span>';
           if (diff > 0) return ' <span class="time-delta late">+' + diff + 'm</span>';
           return ' <span class="time-delta early">' + diff + 'm</span>';
@@ -1950,11 +1951,11 @@ function showFlightPopup(f, marker) {
         // Departure column
         h += '<div class="popup-field"><span class="popup-field-label">Departure' + (orig.terminal ? ' · T' + orig.terminal : '') + (orig.gate ? ' G' + orig.gate : '') + '</span><span class="popup-field-value">';
         if (depActual) {
-          h += fmtTimeInTz(depActual, orig.tz) + deltaBadge(deltaMin(depSched, depActual));
+          h += (fmtTimeInTz(depActual, orig.tz) || 'N/A') + deltaBadge(deltaMin(depSched, depActual));
         } else if (depEst) {
-          h += fmtTimeInTz(depEst, orig.tz) + deltaBadge(deltaMin(depSched, depEst));
+          h += (fmtTimeInTz(depEst, orig.tz) || 'N/A') + deltaBadge(deltaMin(depSched, depEst));
         } else if (depSched) {
-          h += fmtTimeInTz(depSched, orig.tz);
+          h += (fmtTimeInTz(depSched, orig.tz) || 'N/A');
         }
         h += '</span>';
         const depDiff = deltaMin(depSched, depActual || depEst);
@@ -1966,11 +1967,11 @@ function showFlightPopup(f, marker) {
         // Arrival column
         h += '<div class="popup-field"><span class="popup-field-label">Arrival' + (dest.terminal ? ' · T' + dest.terminal : '') + (dest.gate ? ' G' + dest.gate : '') + '</span><span class="popup-field-value">';
         if (arrActual) {
-          h += fmtTimeWithTz(arrActual, dest.tz) + deltaBadge(deltaMin(arrSched, arrActual));
+          h += (fmtTimeWithTz(arrActual, dest.tz) || 'N/A') + deltaBadge(deltaMin(arrSched, arrActual));
         } else if (arrEst) {
-          h += fmtTimeWithTz(arrEst, dest.tz) + deltaBadge(deltaMin(arrSched, arrEst));
+          h += (fmtTimeWithTz(arrEst, dest.tz) || 'N/A') + deltaBadge(deltaMin(arrSched, arrEst));
         } else if (arrSched) {
-          h += fmtTimeWithTz(arrSched, dest.tz);
+          h += (fmtTimeWithTz(arrSched, dest.tz) || 'N/A');
         }
         h += '</span>';
         const arrDiff = deltaMin(arrSched, arrActual || arrEst);
