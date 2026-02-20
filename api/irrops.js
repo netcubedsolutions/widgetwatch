@@ -178,7 +178,10 @@ function getStartOfDayForHub(hub) {
   const get = (type) => parseInt(parts.find(p => p.type === type)?.value || '0');
   const hour = get('hour'), minute = get('minute'), second = get('second');
   const secondsSinceMidnight = hour * 3600 + minute * 60 + second;
-  return Math.floor((now.getTime() / 1000) - secondsSinceMidnight);
+  const startOfToday = Math.floor((now.getTime() / 1000) - secondsSinceMidnight);
+  // Before 6 AM local: no flights have departed yet, show yesterday's data
+  if (hour < 6) return startOfToday - 86400;
+  return startOfToday;
 }
 
 async function buildIrropsData() {
