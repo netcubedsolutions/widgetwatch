@@ -1,46 +1,69 @@
 // Server-side IRROPS aggregation — fetches schedule data for all UA hubs,
-// computes disruption metrics, caches for 5 minutes.
+// computes disruption metrics, caches for 15 minutes.
+// Fetches hubs sequentially with delays to avoid FR24 rate limiting.
 
 const HUBS = ['ORD', 'DEN', 'IAH', 'EWR', 'SFO', 'IAD', 'LAX', 'NRT', 'GUM'];
 const HUB_TZ = {ORD:'America/Chicago',DEN:'America/Denver',IAH:'America/Chicago',EWR:'America/New_York',SFO:'America/Los_Angeles',IAD:'America/New_York',LAX:'America/Los_Angeles',NRT:'Asia/Tokyo',GUM:'Pacific/Guam'};
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+const CACHE_TTL = 15 * 60 * 1000; // 15 minutes — hub health doesn't need real-time
+const INTER_HUB_DELAY = 2500; // ms between hub fetches to avoid rate limiting
+const INTER_PAGE_DELAY = 1200; // ms between pages within a hub
 let cached = null;
 let cacheExpires = 0;
-let fetching = null; // dedup concurrent requests
+let fetching = null;
+// Persistent per-hub cache — survives full refresh failures
+let hubCache = {};
 
-async function rateLimitedFetch(url) {
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 10000);
-  try {
-    const resp = await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        'User-Agent': 'TheBlueBoardDashboard/1.0 (https://theblueboard.co)',
-        'Accept': 'application/json'
+async function rateLimitedFetch(url, retries = 2) {
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 12000);
+    try {
+      const resp = await fetch(url, {
+        signal: controller.signal,
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+          'Accept': 'application/json',
+          'Accept-Language': 'en-US,en;q=0.9',
+          'Referer': 'https://www.flightradar24.com/',
+          'Origin': 'https://www.flightradar24.com'
+        }
+      });
+      clearTimeout(timeout);
+      if (resp.status === 429 || resp.status === 403) {
+        // Rate limited — wait longer and retry
+        if (attempt < retries) {
+          await new Promise(r => setTimeout(r, 3000 * (attempt + 1)));
+          continue;
+        }
+        return null;
       }
-    });
-    clearTimeout(timeout);
-    return resp;
-  } catch (e) {
-    clearTimeout(timeout);
-    throw e;
+      if (!resp.ok) return null;
+      return resp;
+    } catch (e) {
+      clearTimeout(timeout);
+      if (attempt < retries) {
+        await new Promise(r => setTimeout(r, 2000 * (attempt + 1)));
+        continue;
+      }
+      return null;
+    }
   }
+  return null;
 }
 
 async function fetchHubSchedule(hub, timestamp) {
-  // Fetch aggregated UA flights via the same FR24 approach as schedule.js
   const dir = 'departures';
   const dayEnd = timestamp + 86400;
   const allFlights = [];
   let page = 1;
   let totalPages = 1;
-  const MAX_PAGES = 10; // fewer pages since we just need metrics
+  const MAX_PAGES = 10;
 
   while (page <= totalPages && page <= MAX_PAGES) {
     const url = `https://api.flightradar24.com/common/v1/airport.json?code=${encodeURIComponent(hub)}&plugin[]=schedule&plugin-setting[schedule][mode]=${dir}&plugin-setting[schedule][timestamp]=${timestamp}&page=${page}&limit=100`;
     try {
       const resp = await rateLimitedFetch(url);
-      if (!resp.ok) break;
+      if (!resp) break;
       const data = await resp.json();
       const sched = data?.result?.response?.airport?.pluginData?.schedule?.[dir];
       if (!sched || !sched.data || sched.data.length === 0) break;
@@ -61,8 +84,9 @@ async function fetchHubSchedule(hub, timestamp) {
       console.error(`IRROPS: Failed to fetch ${hub} page ${page}:`, e.message);
       break;
     }
-    // Small delay between pages to avoid rate limiting
-    await new Promise(r => setTimeout(r, 800));
+    if (page <= totalPages && page <= MAX_PAGES) {
+      await new Promise(r => setTimeout(r, INTER_PAGE_DELAY));
+    }
   }
   return allFlights;
 }
@@ -80,15 +104,13 @@ function computeMetrics(flightsByHub) {
       if (status === 'canceled' || status === 'cancelled') { hubMetrics[hub].cancellations++; continue; }
       if (status === 'diverted') hubMetrics[hub].diversions++;
 
-      // Count flights that have actually operated (departed, en-route, landed)
       const hasOperated = status === 'departed' || status === 'en-route' || status === 'landed' || status === 'diverted';
       const realDep = fl.time?.real?.departure;
       const estDep = fl.time?.estimated?.departure;
-      if (!hasOperated && !realDep) continue; // skip future/scheduled flights
+      if (!hasOperated && !realDep) continue;
 
-      // Use real departure time; only fall back to estimated for operated flights
       const actDep = realDep || (hasOperated ? estDep : null);
-      if (!actDep) continue; // no usable departure time
+      if (!actDep) continue;
 
       hubMetrics[hub].operated++;
       const schedT = fl.time?.scheduled?.departure || 0;
@@ -96,14 +118,13 @@ function computeMetrics(flightsByHub) {
         const delayMin = Math.round((actDep - schedT) / 60);
         if (delayMin > 30) hubMetrics[hub].delayed30++;
         if (delayMin > 60) hubMetrics[hub].delayed60++;
-        if (delayMin <= 30) hubMetrics[hub].onTime++; // 30-min threshold for on-time
+        if (delayMin <= 30) hubMetrics[hub].onTime++;
       } else {
-        hubMetrics[hub].onTime++; // on time or early
+        hubMetrics[hub].onTime++;
       }
     }
   }
 
-  // Totals
   let cancellations = 0, delayed30 = 0, delayed60 = 0, diversions = 0;
   const worstDelays = [];
 
@@ -150,16 +171,13 @@ function computeMetrics(flightsByHub) {
 
 function getStartOfDayForHub(hub) {
   const tz = HUB_TZ[hub] || 'America/New_York';
-  // Get current date parts in the hub's timezone
   const now = new Date();
   const parts = new Intl.DateTimeFormat('en-US', {
     timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit',
     hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
   }).formatToParts(now);
   const get = (type) => parseInt(parts.find(p => p.type === type)?.value || '0');
-  const year = get('year'), month = get('month'), day = get('day');
   const hour = get('hour'), minute = get('minute'), second = get('second');
-  // Calculate seconds since midnight in hub timezone, subtract from current UTC
   const secondsSinceMidnight = hour * 3600 + minute * 60 + second;
   return Math.floor((now.getTime() / 1000) - secondsSinceMidnight);
 }
@@ -167,15 +185,34 @@ function getStartOfDayForHub(hub) {
 async function buildIrropsData() {
   const flightsByHub = {};
 
-  // Fetch hubs in parallel batches of 3 to balance speed vs rate limits
-  // Each hub uses its own local timezone for "today" boundary
-  for (let i = 0; i < HUBS.length; i += 3) {
-    const batch = HUBS.slice(i, i + 3);
-    const results = await Promise.allSettled(
-      batch.map(hub => fetchHubSchedule(hub, getStartOfDayForHub(hub)))
-    );
-    for (let j = 0; j < batch.length; j++) {
-      flightsByHub[batch[j]] = results[j].status === 'fulfilled' ? results[j].value : [];
+  // Fetch hubs SEQUENTIALLY with delays to avoid FR24 rate limiting
+  for (let i = 0; i < HUBS.length; i++) {
+    const hub = HUBS[i];
+    try {
+      const flights = await fetchHubSchedule(hub, getStartOfDayForHub(hub));
+      if (flights && flights.length > 0) {
+        flightsByHub[hub] = flights;
+        // Update persistent per-hub cache
+        hubCache[hub] = { flights, fetchedAt: Date.now() };
+      } else if (hubCache[hub] && (Date.now() - hubCache[hub].fetchedAt) < 60 * 60 * 1000) {
+        // FR24 returned nothing — use cached data up to 1 hour old
+        console.log(`IRROPS: Using cached data for ${hub} (age: ${Math.round((Date.now() - hubCache[hub].fetchedAt) / 60000)}m)`);
+        flightsByHub[hub] = hubCache[hub].flights;
+      } else {
+        flightsByHub[hub] = [];
+      }
+    } catch (e) {
+      console.error(`IRROPS: Error fetching ${hub}:`, e.message);
+      // Fall back to hub cache
+      if (hubCache[hub] && (Date.now() - hubCache[hub].fetchedAt) < 60 * 60 * 1000) {
+        flightsByHub[hub] = hubCache[hub].flights;
+      } else {
+        flightsByHub[hub] = [];
+      }
+    }
+    // Delay between hubs (skip after last)
+    if (i < HUBS.length - 1) {
+      await new Promise(r => setTimeout(r, INTER_HUB_DELAY));
     }
   }
 
@@ -195,29 +232,31 @@ export default async function handler(req, res) {
   try {
     const now = Date.now();
 
-    // Return cached if fresh
     if (cached && now < cacheExpires) {
-      res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=120');
+      res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=300');
       return res.status(200).json({ ...cached, cached: true });
     }
 
-    // Dedup: if already fetching, wait for that
     if (fetching) {
       const result = await fetching;
-      res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=120');
+      res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=300');
       return res.status(200).json({ ...result, cached: true });
     }
 
-    // Build fresh
     try {
       fetching = buildIrropsData();
       const result = await fetching;
       cached = result;
       cacheExpires = now + CACHE_TTL;
-      res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=120');
+      res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=300');
       return res.status(200).json({ ...result, cached: false });
     } catch (e) {
       console.error('IRROPS API error:', e);
+      // Return stale cache if available
+      if (cached) {
+        res.setHeader('Cache-Control', 's-maxage=60');
+        return res.status(200).json({ ...cached, cached: true, stale: true });
+      }
       return res.status(502).json({ error: 'Failed to compute IRROPS data' });
     } finally {
       fetching = null;

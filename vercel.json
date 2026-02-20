@@ -1,5 +1,8 @@
 {
   "cleanUrls": true,
+    "functions": {
+        "api/irrops.js": { "maxDuration": 60 }
+    },
   "buildCommand": null,
   "outputDirectory": "public",
   "headers": [
