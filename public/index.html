@@ -562,6 +562,14 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .watch-btn{background:none;border:1px solid var(--ua-border);color:var(--ua-muted);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(--mono);transition:all .15s}
 .watch-btn:hover{border-color:var(--ua-accent);color:var(--ua-accent)}
 .watch-btn.watching{border-color:#f59e0b;color:#f59e0b;background:rgba(245,158,11,.1)}
+.share-btn{background:none;border:1px solid var(--ua-border);color:var(--ua-muted);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(--mono);transition:all .15s}
+.share-btn:hover{border-color:var(--ua-accent);color:var(--ua-accent)}
+.share-btn.copied{border-color:#22c55e;color:#22c55e}
+#push-prompt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(17,24,39,.97);border:1px solid var(--ua-border);border-radius:8px;padding:12px 16px;font-size:11px;color:var(--ua-text);z-index:10001;display:none;align-items:center;gap:10px;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.5);max-width:400px;font-family:var(--mono)}
+#push-prompt.show{display:flex}
+#push-prompt button{padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--mono);font-size:10px;border:1px solid}
+#push-prompt .pp-enable{background:var(--ua-blue);color:#fff;border-color:var(--ua-blue)}
+#push-prompt .pp-dismiss{background:none;color:var(--ua-muted);border-color:var(--ua-border)}
 #watch-header-btn{position:relative;background:none;border:1px solid var(--ua-border);color:var(--ua-muted);padding:3px 8px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:11px;transition:all .15s}
 #watch-header-btn:hover{border-color:var(--ua-accent);color:var(--ua-accent)}
 .watch-badge{position:absolute;top:-4px;right:-4px;background:var(--ua-red);color:#fff;font-size:8px;font-weight:700;padding:1px 4px;border-radius:6px;min-width:14px;text-align:center}
@@ -617,6 +625,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 <!-- WATCH NOTIFICATION BANNER -->
 <div id="watch-notification" aria-live="polite" role="status"><span id="wn-text"></span><button class="wn-dismiss" data-action="dismiss-watch-notification">Dismiss</button></div>
+<div id="push-prompt">🔔 Get push alerts for watched flights?<div style="display:flex;gap:6px"><button class="pp-enable" data-action="enable-push">Enable</button><button class="pp-dismiss" data-action="dismiss-push">No thanks</button></div></div>
 
 <!-- HEADER -->
 <div id="header">
@@ -1239,6 +1248,7 @@ let map, flightMarkers = {}, routeLine = null, routeGroup = null, hubMarkers = [
 let allFlights = [], showHubs = true, showLonghaul = false, showWeather = false;
 let activeHubFilter = null, activePhaseFilter = null;
 let refreshTimer = null, countdown = 30;
+let deepLinkHandled = false;
 
 // ═══ TAB SWITCHING ═══
 const TAB_HASHES = {'tab-live':'#live','tab-schedule':'#schedule','tab-fleet':'#fleet','tab-weather':'#weather','tab-analytics':'#stats','tab-sources':'#sources'};
@@ -1545,10 +1555,15 @@ function initMap() {
     maxZoom: 18, subdomains: 'abcd'
   }).addTo(map);
 
-  // Clear route on popup close
+  // Clear route on popup close and remove flight URL param
   map.on('popupclose', () => {
     if (routeGroup) { map.removeLayer(routeGroup); routeGroup = null; }
     if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
+    const url = new URL(window.location);
+    if (url.searchParams.has('flight')) {
+      url.searchParams.delete('flight');
+      history.replaceState(null, '', url.pathname + url.search + url.hash);
+    }
   });
 
   // Hub markers
@@ -1673,6 +1688,25 @@ async function refreshFlights() {
     updateLiveFleetPanel();
     // Update Stats tab if currently visible
     if (document.getElementById('tab-analytics').style.display !== 'none') updateAnalytics();
+    // Handle deep link: ?flight=UA1234 on first load
+    if (!deepLinkHandled) {
+      deepLinkHandled = true;
+      const urlParams = new URLSearchParams(window.location.search);
+      const flightParam = urlParams.get('flight');
+      if (flightParam && allFlights.length > 0) {
+        const q = flightParam.trim().toUpperCase().replace(/\s+/g, '');
+        const match = allFlights.find(f => {
+          const flt = (f.flightIATA || '').toUpperCase();
+          const cs = (f.callsign || '').toUpperCase();
+          return flt === q || cs === q || flt === 'UA' + q || cs === 'UAL' + q;
+        });
+        if (match && flightMarkers[match.icao24]) {
+          setTimeout(() => focusFlight(match.icao24), 300);
+        } else {
+          setTimeout(() => lookupFR24Flight(flightParam), 300);
+        }
+      }
+    }
   }
 }
 
@@ -1777,6 +1811,13 @@ function updateMarkers() {
 }
 
 function showFlightPopup(f, marker) {
+  // Update URL with flight parameter for shareable links
+  const shareFlightId = f.flightIATA || f.callsign || '';
+  if (shareFlightId) {
+    const url = new URL(window.location);
+    url.searchParams.set('flight', shareFlightId);
+    history.replaceState(null, '', url);
+  }
   // Remove old route layers
   if (routeGroup) { map.removeLayer(routeGroup); routeGroup = null; }
   if (routeLine) { map.removeLayer(routeLine); routeLine = null; }
@@ -1868,6 +1909,7 @@ function showFlightPopup(f, marker) {
   const popupRoute = (f.origin||'?') + '→' + (f.dest||'?');
   const popupWatched = isFlightWatched(popupFlt);
   html += `<button class="watch-btn${popupWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(popupFlt)}" data-route="${escapeHtml(popupRoute)}" data-status="airborne" aria-label="${popupWatched ? 'Unwatch flight' : 'Watch flight'}" style="margin-left:auto">${popupWatched ? '👁️ Watching' : '👁 Watch'}</button>`;
+  html += `<button class="share-btn" data-action="share-flight" data-flight="${escapeHtml(popupFlt)}" aria-label="Share flight link" title="Copy shareable link">📤 Share</button>`;
   html += `</div></div>`;
 
   if (marker.getPopup()) marker.unbindPopup();
@@ -3881,11 +3923,15 @@ function toggleWatchFlight(flightNum, route, currentStatus) {
   if (idx >= 0) {
     watched.splice(idx, 1);
   } else {
-    // First watch? Request notification permission
-    if (watched.length === 0 && 'Notification' in window && Notification.permission === 'default') {
-      Notification.requestPermission();
-    }
     watched.push({ flight: flightNum, route: route || '', status: currentStatus || '', ts: Date.now() });
+    // Show push notification prompt if not yet asked
+    const prompted = localStorage.getItem('bb_push_prompted');
+    if (!prompted && 'Notification' in window && Notification.permission === 'default') {
+      setTimeout(() => {
+        document.getElementById('push-prompt').classList.add('show');
+        setTimeout(() => document.getElementById('push-prompt').classList.remove('show'), 15000);
+      }, 500);
+    }
   }
   saveWatchedFlights(watched);
   renderScheduleTable();
@@ -3928,6 +3974,21 @@ function clearAllWatched() {
   renderScheduleTable();
 }
 
+function isSignificantStatusChange(oldStatus, newStatus) {
+  if (!oldStatus || !newStatus || oldStatus === newStatus) return false;
+  const nl = newStatus.toLowerCase();
+  // Always notify: cancelled, diverted, landed, departed
+  if (nl.includes('cancel') || nl.includes('divert') || nl.includes('landed') || nl.includes('departed')) return true;
+  // Notify if delay appeared or gate changed
+  if (nl.includes('delay')) return true;
+  if (nl.includes('gate') && nl !== oldStatus.toLowerCase()) return true;
+  // Generic status text changed (e.g. scheduled → en route)
+  const ol = oldStatus.toLowerCase();
+  const significantKeys = ['cancel', 'divert', 'landed', 'departed', 'en route', 'delay', 'gate'];
+  if (significantKeys.some(k => nl.includes(k) || ol.includes(k))) return true;
+  return false;
+}
+
 function checkWatchedFlightChanges(flights) {
   let watched = getWatchedFlights();
   if (!watched.length) return;
@@ -3940,13 +4001,24 @@ function checkWatchedFlightChanges(flights) {
     const s = classifySchedStatus(fl);
     const newStatus = s.text;
     const oldStatus = watched[wIdx].status;
-    if (oldStatus && newStatus !== oldStatus) {
+    if (oldStatus && newStatus !== oldStatus && isSignificantStatusChange(oldStatus, newStatus)) {
       const orig = fl.airport?.origin?.code?.iata || '?';
       const dest = fl.airport?.destination?.code?.iata || '?';
       const msg = `🔔 ${ident} ${orig}→${dest}: ${newStatus} (was: ${oldStatus})`;
-      showWatchNotification(msg);
-      if ('Notification' in window && Notification.permission === 'granted') {
-        new Notification('The Blue Board', { body: `${ident}: ${newStatus} (was: ${oldStatus})` });
+      if (document.hidden) {
+        // Page not visible — fire native notification
+        if ('Notification' in window && Notification.permission === 'granted') {
+          const n = new Notification('The Blue Board', {
+            body: `${ident}: ${newStatus} (was: ${oldStatus})`,
+            icon: '/icons/icon-192.png',
+            tag: 'bb-watch-' + ident,
+            data: { flight: ident }
+          });
+          n.onclick = function() { window.focus(); focusWatchedFlight(ident); };
+        }
+      } else {
+        // Page visible — show in-page banner
+        showWatchNotification(msg);
       }
       // Show BMAC prompt when a watched flight lands
       if (newStatus.toLowerCase().includes('landed') && typeof window.showBmacLandingToast === 'function') {
@@ -3958,6 +4030,13 @@ function checkWatchedFlightChanges(flights) {
     watched[wIdx].ts = Date.now();
   });
   if (changed) saveWatchedFlights(watched);
+}
+
+function focusWatchedFlight(ident) {
+  const match = allFlights.find(f => (f.flightIATA || f.callsign) === ident);
+  if (match && flightMarkers[match.icao24]) {
+    focusFlight(match.icao24);
+  }
 }
 
 function showWatchNotification(msg) {
@@ -4056,6 +4135,42 @@ document.addEventListener('click', function(e) {
       break;
     case 'toggle-watch-flight':
       toggleWatchFlight(actionEl.dataset.flight, actionEl.dataset.route, actionEl.dataset.status);
+      break;
+    case 'share-flight': {
+      const flightId = actionEl.dataset.flight;
+      const shareUrl = new URL(window.location);
+      shareUrl.searchParams.set('flight', flightId);
+      shareUrl.hash = '';
+      navigator.clipboard.writeText(shareUrl.toString()).then(() => {
+        actionEl.classList.add('copied');
+        actionEl.textContent = '✓ Copied!';
+        setTimeout(() => { actionEl.classList.remove('copied'); actionEl.textContent = '📤 Share'; }, 2000);
+      }).catch(() => {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = shareUrl.toString();
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        actionEl.classList.add('copied');
+        actionEl.textContent = '✓ Copied!';
+        setTimeout(() => { actionEl.classList.remove('copied'); actionEl.textContent = '📤 Share'; }, 2000);
+      });
+      break;
+    }
+    case 'enable-push':
+      if ('Notification' in window) {
+        Notification.requestPermission().then(p => {
+          if (p === 'granted') showWatchNotification('🔔 Push notifications enabled for watched flights');
+        });
+      }
+      try { localStorage.setItem('bb_push_prompted', '1'); } catch(e) {}
+      document.getElementById('push-prompt').classList.remove('show');
+      break;
+    case 'dismiss-push':
+      try { localStorage.setItem('bb_push_prompted', '1'); } catch(e) {}
+      document.getElementById('push-prompt').classList.remove('show');
       break;
     case 'toggle-phase-filter':
       togglePhaseFilter(actionEl.dataset.phase);
@@ -4373,6 +4488,7 @@ function renderFR24Modal(f, source, cached) {
   // Footer
   html += '<div style="padding:10px 20px;border-top:1px solid var(--ua-border);display:flex;justify-content:space-between;align-items:center">';
   html += '<div style="font-size:8px;color:var(--ua-muted)">Powered by Flightradar24 Official API' + (cached ? ' • cached' : '') + '</div>';
+  html += '<button class="share-btn" data-action="share-flight" data-flight="' + escapeHtml(f.flightNumber || '') + '" aria-label="Share flight link" title="Copy shareable link">📤 Share</button>';
   html += '</div>';
   html += '</div>';
 

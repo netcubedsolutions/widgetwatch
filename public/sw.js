@@ -140,3 +140,24 @@ self.addEventListener('fetch', (event) => {
     return new Response('Offline', { status: 503, headers: { 'content-type': 'text/plain' } });
   })());
 });
+
+// ═══ NOTIFICATION CLICK HANDLER ═══
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close();
+  const flight = event.notification.data?.flight || '';
+  const urlPath = flight ? '/?flight=' + encodeURIComponent(flight) : '/';
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+      // Focus existing window if available
+      for (const client of clients) {
+        if (client.url.includes(self.location.origin) && 'focus' in client) {
+          if (flight) client.navigate(self.location.origin + urlPath);
+          return client.focus();
+        }
+      }
+      // Open new window if no existing client
+      return self.clients.openWindow(urlPath);
+    })
+  );
+});
