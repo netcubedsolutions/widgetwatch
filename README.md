@@ -1,46 +1,46 @@
-# ✈️ The Blue Board
+# ✈️ Widget Watch
 
-**An unofficial, real-time operations dashboard for United Airlines — built by flyers, for flyers.**
+**An unofficial, real-time operations dashboard for Delta Air Lines — built by flyers, for flyers.**
 
-**[→ Live Dashboard](https://theblueboard.co)** · **[☕ Support the Project](https://buymeacoffee.com/notjbg)** · **[💡 Suggest a Feature](https://github.com/notjbg/the-blue-board/issues)** · **[𝕏 Follow @theblueboard](https://x.com/theblueboard)**
+**[→ Live Dashboard](https://widgetwatch.org)** · **[☕ Support the Project](https://buymeacoffee.com/notjbg)** · **[💡 Suggest a Feature](https://github.com/notjbg/the-blue-board/issues)** · **[𝕏 Follow @theblueboard](https://x.com/theblueboard)**
 
-![The Blue Board — Live Operations Map](https://theblueboard.co/og-image.png)
+![Widget Watch — Live Operations Map](https://widgetwatch.org/og-image.png)
 
 ---
 
 ## What Is This?
 
-The Blue Board is a fan-built operations dashboard that lets you see United Airlines like an ops center would — live flight positions, hub schedules, fleet data, delays, weather, and stats, all in one dark, data-dense interface.
+Widget Watch is a fan-built operations dashboard that lets you see Delta Air Lines like an ops center would — live flight positions, hub schedules, fleet data, delays, weather, and stats, all in one dark, data-dense interface.
 
-**Not affiliated with United Airlines, Inc.** This is an independent project by an aviation enthusiast.
+**Not affiliated with Delta Air Lines, Inc.** This is an independent project by an aviation enthusiast.
 
 ---
 
 ## Features
 
-### 📡 [Live Ops](https://theblueboard.co#live)
-Real-time map tracking 600+ United flights, updated every 30 seconds. Filter by hub, toggle longhaul routes, overlay NEXRAD weather radar. Hub status sidebar shows departure/arrival counts and identifies the busiest hub. Search any flight by number, tail, or route. Great circle route lines show flight paths with city names.
+### 📡 [Live Ops](https://widgetwatch.org#live)
+Real-time map tracking 600+ Delta flights, updated every 30 seconds. Filter by hub, toggle longhaul routes, overlay NEXRAD weather radar. Hub status sidebar shows departure/arrival counts and identifies the busiest hub. Search any flight by number, tail, or route. Great circle route lines show flight paths with city names.
 
-### ⚠️ IRROPS Monitor
+### ⚠️ IROP Monitor
 Server-side disruption scoring across all 9 hubs — cancellations, delays (30m/60m), diversions, and FAA ground stops. Preloaded automatically on page load with 5-minute server-side caching. No manual trigger needed.
 
-### 📅 [Schedule](https://theblueboard.co#schedule)
-Departure and arrival boards for all 9 UA hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
+### 📅 [Schedule](https://widgetwatch.org#schedule)
+Departure and arrival boards for all 9 DL hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
 
-### ✈️ [Fleet](https://theblueboard.co#fleet)
+### ✈️ [Fleet](https://widgetwatch.org#fleet)
 Complete database of 1,175+ mainline aircraft — searchable and sortable by type, registration, seat config, WiFi, and IFE. Starlink tracker for 258+ equipped aircraft with sortable columns and filters by fleet, type, and operator. Live fleet status correlates airborne flights with the database.
 
-### 🌦 [Delays · Weather · Hubs](https://theblueboard.co#weather)
+### 🌦 [Delays · Weather · Hubs](https://widgetwatch.org#weather)
 FAA NAS delay and ground stop alerts, METAR observations with plain-English explainers, NEXRAD radar overlay, and hub health indicators. Each hub gets a unified card with conditions, visibility, wind, ceiling, and current delay status. Radar map renders instantly; weather data loads in parallel via batched API calls.
 
-### 📊 [Stats](https://theblueboard.co#stats)
+### 📊 [Stats](https://widgetwatch.org#stats)
 Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Starlink coverage metrics. All live data updates every 30 seconds.
 
 ### 🔍 Flight Search
-Look up any UA flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
+Look up any DL flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
 
-### 🏢 [Hub Pages](https://theblueboard.co/hubs/ord)
-Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Each page includes live flight counts, hub overview with terminal/concourse details, United Club and Polaris lounge locations, delay pattern analysis by season, Starlink WiFi info, construction alerts with links to official project pages, structured FAQ, and FAQPage + Airport schema markup for search engines. Jump navigation and scroll hints guide visitors through the content.
+### 🏢 [Hub Pages](https://widgetwatch.org/hubs/ord)
+Dedicated SEO-rich pages for each of Delta's 9 hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Each page includes live flight counts, hub overview with terminal/concourse details, Delta Club and Polaris lounge locations, delay pattern analysis by season, Starlink WiFi info, construction alerts with links to official project pages, structured FAQ, and FAQPage + Airport schema markup for search engines. Jump navigation and scroll hints guide visitors through the content.
 
 ### More
 - **Deep-link hashes** — Share direct links to any tab (`#live`, `#schedule`, `#fleet`, `#weather`, `#stats`)
@@ -48,7 +48,7 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 - **Hub health bar** — At-a-glance delay severity across all 9 hubs
 - **Equipment swap alerts** — Badges when scheduled aircraft type changes
 - **Mobile responsive** — Full touch-optimized layout for phones and tablets
-- **Click the title** — "THE BLUE BOARD" header always takes you back to Live Ops
+- **Click the title** — "Widget Watch" header always takes you back to Live Ops
 
 ---
 
@@ -71,8 +71,8 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
     │                                          │
     │  /api/schedule    — FR24 schedule proxy  │
     │                     (cached, rate-limited│
-    │                      UA-filtered)        │
-    │  /api/irrops      — Precomputed IRROPS   │
+    │                      DL-filtered)        │
+    │  /api/irop      — Precomputed IROP   │
     │                     metrics (5min cache)  │
     │  /api/fr24-feed   — Live flight positions│
     │  /api/fr24-flight — Flight lookup        │
@@ -87,8 +87,8 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 ### Why Server-Side Proxies?
 
 - **Rate limiting** — One server fetches data for all users, not 500 browsers hammering APIs independently
-- **Caching** — Schedule data cached 60s (live) / 5min (historical), IRROPS cached 5min, reducing upstream load by 90%+
-- **UA filtering** — Server filters to United flights only, shrinking payloads dramatically
+- **Caching** — Schedule data cached 60s (live) / 5min (historical), IROP cached 5min, reducing upstream load by 90%+
+- **DL filtering** — Server filters to Delta flights only, shrinking payloads dramatically
 - **CORS** — Some sources (AWC, FAA) don't allow direct browser requests
 - **Batching** — METAR data for all 9 hubs fetched in a single request
 
@@ -101,7 +101,7 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 | [Flightradar24](https://flightradar24.com) | Live positions, schedules, flight lookup | ~15s–60s | Server-side proxy with caching |
 | [Aviation Weather Center](https://aviationweather.gov) | METAR observations | ~5min | NOAA/CORS proxy, batched |
 | [FAA NAS Status](https://nasstatus.faa.gov) | Delays & ground stops | ~5min | XML→JSON proxy |
-| [United Fleet Site](https://sites.google.com/site/unitedfleetsite/) | Fleet database | Daily | Community-maintained |
+| [Delta Fleet Site](https://sites.google.com/site/unitedfleetsite/) | Fleet database | Daily | Community-maintained |
 | [Starlink Tracker](https://unitedstarlinktracker.com) | WiFi-equipped aircraft | Daily | [@martinamps](https://github.com/martinamps/ua-starlink-tracker) |
 | [Iowa State NEXRAD](https://mesonet.agron.iastate.edu) | Radar imagery | ~5min | Direct tile server |
 
@@ -124,7 +124,7 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 - **Content Security Policy** — Strict CSP via Vercel headers with `default-src 'self'`, `frame-ancestors 'none'`, and scoped source directives
 - **Security headers** — `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, `Permissions-Policy`
 - **XSS protection** — All dynamic API data is HTML-escaped before DOM insertion (including single quotes). Zero inline event handlers — all interaction via delegated `data-action` attributes.
-- **CORS** — API endpoints locked to `theblueboard.co` origin
+- **CORS** — API endpoints locked to `widgetwatch.org` origin
 - **Input validation** — All API parameters validated and sanitized server-side
 - **Tabnabbing protection** — All external links use `rel="noopener noreferrer"`
 
@@ -150,8 +150,8 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 │   ├── robots.txt       # Search engine directives (blocks /api/ and /data/ from crawlers)
 │   └── sitemap.xml      # Sitemap (homepage + all hub pages)
 ├── api/
-│   ├── schedule.js      # FR24 schedule proxy (cached, rate-limited, UA-filtered)
-│   ├── irrops.js        # Server-side IRROPS aggregation (all hubs, 5min cache)
+│   ├── schedule.js      # FR24 schedule proxy (cached, rate-limited, DL-filtered)
+│   ├── irop.js        # Server-side IROP aggregation (all hubs, 5min cache)
 │   ├── fr24-feed.js     # FR24 live flight feed proxy
 │   ├── fr24-flight.js   # FR24 official API flight lookup
 │   ├── metar.js         # AWC METAR weather proxy (supports batched station IDs)
@@ -162,11 +162,11 @@ Dedicated SEO-rich pages for each of United's 9 hubs (ORD, DEN, IAH, EWR, SFO, I
 
 ---
 
-## ☕ Support The Blue Board
+## ☕ Support Widget Watch
 
 This project is free, ad-free, and open source. It costs real money to keep running — API calls, Vercel hosting, and the time to build and maintain it.
 
-If The Blue Board has saved you a trip to the gate screen or helped you spot an equipment swap before boarding, consider supporting the project:
+If Widget Watch has saved you a trip to the gate screen or helped you spot an equipment swap before boarding, consider supporting the project:
 
 ### **[→ Buy Me a Coffee ☕](https://buymeacoffee.com/notjbg)**
 
@@ -186,9 +186,9 @@ The community drives this project. Some of the best features came from user sugg
 
 ## Disclaimer
 
-**The Blue Board is not affiliated with, endorsed by, or connected to United Airlines, Inc.** "United Airlines" and the United logo are trademarks of United Airlines, Inc.
+**Widget Watch is not affiliated with, endorsed by, or connected to Delta Air Lines, Inc.** "Delta Air Lines" and the Delta logo are trademarks of Delta Air Lines, Inc.
 
-All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. **Do not use this dashboard for operational or safety-critical decisions.** Always verify flight status directly with [united.com](https://www.united.com).
+All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. **Do not use this dashboard for operational or safety-critical decisions.** Always verify flight status directly with [Delta.com](https://www.Delta.com).
 
 ---
 

@@ -74,7 +74,7 @@ console.log('After reclassification:', JSON.stringify(after, null, 2));
 const a321neoRegs = [];
 for (let i = 1; i <= 51; i++) {
   const num = 44500 + i;
-  // Use alternating N445xx and N145xx pattern based on known UA patterns
+  // Use alternating N445xx and N145xx pattern based on known DL patterns
   if (i <= 30) {
     a321neoRegs.push({ r: `N${num}`, a: `${5000+i}` });
   } else {

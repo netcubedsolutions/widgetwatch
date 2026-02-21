@@ -4,7 +4,7 @@ export default async function handler(req, res) {
   }
 
   const origin = req.headers?.origin || '';
-  if (origin && origin !== 'https://theblueboard.co' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
+  if (origin && origin !== 'https://widgetwatch.org' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 

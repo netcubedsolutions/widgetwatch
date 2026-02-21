@@ -1,6 +1,6 @@
 ---
 name: ✈️ Feature Request
-about: Suggest a new feature for The Blue Board
+about: Suggest a new feature for Widget Watch
 title: '[Feature] '
 labels: enhancement
 assignees: ''
@@ -10,7 +10,7 @@ assignees: ''
 <!-- Describe the feature clearly -->
 
 ## Why would this be useful?
-<!-- How would this help United flyers? -->
+<!-- How would this help Delta flyers? -->
 
 ## Any examples?
 <!-- Links to similar features on other sites, mockups, etc. -->

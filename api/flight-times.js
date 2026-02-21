@@ -45,9 +45,9 @@ function isRateLimited(req) {
 
 function corsHeaders(req) {
   const origin = req.headers?.origin || '';
-  const allowed = origin === 'https://theblueboard.co' || /^http:\/\/localhost(:\d+)?$/.test(origin);
+  const allowed = origin === 'https://widgetwatch.org' || /^http:\/\/localhost(:\d+)?$/.test(origin);
   return {
-    'Access-Control-Allow-Origin': allowed ? origin : 'https://theblueboard.co',
+    'Access-Control-Allow-Origin': allowed ? origin : 'https://widgetwatch.org',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
@@ -56,8 +56,8 @@ function corsHeaders(req) {
 function normalizeFlightNumber(raw) {
   const str = Array.isArray(raw) ? raw[0] : (raw || '');
   let q = String(str).trim().toUpperCase().replace(/\s+/g, '');
-  if (q.startsWith('UA') && !q.startsWith('UAL')) q = 'UAL' + q.slice(2);
-  if (/^\d{1,4}$/.test(q)) q = 'UAL' + q;
+  if (q.startsWith('DL') && !q.startsWith('DAL')) q = 'DAL' + q.slice(2);
+  if (/^\d{1,4}$/.test(q)) q = 'DAL' + q;
   return q;
 }
 
@@ -72,7 +72,7 @@ async function tryFR24Summary(req, res, flight, cacheKey) {
   }
   try {
     // Convert UAL2221 -> UA2221 for FR24
-    const fr24Flight = flight.replace('UAL', 'UA');
+    const fr24Flight = flight.replace('DAL', 'DL');
     const now = new Date();
     const from = new Date(now.getTime() - 24 * 60 * 60 * 1000);
     const to = new Date(now.getTime() + 24 * 60 * 60 * 1000);
@@ -156,7 +156,7 @@ export default async function handler(req, res) {
   if (!rawFlight) return res.status(400).json({ success: false, error: 'Missing flight parameter' });
 
   const flight = normalizeFlightNumber(rawFlight);
-  if (!/^UAL\d{1,4}[A-Z]?$/i.test(flight)) {
+  if (!/^DAL\d{1,4}[A-Z]?$/i.test(flight)) {
     return res.status(400).json({ success: false, error: 'Invalid flight number' });
   }
 
@@ -229,7 +229,7 @@ export default async function handler(req, res) {
     const f = bestFlight;
     const result = {
       success: true,
-      flight: flight.replace('UAL', 'UA'),
+      flight: flight.replace('DAL', 'DL'),
       origin: {
         iata: f.origin?.iata || '',
         name: f.origin?.friendlyName || '',
