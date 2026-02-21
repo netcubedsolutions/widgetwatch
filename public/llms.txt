@@ -11,7 +11,6 @@ Widget Watch tracks every Delta Air Lines flight in real time on a live map upda
 - **Live Flight Map**: 600+ Delta flights tracked simultaneously, updated every 30 seconds via ADS-B data
 - **Hub Delay Alerts**: Real-time delay counts, cancellations, and on-time performance for all 9 hubs
 - **Ground Stop & FAA Monitoring**: NAS status alerts affecting Delta operations
-- **Starlink WiFi Checker**: 258+ Delta aircraft with Starlink satellite WiFi — search by tail number or flight
 - **Fleet Database**: 1,175+ aircraft with type, seat configuration, IFE details, and delivery dates
 - **Departure & Arrival Schedules**: Real-time schedules with on-time stats and equipment swap alerts
 - **NEXRAD Weather Radar**: Overlay on the live map showing precipitation affecting flights
@@ -38,21 +37,21 @@ Widget Watch tracks every Delta Air Lines flight in real time on a live map upda
 ## Data Sources
 
 - **Flight positions**: Flightradar24 (FR24) ADS-B network
-- **Delays & ground stops**: FAA National Airspace System Status
+- **Delays & Ground Stops**: FAA National Airspace System Status
 - **Weather**: Aviation Weather Center (AWC) METAR observations, Iowa State NEXRAD radar
-- **Fleet & Starlink data**: Curated from public aviation databases and Delta fleet records
+- **Fleet Data**: Curated from public aviation databases and Delta fleet records
 
 ## Hub Pages
 
-- https://widgetwatch.org/hubs/ord — Chicago O'Hare
-- https://widgetwatch.org/hubs/den — Denver
-- https://widgetwatch.org/hubs/iah — Houston
-- https://widgetwatch.org/hubs/ewr — Newark
-- https://widgetwatch.org/hubs/sfo — San Francisco
-- https://widgetwatch.org/hubs/iad — Washington Dulles
+- https://widgetwatch.org/hubs/atl — Atlanta
+- https://widgetwatch.org/hubs/jfk — New York
+- https://widgetwatch.org/hubs/lga — LaGuardia
+- https://widgetwatch.org/hubs/bos — Boston
+- https://widgetwatch.org/hubs/dtw — Detroit
+- https://widgetwatch.org/hubs/msp — Minneapolis
+- https://widgetwatch.org/hubs/slc — Salt Lake City
 - https://widgetwatch.org/hubs/lax — Los Angeles
-- https://widgetwatch.org/hubs/nrt — Tokyo Narita
-- https://widgetwatch.org/hubs/gum — Guam
+- https://widgetwatch.org/hubs/sea — Seattle
 
 ## URL
 
@@ -60,7 +59,7 @@ https://widgetwatch.org
 
 ## Creator
 
-Jonah Berg — https://x.com/jonahberg — https://github.com/notjbg
+Craighton Miller — https://craightonmiller.com — https://github.com/craighton
 
 ## License
 

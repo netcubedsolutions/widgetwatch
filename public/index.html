@@ -27,9 +27,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0e14">
-<link rel="icon" type="image/jpg" href="/icons/icon.jpg">
+<link rel="icon" type="image/jpg" href="/icons/icon.png">
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/icons/icon.jpg">
+<link rel="apple-touch-icon" href="/icons/icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Widget Watch">
@@ -4011,7 +4011,7 @@ function checkWatchedFlightChanges(flights) {
         if ('Notification' in window && Notification.permission === 'granted') {
           const n = new Notification('Widget Watch', {
             body: `${ident}: ${newStatus} (was: ${oldStatus})`,
-            icon: '/icons/icon.jpg',
+            icon: '/icons/icon.png',
             tag: 'bb-watch-' + ident,
             data: { flight: ident }
           });
