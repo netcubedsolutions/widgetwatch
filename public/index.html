@@ -615,10 +615,10 @@ tbody td{padding:5px 8px;white-space:nowrap}
 </noscript>
 <div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or cancelled. Monitor delays and ground stops at all 9 Delta hubs: Chicago O'Hare ORD, Denver DEN, Houston IAH, Newark EWR, San Francisco SFO, Washington Dulles IAD, Los Angeles LAX, Tokyo Narita NRT, and Guam GUM. Search flights by number, tail number, or route. Check which Delta planes have Starlink WiFi. Browse the full fleet database of 1,175+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
 <!-- TICKER -->
-<!--div class="ticker-wrap">
+<div class="ticker-wrap">
   <span class="ticker-label">▌ALERTS</span>
   <div class="ticker" id="ticker"></div>
-</div-->
+</div>
 
 <!-- HUB HEALTH BAR -->
 <div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span></div>
@@ -2274,7 +2274,7 @@ function updateTicker() {
 
   if (allFlights.length > 0) {
     items.push({ text: `${airborne} Delta flights airborne`, cls: 'info' });
-    items.push({ text: `Fleet: ${FLEET_DB.length} mainline aircraft | ${STARLINK_TAILS.size} Starlink-equipped`, cls: 'info' });
+    // items.push({ text: `Fleet: ${FLEET_DB.length} mainline aircraft | ${STARLINK_TAILS.size} Starlink-equipped`, cls: 'info' });
   }
 
   // Check for emergency squawks
