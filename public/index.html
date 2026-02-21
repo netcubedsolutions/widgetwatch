@@ -176,7 +176,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 /* Ticker */
 .ticker-wrap{background:var(--dl-panel);border-bottom:1px solid var(--dl-border);overflow:hidden;height:28px;position:relative;z-index:100;flex-shrink:0}
-.ticker{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 90s linear infinite}
+.ticker{display:flex;align-items:center;height:100%;white-space:nowrap;animation:tickerScroll 60s linear infinite}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 .ticker-item{padding:0 40px;font-size:11px;font-weight:500;letter-spacing:.3px}
 .ticker-item.info{color:var(--dl-green)}.ticker-item.advisory{color:var(--dl-yellow)}.ticker-item.critical{color:var(--dl-red)}
@@ -2292,7 +2292,7 @@ function updateTicker() {
   }
 
   const tickerHtml = items.map(i => `<span class="ticker-item ${escapeHtml(i.cls)}">${escapeHtml(i.text)}</span>`).join('');
-  document.getElementById('ticker').innerHTML = tickerHtml + tickerHtml; // duplicate for seamless scroll
+  document.getElementById('ticker').innerHTML = tickerHtml + tickerHtml + tickerHtml + tickerHtml + tickerHtml; // duplicate for seamless scroll
 }
 
 // ═══ FLEET TAB ═══
@@ -4319,7 +4319,7 @@ function hideDisclaimer() {
   </div-->
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
-    <span style="white-space:nowrap">Built by <a href="https://github.com/netcubedsolutions" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Net Cubed Solutions</a></span>
+    <span style="white-space:nowrap">Built by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a></span>
   </div>
 </div>
 
