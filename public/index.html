@@ -1901,7 +1901,7 @@ function showFlightPopup(f, marker) {
 
   html += `<div class="popup-links">`;
   const fltLink = flightNum.replace(/^DL/, '');
-  if (fltLink) html += `<a href="https://flightaware.com/live/flight/UAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FlightAware ↗</a>`;
+  if (fltLink) html += `<a href="https://flightaware.com/live/flight/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FlightAware ↗</a>`;
   const regLink = aircraft?.r || f.reg;
   if (regLink) html += `<a href="https://www.planespotters.net/search?q=${encodeURIComponent(regLink)}" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>`;
   html += `<a href="https://globe.adsbexchange.com/?icao=${encodeURIComponent(f.icao24)}" target="_blank" rel="noopener noreferrer">ADS-B ↗</a>`;
@@ -2139,7 +2139,7 @@ function updateStats() {
   document.getElementById('st-avgalt').textContent = altCount ? Math.round(totalAlt / altCount).toLocaleString() + 'ft' : '--';
   document.getElementById('st-avgspd').textContent = spdCount ? Math.round(totalSpd / spdCount) + 'kts' : '--';
   document.getElementById('st-util').textContent = FLEET_DB.length ? Math.round((airborne / FLEET_DB.length) * 100) + '%' + filterLabel : '--';
-  document.getElementById('st-starlink').textContent = starlinkAirborne;
+  //document.getElementById('st-starlink').textContent = starlinkAirborne;
 
   // Phase stats sidebar (always show total counts from allFlights, but make clickable)
   let allGround = 0, allClimb = 0, allCruise = 0, allDescent = 0, allApproach = 0;
@@ -2315,9 +2315,9 @@ function initFleetTab() {
   ).join('');
 
   // Starlink progress
-  const mainlineStarlink = STARLINK_DB.filter(s => s.fleet === 'Mainline').length;
-  document.getElementById('starlink-progress').style.width = (mainlineStarlink / FLEET_DB.length * 100) + '%';
-  document.getElementById('starlink-pct').textContent = Math.round(mainlineStarlink / FLEET_DB.length * 100) + '% (' + mainlineStarlink + '/' + FLEET_DB.length + ')';
+  //const mainlineStarlink = STARLINK_DB.filter(s => s.fleet === 'Mainline').length;
+  //document.getElementById('starlink-progress').style.width = (mainlineStarlink / FLEET_DB.length * 100) + '%';
+  //document.getElementById('starlink-pct').textContent = Math.round(mainlineStarlink / FLEET_DB.length * 100) + '% (' + mainlineStarlink + '/' + FLEET_DB.length + ')';
 
   // Populate filters
   const wifiTypes = [...new Set(FLEET_DB.map(a => a.w).filter(Boolean))].sort();
