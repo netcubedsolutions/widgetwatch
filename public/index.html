@@ -104,7 +104,7 @@
       "name": "How do I check if my Delta Air Lines flight is on time?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Widget Watch shows real-time status for every Delta Air Lines flight. Use the search bar to look up your flight number (e.g., DL 1234) and see its current position, delays, and estimated arrival. The hub health bar at the top shows at-a-glance delay conditions at all 9 Delta hubs."
+        "text": "Widget Watch shows real-time status for every Delta Air Lines flight. Use the search bar to look up your flight number (e.g., DL1234) and see its current position, delays, and estimated arrival. The hub health bar at the top shows at-a-glance delay conditions at all 9 Delta hubs."
       }
     },
     {
@@ -631,7 +631,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 <div id="header">
   <h1><a href="#" data-action="go-home" style="text-decoration:none;color:inherit;cursor:pointer"><span class="ua">Widget Watch</span></a> <span style="font-size:9px;color:var(--dl-muted);font-weight:300;letter-spacing:0.5px">COMMUNITY · FOR Delta FLYERS, BY Delta FLYERS</span></h1>
   <div id="global-search-wrap" style="position:relative;flex:0 1 300px">
-    <input type="text" id="global-search-input" aria-label="Global flight search" placeholder="Track a flight (DL 1234, N12345, ATL...)" style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 10px;border-radius:4px;font-family:var(--mono);font-size:11px">
+    <input type="text" id="global-search-input" aria-label="Global flight search" placeholder="Track a flight (DL1234, N12345, ATL...)" style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 10px;border-radius:4px;font-family:var(--mono);font-size:11px">
     <div id="global-search-results" style="position:absolute;top:34px;left:0;right:0;background:rgba(17,24,39,.95);border:1px solid var(--dl-border);border-radius:4px;max-height:300px;overflow-y:auto;display:none;z-index:9999;backdrop-filter:blur(8px)"></div>
   </div>
   <div id="header-right">
@@ -1734,7 +1734,7 @@ function isLonghaulFlight(f) {
 
 function createPlaneIcon(hdg, isLonghaul, phase) {
   const color = isLonghaul ? '#fbbf24' : (phase === 'Ground' ? '#6b7280' : '#60a5fa');
-  const size = isLonghaul ? 14 : 10;
+  const size = isLonghaul ? 24 : 20;
   // SVG plane pointing north (0°) — classic top-down aircraft silhouette, cross-platform consistent
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 256 256" fill="${color}" style="filter:drop-shadow(0 0 2px ${color})"><path d="M128 16c-4 0-8 3-9 7l-15 72-88 34c-3 1-4 4-4 7s2 5 5 6l87 20 4 52-28 18c-2 1-3 3-3 5v8c0 2 1 4 3 4l20-6h28l20 6c2 0 3-2 3-4v-8c0-2-1-4-3-5l-28-18 4-52 87-20c3-1 5-3 5-6s-1-6-4-7l-88-34-15-72c-1-4-5-7-9-7z"/></svg>`;
   return L.divIcon({
