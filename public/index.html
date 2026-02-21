@@ -184,7 +184,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 /* Header */
 #header{display:flex;align-items:center;justify-content:space-between;padding:6px 16px;background:linear-gradient(90deg,var(--dl-dark),#0d1520);border-bottom:1px solid rgba(0,93,170,.3);flex-shrink:0}
-#header h1{font-size:16px;font-weight:700;color:#fff;letter-spacing:1.5px}
+#header h1{font-size:20px;font-weight:700;color:#fff;letter-spacing:1.5px}
 #header h1 .ua{color:var(--dl-blue)}
 #header-right{display:flex;align-items:center;gap:16px;font-size:11px}
 .status-dot{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:4px}
@@ -338,7 +338,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 /* ═══ TAB 4: ANALYTICS ═══ */
 #tab-analytics{padding:16px;flex:1;min-height:0;overflow-y:auto}
-.metric-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:14px}
+.metric-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:14px}
 @media(max-width:900px){.metric-row{grid-template-columns:repeat(2,1fr)}}
 .metric-card{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:14px;text-align:center}
 .metric-val{font-size:28px;font-weight:700;color:var(--dl-blue)}
@@ -599,8 +599,8 @@ tbody td{padding:5px 8px;white-space:nowrap}
       <div class="onboarding-feature"><span class="onboarding-icon">⚠️</span><div><strong>Delays &amp; Disruptions</strong><span class="onboarding-desc">Know before the app does — hub delays, cancellations, and ground stops at a glance</span></div></div>
       <div class="onboarding-feature"><span class="onboarding-icon">📅</span><div><strong>Schedules</strong><span class="onboarding-desc">Departures &amp; arrivals at all 9 hubs with on-time stats and equipment swap alerts</span></div></div>
       <div class="onboarding-feature"><span class="onboarding-icon">🌦</span><div><strong>Weather &amp; Hub Status</strong><span class="onboarding-desc">Conditions at every hub airport — radar, visibility, wind, and how it's affecting flights</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">✈️</span><div><strong>Fleet &amp; WiFi</strong><span class="onboarding-desc">Check if your plane has Starlink WiFi, seat config, and aircraft details</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">📊</span><div><strong>Stats</strong><span class="onboarding-desc">Fleet utilization, route patterns, and network health — the truly nerdy stuff</span></div></div>
+      <!--div class="onboarding-feature"><span class="onboarding-icon">✈️</span><div><strong>Fleet &amp; WiFi</strong><span class="onboarding-desc">Check if your plane has Starlink WiFi, seat config, and aircraft details</span></div></div-->
+      <!--div class="onboarding-feature"><span class="onboarding-icon">📊</span><div><strong>Stats</strong><span class="onboarding-desc">Fleet utilization, route patterns, and network health — the truly nerdy stuff</span></div></div-->
     </div>
     <p class="onboarding-footer">Built by a Delta flyer, for Delta flyers. Not affiliated with Delta Air Lines.</p>
     <button id="onboarding-dismiss">Keep Climbing ✈️</button>
@@ -615,10 +615,10 @@ tbody td{padding:5px 8px;white-space:nowrap}
 </noscript>
 <div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or cancelled. Monitor delays and ground stops at all 9 Delta hubs: Chicago O'Hare ORD, Denver DEN, Houston IAH, Newark EWR, San Francisco SFO, Washington Dulles IAD, Los Angeles LAX, Tokyo Narita NRT, and Guam GUM. Search flights by number, tail number, or route. Check which Delta planes have Starlink WiFi. Browse the full fleet database of 1,175+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
 <!-- TICKER -->
-<div class="ticker-wrap">
+<!--div class="ticker-wrap">
   <span class="ticker-label">▌ALERTS</span>
   <div class="ticker" id="ticker"></div>
-</div>
+</div-->
 
 <!-- HUB HEALTH BAR -->
 <div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span></div>
@@ -629,7 +629,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 <!-- HEADER -->
 <div id="header">
-  <h1><a href="#" data-action="go-home" style="text-decoration:none;color:inherit;cursor:pointer"><span class="ua">Widget Watch</span></a> <span style="font-size:9px;color:var(--dl-muted);font-weight:300;letter-spacing:0.5px">COMMUNITY · FOR Delta FLYERS, BY Delta FLYERS</span></h1>
+  <h1><a href="#" data-action="go-home" style="text-decoration:none;color:inherit;cursor:pointer"><span class="ua">✈ Widget Watch</span></a> <span style="font-size:9px;color:var(--dl-muted);font-weight:300;letter-spacing:0.5px">FOR DELTA FLYERS, BY DELTA FLYERS</span></h1>
   <div id="global-search-wrap" style="position:relative;flex:0 1 300px">
     <input type="text" id="global-search-input" aria-label="Global flight search" placeholder="Track a flight (DL1234, N12345, ATL...)" style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 10px;border-radius:4px;font-family:var(--mono);font-size:11px">
     <div id="global-search-results" style="position:absolute;top:34px;left:0;right:0;background:rgba(17,24,39,.95);border:1px solid var(--dl-border);border-radius:4px;max-height:300px;overflow-y:auto;display:none;z-index:9999;backdrop-filter:blur(8px)"></div>
@@ -648,9 +648,9 @@ tbody td{padding:5px 8px;white-space:nowrap}
 <nav id="tab-bar" aria-label="Dashboard navigation" role="tablist">
   <button class="tab-btn active" data-tab="tab-live" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-live"><span aria-hidden="true">📡</span> LIVE OPS</button>
   <button class="tab-btn" data-tab="tab-schedule" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-schedule"><span aria-hidden="true">📅</span> SCHEDULE</button>
-  <button class="tab-btn" data-tab="tab-fleet" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-fleet"><span aria-hidden="true">✈️</span> FLEET</button>
+  <!--button class="tab-btn" data-tab="tab-fleet" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-fleet"><span aria-hidden="true">✈️</span> FLEET</button-->
   <button class="tab-btn" data-tab="tab-weather" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-weather"><span aria-hidden="true">🌦</span> DELAYS · WEATHER · HUBS</button>
-  <button class="tab-btn" data-tab="tab-analytics" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-analytics" aria-label="Stats"><span aria-hidden="true">📊</span> STATS</button>
+  <!--button class="tab-btn" data-tab="tab-analytics" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-analytics" aria-label="Stats"><span aria-hidden="true">📊</span> STATS</button-->
   <button class="tab-btn" data-tab="tab-sources" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-sources"><span aria-hidden="true">ℹ️</span> SOURCES</button>
 </nav>
 
@@ -685,8 +685,8 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <div class="map-area">
       <div id="map"></div>
       <div id="controls">
-        <button class="ctrl-btn" data-action="toggle-hubs" id="btn-hubs" selected>🏢 Hubs</button>
-        <button class="ctrl-btn" data-action="toggle-longhaul" id="btn-longhaul" selected>🌍 Long-haul</button>
+        <button class="ctrl-btn active" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
+        <button class="ctrl-btn active" data-action="toggle-longhaul" id="btn-longhaul">🌍 Long Haul</button>
         <button class="ctrl-btn" data-action="toggle-weather" id="btn-wx">🌧 Weather</button>
         <!--button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">🌏 Pacific</button-->
         <button class="ctrl-btn" data-action="refresh-flights" id="btn-refresh">🔄 Refresh</button>
@@ -709,8 +709,8 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <div class="stat-item"><span class="stat-val" id="st-avgspd">--</span><span class="stat-label">Avg Spd</span></div>
     <span class="stat-sep">│</span>
     <div class="stat-item"><span class="stat-val" id="st-util">--</span><span class="stat-label">Utilization</span></div>
-    <span class="stat-sep">│</span>
-    <div class="stat-item"><span class="stat-val" id="st-starlink">--</span><span class="stat-label">⚡ Starlink</span></div>
+    <!--span class="stat-sep">│</span>
+    <div class="stat-item"><span class="stat-val" id="st-starlink">--</span><span class="stat-label">⚡ Starlink</span></div-->
   </div>
 </div>
 
@@ -1246,7 +1246,7 @@ const IATA_CITIES = {
 
 // ═══ GLOBALS ═══
 let map, flightMarkers = {}, routeLine = null, routeGroup = null, hubMarkers = [], wxLayer = null;
-let allFlights = [], showHubs = true, showLonghaul = false, showWeather = false;
+let allFlights = [], showHubs = true, showLonghaul = true, showWeather = false;
 let activeHubFilter = null, activePhaseFilter = null;
 let refreshTimer = null, countdown = 30;
 let deepLinkHandled = false;
@@ -1597,8 +1597,8 @@ function drawHubs() {
   });
 }
 
-function toggleHubs() { showHubs = !showHubs; drawHubs(); document.getElementById('btn-hubs').classList.toggle('active'); }
-function toggleLonghaul() { showLonghaul = !showLonghaul; document.getElementById('btn-longhaul').classList.toggle('active'); updateMarkers(); }
+function toggleHubs() { showHubs = !showHubs; drawHubs(); document.getElementById('btn-hubs').classList.toggle(''); }
+function toggleLonghaul() { showLonghaul = !showLonghaul; document.getElementById('btn-longhaul').classList.toggle(''); updateMarkers(); }
 function toggleWeather() {
   showWeather = !showWeather;
   document.getElementById('btn-wx').classList.toggle('active');
@@ -3682,7 +3682,7 @@ function updateHubHealth() {
   const pcts2 = hubs.map(h => hubHealthData[h]).filter(p => p !== undefined);
   if (pcts2.length) {
     const avg = Math.round(pcts2.reduce((a,b)=>a+b,0) / pcts2.length);
-    const avgLabel = avg > 70 ? 'Smooth Ops' : avg >= 50 ? 'Some Delays' : 'Rough Day';
+    const avgLabel = avg > 70 ? 'SMOOTH OPS' : avg >= 50 ? 'SOME DELAYS' : 'ROUGH DAY';
     const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
     html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
   }
@@ -4304,8 +4304,8 @@ function hideDisclaimer() {
 
 <!-- SITE FOOTER -->
 <div style="background:var(--dl-panel);border-top:1px solid var(--dl-border);padding:8px 16px;font-size:9px;color:var(--dl-muted);text-align:center;line-height:1.8">
-  <div>Widget Watch · Independent · Not affiliated with Delta Air Lines, Inc. · Data may be delayed · <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-accent);text-decoration:none">About & Disclaimer</a></div>
-  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin-top:4px">
+  <div>Not affiliated with Delta Air Lines, Inc. · Data may be delayed · <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-accent);text-decoration:none">About & Disclaimer</a></div>
+  <!--div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin-top:4px">
     <span>Hubs:</span>
     <a href="/hubs/atl" style="color:var(--dl-accent);text-decoration:none">ATL</a> ·
     <a href="/hubs/jfk" style="color:var(--dl-accent);text-decoration:none">JFK</a> ·
@@ -4316,7 +4316,7 @@ function hideDisclaimer() {
     <a href="/hubs/slc" style="color:var(--dl-accent);text-decoration:none">SLC</a> ·
     <a href="/hubs/lax" style="color:var(--dl-accent);text-decoration:none">LAX</a> ·
     <a href="/hubs/sea" style="color:var(--dl-accent);text-decoration:none">SEA</a>
-  </div>
+  </div-->
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
     <span style="white-space:nowrap">Built by <a href="https://github.com/netcubedsolutions" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Net Cubed Solutions</a></span>
