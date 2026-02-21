@@ -4,12 +4,12 @@ export default async function handler(req, res) {
   }
 
   const origin = req.headers?.origin || '';
-  if (origin && origin !== 'https://theblueboard.co' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
+  if (origin && origin !== 'https://widgetwatch.org' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
   try {
-    const ids = req.query.ids || 'KORD';
+    const ids = req.query.ids || 'KATL';
     // Validate: comma-separated ICAO codes, max 200 chars
     if (!/^[A-Z0-9,]{1,200}$/i.test(ids)) {
       return res.status(400).json({ error: 'Invalid airport IDs' });

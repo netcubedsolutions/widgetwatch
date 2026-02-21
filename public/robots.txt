@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /api/
 Disallow: /data/
-Sitemap: https://theblueboard.co/sitemap.xml
+Sitemap: https://widgetwatch.org/sitemap.xml
 
 # AI/LLM context
 # See https://llmstxt.org

@@ -39,7 +39,7 @@ async function rateLimitedFetch(url, deadlineMs) {
     const resp = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'TheBlueBoardDashboard/1.0 (https://theblueboard.co)',
+        'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
         'Accept': 'application/json'
       }
     });
@@ -69,7 +69,7 @@ export default async function handler(req, res) {
   }
 
   const origin = req.headers?.origin || '';
-  if (origin && origin !== 'https://theblueboard.co' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
+  if (origin && origin !== 'https://widgetwatch.org' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
@@ -116,7 +116,7 @@ export default async function handler(req, res) {
       return res.status(200).json({ ...sched, cached: false });
     }
 
-    // Aggregation mode: fetch all pages, filter UA, return combined
+    // Aggregation mode: fetch all pages, filter DL, return combined
     const aggKey = `agg:${hub}:${dir}:${ts}`;
     const cached = cacheGet(aggKey);
     if (cached) {
@@ -135,7 +135,7 @@ export default async function handler(req, res) {
     const aggPromise = (async () => {
     const deadline = Date.now() + HANDLER_TIMEOUT;
     const dayEnd = ts + 86400;
-    const allUAFlights = [];
+    const allDLFlights = [];
     let pageNum = 1;
     let totalPages = 1;
     const MAX_PAGES = 20;
@@ -147,7 +147,7 @@ export default async function handler(req, res) {
       try {
         var sched = await fetchOnePage(hub, dir, ts, pageNum, deadline);
       } catch (e) {
-        if (e.name === 'AbortError' && allUAFlights.length > 0) { partial = true; break; }
+        if (e.name === 'AbortError' && allDLFlights.length > 0) { partial = true; break; }
         throw e;
       }
       totalPages = sched.page?.total || 1;
@@ -157,12 +157,12 @@ export default async function handler(req, res) {
       for (const entry of sched.data) {
         const fl = entry.flight;
         if (!fl) continue;
-        if (fl.airline?.code?.iata !== 'UA') continue;
+        if (fl.airline?.code?.iata !== 'DL') continue;
         const schedDep = fl.time?.scheduled?.departure;
         const schedArr = fl.time?.scheduled?.arrival;
         const flightTime = dir === 'departures' ? schedDep : schedArr;
         if (flightTime && flightTime >= dayEnd) { pastDay = true; break; }
-        allUAFlights.push(fl);
+        allDLFlights.push(fl);
       }
       totalFetched += sched.data.length;
       if (pastDay) break;
@@ -170,8 +170,8 @@ export default async function handler(req, res) {
     }
 
     const result = {
-      flights: allUAFlights,
-      total: allUAFlights.length,
+      flights: allDLFlights,
+      total: allDLFlights.length,
       totalFetched,
       pagesScanned: Math.min(pageNum, totalPages, MAX_PAGES),
       totalPages,

@@ -1,7 +1,7 @@
 {
-  "name": "The Blue Board",
-  "short_name": "Blue Board",
-  "description": "Live United Airlines flight tracker, delay alerts, and ops dashboard",
+  "name": "Widget Watch",
+  "short_name": "Widget Watch",
+  "description": "Live Delta Air Lines flight tracker, delay alerts, and ops dashboard",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0e14",

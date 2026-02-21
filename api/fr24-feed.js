@@ -9,12 +9,12 @@ export default async function handler(req, res) {
   }
 
   const origin = req.headers?.origin || '';
-  if (origin && origin !== 'https://theblueboard.co' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
+  if (origin && origin !== 'https://widgetwatch.org' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
   try {
-    const airline = req.query.airline || 'UAL';
+    const airline = req.query.airline || 'DAL';
     // Validate airline: 2-4 letter ICAO code
     if (!/^[A-Z0-9]{2,4}$/i.test(airline)) {
       return res.status(400).json({ error: 'Invalid airline code' });
@@ -41,7 +41,7 @@ export default async function handler(req, res) {
       const upstream = await fetch(`https://data-cloud.flightradar24.com/zones/fcgi/feed.js?airline=${encodeURIComponent(airline)}`, {
         signal: controller.signal,
         headers: {
-          'User-Agent': 'TheBlueBoardDashboard/1.0 (https://theblueboard.co)',
+          'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
           'Accept': 'application/json'
         }
       });

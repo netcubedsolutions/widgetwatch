@@ -3,14 +3,14 @@
 # Run every 4-6 hours via cron to keep schedule endpoints hot
 # This ensures real users always hit CDN cache, never cold serverless functions
 
-BASE="https://theblueboard.co/api"
-HUBS=("ORD" "DEN" "IAH" "EWR" "SFO" "LAX" "IAD")
+BASE="https://widgetwatch.org/api"
+HUBS=("ATL" "JFK" "LGA" "BOS" "DTW" "MSP" "SLC" "LAX" "SEA")
 DIRS=("departures" "arrivals")
 
 # Get today's start-of-day timestamp (UTC)
 TODAY_TS=$(date -u -j -f "%Y-%m-%d %H:%M:%S" "$(date -u +%Y-%m-%d) 00:00:00" "+%s" 2>/dev/null || date -d "$(date -u +%Y-%m-%d)" "+%s")
 
-echo "$(date) — Prewarming Blue Board CDN cache"
+echo "$(date) — Prewarming Widget Watch CDN cache"
 echo "Timestamp: $TODAY_TS"
 
 WARMED=0
@@ -31,9 +31,9 @@ for hub in "${HUBS[@]}"; do
   done
 done
 
-# Also warm IRROPS and METAR
-curl -s -o /dev/null -w "  ✅ IRROPS — %{http_code}\n" --max-time 60 "${BASE}/irrops"
-curl -s -o /dev/null -w "  ✅ METAR — %{http_code}\n" --max-time 10 "${BASE}/metar?ids=KORD,KDEN,KIAH,KEWR,KSFO,KLAX,KIAD"
+# Also warm IROP and METAR
+curl -s -o /dev/null -w "  ✅ IROP — %{http_code}\n" --max-time 60 "${BASE}/irop"
+curl -s -o /dev/null -w "  ✅ METAR — %{http_code}\n" --max-time 10 "${BASE}/metar?ids=KATL,KJFK,KLGA,KBOS,KDTW,KMSP,KSLC,KLAX,KSEA"
 curl -s -o /dev/null -w "  ✅ FAA — %{http_code}\n" --max-time 10 "${BASE}/faa"
 
 echo "Done: ${WARMED} warmed, ${FAILED} failed"

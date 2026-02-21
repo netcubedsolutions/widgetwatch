@@ -65,9 +65,9 @@ function isRateLimited(req) {
 
 function corsHeaders(req) {
   const origin = req.headers?.origin || '';
-  const allowed = origin === 'https://theblueboard.co' || /^http:\/\/localhost(:\d+)?$/.test(origin);
+  const allowed = origin === 'https://widgetwatch.org' || /^http:\/\/localhost(:\d+)?$/.test(origin);
   return {
-    'Access-Control-Allow-Origin': allowed ? origin : 'https://theblueboard.co',
+    'Access-Control-Allow-Origin': allowed ? origin : 'https://widgetwatch.org',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
@@ -76,9 +76,9 @@ function corsHeaders(req) {
 function normalizeFlightNumber(raw) {
   let q = (raw || '').trim().toUpperCase().replace(/\s+/g, '');
   // "UAL838" → "UA838"
-  if (q.startsWith('UAL') && /^\d/.test(q.slice(3))) q = 'UA' + q.slice(3);
+  if (q.startsWith('DAL') && /^\d/.test(q.slice(3))) q = 'DL' + q.slice(3);
   // Bare number "838" → "UA838"
-  if (/^\d{1,4}$/.test(q)) q = 'UA' + q;
+  if (/^\d{1,4}$/.test(q)) q = 'DL' + q;
   return q;
 }
 
@@ -95,7 +95,7 @@ async function fr24Fetch(path, params) {
       'Authorization': `Bearer ${process.env.FR24_API_TOKEN}`,
       'Accept': 'application/json',
       'Accept-Version': API_VERSION,
-      'User-Agent': 'TheBlueBoardDashboard/1.0 (https://theblueboard.co)',
+      'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
     },
   });
   clearTimeout(timeout);
