@@ -685,10 +685,10 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <div class="map-area">
       <div id="map"></div>
       <div id="controls">
-        <button class="ctrl-btn" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
-        <button class="ctrl-btn" data-action="toggle-longhaul" id="btn-longhaul">🌍 Long-haul</button>
+        <button class="ctrl-btn" data-action="toggle-hubs" id="btn-hubs" selected>🏢 Hubs</button>
+        <button class="ctrl-btn" data-action="toggle-longhaul" id="btn-longhaul" selected>🌍 Long-haul</button>
         <button class="ctrl-btn" data-action="toggle-weather" id="btn-wx">🌧 Weather</button>
-        <button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">🌏 Pacific</button>
+        <!--button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">🌏 Pacific</button-->
         <button class="ctrl-btn" data-action="refresh-flights" id="btn-refresh">🔄 Refresh</button>
       </div>
     </div>
@@ -1068,7 +1068,7 @@ async function loadFleetData() {
 const AIRPORTS = [
   // Delta Hubs
   {iata:"ATL",lat:33.6407,lon:-84.4277,hub:true},{iata:"JFK",lat:40.6413,lon:-73.7781,hub:true},
-  {iata:"LGA",lat:40.7769,lon:-73.8740},{iata:"BOS",lat:42.3656,lon:-71.0096,hub:true},
+  {iata:"LGA",lat:40.7769,lon:-73.8740,hub:true},{iata:"BOS",lat:42.3656,lon:-71.0096,hub:true},
   {iata:"MSP",lat:44.8848,lon:-93.2223,hub:true},{iata:"DTW",lat:42.2162,lon:-83.3554,hub:true},
   {iata:"SLC",lat:40.7899,lon:-111.9791,hub:true},{iata:"LAX",lat:33.9425,lon:-118.4081,hub:true},
   {iata:"SEA",lat:47.4502,lon:-122.3088,hub:true},
