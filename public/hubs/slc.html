@@ -1,357 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a0e14">
-<link rel="icon" type="image/jpg" href="/icons/icon.png">
-<title>Delta Air Lines ORD Hub Status — Chicago O'Hare Delays, On-Time Performance & Flight Tracker</title>
-<meta name="description" content="Live Delta Air Lines status at Chicago O'Hare (ORD). Real-time delays, cancellations, on-time performance,
-and departure schedules. Delta's largest hub — updated every 30 seconds.">
-<meta name="keywords" content="Delta Air Lines ORD delays, Delta Chicago O'Hare hub status, Delta Air Lines ORD on-time, Delta ORD cancellations today, Delta Air Lines Chicago delays, ORD flight status, Delta hub Chicago, Delta Air Lines O'Hare departures">
-<meta name="author" content="Craighton Miller">
-<meta name="robots" content="index, follow">
-<link rel="canonical" href="https://widgetwatch.org/hubs/ord">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Delta Air Lines ORD Hub — Live Chicago O'Hare Status">
-<meta property="og:description" content="Real-time Delta Air Lines operations at Chicago O'Hare. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.">
-<meta property="og:url" content="https://widgetwatch.org/hubs/ord">
-<meta property="og:site_name" content="Widget Watch">
-<meta property="og:image" content="https://widgetwatch.org/og-image.png">
-<meta property="og:image:alt" content="Widget Watch — Delta Air Lines ORD Hub Status">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:creator" content="@theblueboard">
-<meta name="twitter:title" content="Delta Air Lines ORD Hub — Live Chicago O'Hare Status">
-<meta name="twitter:description" content="Real-time delays, cancellations, on-time performance at Delta's largest hub. Updated every 30 seconds.">
-<meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
-<meta name="twitter:site" content="@theblueboard">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0a0e14">
+    <link rel="icon" type="image/jpg" href="/icons/icon.png">
+    <title>Delta Air Lines SLC Hub Status — Salt Lake City International Airport Delays, On-Time Performance & Flight Tracker</title>
+    <meta name="description" content="Live Delta Air Lines status at Salt Lake City International Airport (SLC). Real-time delays, cancellations, on-time performance,
+and departure schedules. Delta's second-largest hub — updated every 30 seconds.">
+    <meta name="keywords" content="Delta Air Lines SLC delays, Delta Atlanta hub status, Delta Air Lines SLC on-time, Delta SLC cancellations today, Delta Air Lines Atlanta delays, SLC flight status, Delta hub Atlanta, Delta Air Lines Atlanta departures">
+    <meta name="author" content="Craighton Miller">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://widgetwatch.org/hubs/slc">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Delta Air Lines SLC Hub — Live Salt Lake City International Airport Status">
+    <meta property="og:description" content="Real-time Delta Air Lines operations at Salt Lake City International Airport. Delays, cancellations, on-time %, and schedules.">
+    <meta property="og:url" content="https://widgetwatch.org/hubs/slc">
+    <meta property="og:site_name" content="Widget Watch">
+    <meta property="og:image" content="https://widgetwatch.org/og-image.png">
+    <meta property="og:image:alt" content="Widget Watch — Delta Air Lines SLC Hub Status">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:creator" content="@craighton">
+    <meta name="twitter:title" content="Delta Air Lines SLC Hub — Live Salt Lake City International Airport Status">
+    <meta name="twitter:description" content="Real-time delays, cancellations, on-time performance at Delta's second-largest hub. Updated every 30 seconds.">
+    <meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
+    <meta name="twitter:site" content="@craighton">
 
-<!-- Schema: BreadcrumbList -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Widget Watch", "item": "https://widgetwatch.org"},
-    {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://widgetwatch.org"},
-    {"@type": "ListItem", "position": 3, "name": "ORD — Chicago O'Hare", "item": "https://widgetwatch.org/hubs/ord"}
-  ]
-}
-</script>
-<!-- Schema: FAQPage -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is Delta Air Lines delayed at ORD today?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Widget Watch tracks every Delta Air Lines flight at Chicago O'Hare in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What terminal is Delta Air Lines at O'Hare?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Delta Air Lines operates primarily out of Terminal 1 (Concourses B and C) at Chicago O'Hare International Airport. Delta Club lounges are located in both concourses. Delta Connection regional flights also depart from Terminal 2 (Concourse E and F)."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How many Delta flights depart from ORD daily?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Delta Air Lines operates approximately 750 daily departures from Chicago O'Hare, making it Delta's largest hub by flight volume. ORD connects to over 200 domestic and international destinations."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Which Delta planes at ORD have Starlink WiFi?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch's Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. ORD-based narrowbody aircraft (737 MAX, A321neo) are among the first to receive Starlink."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What causes the most delays at ORD for Delta?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Chicago O'Hare is susceptible to weather-related delays year-round — thunderstorms and wind shear in summer, snow and ice in winter. ORD's parallel runway configuration can reduce capacity in low-visibility conditions. Ground delay programs (GDPs) and ground stops issued by the FAA are common during severe weather, and ripple effects from East Coast congestion (especially EWR and JFK) frequently impact ORD operations."
-      }
-    }
-  ]
-}
-</script>
+    <!-- Schema: BreadcrumbList -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Widget Watch", "item": "https://widgetwatch.org"},
+                {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://widgetwatch.org"},
+                {"@type": "ListItem", "position": 3, "name": "SLC — Salt Lake City International Airport", "item": "https://widgetwatch.org/hubs/slc"}
+            ]
+        }
+    </script>
 
-<!-- Schema: Place -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Airport",
-  "name": "Chicago O'Hare International Airport",
-  "iataCode": "ORD",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Chicago",
-    "addressRegion": "IL",
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": 41.9742,
-    "longitude": -87.9073
-  },
-  "url": "https://www.flychicago.com/ohare"
-}
-</script>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        :root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--mono:'JetBrains Mono',monospace}
+        body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh}
+        a{color:var(--dl-accent);text-decoration:none}
+        a:hover{text-decoration:underline}
 
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--mono:'JetBrains Mono',monospace}
-body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh}
-a{color:var(--dl-accent);text-decoration:none}
-a:hover{text-decoration:underline}
+        .container{max-width:900px;margin:0 auto;padding:20px 16px}
 
-.container{max-width:900px;margin:0 auto;padding:20px 16px}
+        /* Header */
+        .hub-header{border-bottom:1px solid var(--dl-border);padding:20px 0 16px;margin-bottom:24px}
+        .hub-header .nav{font-size:11px;color:var(--dl-muted);margin-bottom:12px}
+        .hub-header .nav a{color:var(--dl-accent);font-size:11px}
+        .hub-header h1{font-size:22px;font-weight:700;color:var(--dl-text);letter-spacing:-.5px;margin-bottom:4px}
+        .hub-header .subtitle{font-size:12px;color:var(--dl-muted)}
+        .hub-header .iata{color:var(--dl-blue);font-weight:700}
 
-/* Header */
-.hub-header{border-bottom:1px solid var(--dl-border);padding:20px 0 16px;margin-bottom:24px}
-.hub-header .nav{font-size:11px;color:var(--dl-muted);margin-bottom:12px}
-.hub-header .nav a{color:var(--dl-accent);font-size:11px}
-.hub-header h1{font-size:22px;font-weight:700;color:var(--dl-text);letter-spacing:-.5px;margin-bottom:4px}
-.hub-header .subtitle{font-size:12px;color:var(--dl-muted)}
-.hub-header .iata{color:var(--dl-blue);font-weight:700}
+        /* Live Panel */
+        .live-panel{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:20px;margin-bottom:28px}
+        .live-panel .live-badge{display:inline-block;background:var(--dl-green);color:#000;font-size:9px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:1px;margin-bottom:12px;animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+        .live-panel .error{color:var(--dl-muted);font-size:11px;font-style:italic}
 
-/* Live Panel */
-.live-panel{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:20px;margin-bottom:28px}
-.live-panel .live-badge{display:inline-block;background:var(--dl-green);color:#000;font-size:9px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:1px;margin-bottom:12px;animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
-.live-panel .error{color:var(--dl-muted);font-size:11px;font-style:italic}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
+        .stat-card{background:var(--dl-dark);border:1px solid var(--dl-border);border-radius:6px;padding:12px;text-align:center}
+        .stat-card .label{font-size:9px;color:var(--dl-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+        .stat-card .value{font-size:24px;font-weight:700}
+        .stat-card .value.green{color:var(--dl-green)}.stat-card .value.yellow{color:var(--dl-yellow)}.stat-card .value.red{color:var(--dl-red)}
 
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:16px}
-.stat-card{background:var(--dl-dark);border:1px solid var(--dl-border);border-radius:6px;padding:12px;text-align:center}
-.stat-card .label{font-size:9px;color:var(--dl-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
-.stat-card .value{font-size:24px;font-weight:700}
-.stat-card .value.green{color:var(--dl-green)}.stat-card .value.yellow{color:var(--dl-yellow)}.stat-card .value.red{color:var(--dl-red)}
+        .live-panel .updated{font-size:9px;color:var(--dl-muted);text-align:right}
+        .live-panel .cta{display:inline-block;background:var(--dl-blue);color:#fff;padding:8px 20px;border-radius:4px;font-size:11px;font-weight:600;margin-top:12px;text-decoration:none;letter-spacing:.5px}
+        .live-panel .cta:hover{background:#0069c0;text-decoration:none}
 
-.live-panel .updated{font-size:9px;color:var(--dl-muted);text-align:right}
-.live-panel .cta{display:inline-block;background:var(--dl-blue);color:#fff;padding:8px 20px;border-radius:4px;font-size:11px;font-weight:600;margin-top:12px;text-decoration:none;letter-spacing:.5px}
-.live-panel .cta:hover{background:#0069c0;text-decoration:none}
+        /* Content Sections */
+        .section{margin-bottom:32px}
+        .section h2{font-size:16px;font-weight:700;color:var(--dl-text);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--dl-border)}
+        .section h3{font-size:13px;font-weight:600;color:var(--dl-accent);margin:16px 0 8px}
+        .section p{color:var(--dl-text);margin-bottom:12px}
+        .section ul{padding-left:20px;margin-bottom:12px}
+        .section li{color:var(--dl-text);margin-bottom:4px}
 
-/* Content Sections */
-.section{margin-bottom:32px}
-.section h2{font-size:16px;font-weight:700;color:var(--dl-text);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--dl-border)}
-.section h3{font-size:13px;font-weight:600;color:var(--dl-accent);margin:16px 0 8px}
-.section p{color:var(--dl-text);margin-bottom:12px}
-.section ul{padding-left:20px;margin-bottom:12px}
-.section li{color:var(--dl-text);margin-bottom:4px}
+        .highlight-box{background:var(--dl-panel);border-left:3px solid var(--dl-blue);padding:12px 16px;margin:16px 0;border-radius:0 6px 6px 0;font-size:12px}
 
-.highlight-box{background:var(--dl-panel);border-left:3px solid var(--dl-blue);padding:12px 16px;margin:16px 0;border-radius:0 6px 6px 0;font-size:12px}
+        /* Hub Nav */
+        .hub-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
+        .hub-nav a{background:var(--dl-panel);border:1px solid var(--dl-border);padding:6px 14px;border-radius:4px;font-size:11px;font-weight:600;color:var(--dl-muted)}
+        .hub-nav a:hover{border-color:var(--dl-blue);color:var(--dl-accent);text-decoration:none}
+        .hub-nav a.active{border-color:var(--dl-blue);color:var(--dl-blue);background:rgba(0,93,170,.1)}
 
-/* Hub Nav */
-.hub-nav{display:flex;flex-wrap:wrap;gap:8px;margin:24px 0}
-.hub-nav a{background:var(--dl-panel);border:1px solid var(--dl-border);padding:6px 14px;border-radius:4px;font-size:11px;font-weight:600;color:var(--dl-muted)}
-.hub-nav a:hover{border-color:var(--dl-blue);color:var(--dl-accent);text-decoration:none}
-.hub-nav a.active{border-color:var(--dl-blue);color:var(--dl-blue);background:rgba(0,93,170,.1)}
-
-/* Footer */
+        /* Footer */
 
 
-/* Responsive */
-@media(max-width:600px){
-  .hub-header h1{font-size:18px}
-  .stats-grid{grid-template-columns:repeat(2,1fr)}
-}
+        /* Responsive */
+        @media(max-width:600px){
+            .hub-header h1{font-size:18px}
+            .stats-grid{grid-template-columns:repeat(2,1fr)}
+        }
 
-/* Jump Nav */
-.jump-nav{display:flex;flex-wrap:wrap;gap:8px;padding:16px 0;margin-bottom:24px}
-.jump-nav a{color:var(--dl-text);background:var(--dl-panel);border:1px solid var(--dl-border);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;text-decoration:none;white-space:nowrap;transition:all .2s ease}
-.jump-nav a:hover{border-color:var(--dl-blue);color:#fff;background:var(--dl-blue);text-decoration:none;transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,93,170,.3)}
+        /* Jump Nav */
+        .jump-nav{display:flex;flex-wrap:wrap;gap:8px;padding:16px 0;margin-bottom:24px}
+        .jump-nav a{color:var(--dl-text);background:var(--dl-panel);border:1px solid var(--dl-border);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;text-decoration:none;white-space:nowrap;transition:all .2s ease}
+        .jump-nav a:hover{border-color:var(--dl-blue);color:#fff;background:var(--dl-blue);text-decoration:none;transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,93,170,.3)}
 
-/* Scroll Indicator */
-.scroll-hint{text-align:center;padding:16px 0 4px;transition:opacity .5s}
-.scroll-hint-inner{display:inline-flex;align-items:center;gap:8px;color:var(--dl-accent);font-size:11px;font-weight:500;letter-spacing:.5px;opacity:.85}
-.scroll-hint-arrow{display:inline-block;animation:bounce 1.5s ease-in-out infinite;font-size:14px}
-@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+        /* Scroll Indicator */
+        .scroll-hint{text-align:center;padding:16px 0 4px;transition:opacity .5s}
+        .scroll-hint-inner{display:inline-flex;align-items:center;gap:8px;color:var(--dl-accent);font-size:11px;font-weight:500;letter-spacing:.5px;opacity:.85}
+        .scroll-hint-arrow{display:inline-block;animation:bounce 1.5s ease-in-out infinite;font-size:14px}
+        @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
-</style>
+    </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- Header -->
-  <div class="hub-header">
-    <div class="nav"><a href="/">← Widget Watch</a> / Hubs / <span class="iata">ORD</span></div>
-    <h1>Delta Air Lines at <span class="iata">ORD</span> — Chicago O'Hare</h1>
-    <div class="subtitle">Delta's largest hub · ~750 daily departures · Terminal 1 (B & C) · Terminal 2 (Connection)</div>
-  </div>
+    <!-- Header -->
+    <div class="hub-header">
+        <div class="nav"><a href="/">← Widget Watch</a> / Hubs / <span class="iata">SLC</span></div>
+        <h1>Delta at <span class="iata">SLC</span> — Salt Lake City International Airport</h1>
+        <div class="subtitle">Delta's Mountain Hub · ~450 Daily Departures · Concourse A, B</div>
+    </div>
 
-  <!-- Live Status Panel -->
-  <div class="live-panel">
-    <div class="live-badge">● LIVE</div>
-    <div id="live-status">
-      <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-        <div class="stat-card" style="flex:1;min-width:140px">
-          <div class="label">Active Delta Flights</div>
-          <div class="value green" id="active">—</div>
+    <!-- Live Status Panel -->
+    <div class="live-panel">
+        <div class="live-badge">● LIVE</div>
+        <div id="live-status">
+            <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+                <div class="stat-card" style="flex:1;min-width:140px">
+                    <div class="label">Active Delta Flights</div>
+                    <div class="value green" id="active">—</div>
+                </div>
+                <div style="flex:2;min-width:200px">
+                    <p style="color:var(--dl-muted);font-size:11px;margin:0">Live delay counts and on-time performance are calculated on the full dashboard using schedule comparison data.</p>
+                </div>
+            </div>
+            <div class="updated" id="updated-time">Connecting to live data...</div>
         </div>
-        <div style="flex:2;min-width:200px">
-          <p style="color:var(--dl-muted);font-size:11px;margin:0">Live delay counts and on-time performance are calculated on the full dashboard using schedule comparison data.</p>
+        <a class="cta" href="/?hub=slc">Open SLC on Widget Watch →</a>
+    </div>
+
+    <!-- Footer -->
+    <div style="background:var(--dl-panel);border-top:1px solid var(--dl-border);padding:8px 16px;font-size:9px;color:var(--dl-muted);text-align:center;line-height:1.8;margin-top:40px">
+        <div><a href="/" style="color:var(--dl-accent);text-decoration:none">Widget Watch</a> · Unofficial · Not affiliated with Delta Air Lines, Inc. · Data may be delayed · <a href="/" style="color:var(--dl-accent);text-decoration:none">Open Dashboard →</a></div>
+        <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
+            <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
+            <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--dl-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">☕ Support Server Costs</a>
+            <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Follow @theblueboard</a></span>
         </div>
-      </div>
-      <div class="updated" id="updated-time">Connecting to live data...</div>
-    </div>
-    <a class="cta" href="/?hub=ord">Open ORD on Widget Watch →</a>
-  </div>
-
-
-  <div class="scroll-hint" id="scrollHint">
-    <div class="scroll-hint-inner">
-      <span>Explore hub details below</span>
-      <span class="scroll-hint-arrow">↓</span>
-    </div>
-  </div>
-
-
-  <!-- Jump Nav -->
-  <nav class="jump-nav">
-    <a href="#overview">Overview</a>
-    <a href="#delay-patterns">Delay Patterns</a>
-    <a href="#starlink">Starlink WiFi</a>
-    <a href="#construction">Construction</a>
-    <a href="#faq">FAQ</a>
-    <a href="#all-hubs">All Hubs</a>
-  </nav>
-
-  <!-- Dive Deep -->
-  <div class="section">
-    <h2>Dive Deep at Widget Watch</h2>
-    <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, Starlink WiFi status, and IROP monitoring, updated in real-time.</p>
-    <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at ORD in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=ord" style="margin:0">🗺️ Live ORD Map</a>
-      <a class="cta" href="/?tab=schedule&hub=ord" style="margin:0">📋 ORD Schedules</a>
-      <a class="cta" href="/?tab=fleet&filter=starlink" style="margin:0">📡 Starlink Fleet</a>
-      <a class="cta" href="/?tab=irop&hub=ord" style="margin:0">⚠️ IROP Monitor</a>
-    </div>
-  </div>
-
-  <!-- Hub Overview -->
-  <div class="section">
-    <h2 id="overview">Hub Overview</h2>
-    <p>Chicago O'Hare International Airport is <strong>Delta Air Lines' largest hub</strong> and the backbone of its domestic network. With approximately 750 daily departures, ORD connects to over 200 destinations across the Delta States, Canada, Europe, Asia, and Latin America.</p>
-    <p>Delta operates primarily from <strong>Terminal 1</strong>, occupying Concourses B and C, with Delta Club lounges in both concourses (Concourse B mezzanine near B6, Concourse C near C16) and a <strong>Delta Polaris lounge</strong> on Concourse B near gate B6 for premium international travelers. Delta Connection regional partners (Air Wisconsin, GoJet, Mesa, Republic, SkyWest) operate from Terminal 2, Concourses E and F.</p>
-
-    <div class="highlight-box">
-      <strong>ORD by the numbers:</strong> ~750 daily departures · 200+ destinations · 2 terminals · 8 runways (most in the world) · Chicago hub since 1927 (originally Midway); O'Hare operations began ~1955 · Delta's global headquarters
     </div>
 
-    
-    <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> The <a href="https://www.flychicago.com/ohare21" target="_blank" rel="noopener noreferrer">O'Hare 21 Global Terminal</a> project is actively under construction, replacing Terminal 2 with a unified check-in facility (est. completion ~2028-2030). Terminal 5 satellite concourse expansion is also underway. Expect construction impacts on ground transportation and terminal access.
-    </div>
-
-    <h3>Key Routes from ORD</h3>
-    <ul>
-      <li><strong>Domestic:</strong> SFO, LAX, DEN, EWR, IAD, IAH — all major Delta hub connections</li>
-      <li><strong>Transatlantic:</strong> LHR, FRA, CDG, MUC, FCO, DUB, ZRH</li>
-      <li><strong>Pacific:</strong> NRT, HND, ICN, DEL — nonstop widebody service</li>
-      <li><strong>Latin America:</strong> CUN, GDL, SJD, PTY</li>
-      <li><strong>Pacific:</strong> NRT, HND, ICN, PVG (seasonal adjustments apply)</li>
-    </ul>
-  </div>
-
-  <!-- Delay Patterns -->
-  <div class="section">
-    <h2 id="delay-patterns">Delay Patterns at ORD</h2>
-    <p>O'Hare is one of the most delay-prone airports in the Delta States due to its geography and traffic volume. Understanding typical disruption patterns helps set expectations:</p>
-
-    <h3>Summer (Jun–Aug)</h3>
-    <p>Thunderstorms and convective weather are the primary driver of delays. Ground delay programs (GDPs) and ground stops can cascade across the network. Afternoon and evening departures are most affected.</p>
-
-    <h3>Winter (Dec–Feb)</h3>
-    <p>Snow, ice, and low-visibility conditions reduce runway capacity. De-icing operations add 15–30 minutes to departure times. ORD's parallel runway configuration is particularly sensitive to crosswinds during winter storms.</p>
-
-    <h3>Year-Round</h3>
-    <p>East Coast congestion — especially at Newark (EWR) and JFK — frequently ripples westward, causing inbound delays at ORD. Late-evening flights are often affected by cumulative delays from earlier in the day.</p>
-
-    <div class="highlight-box">
-      <strong>Tip:</strong> Morning departures (before 10 AM) consistently have the best on-time performance at ORD. If you have flexibility, book early.
-    </div>
-  </div>
-
-  <!-- Starlink -->
-  <div class="section">
-    <h2 id="starlink">Starlink WiFi at ORD</h2>
-    <p>Delta Air Lines is actively equipping its fleet with <strong>Starlink satellite internet</strong> — the fastest WiFi ever offered on a commercial airline. ORD-based narrowbody aircraft, including 737 MAX 8, 737 MAX 9, and A321neo, are among the first aircraft types receiving Starlink installations.</p>
-    <p>Use <a href="/?tab=fleet&filter=starlink">Widget Watch's Fleet tab</a> to check if your specific aircraft has Starlink. You can search by tail number, flight number, or aircraft type.</p>
-
-    <div class="highlight-box">
-      <strong>How to check:</strong> Look up your flight on Widget Watch → check the aircraft details panel → look for "Starlink" in the WiFi field. Equipped aircraft show <span style="color:var(--dl-green)">● Starlink</span>.
-    </div>
-  </div>
-
-  <!-- FAQ (visible, matches schema) -->
-  <div class="section">
-    <h2 id="faq">Frequently Asked Questions</h2>
-
-    <h3>Is Delta Air Lines delayed at ORD today?</h3>
-    <p>Check the live status panel at the top of this page for current on-time performance, delay counts, and cancellations. For flight-level detail, <a href="/?hub=ord">open ORD on Widget Watch</a> to see every flight in real time.</p>
-
-    <h3>What terminal is Delta at O'Hare?</h3>
-    <p>Delta mainline flights operate from Terminal 1 (Concourses B and C). Delta Connection regional flights use Terminal 2 (Concourses E and F). Both terminals have Delta Club lounges and are connected airside via the underground tunnel.</p>
-
-    <h3>How many Delta flights depart from ORD daily?</h3>
-    <p>Approximately 750 daily departures, making ORD Delta's busiest hub by flight volume — ahead of Denver (DEN) and Houston (IAH).</p>
-
-    <h3>Which Delta planes at ORD have Starlink WiFi?</h3>
-    <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
-  </div>
-
-  <!-- Other Hubs -->
-  <div class="section">
-    <h2 id="all-hubs">All Delta Hubs</h2>
-    <nav class="hub-nav">
-      <a href="/hubs/ord" class="active">ORD · Chicago</a>
-      <a href="/hubs/den">DEN · Denver</a>
-      <a href="/hubs/iah">IAH · Houston</a>
-      <a href="/hubs/ewr">EWR · Newark</a>
-      <a href="/hubs/sfo">SFO · San Francisco</a>
-      <a href="/hubs/iad">IAD · Washington</a>
-      <a href="/hubs/lax">LAX · Los Angeles</a>
-      <a href="/hubs/nrt">NRT · Tokyo</a>
-      <a href="/hubs/gum">GUM · Guam</a>
-    </nav>
-  </div>
-
-</div>
-
-<!-- Footer -->
-<div style="background:var(--dl-panel);border-top:1px solid var(--dl-border);padding:8px 16px;font-size:9px;color:var(--dl-muted);text-align:center;line-height:1.8;margin-top:40px">
-  <div><a href="/" style="color:var(--dl-accent);text-decoration:none">Widget Watch</a> · Unofficial · Not affiliated with Delta Air Lines, Inc. · Data may be delayed · <a href="/" style="color:var(--dl-accent);text-decoration:none">Open Dashboard →</a></div>
-  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
-    <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
-    <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--dl-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">☕ Support Server Costs</a>
-    <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Follow @theblueboard</a></span>
-  </div>
-</div>
-
-<!-- Live Data Script -->
-<script>
-async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=DAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='ORD'||ds==='ORD')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
-loadLiveData();setInterval(loadLiveData,30000);
-</script>
+    <!-- Live Data Script -->
+    <script>
+        async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=DAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='SLC'||ds==='SLC')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
+        loadLiveData();setInterval(loadLiveData,30000);
+    </script>
 
 
-<script>
-(function(){var h=document.getElementById('scrollHint');if(h){var done=false;window.addEventListener('scroll',function(){if(!done&&window.scrollY>100){h.style.opacity='0';done=true;setTimeout(function(){h.style.display='none'},500)}});}})();
-</script>
+    <script>
+        (function(){var h=document.getElementById('scrollHint');if(h){var done=false;window.addEventListener('scroll',function(){if(!done&&window.scrollY>100){h.style.opacity='0';done=true;setTimeout(function(){h.style.display='none'},500)}});}})();
+    </script>
 </body>
 </html>
