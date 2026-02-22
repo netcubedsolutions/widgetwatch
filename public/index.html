@@ -1581,7 +1581,7 @@ function initMap() {
   refreshFlights();
   refreshTimer = setInterval(() => {
     countdown--;
-    document.getElementById('countdown').textContent = 'Next refresh: ' + countdown + 's';
+    document.getElementById('countdown').textContent = 'NEXT REFRESH: ' + countdown + 's';
     if (countdown <= 0) { refreshFlights(); countdown = 30; }
   }, 1000);
 }
@@ -1667,7 +1667,7 @@ async function refreshFlights() {
 
     document.getElementById('status-dot').className = 'status-dot live';
     document.getElementById('status-text').textContent = 'LIVE';
-    document.getElementById('header-flight-count').textContent = '· ' + allFlights.length + ' flights';
+    document.getElementById('header-flight-count').textContent = '· ' + allFlights.length + ' FLIGHTS';
     const errOverlay = document.getElementById('map-error-overlay');
     if (errOverlay) errOverlay.remove();
   } catch (e) {
