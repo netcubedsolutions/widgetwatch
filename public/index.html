@@ -163,8 +163,8 @@
 <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></noscript>
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
-<!-- Preload LCP map tile for default US view (zoom 4, center ~39,-98) -->
-<link rel="preload" href="https://a.basemaps.cartocdn.com/dark_all/4/3/5.png" as="image" fetchpriority="high">
+<!-- Preload LCP map tile for default US view (zoom 3, center ~39,-98) -->
+<link rel="preload" href="https://a.basemaps.cartocdn.com/dark_all/5/3/5.png" as="image" fetchpriority="high">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--bg-card:#111827;--mono:'JetBrains Mono',monospace}
@@ -632,7 +632,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 <!-- HEADER -->
 <div id="header">
-  <h1><a href="#" data-action="go-home" style="text-decoration:none;color:inherit;cursor:pointer"><span class="ua">Widget Watch</span></a> <span style="font-size:9px;color:var(--dl-muted);font-weight:300;letter-spacing:0.5px">FOR DELTA FLYERS, BY DELTA FLYERS</span></h1>
+  <h1><a href="#" data-action="go-home" style="text-decoration:none;color:inherit;cursor:pointer"><span class="ua">WIDGET WATCH</span></a> <span style="font-size:9px;color:var(--dl-muted);font-weight:300;letter-spacing:0.5px">FOR DELTA FLYERS, BY DELTA FLYERS</span></h1>
   <div id="global-search-wrap" style="position:relative;flex:0 1 300px">
     <input type="text" id="global-search-input" aria-label="Global flight search" placeholder="Track a flight (DL1234, N520DN, ATL...)" style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 10px;border-radius:4px;font-family:var(--mono);font-size:11px">
     <div id="global-search-results" style="position:absolute;top:34px;left:0;right:0;background:rgba(17,24,39,.95);border:1px solid var(--dl-border);border-radius:4px;max-height:300px;overflow-y:auto;display:none;z-index:9999;backdrop-filter:blur(8px)"></div>
@@ -1557,7 +1557,7 @@ function matchAircraft(f) {
 // ═══ MAP INIT ═══
 function initMap() {
   map = L.map('map', {
-    center: [39, -98], zoom: 4, zoomControl: false,
+    center: [39, -98], zoom: 5, zoomControl: false,
     attributionControl: false, worldCopyJump: true
   });
   L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -1621,7 +1621,7 @@ function toggleWeather() {
 }
 
 let pacificView = false;
-const US_VIEW = { center: [39, -98], zoom: 4 };
+const US_VIEW = { center: [39, -98], zoom: 5 };
 const PACIFIC_VIEW = { center: [25, 145], zoom: 4 };
 function togglePacific() {
   pacificView = !pacificView;
@@ -2642,7 +2642,7 @@ fetchIropFromAPI();
   hubCardsEl.innerHTML = hubs.map(h => `<div class="hub-card" style="border-top:3px solid #334155;opacity:0.5"><div class="hub-card-top"><span class="hub-card-code">${h}</span><span class="cat-badge" style="background:#334155;color:#94a3b8">…</span></div><div class="hub-card-name">${HUB_NAMES[h]||h}</div><div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">Loading…</div></div>`).join('');
 
   // Initialize radar map IMMEDIATELY — don't wait for data fetches
-  const radarMap = L.map('radar-map', {center:[39,-98],zoom:4,zoomControl:true,attributionControl:false});
+  const radarMap = L.map('radar-map', {center:[39,-98],zoom:5,zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18,subdomains:'abcd'}).addTo(radarMap);
   L.tileLayer('https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0r/{z}/{x}/{y}.png',{opacity:0.6}).addTo(radarMap);
   document.getElementById('radar-title').textContent = `🌧 NEXRAD Radar — ${new Date().toUTCString().slice(17,25)}Z`;
