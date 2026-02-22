@@ -2642,7 +2642,7 @@ fetchIropFromAPI();
   hubCardsEl.innerHTML = hubs.map(h => `<div class="hub-card" style="border-top:3px solid #334155;opacity:0.5"><div class="hub-card-top"><span class="hub-card-code">${h}</span><span class="cat-badge" style="background:#334155;color:#94a3b8">…</span></div><div class="hub-card-name">${HUB_NAMES[h]||h}</div><div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">Loading…</div></div>`).join('');
 
   // Initialize radar map IMMEDIATELY — don't wait for data fetches
-  const radarMap = L.map('radar-map', {center:[39,-98],zoom:5,zoomControl:true,attributionControl:false});
+  const radarMap = L.map('radar-map', {center:[39,-98],zoom:3,zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18,subdomains:'abcd'}).addTo(radarMap);
   L.tileLayer('https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0r/{z}/{x}/{y}.png',{opacity:0.6}).addTo(radarMap);
   document.getElementById('radar-title').textContent = `🌧 NEXRAD Radar — ${new Date().toUTCString().slice(17,25)}Z`;
