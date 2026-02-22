@@ -33,13 +33,13 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Blue Board">
-<title>The Blue Board — United Flight Tracker | Live UA Flight Status, Delays & Starlink</title>
+<title>The Blue Board — United Flight Tracker | Live UA Flight Status, Delays & Fleet</title>
 <meta name="description" content="Free United Airlines flight tracker updated every 30 seconds. Track any UA flight status live, check delays at all 9 hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM), see which planes have Starlink WiFi, browse the full fleet database, and monitor weather disruptions. Independent ops dashboard built for United flyers.">
 <meta name="keywords" content="United flight tracker, United Airlines flight status, UA flight status, United Airlines flight tracker, United Airlines delays today, UA flight tracker, United Airlines live map, United hub delays, United Starlink tracker, United Starlink WiFi, United Airlines ORD delays, United Airlines DEN delays, United Airlines EWR delays, United Airlines IAH delays, United Airlines SFO delays, United Airlines NRT delays, United Airlines GUM delays, is my United flight on time, United Airlines cancellations, United fleet tracker, United Airlines aircraft, United Airlines schedule, United Airlines weather delays, UA delays, United Airlines ground stops, United Airlines disruptions, UA flight tracking">
 <meta name="author" content="The Blue Board">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
-<meta property="og:title" content="The Blue Board — United Flight Tracker | Live Status, Delays & Starlink WiFi">
+<meta property="og:title" content="The Blue Board — United Flight Tracker | Live Status, Delays & Fleet Database">
 <meta property="og:description" content="Free United Airlines flight tracker — track any UA flight live, check delays at all 9 hubs, see which planes have Starlink WiFi, and monitor disruptions. Updated every 30 seconds.">
 <meta property="og:url" content="https://theblueboard.co">
 <meta property="og:site_name" content="The Blue Board">
@@ -48,7 +48,7 @@
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="The Blue Board — live United Airlines flight tracker showing 600+ flights on a dark operations map of the United States with hub delay status">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="The Blue Board — United Flight Tracker | Live Status, Delays & Starlink WiFi">
+<meta name="twitter:title" content="The Blue Board — United Flight Tracker | Live Status, Delays & Fleet Database">
 <meta name="twitter:description" content="Free United Airlines flight tracker — track any UA flight live, check hub delays, Starlink WiFi status, fleet data, and schedules. Updated every 30 seconds.">
 <meta name="twitter:image" content="https://theblueboard.co/og-image.png">
 <meta name="twitter:site" content="@theblueboard">
@@ -809,6 +809,11 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 <!-- TAB 3: FLEET -->
 <div class="tab-content" id="tab-fleet" role="tabpanel" aria-label="Fleet information">
+  <!-- Crawlable fleet summary for SEO — visible to screen readers and search engines -->
+  <section class="sr-only" aria-label="United Airlines Fleet Summary">
+    <h2>United Airlines Fleet Database — 1,078 Aircraft</h2>
+    <p>Complete searchable database of all 1,078 United Airlines mainline aircraft across 19 types: Boeing 737-700 (40), 737-800 (141), 737-900 (12), 737-900ER (136), 737 MAX 8 (123), 737 MAX 9 (129), 757-200 (40), 757-300 (21), 767-300ER (37), 767-400ER (16), 777-200 (19), 777-200ER (55), 777-300ER (22), 787-8 (12), 787-9 (48), 787-10 (21), and Airbus A319 (76), A320 (68), A321neo (62). Includes registration, seat configuration, WiFi type, IFE system, delivery date, and operational status. 258 aircraft equipped with SpaceX Starlink satellite WiFi. Live fleet utilization updated every 30 seconds. <a href="/fleet">View full fleet database</a>.</p>
+  </section>
   <div class="live-fleet-panel" id="live-fleet-panel">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <h3 style="font-size:10px;color:var(--ua-blue);text-transform:uppercase;letter-spacing:1.5px;margin:0">🛩 Live Fleet Status</h3>
@@ -4337,7 +4342,7 @@ function hideDisclaimer() {
 
 <!-- SITE FOOTER -->
 <div style="background:var(--ua-panel);border-top:1px solid var(--ua-border);padding:8px 16px;font-size:9px;color:var(--ua-muted);text-align:center;line-height:1.8">
-  <div>The Blue Board · Independent · Not affiliated with United Airlines, Inc. · Data may be delayed · <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--ua-accent);text-decoration:none">About & Disclaimer</a></div>
+  <div>The Blue Board · Independent · Not affiliated with United Airlines, Inc. · Data may be delayed · <a href="/fleet" style="color:var(--ua-accent);text-decoration:none">Fleet Database</a> · <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--ua-accent);text-decoration:none">About & Disclaimer</a></div>
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin-top:4px">
     <span>Hubs:</span>
     <a href="/hubs/ord" style="color:var(--ua-accent);text-decoration:none">ORD</a> ·
