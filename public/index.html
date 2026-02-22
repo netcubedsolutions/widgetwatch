@@ -163,8 +163,8 @@
 <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></noscript>
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
-<!-- Preload LCP map tile for default US view (zoom 4, center ~39,-98) -->
-<link rel="preload" href="https://a.basemaps.cartocdn.com/dark_all/4/3/5.png" as="image" fetchpriority="high">
+<!-- Preload LCP map tile for default US view (zoom 3, center ~39,-98) -->
+<link rel="preload" href="https://a.basemaps.cartocdn.com/dark_all/5/3/5.png" as="image" fetchpriority="high">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--bg-card:#111827;--mono:'JetBrains Mono',monospace}
@@ -1557,7 +1557,7 @@ function matchAircraft(f) {
 // ═══ MAP INIT ═══
 function initMap() {
   map = L.map('map', {
-    center: [39, -98], zoom: 4, zoomControl: false,
+    center: [39, -98], zoom: 5, zoomControl: false,
     attributionControl: false, worldCopyJump: true
   });
   L.control.zoom({ position: 'bottomright' }).addTo(map);
@@ -1621,7 +1621,7 @@ function toggleWeather() {
 }
 
 let pacificView = false;
-const US_VIEW = { center: [39, -98], zoom: 4 };
+const US_VIEW = { center: [39, -98], zoom: 5 };
 const PACIFIC_VIEW = { center: [25, 145], zoom: 4 };
 function togglePacific() {
   pacificView = !pacificView;
@@ -2642,7 +2642,7 @@ fetchIropFromAPI();
   hubCardsEl.innerHTML = hubs.map(h => `<div class="hub-card" style="border-top:3px solid #334155;opacity:0.5"><div class="hub-card-top"><span class="hub-card-code">${h}</span><span class="cat-badge" style="background:#334155;color:#94a3b8">…</span></div><div class="hub-card-name">${HUB_NAMES[h]||h}</div><div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">Loading…</div></div>`).join('');
 
   // Initialize radar map IMMEDIATELY — don't wait for data fetches
-  const radarMap = L.map('radar-map', {center:[39,-98],zoom:3,zoomControl:true,attributionControl:false});
+  const radarMap = L.map('radar-map', {center:[39,-98],zoom:5,zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18,subdomains:'abcd'}).addTo(radarMap);
   L.tileLayer('https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0r/{z}/{x}/{y}.png',{opacity:0.6}).addTo(radarMap);
   document.getElementById('radar-title').textContent = `🌧 NEXRAD Radar — ${new Date().toUTCString().slice(17,25)}Z`;
