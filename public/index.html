@@ -639,7 +639,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
   </div>
   <div id="header-right">
     <span><span class="status-dot live" id="status-dot"></span><span id="status-text">LIVE</span> <span id="header-flight-count" style="color:var(--dl-muted);font-size:10px"></span></span>
-    <span id="countdown">Next refresh: --:--</span>
+    <span id="countdown">NEXT REFRESH: --:--</span>
     <span id="clock" style="color:var(--dl-muted)"></span>
     <div style="position:relative"><button id="watch-header-btn" data-action="toggle-watch-panel" title="Watched flights" aria-label="Toggle watched flights panel">👁️<span class="watch-badge" id="watch-badge" style="display:none">0</span></button><div id="watch-panel"><div class="watch-panel-header"><span>👁️ Watched Flights</span><button data-action="clear-all-watched" style="background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:9px;font-family:var(--mono)">Clear All</button></div><div id="watch-panel-list"></div></div></div>
     <button id="mobile-search-toggle" aria-label="Toggle search" title="Search">🔍</button>
@@ -2276,7 +2276,7 @@ document.getElementById('search-input-side').addEventListener('input', debounce(
   } else {
     results.innerHTML = hubHint + countHeader + matches.map(f => {
       const routeStr = (f.origin || '???') + '→' + (f.dest || '???');
-      return `<div class="search-result" data-action="focus-flight" data-icao24="${escapeHtml(f.icao24)}">${escapeHtml(f.flightIATA || f.callsign || f.icao24)} <span style="color:var(--ua-muted)">${escapeHtml(routeStr)} ${escapeHtml(f.reg || '')}</span></div>`;
+      return `<div class="search-result" data-action="focus-flight" data-icao24="${escapeHtml(f.icao24)}">${escapeHtml(f.flightIATA || f.callsign || f.icao24)} <span style="color:var(--dl-muted)">${escapeHtml(routeStr)} ${escapeHtml(f.reg || '')}</span></div>`;
     }).join('');
   }
 }, 150));
@@ -2297,7 +2297,7 @@ function updateTicker() {
   const items = [];
 
   if (allFlights.length > 0) {
-    items.push({ text: `${airborne} Delta flights airborne`, cls: 'info' });
+    items.push({ text: `${airborne} DELTA FLIGHTS AIRBORNE`, cls: 'info' });
     //items.push({ text: `Fleet: ${FLEET_DB.length} mainline aircraft | ${STARLINK_TAILS.size} Starlink-equipped`, cls: 'info' });
   }
 
@@ -2311,8 +2311,8 @@ function updateTicker() {
 
   // Default message when no alerts
   if (items.length === 0 || items.every(i => i.cls === 'info')) {
-    const countStr = allFlights.length > 0 ? ` — tracking ${allFlights.length} Delta flights` : '';
-    items.unshift({ text: `✅ All Systems Normal${countStr}`, cls: 'info' });
+    const countStr = allFlights.length > 0 ? ` — TRACKING ${allFlights.length} DELTA FLIGHTS` : '';
+    items.unshift({ text: `✅ ALL SYSTEMS NORMAL${countStr}`, cls: 'info' });
   }
 
   const tickerHtml = items.map(i => `<span class="ticker-item ${escapeHtml(i.cls)}">${escapeHtml(i.text)}</span>`).join('');
@@ -3870,7 +3870,7 @@ function renderIropFromAPI(data) {
     const pcts = hubs.map(h => hubHealthData[h]).filter(p => p !== undefined);
     if (pcts.length) {
       const avg = Math.round(pcts.reduce((a,b)=>a+b,0) / pcts.length);
-      const avgLabel = avg > 70 ? 'Smooth Ops' : avg >= 50 ? 'Some Delays' : 'Rough Day';
+      const avgLabel = avg > 70 ? 'SMOOTH OPS' : avg >= 50 ? 'SOME DELAYS' : 'ROUGH DAY';
       const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
       html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
     }
