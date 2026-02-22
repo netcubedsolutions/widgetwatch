@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#0a0e14">
   <link rel="icon" type="image/jpg" href="/icons/icon.png">
-  <title>Delta Air Lines LAX Hub Status — Los Angeles International Airport Delays, On-Time Performance & Flight Tracker</title>
-  <meta name="description" content="Live Delta Air Lines status at Los Angeles International Airport (LAX). Real-time delays, cancellations, on-time performance,
+  <title>Delta Air Lines MSP Hub Status — Minneapolis-Saint Paul International Airport Delays, On-Time Performance & Flight Tracker</title>
+  <meta name="description" content="Live Delta Air Lines status at Minneapolis-Saint Paul International Airport (MSP). Real-time delays, cancellations, on-time performance,
 and departure schedules. Delta's second-largest hub — updated every 30 seconds.">
-  <meta name="keywords" content="Delta Air Lines LAX delays, Delta Atlanta hub status, Delta Air Lines LAX on-time, Delta LAX cancellations today, Delta Air Lines Atlanta delays, LAX flight status, Delta hub Atlanta, Delta Air Lines Atlanta departures">
+  <meta name="keywords" content="Delta Air Lines MSP delays, Delta Atlanta hub status, Delta Air Lines MSP on-time, Delta MSP cancellations today, Delta Air Lines Atlanta delays, MSP flight status, Delta hub Atlanta, Delta Air Lines Atlanta departures">
   <meta name="author" content="Craighton Miller">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://widgetwatch.org/hubs/lax">
+  <link rel="canonical" href="https://widgetwatch.org/hubs/msp">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Delta Air Lines LAX Hub — Live Los Angeles International Airport Status">
-  <meta property="og:description" content="Real-time Delta Air Lines operations at Los Angeles International Airport. Delays, cancellations, on-time %, and schedules.">
-  <meta property="og:url" content="https://widgetwatch.org/hubs/lax">
+  <meta property="og:title" content="Delta Air Lines MSP Hub — Live Minneapolis-Saint Paul International Airport Status">
+  <meta property="og:description" content="Real-time Delta Air Lines operations at Minneapolis-Saint Paul International Airport. Delays, cancellations, on-time %, and schedules.">
+  <meta property="og:url" content="https://widgetwatch.org/hubs/msp">
   <meta property="og:site_name" content="Widget Watch">
   <meta property="og:image" content="https://widgetwatch.org/og-image.png">
-  <meta property="og:image:alt" content="Widget Watch — Delta Air Lines LAX Hub Status">
+  <meta property="og:image:alt" content="Widget Watch — Delta Air Lines MSP Hub Status">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:creator" content="@craighton">
-  <meta name="twitter:title" content="Delta Air Lines LAX Hub — Live Los Angeles International Airport Status">
+  <meta name="twitter:title" content="Delta Air Lines MSP Hub — Live Minneapolis-Saint Paul International Airport Status">
   <meta name="twitter:description" content="Real-time delays, cancellations, on-time performance at Delta's second-largest hub. Updated every 30 seconds.">
   <meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
   <meta name="twitter:site" content="@craighton">
@@ -34,7 +34,7 @@ and departure schedules. Delta's second-largest hub — updated every 30 seconds
       "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Widget Watch", "item": "https://widgetwatch.org"},
         {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://widgetwatch.org"},
-        {"@type": "ListItem", "position": 3, "name": "LAX — Los Angeles International Airport", "item": "https://widgetwatch.org/hubs/lax"}
+        {"@type": "ListItem", "position": 3, "name": "MSP — Minneapolis-Saint Paul International Airport", "item": "https://widgetwatch.org/hubs/msp"}
       ]
     }
   </script>
@@ -117,9 +117,9 @@ and departure schedules. Delta's second-largest hub — updated every 30 seconds
 
   <!-- Header -->
   <div class="hub-header">
-    <div class="nav"><a href="/">← Widget Watch</a> / Hubs / <span class="iata">LAX</span></div>
-    <h1>Delta at <span class="iata">LAX</span> — Los Angeles International Airport</h1>
-    <div class="subtitle">Delta's Largest Hub · ~360 Daily Departures · Terminal 2, 3, TBIT</div>
+    <div class="nav"><a href="/">← Widget Watch</a> / Hubs / <span class="iata">MSP</span></div>
+    <h1>Delta at <span class="iata">MSP</span> — Minneapolis-Saint Paul International Airport</h1>
+    <div class="subtitle">Delta's Midwest Hub · ~600 Daily Departures · Terminal 1</div>
   </div>
 
   <!-- Live Status Panel -->
@@ -137,7 +137,7 @@ and departure schedules. Delta's second-largest hub — updated every 30 seconds
       </div>
       <div class="updated" id="updated-time">Connecting to live data...</div>
     </div>
-    <a class="cta" href="/?hub=lax">Open LAX on Widget Watch →</a>
+    <a class="cta" href="/?hub=msp">Open MSP on Widget Watch →</a>
   </div>
 
   <!-- Footer -->
@@ -152,7 +152,7 @@ and departure schedules. Delta's second-largest hub — updated every 30 seconds
 
   <!-- Live Data Script -->
   <script>
-    async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=DAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='LAX'||ds==='LAX')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
+    async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=DAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='MSP'||ds==='MSP')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
     loadLiveData();setInterval(loadLiveData,30000);
   </script>
 
