@@ -1,9 +1,9 @@
 {
-  "name": "the-blue-board",
+  "name": "widgetwatch",
   "description": "Widget Watch — Unofficial Delta Air Lines operations dashboard",
-  "author": "Jonah Berg (https://github.com/notjbg)",
+  "author": "Craighton Miller (https://github.com/craighton)",
   "license": "MIT",
-  "repository": "notjbg/the-blue-board",
+  "repository": "craighton/widgetwatch",
   "private": true,
   "type": "module",
   "version": "1.0.0",
