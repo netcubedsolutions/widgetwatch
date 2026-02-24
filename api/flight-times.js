@@ -1,5 +1,5 @@
 // Flight Times API — scrapes FlightAware for departure/arrival times
-// Usage: /api/flight-times?flight=UA2221
+// Usage: /api/flight-times?flight=DL2221
 // Returns scheduled, estimated, and actual gate/takeoff/landing times
 
 const CACHE_TTL_MS = 120_000; // 2 minutes
@@ -53,7 +53,7 @@ function corsHeaders(req) {
   };
 }
 
-function normalizeFlightNumber(raw) {
+export function normalizeFlightNumber(raw) {
   const str = Array.isArray(raw) ? raw[0] : (raw || '');
   let q = String(str).trim().toUpperCase().replace(/\s+/g, '');
   if (q.startsWith('DL') && !q.startsWith('DAL')) q = 'DAL' + q.slice(2);
@@ -61,7 +61,7 @@ function normalizeFlightNumber(raw) {
   return q;
 }
 
-function epochToISO(epoch) {
+export function epochToISO(epoch) {
   if (!epoch) return '';
   return new Date(epoch * 1000).toISOString();
 }
@@ -71,7 +71,7 @@ async function tryFR24Summary(req, res, flight, cacheKey) {
     return res.status(404).json({ success: false, error: 'No flight data available' });
   }
   try {
-    // Convert UAL2221 -> UA2221 for FR24
+    // Convert DAL2221 -> DL2221 for FR24
     const fr24Flight = flight.replace('DAL', 'DL');
     const now = new Date();
     const from = new Date(now.getTime() - 24 * 60 * 60 * 1000);

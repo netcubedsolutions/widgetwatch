@@ -1,3 +1,7 @@
+import { createRateLimiter } from './_rate-limit.js';
+
+const isRateLimited = createRateLimiter('schedule', 30);
+
 // In-memory LRU cache for FR24 schedule data
 const cache = new Map();
 const MAX_CACHE_SIZE = 200;
@@ -39,7 +43,7 @@ async function rateLimitedFetch(url, deadlineMs) {
     const resp = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
+        'User-Agent': 'WidgetWatch/1.0 (https://widgetwatch.org)',
         'Accept': 'application/json'
       }
     });
@@ -71,6 +75,10 @@ export default async function handler(req, res) {
   const origin = req.headers?.origin || '';
   if (origin && origin !== 'https://widgetwatch.org' && !/^http:\/\/localhost(:\d+)?$/.test(origin)) {
     return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  if (isRateLimited(req)) {
+    return res.status(429).json({ error: 'Rate limited — try again shortly' });
   }
 
   try {

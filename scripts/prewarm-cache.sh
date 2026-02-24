@@ -31,8 +31,8 @@ for hub in "${HUBS[@]}"; do
   done
 done
 
-# Also warm IROP and METAR
-curl -s -o /dev/null -w "  ✅ IROP — %{http_code}\n" --max-time 60 "${BASE}/irop"
+# Also warm IRROPS and METAR
+curl -s -o /dev/null -w "  ✅ IRROPS — %{http_code}\n" --max-time 60 "${BASE}/irrops"
 curl -s -o /dev/null -w "  ✅ METAR — %{http_code}\n" --max-time 10 "${BASE}/metar?ids=KATL,KJFK,KLGA,KBOS,KDTW,KMSP,KSLC,KLAX,KSEA"
 curl -s -o /dev/null -w "  ✅ FAA — %{http_code}\n" --max-time 10 "${BASE}/faa"
 

@@ -1,3 +1,7 @@
+import { createRateLimiter } from './_rate-limit.js';
+
+const isRateLimited = createRateLimiter('metar', 60);
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
@@ -8,8 +12,12 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
+  if (isRateLimited(req)) {
+    return res.status(429).json({ error: 'Rate limited — try again shortly' });
+  }
+
   try {
-    const ids = req.query.ids || 'KATL';
+    const ids = req.query.ids || 'KORD';
     // Validate: comma-separated ICAO codes, max 200 chars
     if (!/^[A-Z0-9,]{1,200}$/i.test(ids)) {
       return res.status(400).json({ error: 'Invalid airport IDs' });

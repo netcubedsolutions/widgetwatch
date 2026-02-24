@@ -1,3 +1,35 @@
+---
+import { hubOrder, hubNavLabels } from '../data/hubs.js';
+
+const { data } = Astro.props;
+const iata = data.iata;
+const iataLower = iata.toLowerCase();
+const variant = data.variant;
+const airport = data.airportSchema;
+
+// Build Airport schema with optional icaoCode
+const airportSchemaObj: Record<string, any> = {
+  "@context": "https://schema.org",
+  "@type": "Airport",
+  "name": airport.name,
+  "iataCode": airport.iataCode,
+};
+if (airport.icaoCode) {
+  airportSchemaObj.icaoCode = airport.icaoCode;
+}
+airportSchemaObj.address = {
+  "@type": "PostalAddress",
+  "addressLocality": airport.addressLocality,
+  "addressRegion": airport.addressRegion,
+  "addressCountry": airport.addressCountry,
+};
+airportSchemaObj.geo = {
+  "@type": "GeoCoordinates",
+  "latitude": airport.latitude,
+  "longitude": airport.longitude,
+};
+airportSchemaObj.url = airport.url;
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,42 +37,62 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0e14">
 <link rel="icon" type="image/jpg" href="/icons/icon.png">
-<title>Delta Air Lines ATL Hub Status — Hartsfield-Jackson Atlanta International Airport Delays, On-Time Performance & Flight Tracker</title>
-<meta name="description" content="Live Delta Air Lines status at Hartsfield-Jackson Atlanta International Airport (ATL). Real-time delays, cancellations, on-time performance,
-and departure schedules. Delta's second-largest hub — updated every 30 seconds.">
-<meta name="keywords" content="Delta Air Lines ATL delays, Delta Atlanta hub status, Delta Air Lines ATL on-time, Delta ATL cancellations today, Delta Air Lines Atlanta delays, ATL flight status, Delta hub Atlanta, Delta Air Lines Atlanta departures">
-<meta name="author" content="Craighton Miller">  
+<title>{data.title}</title>
+<meta name="description" content={data.description}>
+<meta name="keywords" content={data.keywords}>
+<meta name="author" content="Widget Watch">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://widgetwatch.org/hubs/atl">
+<link rel="canonical" href={`https://widgetwatch.org/hubs/${iataLower}`}>
 <meta property="og:type" content="website">
-<meta property="og:title" content="Delta Air Lines ATL Hub — Live Hartsfield-Jackson Atlanta International Airport Status">
-<meta property="og:description" content="Real-time Delta Air Lines operations at Hartsfield-Jackson Atlanta International Airport. Delays, cancellations, on-time %, and schedules.">
-<meta property="og:url" content="https://widgetwatch.org/hubs/atl">
+<meta property="og:title" content={data.ogTitle}>
+<meta property="og:description" content={data.ogDescription}>
+<meta property="og:url" content={`https://widgetwatch.org/hubs/${iataLower}`}>
 <meta property="og:site_name" content="Widget Watch">
 <meta property="og:image" content="https://widgetwatch.org/og-image.png">
-<meta property="og:image:alt" content="Widget Watch — Delta Air Lines ATL Hub Status">
+<meta property="og:image:alt" content={data.ogImageAlt}>
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@craighton">
-<meta name="twitter:title" content="Delta Air Lines ATL Hub — Live Hartsfield-Jackson Atlanta International Airport Status">
-<meta name="twitter:description" content="Real-time delays, cancellations, on-time performance at Delta's second-largest hub. Updated every 30 seconds.">
+<meta name="twitter:title" content={data.twitterTitle}>
+<meta name="twitter:description" content={data.twitterDescription}>
 <meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
 <meta name="twitter:site" content="@craighton">
 
 <!-- Schema: BreadcrumbList -->
-<script type="application/ld+json">
-{
+<script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Widget Watch", "item": "https://widgetwatch.org"},
     {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://widgetwatch.org"},
-    {"@type": "ListItem", "position": 3, "name": "ATL — Hartsfield-Jackson Atlanta International Airport", "item": "https://widgetwatch.org/hubs/atl"}
+    {"@type": "ListItem", "position": 3, "name": data.breadcrumbName, "item": `https://widgetwatch.org/hubs/${iataLower}`}
   ]
-}
-</script>
+})} />
+<!-- Schema: FAQPage -->
+<script type="application/ld+json" set:html={JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": data.faqSchema.map((faq: { question: string; answer: string }) => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer,
+    }
+  }))
+})} />
+{variant === 'full' ? (
+  <><!-- Schema: Place --></>
+) : (
+  <><!-- Schema: Airport --></>
+)}
+<script type="application/ld+json" set:html={JSON.stringify(airportSchemaObj)} />
 
-<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
+{variant === 'full' && (
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+)}
+
+{variant === 'full' ? (
+<style is:inline>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--mono:'JetBrains Mono',monospace}
 body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh}
@@ -110,16 +162,54 @@ a:hover{text-decoration:underline}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 
 </style>
+) : (
+<style is:inline>
+:root{--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:rgba(30,41,59,.6);--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#005DAA;--dl-blue:#005DAA;--dl-green:#22c55e;--dl-red:#ef4444;--mono:'SF Mono',SFMono-Regular,Menlo,Consolas,monospace}
+body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh}
+a{color:var(--dl-accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:900px;margin:0 auto;padding:20px 16px}
+h1{font-size:22px;color:var(--dl-accent);margin:0 0 4px;font-weight:700}
+h2{font-size:16px;color:var(--dl-accent);border-bottom:1px solid var(--dl-border);padding-bottom:6px;margin:28px 0 12px}
+h3{font-size:13px;color:var(--dl-text);margin:16px 0 6px}
+.subtitle{color:var(--dl-muted);font-size:11px;margin-bottom:20px}
+.live-bar{display:flex;align-items:center;gap:12px;background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:12px 16px;margin-bottom:20px;flex-wrap:wrap}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--dl-green);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.stat-row{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+.stat-card{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:12px 16px;text-align:center}
+.stat-card .label{font-size:9px;color:var(--dl-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.stat-card .value{font-size:20px;font-weight:700;color:var(--dl-accent)}
+.section{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:16px;margin-bottom:16px}
+.section p{margin:6px 0;color:var(--dl-muted);font-size:12px}
+.section ul{margin:6px 0;padding-left:20px}
+.section li{color:var(--dl-muted);font-size:12px;margin:4px 0}
+.hub-nav{display:flex;flex-wrap:wrap;gap:8px}
+.hub-nav a{background:var(--dl-dark);border:1px solid var(--dl-border);padding:6px 14px;border-radius:4px;font-size:11px;color:var(--dl-muted);transition:all .2s}
+.hub-nav a:hover,.hub-nav a.active{background:var(--dl-accent);color:#fff;border-color:var(--dl-accent);text-decoration:none}
+.scroll-hint{text-align:center;color:var(--dl-muted);font-size:10px;margin:12px 0;opacity:.7}
+nav.jump-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
+nav.jump-nav a{background:var(--dl-panel);border:1px solid var(--dl-border);padding:4px 10px;border-radius:3px;font-size:10px;color:var(--dl-muted)}
+nav.jump-nav a:hover{border-color:var(--dl-accent);color:var(--dl-accent);text-decoration:none}
+@media(max-width:600px){
+  h1{font-size:18px}
+  .live-bar{flex-direction:column;align-items:flex-start;gap:8px}
+  .stat-row{flex-direction:column}
+}
+</style>
+)}
 </head>
 <body>
 
 <div class="container">
 
+{variant === 'full' && (
+  <>
   <!-- Header -->
   <div class="hub-header">
-    <div class="nav"><a href="/">← Widget Watch</a> / Hubs / <span class="iata">ATL</span></div>
-    <h1>Delta at <span class="iata">ATL</span> — Hartsfield-Jackson Atlanta International Airport</h1>
-    <div class="subtitle">Delta's Largest Hub · ~1200 Daily Departures · Concourse T, A, B, C, D, E, F</div>
+    <div class="nav"><a href="/">← Widget Watch</a> / Hubs / <span class="iata">{iata}</span></div>
+    <h1><Fragment set:html={data.headerTitle} /></h1>
+    <div class="subtitle">{data.subtitle}</div>
   </div>
 
   <!-- Live Status Panel -->
@@ -137,8 +227,40 @@ a:hover{text-decoration:underline}
       </div>
       <div class="updated" id="updated-time">Connecting to live data...</div>
     </div>
-    <a class="cta" href="/?hub=atl">Open ATL on Widget Watch →</a>
+    <a class="cta" href={`/?hub=${iataLower}`}>Open {iata} on Widget Watch →</a>
   </div>
+
+
+  <div class="scroll-hint" id="scrollHint">
+    <div class="scroll-hint-inner">
+      <span>Explore hub details below</span>
+      <span class="scroll-hint-arrow">↓</span>
+    </div>
+  </div>
+
+
+  <!-- Jump Nav -->
+  <nav class="jump-nav">
+    {data.jumpNav.map((item: { href: string; label: string }) => (
+      <a href={item.href}>{item.label}</a>
+    ))}
+  </nav>
+  </>
+)}
+
+  <Fragment set:html={data.contentHtml} />
+
+  <!-- Other Hubs -->
+  <div class="section">
+    <h2 id="all-hubs">All Delta Hubs</h2>
+    <nav class="hub-nav">
+      {hubOrder.map((h) => (
+        <a href={`/hubs/${h}`} class={h === iataLower ? 'active' : ''}>{hubNavLabels[h]}</a>
+      ))}
+    </nav>
+  </div>
+
+</div>
 
 <!-- Footer -->
 <div style="background:var(--dl-panel);border-top:1px solid var(--dl-border);padding:8px 16px;font-size:9px;color:var(--dl-muted);text-align:center;line-height:1.8;margin-top:40px">
@@ -146,18 +268,18 @@ a:hover{text-decoration:underline}
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
     <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--dl-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">☕ Support Server Costs</a>
-    <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Follow @theblueboard</a></span>
+    <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Follow @craighton</a></span>
   </div>
 </div>
 
 <!-- Live Data Script -->
-<script>
-async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=DAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o==='ATL'||ds==='ATL')a++});document.getElementById('active').textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
+<script is:inline define:vars={{ iata }}>
+async function loadLiveData(){try{const r=await fetch('/api/fr24-feed?airline=DAL');if(!r.ok)throw new Error('Feed unavailable');const d=await r.json();let a=0;const f=d.result?.response?.data||d;const e=Array.isArray(f)?f:(typeof f==='object'?Object.values(f):[]);e.forEach(x=>{const o=Array.isArray(x)?x[11]:x?.origin;const ds=Array.isArray(x)?x[12]:x?.dest;if(o===iata||ds===iata)a++});document.getElementById('active').textContent=a;const as=document.getElementById('active-stat');if(as)as.textContent=a;document.getElementById('updated-time').textContent='Updated '+new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',timeZoneName:'short'})}catch(e){document.getElementById('updated-time').textContent='Live data temporarily unavailable'}}
 loadLiveData();setInterval(loadLiveData,30000);
 </script>
 
 
-<script>
+<script is:inline>
 (function(){var h=document.getElementById('scrollHint');if(h){var done=false;window.addEventListener('scroll',function(){if(!done&&window.scrollY>100){h.style.opacity='0';done=true;setTimeout(function(){h.style.display='none'},500)}});}})();
 </script>
 </body>

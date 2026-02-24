@@ -1,0 +1,43 @@
+---
+import { hubOrder, hubNavLabels } from '../data/hubs.js';
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0e14">
+<link rel="icon" type="image/jpg" href="/icons/icon.png">
+<title>Page Not Found — Widget Watch</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style is:inline>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--mono:'JetBrains Mono',monospace}
+body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;text-align:center}
+a{color:var(--dl-accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.code{font-size:120px;font-weight:700;color:var(--dl-blue);line-height:1;margin-bottom:8px;letter-spacing:-4px}
+.title{font-size:18px;font-weight:600;margin-bottom:8px}
+.subtitle{font-size:12px;color:var(--dl-muted);margin-bottom:32px;max-width:400px;line-height:1.6}
+.cta{display:inline-block;background:var(--dl-blue);color:#fff;padding:10px 24px;border-radius:6px;font-size:12px;font-weight:600;font-family:var(--mono);text-decoration:none;margin-bottom:32px;transition:opacity .2s}
+.cta:hover{opacity:.85;text-decoration:none}
+.hubs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:500px}
+.hub-link{font-size:10px;color:var(--dl-muted);padding:4px 10px;border:1px solid var(--dl-border);border-radius:4px;transition:all .2s}
+.hub-link:hover{color:var(--dl-accent);border-color:var(--dl-accent);text-decoration:none}
+.footer{position:fixed;bottom:16px;font-size:9px;color:var(--dl-muted)}
+</style>
+</head>
+<body>
+  <div class="code">404</div>
+  <div class="title">Flight not found.</div>
+  <div class="subtitle">This page doesn't exist — but every Delta flight does. Head back to the dashboard or check a hub below.</div>
+  <a href="/" class="cta">← Back to Widget Watch</a>
+  <div class="hubs">
+    {hubOrder.map(hub => (
+      <a href={`/hubs/${hub}`} class="hub-link">{hubNavLabels[hub]}</a>
+    ))}
+  </div>
+  <div class="footer">Widget Watch · Independent · Not affiliated with Delta Air Lines, Inc.</div>
+</body>
+</html>
