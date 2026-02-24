@@ -1,5 +1,5 @@
 // FR24 Official API — Flight Lookup Endpoint
-// Usage: /api/fr24-flight?flight=UA838
+// Usage: /api/fr24-flight?flight=DL838
 //
 // Endpoints (from official SDK):
 //   Live positions: GET /api/live/flight-positions/full?flights={iata}
@@ -73,11 +73,11 @@ function corsHeaders(req) {
   };
 }
 
-function normalizeFlightNumber(raw) {
+export function normalizeFlightNumber(raw) {
   let q = (raw || '').trim().toUpperCase().replace(/\s+/g, '');
-  // "UAL838" → "UA838"
+  // "DAL838" → "DL838"
   if (q.startsWith('DAL') && /^\d/.test(q.slice(3))) q = 'DL' + q.slice(3);
-  // Bare number "838" → "UA838"
+  // Bare number "838" → "DL838"
   if (/^\d{1,4}$/.test(q)) q = 'DL' + q;
   return q;
 }
@@ -95,14 +95,14 @@ async function fr24Fetch(path, params) {
       'Authorization': `Bearer ${process.env.FR24_API_TOKEN}`,
       'Accept': 'application/json',
       'Accept-Version': API_VERSION,
-      'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
+      'User-Agent': 'WidgetWatch/1.0 (https://widgetwatch.org)',
     },
   });
   clearTimeout(timeout);
   return resp;
 }
 
-function normalizeLiveResponse(data, flightNumber) {
+export function normalizeLiveResponse(data, flightNumber) {
   // FR24 live positions return { data: [ { ... } ] }
   const flights = data?.data || [];
   if (!flights.length) return null;
@@ -147,7 +147,7 @@ function normalizeLiveResponse(data, flightNumber) {
   };
 }
 
-function normalizeSummaryResponse(data, flightNumber) {
+export function normalizeSummaryResponse(data, flightNumber) {
   const flights = data?.data || [];
   if (!flights.length) return null;
 

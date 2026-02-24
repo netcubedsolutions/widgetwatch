@@ -1,6 +1,10 @@
-// Server-side IROP aggregation — fetches schedule data for all DL hubs,
+// Server-side IRROPS aggregation — fetches schedule data for all DL hubs,
 // computes disruption metrics, caches for 15 minutes.
 // Fetches hubs sequentially with delays to avoid FR24 rate limiting.
+
+import { createRateLimiter } from './_rate-limit.js';
+
+const isRateLimited = createRateLimiter('irrops', 60);
 
 const HUBS = ['ATL', 'JFK', 'LGA', 'BOS', 'DTW', 'MSP', 'SLC', 'LAX', 'SEA'];
 const HUB_TZ = {ATL:'America/New_York',JFK:'America/New_York',LGA:'America/New_York',BOS:'America/New_York',DTW:'America/Detroit',MSP:'America/Chicago',SLC:'America/Denver',LAX:'America/Los_Angeles',SEA:'America/Los_Angeles'};
@@ -80,7 +84,7 @@ async function fetchHubSchedule(hub, timestamp) {
       if (pastDay) break;
       page++;
     } catch (e) {
-      console.error(`IROP: Failed to fetch ${hub} page ${page}:`, e.message);
+      console.error(`IRROPS: Failed to fetch ${hub} page ${page}:`, e.message);
       break;
     }
     if (page <= totalPages && page <= MAX_PAGES) {
@@ -90,7 +94,7 @@ async function fetchHubSchedule(hub, timestamp) {
   return allFlights;
 }
 
-function computeMetrics(flightsByHub) {
+export function computeMetrics(flightsByHub) {
   let allFlights = [];
   const hubMetrics = {};
 
@@ -168,7 +172,7 @@ function computeMetrics(flightsByHub) {
   };
 }
 
-function getStartOfDayForHub(hub) {
+export function getStartOfDayForHub(hub) {
   const tz = HUB_TZ[hub] || 'America/New_York';
   const now = new Date();
   const parts = new Intl.DateTimeFormat('en-US', {
@@ -184,7 +188,7 @@ function getStartOfDayForHub(hub) {
   return startOfToday;
 }
 
-async function buildIropData() {
+async function buildIrropsData() {
   const flightsByHub = {};
 
   // Fetch hubs SEQUENTIALLY with delays to avoid FR24 rate limiting
@@ -198,13 +202,13 @@ async function buildIropData() {
         hubCache[hub] = { flights, fetchedAt: Date.now() };
       } else if (hubCache[hub] && (Date.now() - hubCache[hub].fetchedAt) < 60 * 60 * 1000) {
         // FR24 returned nothing — use cached data up to 1 hour old
-        console.log(`IROP: Using cached data for ${hub} (age: ${Math.round((Date.now() - hubCache[hub].fetchedAt) / 60000)}m)`);
+        console.log(`IRROPS: Using cached data for ${hub} (age: ${Math.round((Date.now() - hubCache[hub].fetchedAt) / 60000)}m)`);
         flightsByHub[hub] = hubCache[hub].flights;
       } else {
         flightsByHub[hub] = [];
       }
     } catch (e) {
-      console.error(`IROP: Error fetching ${hub}:`, e.message);
+      console.error(`IRROPS: Error fetching ${hub}:`, e.message);
       // Fall back to hub cache
       if (hubCache[hub] && (Date.now() - hubCache[hub].fetchedAt) < 60 * 60 * 1000) {
         flightsByHub[hub] = hubCache[hub].flights;
@@ -231,6 +235,10 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Forbidden' });
   }
 
+  if (isRateLimited(req)) {
+    return res.status(429).json({ error: 'Rate limited — try again shortly' });
+  }
+
   try {
     const now = Date.now();
 
@@ -246,25 +254,25 @@ export default async function handler(req, res) {
     }
 
     try {
-      fetching = buildIropData();
+      fetching = buildIrropsData();
       const result = await fetching;
       cached = result;
       cacheExpires = now + CACHE_TTL;
       res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=300');
       return res.status(200).json({ ...result, cached: false });
     } catch (e) {
-      console.error('IROP API error:', e);
+      console.error('IRROPS API error:', e);
       // Return stale cache if available
       if (cached) {
         res.setHeader('Cache-Control', 's-maxage=60');
         return res.status(200).json({ ...cached, cached: true, stale: true });
       }
-      return res.status(502).json({ error: 'Failed to compute IROP data' });
+      return res.status(502).json({ error: 'Failed to compute IRROPS data' });
     } finally {
       fetching = null;
     }
   } catch (e) {
-    console.error('IROP API error:', e);
-    return res.status(502).json({ error: 'Failed to compute IROP data' });
+    console.error('IRROPS API error:', e);
+    return res.status(502).json({ error: 'Failed to compute IRROPS data' });
   }
 }
