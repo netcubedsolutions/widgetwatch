@@ -2,7 +2,7 @@
 
 **An unofficial, real-time operations dashboard for Delta Air Lines — built by flyers, for flyers.**
 
-**[→ Live Dashboard](https://widgetwatch.org)** · **[📋 Changelog](CHANGELOG.md)** · **[☕ Support the Project](https://buymeacoffee.com/notjbg)** · **[💡 Suggest a Feature](https://github.com/notjbg/the-blue-board/issues)** · **[𝕏 Follow @craighton](https://x.com/craighton)**
+**[→ Live Dashboard](https://widgetwatch.org)** · **[☕ Support the source Project](https://buymeacoffee.com/notjbg)** · **[𝕏 Follow @craighton](https://x.com/craighton)**
 
 ![Widget Watch — Live Operations Map](public/og-image.png)
 
@@ -27,20 +27,11 @@ Server-side disruption scoring across all 9 hubs — cancellations, delays (30m/
 ### 📅 [Schedule](https://widgetwatch.org#schedule)
 Departure and arrival boards for all 9 DL hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
 
-### ✈️ [Fleet](https://widgetwatch.org#fleet)
-Complete database of 1,078+ mainline aircraft — searchable and sortable by type, registration, seat config, WiFi, and IFE. Starlink tracker for 258+ equipped aircraft with sortable columns and filters by fleet, type, and operator. Live fleet status correlates airborne flights with the database.
-
 ### 🌦 [Delays · Weather · Hubs](https://widgetwatch.org#weather)
 FAA NAS delay and ground stop alerts, METAR observations with plain-English explainers, NEXRAD radar overlay, and hub health indicators. Each hub gets a unified card with conditions, visibility, wind, ceiling, and current delay status. **Ops Impact Assessment** goes beyond standard flight categories to flag real operational risks — snow, gusts, freezing precipitation, thunderstorms — even when conditions are technically VFR. Radar map renders instantly; weather data loads in parallel via batched API calls.
 
-### 📊 [Stats](https://widgetwatch.org#stats)
-Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Starlink coverage metrics. All live data updates every 30 seconds.
-
 ### 🔍 Flight Search
 Look up any DL flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
-
-### 🏢 [Hub Pages](https://widgetwatch.org/hubs/ord)
-Dedicated SEO-rich pages for each of Delta's 9 hubs ([ORD](https://widgetwatch.org/hubs/ord) · [DEN](https://widgetwatch.org/hubs/den) · [IAH](https://widgetwatch.org/hubs/iah) · [EWR](https://widgetwatch.org/hubs/ewr) · [SFO](https://widgetwatch.org/hubs/sfo) · [IAD](https://widgetwatch.org/hubs/iad) · [LAX](https://widgetwatch.org/hubs/lax) · [NRT](https://widgetwatch.org/hubs/nrt) · [GUM](https://widgetwatch.org/hubs/gum)). Each page includes live flight counts, hub overview with terminal/concourse details, Delta Club and Polaris lounge locations, delay pattern analysis by season, Starlink WiFi info, construction alerts with links to official project pages, structured FAQ, and FAQPage + Airport schema markup for search engines. Jump navigation and scroll hints guide visitors through the content.
 
 ### More
 - **Deep-link hashes** — Share direct links to any tab (`#live`, `#schedule`, `#fleet`, `#weather`, `#stats`)
@@ -168,33 +159,11 @@ Dedicated SEO-rich pages for each of Delta's 9 hubs ([ORD](https://widgetwatch.o
 
 ---
 
-## ☕ Support Widget Watch
-
-This project is free, ad-free, and open source. It costs real money to keep running — API calls, Vercel hosting, and the time to build and maintain it.
-
-If Widget Watch has saved you a trip to the gate screen or helped you spot an equipment swap before boarding, consider supporting the project:
-
-### **[→ Buy Me a Coffee ☕](https://buymeacoffee.com/notjbg)**
-
-Every donation helps cover server costs and keeps the dashboard free for everyone. You can also suggest a feature with your coffee — I read every one.
-
----
-
-## 💡 Feature Requests & Contributing
-
-Got an idea? Found a bug? **[Open an issue →](https://github.com/notjbg/the-blue-board/issues)**
-
-The community drives this project. Some of the best features came from user suggestions on Reddit and FlyerTalk. PRs welcome too — it's a single HTML file, so the barrier to entry is low.
-
-**Follow [@craighton](https://x.com/craighton) on X** for updates, new features, and release notes.
-
----
-
 ## Disclaimer
 
 **Widget Watch is not affiliated with, endorsed by, or connected to Delta Air Lines, Inc.** "Delta Air Lines" and the Delta logo are trademarks of Delta Air Lines, Inc.
 
-All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. **Do not use this dashboard for operational or safety-critical decisions.** Always verify flight status directly with [DELTA.com](https://www.DELTA.com).
+All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. **Do not use this dashboard for operational or safety-critical decisions.** Always verify flight status directly with [delta.com](https://www.DELTA.com).
 
 ---
 
