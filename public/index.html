@@ -4251,7 +4251,7 @@ function renderIrropsFromAPI(data) {
     const pcts = hubs.map(h => hubHealthData[h]).filter(p => p !== undefined);
     if (pcts.length) {
       const avg = Math.round(pcts.reduce((a,b)=>a+b,0) / pcts.length);
-      const avgLabel = avg > 70 ? 'Smooth Ops' : avg >= 50 ? 'Some Delays' : 'Rough Day';
+      const avgLabel = avg > 70 ? 'SMOOTH OPS' : avg >= 50 ? 'SOME DELAYS' : 'ROUGH DAY';
       const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
       html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
     }
