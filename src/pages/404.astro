@@ -10,7 +10,7 @@ import { hubOrder, hubNavLabels } from '../data/hubs.js';
 <link rel="icon" type="image/jpg" href="/icons/icon.png">
 <title>Page Not Found — Widget Watch</title>
 <meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <style is:inline>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--mono:'JetBrains Mono',monospace}
@@ -31,13 +31,13 @@ a:hover{text-decoration:underline}
 <body>
   <div class="code">404</div>
   <div class="title">Flight not found.</div>
-  <div class="subtitle">This page doesn't exist — but every Delta flight does. Head back to the dashboard or check a hub below.</div>
+  <div class="subtitle">This page doesn't exist — but every Delta flight does.</div>
   <a href="/" class="cta">← Back to Widget Watch</a>
-  <div class="hubs">
+  <!--div class="hubs">
     {hubOrder.map(hub => (
       <a href={`/hubs/${hub}`} class="hub-link">{hubNavLabels[hub]}</a>
     ))}
-  </div>
+  </div-->
   <div class="footer">Widget Watch · Independent · Not affiliated with Delta Air Lines, Inc.</div>
 </body>
 </html>

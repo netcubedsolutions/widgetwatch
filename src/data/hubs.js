@@ -20,61 +20,61 @@ export const hubNavLabels = {
 export const hubs = {
 
 // ─── ORD ────────────────────────────────────────────────────────────────
-ord: {
-  iata: 'ORD',
-  variant: 'full',
-  title: 'Delta Air Lines ORD Hub Status — Chicago O\'Hare Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Chicago O\'Hare (ORD). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s largest hub — updated every 30 seconds.',
-  keywords: 'Delta Air Lines ORD delays, Delta Chicago O\'Hare hub status, Delta Air Lines ORD on-time, Delta ORD cancellations today, Delta Air Lines Chicago delays, ORD flight status, Delta hub Chicago, Delta Air Lines O\'Hare departures',
-  ogTitle: 'Delta Air Lines ORD Hub — Live Chicago O\'Hare Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Chicago O\'Hare. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines ORD Hub Status',
-  twitterTitle: 'Delta Air Lines ORD Hub — Live Chicago O\'Hare Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s largest hub. Updated every 30 seconds.',
-  breadcrumbName: 'ORD — Chicago O\'Hare',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at ORD today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at Chicago O\'Hare in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  ord: {
+    iata: 'ORD',
+    variant: 'full',
+    title: 'Delta Air Lines ORD Hub Status — Chicago O\'Hare Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Chicago O\'Hare (ORD). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s largest hub — updated every 30 seconds.',
+    keywords: 'Delta Air Lines ORD delays, Delta Chicago O\'Hare hub status, Delta Air Lines ORD on-time, Delta ORD cancellations today, Delta Air Lines Chicago delays, ORD flight status, Delta hub Chicago, Delta Air Lines O\'Hare departures',
+    ogTitle: 'Delta Air Lines ORD Hub — Live Chicago O\'Hare Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Chicago O\'Hare. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines ORD Hub Status',
+    twitterTitle: 'Delta Air Lines ORD Hub — Live Chicago O\'Hare Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s largest hub. Updated every 30 seconds.',
+    breadcrumbName: 'ORD — Chicago O\'Hare',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at ORD today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at Chicago O\'Hare in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What terminal is Delta Air Lines at O\'Hare?',
+        answer: 'Delta Air Lines operates primarily out of Terminal 1 (Concourses B and C) at Chicago O\'Hare International Airport. Delta Club lounges are located in both concourses. Delta Express regional flights also depart from Terminal 2 (Concourse E and F).',
+      },
+      {
+        question: 'How many Delta flights depart from ORD daily?',
+        answer: 'Delta Air Lines operates approximately 750 daily departures from Chicago O\'Hare, making it Delta\'s largest hub by flight volume. ORD connects to over 200 domestic and international destinations.',
+      },
+      {
+        question: 'Which Delta planes at ORD have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. ORD-based narrowbody aircraft (737 MAX, A321neo) are among the first to receive Starlink.',
+      },
+      {
+        question: 'What causes the most delays at ORD for Delta?',
+        answer: 'Chicago O\'Hare is susceptible to weather-related delays year-round — thunderstorms and wind shear in summer, snow and ice in winter. ORD\'s parallel runway configuration can reduce capacity in low-visibility conditions. Ground delay programs (GDPs) and ground stops issued by the FAA are common during severe weather, and ripple effects from East Coast congestion (especially EWR and JFK) frequently impact ORD operations.',
+      },
+    ],
+    airportSchema: {
+      name: 'Chicago O\'Hare International Airport',
+      iataCode: 'ORD',
+      addressLocality: 'Chicago',
+      addressRegion: 'IL',
+      addressCountry: 'US',
+      latitude: 41.9742,
+      longitude: -87.9073,
+      url: 'https://www.flychicago.com/ohare',
     },
-    {
-      question: 'What terminal is Delta Air Lines at O\'Hare?',
-      answer: 'Delta Air Lines operates primarily out of Terminal 1 (Concourses B and C) at Chicago O\'Hare International Airport. Delta Club lounges are located in both concourses. Delta Express regional flights also depart from Terminal 2 (Concourse E and F).',
-    },
-    {
-      question: 'How many Delta flights depart from ORD daily?',
-      answer: 'Delta Air Lines operates approximately 750 daily departures from Chicago O\'Hare, making it Delta\'s largest hub by flight volume. ORD connects to over 200 domestic and international destinations.',
-    },
-    {
-      question: 'Which Delta planes at ORD have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. ORD-based narrowbody aircraft (737 MAX, A321neo) are among the first to receive Starlink.',
-    },
-    {
-      question: 'What causes the most delays at ORD for Delta?',
-      answer: 'Chicago O\'Hare is susceptible to weather-related delays year-round — thunderstorms and wind shear in summer, snow and ice in winter. ORD\'s parallel runway configuration can reduce capacity in low-visibility conditions. Ground delay programs (GDPs) and ground stops issued by the FAA are common during severe weather, and ripple effects from East Coast congestion (especially EWR and JFK) frequently impact ORD operations.',
-    },
-  ],
-  airportSchema: {
-    name: 'Chicago O\'Hare International Airport',
-    iataCode: 'ORD',
-    addressLocality: 'Chicago',
-    addressRegion: 'IL',
-    addressCountry: 'US',
-    latitude: 41.9742,
-    longitude: -87.9073,
-    url: 'https://www.flychicago.com/ohare',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">ORD</span> — Chicago O\'Hare',
-  subtitle: 'Delta\'s largest hub · ~750 daily departures · Terminal 1 (B & C) · Terminal 2 (Express)',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">ORD</span> — Chicago O\'Hare',
+    subtitle: 'Delta\'s largest hub · ~750 daily departures · Terminal 1 (B & C) · Terminal 2 (Express)',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -159,64 +159,64 @@ ord: {
     <h3>Which Delta planes at ORD have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── DEN ────────────────────────────────────────────────────────────────
-den: {
-  iata: 'DEN',
-  variant: 'full',
-  title: 'Delta Air Lines DEN Hub Status — Denver International Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Denver International (DEN). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s second-largest hub — updated every 30 seconds.',
-  keywords: 'Delta Air Lines DEN delays, Delta Denver hub status, Delta Air Lines DEN on-time, Delta DEN cancellations today, Delta Air Lines Denver delays, DEN flight status, Delta hub Denver, Delta Air Lines Denver departures',
-  ogTitle: 'Delta Air Lines DEN Hub — Live Denver International Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Denver International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines DEN Hub Status',
-  twitterTitle: 'Delta Air Lines DEN Hub — Live Denver International Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s second-largest hub. Updated every 30 seconds.',
-  breadcrumbName: 'DEN — Denver',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at DEN today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at Denver International in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  den: {
+    iata: 'DEN',
+    variant: 'full',
+    title: 'Delta Air Lines DEN Hub Status — Denver International Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Denver International (DEN). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s second-largest hub — updated every 30 seconds.',
+    keywords: 'Delta Air Lines DEN delays, Delta Denver hub status, Delta Air Lines DEN on-time, Delta DEN cancellations today, Delta Air Lines Denver delays, DEN flight status, Delta hub Denver, Delta Air Lines Denver departures',
+    ogTitle: 'Delta Air Lines DEN Hub — Live Denver International Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Denver International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines DEN Hub Status',
+    twitterTitle: 'Delta Air Lines DEN Hub — Live Denver International Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s second-largest hub. Updated every 30 seconds.',
+    breadcrumbName: 'DEN — Denver',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at DEN today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at Denver International in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What concourse is Delta Air Lines at Denver?',
+        answer: 'Delta Air Lines operates primarily from Concourse B at Denver International Airport, which is the largest concourse at DEN. Delta Club lounges are located on Concourse B at gates B32 and B44. Delta Express regional flights also depart from Concourse B.',
+      },
+      {
+        question: 'How many Delta flights depart from DEN daily?',
+        answer: 'Delta Air Lines operates approximately 540 daily departures from Denver International, making it Delta\'s second-largest hub after Chicago O\'Hare. DEN connects to over 170 domestic and international destinations.',
+      },
+      {
+        question: 'Which Delta planes at DEN have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. DEN-based narrowbody aircraft (737 MAX, A321neo) are among the first to receive Starlink.',
+      },
+      {
+        question: 'What causes the most delays at DEN for Delta?',
+        answer: 'Denver International is highly susceptible to winter blizzards and spring snowstorms that can shut down operations for hours. Summer afternoon thunderstorms along the Front Range are another major delay driver. DEN\'s location 25 miles from downtown via Peña Boulevard means ground transportation disruptions during storms can compound airside delays.',
+      },
+    ],
+    airportSchema: {
+      name: 'Denver International Airport',
+      iataCode: 'DEN',
+      addressLocality: 'Denver',
+      addressRegion: 'CO',
+      addressCountry: 'US',
+      latitude: 39.8561,
+      longitude: -104.6737,
+      url: 'https://www.flydenver.com',
     },
-    {
-      question: 'What concourse is Delta Air Lines at Denver?',
-      answer: 'Delta Air Lines operates primarily from Concourse B at Denver International Airport, which is the largest concourse at DEN. Delta Club lounges are located on Concourse B at gates B32 and B44. Delta Express regional flights also depart from Concourse B.',
-    },
-    {
-      question: 'How many Delta flights depart from DEN daily?',
-      answer: 'Delta Air Lines operates approximately 540 daily departures from Denver International, making it Delta\'s second-largest hub after Chicago O\'Hare. DEN connects to over 170 domestic and international destinations.',
-    },
-    {
-      question: 'Which Delta planes at DEN have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. DEN-based narrowbody aircraft (737 MAX, A321neo) are among the first to receive Starlink.',
-    },
-    {
-      question: 'What causes the most delays at DEN for Delta?',
-      answer: 'Denver International is highly susceptible to winter blizzards and spring snowstorms that can shut down operations for hours. Summer afternoon thunderstorms along the Front Range are another major delay driver. DEN\'s location 25 miles from downtown via Peña Boulevard means ground transportation disruptions during storms can compound airside delays.',
-    },
-  ],
-  airportSchema: {
-    name: 'Denver International Airport',
-    iataCode: 'DEN',
-    addressLocality: 'Denver',
-    addressRegion: 'CO',
-    addressCountry: 'US',
-    latitude: 39.8561,
-    longitude: -104.6737,
-    url: 'https://www.flydenver.com',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">DEN</span> — Denver International',
-  subtitle: 'Delta\'s second-largest hub · ~540 daily departures · Concourse B',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">DEN</span> — Denver International',
+    subtitle: 'Delta\'s second-largest hub · ~540 daily departures · Concourse B',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -300,64 +300,64 @@ den: {
     <h3>Which Delta planes at DEN have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── IAH ────────────────────────────────────────────────────────────────
-iah: {
-  iata: 'IAH',
-  variant: 'full',
-  title: 'Delta Air Lines IAH Hub Status — Houston Intercontinental Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at George Bush Intercontinental Houston (IAH). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Latin America gateway — updated every 30 seconds.',
-  keywords: 'Delta Air Lines IAH delays, Delta Houston hub status, Delta Air Lines IAH on-time, Delta IAH cancellations today, Delta Air Lines Houston delays, IAH flight status, Delta hub Houston, Delta Air Lines Houston departures',
-  ogTitle: 'Delta Air Lines IAH Hub — Live Houston Intercontinental Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Houston Intercontinental. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines IAH Hub Status',
-  twitterTitle: 'Delta Air Lines IAH Hub — Live Houston Intercontinental Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Latin America gateway. Updated every 30 seconds.',
-  breadcrumbName: 'IAH — Houston',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at IAH today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at Houston Intercontinental in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  iah: {
+    iata: 'IAH',
+    variant: 'full',
+    title: 'Delta Air Lines IAH Hub Status — Houston Intercontinental Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at George Bush Intercontinental Houston (IAH). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Latin America gateway — updated every 30 seconds.',
+    keywords: 'Delta Air Lines IAH delays, Delta Houston hub status, Delta Air Lines IAH on-time, Delta IAH cancellations today, Delta Air Lines Houston delays, IAH flight status, Delta hub Houston, Delta Air Lines Houston departures',
+    ogTitle: 'Delta Air Lines IAH Hub — Live Houston Intercontinental Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Houston Intercontinental. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines IAH Hub Status',
+    twitterTitle: 'Delta Air Lines IAH Hub — Live Houston Intercontinental Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Latin America gateway. Updated every 30 seconds.',
+    breadcrumbName: 'IAH — Houston',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at IAH today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at Houston Intercontinental in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What terminal is Delta Air Lines at Houston IAH?',
+        answer: 'Delta Air Lines operates from Terminal C (domestic) and Terminal E (international) at George Bush Intercontinental Airport. Delta Club lounges are located in both terminals. The Subway people mover connects all terminals. Delta Express regional flights also depart from Terminal C.',
+      },
+      {
+        question: 'How many Delta flights depart from IAH daily?',
+        answer: 'Delta Air Lines operates approximately 400 daily departures from Houston Intercontinental, making it Delta\'s primary gateway to Latin America and one of the largest hubs by geographic footprint.',
+      },
+      {
+        question: 'Which Delta planes at IAH have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. IAH sees both narrowbody and widebody aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
+      },
+      {
+        question: 'What causes the most delays at IAH for Delta?',
+        answer: 'Houston\'s subtropical climate makes thunderstorms the dominant delay driver, particularly during summer months (May–September). Tropical systems and hurricanes can disrupt operations for days. IAH\'s five runways provide capacity, but convective weather along the Gulf Coast frequently triggers ground delay programs and ground stops.',
+      },
+    ],
+    airportSchema: {
+      name: 'George Bush Intercontinental Airport',
+      iataCode: 'IAH',
+      addressLocality: 'Houston',
+      addressRegion: 'TX',
+      addressCountry: 'US',
+      latitude: 29.9902,
+      longitude: -95.3368,
+      url: 'https://www.fly2houston.com/iah',
     },
-    {
-      question: 'What terminal is Delta Air Lines at Houston IAH?',
-      answer: 'Delta Air Lines operates from Terminal C (domestic) and Terminal E (international) at George Bush Intercontinental Airport. Delta Club lounges are located in both terminals. The Subway people mover connects all terminals. Delta Express regional flights also depart from Terminal C.',
-    },
-    {
-      question: 'How many Delta flights depart from IAH daily?',
-      answer: 'Delta Air Lines operates approximately 400 daily departures from Houston Intercontinental, making it Delta\'s primary gateway to Latin America and one of the largest hubs by geographic footprint.',
-    },
-    {
-      question: 'Which Delta planes at IAH have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. IAH sees both narrowbody and widebody aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
-    },
-    {
-      question: 'What causes the most delays at IAH for Delta?',
-      answer: 'Houston\'s subtropical climate makes thunderstorms the dominant delay driver, particularly during summer months (May–September). Tropical systems and hurricanes can disrupt operations for days. IAH\'s five runways provide capacity, but convective weather along the Gulf Coast frequently triggers ground delay programs and ground stops.',
-    },
-  ],
-  airportSchema: {
-    name: 'George Bush Intercontinental Airport',
-    iataCode: 'IAH',
-    addressLocality: 'Houston',
-    addressRegion: 'TX',
-    addressCountry: 'US',
-    latitude: 29.9902,
-    longitude: -95.3368,
-    url: 'https://www.fly2houston.com/iah',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">IAH</span> — Houston Intercontinental',
-  subtitle: 'Delta\'s Latin America gateway · ~400 daily departures · Terminals C & E',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">IAH</span> — Houston Intercontinental',
+    subtitle: 'Delta\'s Latin America gateway · ~400 daily departures · Terminals C & E',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -441,64 +441,64 @@ iah: {
     <h3>Which Delta planes at IAH have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── EWR ────────────────────────────────────────────────────────────────
-ewr: {
-  iata: 'EWR',
-  variant: 'full',
-  title: 'Delta Air Lines EWR Hub Status — Newark Liberty Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Newark Liberty (EWR). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s most delay-prone hub — updated every 30 seconds.',
-  keywords: 'Delta Air Lines EWR delays, Delta Newark hub status, Delta Air Lines EWR on-time, Delta EWR cancellations today, Delta Air Lines Newark delays, EWR flight status, Delta hub Newark, Delta Air Lines Newark departures',
-  ogTitle: 'Delta Air Lines EWR Hub — Live Newark Liberty Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Newark Liberty. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines EWR Hub Status',
-  twitterTitle: 'Delta Air Lines EWR Hub — Live Newark Liberty Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s East Coast gateway. Updated every 30 seconds.',
-  breadcrumbName: 'EWR — Newark',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at EWR today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at Newark Liberty in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  ewr: {
+    iata: 'EWR',
+    variant: 'full',
+    title: 'Delta Air Lines EWR Hub Status — Newark Liberty Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Newark Liberty (EWR). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s most delay-prone hub — updated every 30 seconds.',
+    keywords: 'Delta Air Lines EWR delays, Delta Newark hub status, Delta Air Lines EWR on-time, Delta EWR cancellations today, Delta Air Lines Newark delays, EWR flight status, Delta hub Newark, Delta Air Lines Newark departures',
+    ogTitle: 'Delta Air Lines EWR Hub — Live Newark Liberty Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Newark Liberty. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines EWR Hub Status',
+    twitterTitle: 'Delta Air Lines EWR Hub — Live Newark Liberty Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s East Coast gateway. Updated every 30 seconds.',
+    breadcrumbName: 'EWR — Newark',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at EWR today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at Newark Liberty in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What terminal is Delta Air Lines at Newark?',
+        answer: 'Delta Air Lines operates primarily from Terminal C at Newark Liberty International Airport, with additional flights from the new Terminal A which opened in 2023. Delta Club lounges are located in Terminal C. Terminal C is Delta\'s dedicated terminal with over 70 gates.',
+      },
+      {
+        question: 'How many Delta flights depart from EWR daily?',
+        answer: 'Delta Air Lines operates approximately 400 daily departures from Newark Liberty, making it Delta\'s primary East Coast hub. EWR is the only Delta hub in the New York metropolitan area and a major transatlantic gateway.',
+      },
+      {
+        question: 'Which Delta planes at EWR have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. EWR sees a mix of narrowbody and widebody aircraft, with Starlink rolling out across 737 MAX and A321neo first.',
+      },
+      {
+        question: 'What causes the most delays at EWR for Delta?',
+        answer: 'Newark Liberty is consistently the most delay-prone major airport in the Delta States. Its close proximity to JFK and LaGuardia creates shared airspace congestion. Three intersecting runways limit capacity, and any weather — thunderstorms, fog, wind, snow — immediately triggers ground delay programs. EWR delays ripple across Delta\'s entire network.',
+      },
+    ],
+    airportSchema: {
+      name: 'Newark Liberty International Airport',
+      iataCode: 'EWR',
+      addressLocality: 'Newark',
+      addressRegion: 'NJ',
+      addressCountry: 'US',
+      latitude: 40.6895,
+      longitude: -74.1745,
+      url: 'https://www.newarkairport.com',
     },
-    {
-      question: 'What terminal is Delta Air Lines at Newark?',
-      answer: 'Delta Air Lines operates primarily from Terminal C at Newark Liberty International Airport, with additional flights from the new Terminal A which opened in 2023. Delta Club lounges are located in Terminal C. Terminal C is Delta\'s dedicated terminal with over 70 gates.',
-    },
-    {
-      question: 'How many Delta flights depart from EWR daily?',
-      answer: 'Delta Air Lines operates approximately 400 daily departures from Newark Liberty, making it Delta\'s primary East Coast hub. EWR is the only Delta hub in the New York metropolitan area and a major transatlantic gateway.',
-    },
-    {
-      question: 'Which Delta planes at EWR have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. EWR sees a mix of narrowbody and widebody aircraft, with Starlink rolling out across 737 MAX and A321neo first.',
-    },
-    {
-      question: 'What causes the most delays at EWR for Delta?',
-      answer: 'Newark Liberty is consistently the most delay-prone major airport in the Delta States. Its close proximity to JFK and LaGuardia creates shared airspace congestion. Three intersecting runways limit capacity, and any weather — thunderstorms, fog, wind, snow — immediately triggers ground delay programs. EWR delays ripple across Delta\'s entire network.',
-    },
-  ],
-  airportSchema: {
-    name: 'Newark Liberty International Airport',
-    iataCode: 'EWR',
-    addressLocality: 'Newark',
-    addressRegion: 'NJ',
-    addressCountry: 'US',
-    latitude: 40.6895,
-    longitude: -74.1745,
-    url: 'https://www.newarkairport.com',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">EWR</span> — Newark Liberty',
-  subtitle: 'Delta\'s East Coast gateway · ~400 daily departures · Terminal C · New Terminal A',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">EWR</span> — Newark Liberty',
+    subtitle: 'Delta\'s East Coast gateway · ~400 daily departures · Terminal C · New Terminal A',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -582,64 +582,64 @@ ewr: {
     <h3>Which Delta planes at EWR have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── SFO ────────────────────────────────────────────────────────────────
-sfo: {
-  iata: 'SFO',
-  variant: 'full',
-  title: 'Delta Air Lines SFO Hub Status — San Francisco Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at San Francisco International (SFO). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Asia-Pacific gateway — updated every 30 seconds.',
-  keywords: 'Delta Air Lines SFO delays, Delta San Francisco hub status, Delta Air Lines SFO on-time, Delta SFO cancellations today, Delta Air Lines San Francisco delays, SFO flight status, Delta hub San Francisco, Delta Air Lines SFO departures',
-  ogTitle: 'Delta Air Lines SFO Hub — Live San Francisco International Status',
-  ogDescription: 'Real-time Delta Air Lines operations at San Francisco International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines SFO Hub Status',
-  twitterTitle: 'Delta Air Lines SFO Hub — Live San Francisco International Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Asia-Pacific gateway. Updated every 30 seconds.',
-  breadcrumbName: 'SFO — San Francisco',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at SFO today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at San Francisco International in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  sfo: {
+    iata: 'SFO',
+    variant: 'full',
+    title: 'Delta Air Lines SFO Hub Status — San Francisco Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at San Francisco International (SFO). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Asia-Pacific gateway — updated every 30 seconds.',
+    keywords: 'Delta Air Lines SFO delays, Delta San Francisco hub status, Delta Air Lines SFO on-time, Delta SFO cancellations today, Delta Air Lines San Francisco delays, SFO flight status, Delta hub San Francisco, Delta Air Lines SFO departures',
+    ogTitle: 'Delta Air Lines SFO Hub — Live San Francisco International Status',
+    ogDescription: 'Real-time Delta Air Lines operations at San Francisco International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines SFO Hub Status',
+    twitterTitle: 'Delta Air Lines SFO Hub — Live San Francisco International Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Asia-Pacific gateway. Updated every 30 seconds.',
+    breadcrumbName: 'SFO — San Francisco',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at SFO today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at San Francisco International in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What terminal is Delta Air Lines at SFO?',
+        answer: 'Delta Air Lines domestic flights operate from Terminal 3 at San Francisco International Airport. Delta international flights use the International Terminal (Terminal G). Delta Club lounges are located in Terminal 3 (Boarding Area E near gate E4, Boarding Area F near gate F11) and the International Terminal Boarding Area G. Delta Express regional flights depart from Terminal 3.',
+      },
+      {
+        question: 'How many Delta flights depart from SFO daily?',
+        answer: 'Delta Air Lines operates approximately 300 daily departures from San Francisco International, making it Delta\'s primary Asia-Pacific gateway. SFO is located in the heart of Silicon Valley and serves as a critical hub for tech corridor travel.',
+      },
+      {
+        question: 'Which Delta planes at SFO have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. SFO sees both narrowbody and widebody aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
+      },
+      {
+        question: 'What causes the most delays at SFO for Delta?',
+        answer: 'Fog is the signature delay driver at SFO. Marine layer fog from the Pacific regularly reduces visibility, forcing SFO to switch from parallel approaches to single-runway operations — cutting arrival capacity in half. Summer fog season (June–August) is paradoxically SFO\'s worst period for delays. SFO\'s closely-spaced parallel runways require visual separation in good weather but can only handle one stream of traffic in low visibility.',
+      },
+    ],
+    airportSchema: {
+      name: 'San Francisco International Airport',
+      iataCode: 'SFO',
+      addressLocality: 'San Francisco',
+      addressRegion: 'CA',
+      addressCountry: 'US',
+      latitude: 37.6213,
+      longitude: -122.3790,
+      url: 'https://www.flysfo.com',
     },
-    {
-      question: 'What terminal is Delta Air Lines at SFO?',
-      answer: 'Delta Air Lines domestic flights operate from Terminal 3 at San Francisco International Airport. Delta international flights use the International Terminal (Terminal G). Delta Club lounges are located in Terminal 3 (Boarding Area E near gate E4, Boarding Area F near gate F11) and the International Terminal Boarding Area G. Delta Express regional flights depart from Terminal 3.',
-    },
-    {
-      question: 'How many Delta flights depart from SFO daily?',
-      answer: 'Delta Air Lines operates approximately 300 daily departures from San Francisco International, making it Delta\'s primary Asia-Pacific gateway. SFO is located in the heart of Silicon Valley and serves as a critical hub for tech corridor travel.',
-    },
-    {
-      question: 'Which Delta planes at SFO have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. SFO sees both narrowbody and widebody aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
-    },
-    {
-      question: 'What causes the most delays at SFO for Delta?',
-      answer: 'Fog is the signature delay driver at SFO. Marine layer fog from the Pacific regularly reduces visibility, forcing SFO to switch from parallel approaches to single-runway operations — cutting arrival capacity in half. Summer fog season (June–August) is paradoxically SFO\'s worst period for delays. SFO\'s closely-spaced parallel runways require visual separation in good weather but can only handle one stream of traffic in low visibility.',
-    },
-  ],
-  airportSchema: {
-    name: 'San Francisco International Airport',
-    iataCode: 'SFO',
-    addressLocality: 'San Francisco',
-    addressRegion: 'CA',
-    addressCountry: 'US',
-    latitude: 37.6213,
-    longitude: -122.3790,
-    url: 'https://www.flysfo.com',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">SFO</span> — San Francisco International',
-  subtitle: 'Delta\'s Asia-Pacific gateway · ~300 daily departures · Terminal 3 · International Terminal G',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">SFO</span> — San Francisco International',
+    subtitle: 'Delta\'s Asia-Pacific gateway · ~300 daily departures · Terminal 3 · International Terminal G',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -723,64 +723,64 @@ sfo: {
     <h3>Which Delta planes at SFO have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── IAD ────────────────────────────────────────────────────────────────
-iad: {
-  iata: 'IAD',
-  variant: 'full',
-  title: 'Delta Air Lines IAD Hub Status — Washington Dulles Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Washington Dulles (IAD). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Washington D.C. hub — updated every 30 seconds.',
-  keywords: 'Delta Air Lines IAD delays, Delta Washington Dulles hub status, Delta Air Lines IAD on-time, Delta IAD cancellations today, Delta Air Lines Dulles delays, IAD flight status, Delta hub Washington, Delta Air Lines Dulles departures',
-  ogTitle: 'Delta Air Lines IAD Hub — Live Washington Dulles Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Washington Dulles. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines IAD Hub Status',
-  twitterTitle: 'Delta Air Lines IAD Hub — Live Washington Dulles Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Washington D.C. hub. Updated every 30 seconds.',
-  breadcrumbName: 'IAD — Washington Dulles',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at IAD today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at Washington Dulles in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  iad: {
+    iata: 'IAD',
+    variant: 'full',
+    title: 'Delta Air Lines IAD Hub Status — Washington Dulles Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Washington Dulles (IAD). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Washington D.C. hub — updated every 30 seconds.',
+    keywords: 'Delta Air Lines IAD delays, Delta Washington Dulles hub status, Delta Air Lines IAD on-time, Delta IAD cancellations today, Delta Air Lines Dulles delays, IAD flight status, Delta hub Washington, Delta Air Lines Dulles departures',
+    ogTitle: 'Delta Air Lines IAD Hub — Live Washington Dulles Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Washington Dulles. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines IAD Hub Status',
+    twitterTitle: 'Delta Air Lines IAD Hub — Live Washington Dulles Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Washington D.C. hub. Updated every 30 seconds.',
+    breadcrumbName: 'IAD — Washington Dulles',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at IAD today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at Washington Dulles in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What concourse is Delta Air Lines at Dulles?',
+        answer: 'Delta Air Lines operates primarily from Concourses C and D at Washington Dulles International Airport. Concourse C handles domestic flights and Concourse D serves international departures. Delta Club lounges are located in both concourses. The AeroTrain connects all concourses to the main terminal.',
+      },
+      {
+        question: 'How many Delta flights depart from IAD daily?',
+        answer: 'Delta Air Lines operates approximately 250 daily departures from Washington Dulles, making it Delta\'s Washington D.C. hub and a significant transatlantic gateway. IAD serves the nation\'s capital and the Dulles technology corridor.',
+      },
+      {
+        question: 'Which Delta planes at IAD have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. IAD sees both narrowbody and widebody aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
+      },
+      {
+        question: 'What causes the most delays at IAD for Delta?',
+        answer: 'Washington Dulles experiences delays from summer thunderstorms along the Eastern Seaboard, winter snow and ice events, and low-visibility fog. IAD\'s location in Northern Virginia means it shares weather patterns with the broader D.C. metro area. Ground delay programs issued for the New York TRACON also frequently affect IAD departures heading northbound.',
+      },
+    ],
+    airportSchema: {
+      name: 'Washington Dulles International Airport',
+      iataCode: 'IAD',
+      addressLocality: 'Dulles',
+      addressRegion: 'VA',
+      addressCountry: 'US',
+      latitude: 38.9531,
+      longitude: -77.4565,
+      url: 'https://www.flydulles.com',
     },
-    {
-      question: 'What concourse is Delta Air Lines at Dulles?',
-      answer: 'Delta Air Lines operates primarily from Concourses C and D at Washington Dulles International Airport. Concourse C handles domestic flights and Concourse D serves international departures. Delta Club lounges are located in both concourses. The AeroTrain connects all concourses to the main terminal.',
-    },
-    {
-      question: 'How many Delta flights depart from IAD daily?',
-      answer: 'Delta Air Lines operates approximately 250 daily departures from Washington Dulles, making it Delta\'s Washington D.C. hub and a significant transatlantic gateway. IAD serves the nation\'s capital and the Dulles technology corridor.',
-    },
-    {
-      question: 'Which Delta planes at IAD have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. IAD sees both narrowbody and widebody aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
-    },
-    {
-      question: 'What causes the most delays at IAD for Delta?',
-      answer: 'Washington Dulles experiences delays from summer thunderstorms along the Eastern Seaboard, winter snow and ice events, and low-visibility fog. IAD\'s location in Northern Virginia means it shares weather patterns with the broader D.C. metro area. Ground delay programs issued for the New York TRACON also frequently affect IAD departures heading northbound.',
-    },
-  ],
-  airportSchema: {
-    name: 'Washington Dulles International Airport',
-    iataCode: 'IAD',
-    addressLocality: 'Dulles',
-    addressRegion: 'VA',
-    addressCountry: 'US',
-    latitude: 38.9531,
-    longitude: -77.4565,
-    url: 'https://www.flydulles.com',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">IAD</span> — Washington Dulles',
-  subtitle: 'Delta\'s Washington D.C. hub · ~250 daily departures · Concourses C & D',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">IAD</span> — Washington Dulles',
+    subtitle: 'Delta\'s Washington D.C. hub · ~250 daily departures · Concourses C & D',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -864,64 +864,64 @@ iad: {
     <h3>Which Delta planes at IAD have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── LAX ────────────────────────────────────────────────────────────────
-lax: {
-  iata: 'LAX',
-  variant: 'full',
-  title: 'Delta Air Lines LAX Status — Los Angeles Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Los Angeles International (LAX). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Pacific gateway hub — updated every 30 seconds.',
-  keywords: 'Delta Air Lines LAX delays, Delta Los Angeles status, Delta Air Lines LAX on-time, Delta LAX cancellations today, Delta Air Lines Los Angeles delays, LAX flight status, Delta LAX, Delta Air Lines LAX departures',
-  ogTitle: 'Delta Air Lines LAX — Live Los Angeles International Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Los Angeles International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines LAX Hub Status',
-  twitterTitle: 'Delta Air Lines LAX — Live Los Angeles International Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Pacific gateway. Updated every 30 seconds.',
-  breadcrumbName: 'LAX — Los Angeles',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at LAX today?',
-      answer: 'Widget Watch tracks every Delta Air Lines flight at Los Angeles International in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+  lax: {
+    iata: 'LAX',
+    variant: 'full',
+    title: 'Delta Air Lines LAX Status — Los Angeles Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Los Angeles International (LAX). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s Pacific gateway hub — updated every 30 seconds.',
+    keywords: 'Delta Air Lines LAX delays, Delta Los Angeles status, Delta Air Lines LAX on-time, Delta LAX cancellations today, Delta Air Lines Los Angeles delays, LAX flight status, Delta LAX, Delta Air Lines LAX departures',
+    ogTitle: 'Delta Air Lines LAX — Live Los Angeles International Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Los Angeles International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines LAX Hub Status',
+    twitterTitle: 'Delta Air Lines LAX — Live Los Angeles International Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Pacific gateway. Updated every 30 seconds.',
+    breadcrumbName: 'LAX — Los Angeles',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at LAX today?',
+        answer: 'Widget Watch tracks every Delta Air Lines flight at Los Angeles International in real time. Check the live status panel above for current delay counts, cancellations, and on-time performance. The dashboard updates every 30 seconds with data from Flightradar24 and FAA sources.',
+      },
+      {
+        question: 'What terminal is Delta Air Lines at LAX?',
+        answer: 'Delta Air Lines operates from Terminals 7 and 8 at Los Angeles International Airport. Terminal 7 handles most domestic flights, while Terminal 8 serves additional domestic and some international departures. Delta Club lounges are located in both terminals. Delta Express regional flights also depart from Terminals 7 and 8.',
+      },
+      {
+        question: 'How many Delta flights depart from LAX daily?',
+        answer: 'Delta Air Lines operates approximately 200 daily departures from Los Angeles International. While LAX is a hub and Pacific gateway, it is a key Pacific gateway and connects to destinations across the U.S., Asia, Australia, and the Pacific Islands.',
+      },
+      {
+        question: 'Which Delta planes at LAX have Starlink WiFi?',
+        answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. LAX sees a mix of narrowbody and widebody Delta aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
+      },
+      {
+        question: 'What causes the most delays at LAX for Delta?',
+        answer: 'LAX delays are most commonly caused by morning marine layer fog (May Gray / June Gloom) that can reduce visibility and require instrument approaches, reducing runway throughput. LAX\'s complex airspace shared with nearby airports (BUR, SNA, LGB, ONT) creates congestion. Late-night construction on taxiways and runways can also cause delays during early morning hours.',
+      },
+    ],
+    airportSchema: {
+      name: 'Los Angeles International Airport',
+      iataCode: 'LAX',
+      addressLocality: 'Los Angeles',
+      addressRegion: 'CA',
+      addressCountry: 'US',
+      latitude: 33.9425,
+      longitude: -118.4081,
+      url: 'https://www.flylax.com',
     },
-    {
-      question: 'What terminal is Delta Air Lines at LAX?',
-      answer: 'Delta Air Lines operates from Terminals 7 and 8 at Los Angeles International Airport. Terminal 7 handles most domestic flights, while Terminal 8 serves additional domestic and some international departures. Delta Club lounges are located in both terminals. Delta Express regional flights also depart from Terminals 7 and 8.',
-    },
-    {
-      question: 'How many Delta flights depart from LAX daily?',
-      answer: 'Delta Air Lines operates approximately 200 daily departures from Los Angeles International. While LAX is a hub and Pacific gateway, it is a key Pacific gateway and connects to destinations across the U.S., Asia, Australia, and the Pacific Islands.',
-    },
-    {
-      question: 'Which Delta planes at LAX have Starlink WiFi?',
-      answer: 'Delta is rolling out Starlink satellite WiFi across its fleet. Widget Watch\'s Fleet tab tracks which aircraft have been equipped — search by tail number or check WiFi status on any tracked flight. LAX sees a mix of narrowbody and widebody Delta aircraft, with 737 MAX and A321neo among the first to receive Starlink.',
-    },
-    {
-      question: 'What causes the most delays at LAX for Delta?',
-      answer: 'LAX delays are most commonly caused by morning marine layer fog (May Gray / June Gloom) that can reduce visibility and require instrument approaches, reducing runway throughput. LAX\'s complex airspace shared with nearby airports (BUR, SNA, LGB, ONT) creates congestion. Late-night construction on taxiways and runways can also cause delays during early morning hours.',
-    },
-  ],
-  airportSchema: {
-    name: 'Los Angeles International Airport',
-    iataCode: 'LAX',
-    addressLocality: 'Los Angeles',
-    addressRegion: 'CA',
-    addressCountry: 'US',
-    latitude: 33.9425,
-    longitude: -118.4081,
-    url: 'https://www.flylax.com',
-  },
-  headerTitle: 'Delta Air Lines at <span class="iata">LAX</span> — Los Angeles International',
-  subtitle: 'Delta\'s Pacific gateway hub · ~200 daily departures · Terminals 7 & 8',
-  jumpNav: [
-    { href: '#overview', label: 'Overview' },
-    { href: '#delay-patterns', label: 'Delay Patterns' },
-    { href: '#starlink', label: 'Starlink WiFi' },
-    { href: '#construction', label: 'Construction' },
-    { href: '#faq', label: 'FAQ' },
-    { href: '#all-hubs', label: 'All Hubs' },
-  ],
-  contentHtml: `
+    headerTitle: 'Delta Air Lines at <span class="iata">LAX</span> — Los Angeles International',
+    subtitle: 'Delta\'s Pacific gateway hub · ~200 daily departures · Terminals 7 & 8',
+    jumpNav: [
+      { href: '#overview', label: 'Overview' },
+      { href: '#delay-patterns', label: 'Delay Patterns' },
+      { href: '#starlink', label: 'Starlink WiFi' },
+      { href: '#construction', label: 'Construction' },
+      { href: '#faq', label: 'FAQ' },
+      { href: '#all-hubs', label: 'All Hubs' },
+    ],
+    contentHtml: `
   <!-- Dive Deep -->
   <div class="section">
     <h2>Dive Deep at Widget Watch</h2>
@@ -1006,51 +1006,51 @@ lax: {
     <h3>Which Delta planes at LAX have Starlink WiFi?</h3>
     <p>Starlink is being installed on narrowbody aircraft first (737 MAX, A321neo). Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── NRT (compact variant) ─────────────────────────────────────────────
-nrt: {
-  iata: 'NRT',
-  variant: 'compact',
-  title: 'Delta Air Lines NRT Hub Status — Tokyo Narita Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Narita International Airport (NRT). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s primary Japan gateway — updated every 30 seconds.',
-  keywords: 'Delta Air Lines NRT delays, Delta Tokyo Narita hub status, Delta Air Lines NRT on-time, Delta NRT cancellations today, Delta Air Lines Tokyo Narita delays, NRT flight status, Delta hub Tokyo Narita, Delta Air Lines NRT departures',
-  ogTitle: 'Delta Air Lines NRT Hub — Live Tokyo Narita Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Narita International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines NRT Hub Status',
-  twitterTitle: 'Delta Air Lines NRT Hub — Live Tokyo Narita Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Japan gateway. Updated every 30 seconds.',
-  breadcrumbName: 'NRT — Tokyo Narita',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at NRT today?',
-      answer: 'Check Widget Watch for real-time Delta delay status at Tokyo Narita International Airport. The dashboard shows current on-time performance, cancellations, and ground stops updated every 30 seconds.',
+  nrt: {
+    iata: 'NRT',
+    variant: 'compact',
+    title: 'Delta Air Lines NRT Hub Status — Tokyo Narita Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Narita International Airport (NRT). Real-time delays, cancellations, on-time performance, Starlink WiFi aircraft, and departure schedules. Delta\'s primary Japan gateway — updated every 30 seconds.',
+    keywords: 'Delta Air Lines NRT delays, Delta Tokyo Narita hub status, Delta Air Lines NRT on-time, Delta NRT cancellations today, Delta Air Lines Tokyo Narita delays, NRT flight status, Delta hub Tokyo Narita, Delta Air Lines NRT departures',
+    ogTitle: 'Delta Air Lines NRT Hub — Live Tokyo Narita Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Narita International. Delays, cancellations, on-time %, Starlink WiFi fleet, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines NRT Hub Status',
+    twitterTitle: 'Delta Air Lines NRT Hub — Live Tokyo Narita Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Japan gateway. Updated every 30 seconds.',
+    breadcrumbName: 'NRT — Tokyo Narita',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at NRT today?',
+        answer: 'Check Widget Watch for real-time Delta delay status at Tokyo Narita International Airport. The dashboard shows current on-time performance, cancellations, and ground stops updated every 30 seconds.',
+      },
+      {
+        question: 'What terminal is Delta Air Lines at NRT?',
+        answer: 'Delta Air Lines operates from Terminal 1 at Narita International Airport. The Delta Club lounge is located in the satellite building of Terminal 1.',
+      },
+      {
+        question: 'How many Delta flights operate from NRT daily?',
+        answer: 'Delta Air Lines operates approximately 15-20 daily flights from Tokyo Narita, connecting to major US hubs including SFO, LAX, IAH, ORD, EWR, DEN, and IAD. NRT serves as Delta\'s primary Japan gateway for transpacific service.',
+      },
+      {
+        question: 'Which Delta planes at NRT have Starlink WiFi?',
+        answer: 'Starlink WiFi is being installed across Delta\'s widebody fleet. Check the Fleet tab on Widget Watch for specific tail numbers and aircraft with Starlink on NRT routes.',
+      },
+    ],
+    airportSchema: {
+      name: 'Narita International Airport',
+      iataCode: 'NRT',
+      icaoCode: 'RJAA',
+      addressLocality: 'Narita',
+      addressRegion: 'Chiba',
+      addressCountry: 'JP',
+      latitude: 35.7720,
+      longitude: 140.3929,
+      url: 'https://www.narita-airport.jp/en/',
     },
-    {
-      question: 'What terminal is Delta Air Lines at NRT?',
-      answer: 'Delta Air Lines operates from Terminal 1 at Narita International Airport. The Delta Club lounge is located in the satellite building of Terminal 1.',
-    },
-    {
-      question: 'How many Delta flights operate from NRT daily?',
-      answer: 'Delta Air Lines operates approximately 15-20 daily flights from Tokyo Narita, connecting to major US hubs including SFO, LAX, IAH, ORD, EWR, DEN, and IAD. NRT serves as Delta\'s primary Japan gateway for transpacific service.',
-    },
-    {
-      question: 'Which Delta planes at NRT have Starlink WiFi?',
-      answer: 'Starlink WiFi is being installed across Delta\'s widebody fleet. Check the Fleet tab on Widget Watch for specific tail numbers and aircraft with Starlink on NRT routes.',
-    },
-  ],
-  airportSchema: {
-    name: 'Narita International Airport',
-    iataCode: 'NRT',
-    icaoCode: 'RJAA',
-    addressLocality: 'Narita',
-    addressRegion: 'Chiba',
-    addressCountry: 'JP',
-    latitude: 35.7720,
-    longitude: 140.3929,
-    url: 'https://www.narita-airport.jp/en/',
-  },
-  contentHtml: `
+    contentHtml: `
   <h1>✈️ Delta Air Lines at Tokyo Narita (NRT)</h1>
   <div class="subtitle">Live hub status · Updated every 30 seconds · <a href="/">Open Full Dashboard →</a></div>
 
@@ -1126,51 +1126,51 @@ nrt: {
     <h3>Which Delta planes at NRT have Starlink WiFi?</h3>
     <p>Starlink is being installed on widebody aircraft including 777 and 787 frames. Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for the latest count and specific tail numbers.</p>
   </div>`,
-},
+  },
 
 // ─── GUM (compact variant) ─────────────────────────────────────────────
-gum: {
-  iata: 'GUM',
-  variant: 'compact',
-  title: 'Delta Air Lines GUM Hub Status — Guam Delays, On-Time Performance & Flight Tracker',
-  description: 'Live Delta Air Lines status at Antonio B. Won Pat International Airport, Guam (GUM). Real-time delays, cancellations, on-time performance, and departure schedules. Delta\'s Western Pacific hub — updated every 30 seconds.',
-  keywords: 'Delta Air Lines GUM delays, Delta Guam hub status, Delta Air Lines GUM on-time, Delta GUM cancellations today, Delta Air Lines Guam delays, GUM flight status, Delta hub Guam, Delta Air Lines GUM departures, Delta Island Hopper',
-  ogTitle: 'Delta Air Lines GUM Hub — Live Guam Status',
-  ogDescription: 'Real-time Delta Air Lines operations at Guam International. Delays, cancellations, on-time %, and schedules.',
-  ogImageAlt: 'Widget Watch — Delta Air Lines GUM Hub Status',
-  twitterTitle: 'Delta Air Lines GUM Hub — Live Guam Status',
-  twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Western Pacific hub. Updated every 30 seconds.',
-  breadcrumbName: 'GUM — Guam',
-  faqSchema: [
-    {
-      question: 'Is Delta Air Lines delayed at GUM today?',
-      answer: 'Check Widget Watch for real-time Delta delay status at Guam International Airport. The dashboard shows current on-time performance, cancellations, and disruptions updated every 30 seconds.',
+  gum: {
+    iata: 'GUM',
+    variant: 'compact',
+    title: 'Delta Air Lines GUM Hub Status — Guam Delays, On-Time Performance & Flight Tracker',
+    description: 'Live Delta Air Lines status at Antonio B. Won Pat International Airport, Guam (GUM). Real-time delays, cancellations, on-time performance, and departure schedules. Delta\'s Western Pacific hub — updated every 30 seconds.',
+    keywords: 'Delta Air Lines GUM delays, Delta Guam hub status, Delta Air Lines GUM on-time, Delta GUM cancellations today, Delta Air Lines Guam delays, GUM flight status, Delta hub Guam, Delta Air Lines GUM departures, Delta Island Hopper',
+    ogTitle: 'Delta Air Lines GUM Hub — Live Guam Status',
+    ogDescription: 'Real-time Delta Air Lines operations at Guam International. Delays, cancellations, on-time %, and schedules.',
+    ogImageAlt: 'Widget Watch — Delta Air Lines GUM Hub Status',
+    twitterTitle: 'Delta Air Lines GUM Hub — Live Guam Status',
+    twitterDescription: 'Real-time delays, cancellations, on-time performance at Delta\'s Western Pacific hub. Updated every 30 seconds.',
+    breadcrumbName: 'GUM — Guam',
+    faqSchema: [
+      {
+        question: 'Is Delta Air Lines delayed at GUM today?',
+        answer: 'Check Widget Watch for real-time Delta delay status at Guam International Airport. The dashboard shows current on-time performance, cancellations, and disruptions updated every 30 seconds.',
+      },
+      {
+        question: 'What is the Delta Island Hopper?',
+        answer: 'The Delta Island Hopper (DL154/DL155) is one of aviation\'s most unique routes — a multi-stop 737 flight connecting Guam to Honolulu via Chuuk, Pohnpei, Kosrae, Kwajalein, and Majuro across Micronesia. It\'s the lifeline air service for these remote Pacific islands.',
+      },
+      {
+        question: 'How many Delta flights operate from GUM daily?',
+        answer: 'Delta Air Lines operates approximately 8-12 daily flights from Guam, including service to NRT (Tokyo Narita), HNL (Honolulu), MNL (Manila), and the famous Island Hopper route through Micronesia. Charter and repositioning flights (like ORD-GUM) also operate seasonally.',
+      },
+      {
+        question: 'Which Delta planes at GUM have Starlink WiFi?',
+        answer: 'Starlink WiFi availability on GUM routes depends on the specific aircraft assigned. Check the Fleet tab on Widget Watch for the latest Starlink-equipped tail numbers.',
+      },
+    ],
+    airportSchema: {
+      name: 'Antonio B. Won Pat International Airport',
+      iataCode: 'GUM',
+      icaoCode: 'PGUM',
+      addressLocality: 'Tamuning',
+      addressRegion: 'Guam',
+      addressCountry: 'GU',
+      latitude: 13.4834,
+      longitude: 144.7960,
+      url: 'https://www.guamairport.com/',
     },
-    {
-      question: 'What is the Delta Island Hopper?',
-      answer: 'The Delta Island Hopper (DL154/DL155) is one of aviation\'s most unique routes — a multi-stop 737 flight connecting Guam to Honolulu via Chuuk, Pohnpei, Kosrae, Kwajalein, and Majuro across Micronesia. It\'s the lifeline air service for these remote Pacific islands.',
-    },
-    {
-      question: 'How many Delta flights operate from GUM daily?',
-      answer: 'Delta Air Lines operates approximately 8-12 daily flights from Guam, including service to NRT (Tokyo Narita), HNL (Honolulu), MNL (Manila), and the famous Island Hopper route through Micronesia. Charter and repositioning flights (like ORD-GUM) also operate seasonally.',
-    },
-    {
-      question: 'Which Delta planes at GUM have Starlink WiFi?',
-      answer: 'Starlink WiFi availability on GUM routes depends on the specific aircraft assigned. Check the Fleet tab on Widget Watch for the latest Starlink-equipped tail numbers.',
-    },
-  ],
-  airportSchema: {
-    name: 'Antonio B. Won Pat International Airport',
-    iataCode: 'GUM',
-    icaoCode: 'PGUM',
-    addressLocality: 'Tamuning',
-    addressRegion: 'Guam',
-    addressCountry: 'GU',
-    latitude: 13.4834,
-    longitude: 144.7960,
-    url: 'https://www.guamairport.com/',
-  },
-  contentHtml: `
+    contentHtml: `
   <h1>✈️ Delta Air Lines at Guam (GUM)</h1>
   <div class="subtitle">Live hub status · Updated every 30 seconds · <a href="/">Open Full Dashboard →</a></div>
 
@@ -1252,6 +1252,6 @@ gum: {
     <h3>Which Delta planes at GUM have Starlink WiFi?</h3>
     <p>Check <a href="/?tab=fleet&filter=starlink">the Fleet tab</a> for Starlink-equipped aircraft on GUM routes.</p>
   </div>`,
-},
+  },
 
 }; // end hubs
