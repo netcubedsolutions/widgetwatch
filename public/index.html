@@ -734,7 +734,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
       <div id="map"></div>
       <div id="controls">
         <button class="ctrl-btn" id="mobile-ctrl-toggle" style="display:none" aria-label="Toggle map layers">☰</button>
-        <button class="ctrl-btn" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
+        <button class="ctrl-btn active" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
         <button class="ctrl-btn active" data-action="toggle-longhaul" id="btn-longhaul">🌍 Long Haul</button>
         <button class="ctrl-btn" data-action="toggle-weather" id="btn-wx">🌧 Weather</button>
         <!--button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">🌏 Pacific</button-->
@@ -1303,7 +1303,7 @@ const IATA_CITIES = {
 
 // ═══ GLOBALS ═══
 let map, flightMarkers = {}, routeLine = null, routeGroup = null, hubMarkers = [], wxLayer = null;
-let allFlights = [], showHubs = true, showLonghaul = false, showWeather = false;
+let allFlights = [], showHubs = true, showLonghaul = true, showWeather = false;
 let activeHubFilter = null, activePhaseFilter = null;
 let refreshTimer = null, countdown = 30;
 let deepLinkHandled = false;
