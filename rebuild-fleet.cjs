@@ -5,23 +5,23 @@ const path = require('path');
 
 // GID → type mapping
 const GID_TYPE_MAP = {
-  '0': 'A319',
-  '1': 'A320',
-  '3': '737-700',
-  '4': '737-800',
-  '5': '737-900/900ER',
-  '6': '737 MAX 8',
-  '7': '757-200',
-  '8': '757-300',
-  '10': '767',           // will split 763ER vs 764ER
-  '12': '777-200',       // will split 200 vs 200ER
-  '13': '787-8/10',
-  '15': '777-300ER',
-  '70572532': '737 MAX 9',
-  '948315825': 'A321neo',
-  '1855629492': '737 MAX 9',
-  '2098141434': '787-9',
-  // '1151318329': EXCLUDED - future orders/reserved N-numbers
+  '1360817651': 'A220-100',
+  '823190082': 'A220-300',
+  '2045075120': 'A319',
+  '2073364725': 'A320',
+  '1538397382': 'A321ceo',
+  '1227229540': 'A321neo',
+  '803014129': 'A330-200',
+  '382039884': 'A330-300',
+  '829064758': 'A330-900',
+  '26759434': 'A350-900',
+  '372900393': 'B717-200',
+  '1891757144': 'B737-800',
+  '1574327079': 'B737-900',
+  '1720938178': 'B757-200',
+  '503337945': 'B757-300',
+  '1883016033': 'B767-300',
+  '870301959': 'B767-400',
 };
 
 function parseCSVLine(line) {
@@ -47,10 +47,10 @@ function parseSeats(configStr) {
   if (!configStr) return { seats: {}, tot: 0 };
   const seats = {};
   let tot = 0;
-  const parts = configStr.match(/(\d+)(J|PE|PP|F|E\+|Y)/g);
+  const parts = configStr.match(/(\d+)(J\/F|PS|C\+|Y)/g);
   if (!parts) return { seats: {}, tot: 0 };
   for (const p of parts) {
-    const m = p.match(/(\d+)(J|PE|PP|F|E\+|Y)/);
+    const m = p.match(/(\d+)(J\/F|PS|C\+|Y)/);
     if (m) {
       const count = parseInt(m[1]);
       seats[m[2]] = count;

@@ -2,7 +2,7 @@ import { createRateLimiter } from './_rate-limit.js';
 
 const isRateLimited = createRateLimiter('fleet', 60);
 
-const SHEET_ID = process.env.FLEET_SHEET_ID || '1ZlYgN_IZmd6CSx_nXnuP0L0PiodapDRx3RmNkIpxXAo';
+const SHEET_ID = process.env.FLEET_SHEET_ID || '1h8XhkM3HDnijR7KMt7tRzlLGyAEiljLrrD2YlmDCQRY';
 const ALLOWED_GIDS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'];
 
 export default async function handler(req, res) {
