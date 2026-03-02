@@ -43,7 +43,7 @@ async function rateLimitedFetch(url, deadlineMs) {
     const resp = await fetch(url, {
       signal: controller.signal,
       headers: {
-        'User-Agent': 'WidgetWatch/1.0 (https://widgetwatch.org)',
+        'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
         'Accept': 'application/json'
       }
     });

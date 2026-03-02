@@ -5,20 +5,20 @@
   HUB REGISTRY — Canonical list of all Delta Air Lines hubs
   ═══════════════════════════════════════════════════════════════
   IATA  ICAO   Timezone              City
-  ATL   KATL   America/New_York      Hartsfield-Jackson Atlanta International Airport
-  JFK   KJFK   America/New_York      John F. Kennedy International Airport
-  LGA   KLGA   America/New_York      LaGuardia Airport
-  BOS   KBOS   America/New_York      Boston Logan International Airport
-  DTW   KDTW   America/Detroit       Detroit Metropolitan Wayne County Airport
-  MSP   KMSP   America/Chicago       Minneapolis-Saint Paul International Airport
-  SLC   KSLC   America/Denver        Salt Lake City International Airport
-  LAX   KLAX   Asia/Los_Angeles      Los Angeles International Airport
-  SEA   KSEA   Pacific/Los_Angeles   Seattle-Tacoma International Airport
+  ATL   KATL   America/New_York      Atlanta Hartsfield-Jackson
+  LGA   KLGA   America/New_York      New York LaGuardia
+  JFK   KJFK   America/New_York      New York JFK
+  BOS   KBOS   America/New_York      Boston Logan
+  DTW   KDTW   America/Detroit       Detroit Metro Wayne County
+  MSP   KMSP   America/Chicago       Minneapolis-Saint Paul
+  SLC   KSLC   America/Denver        Salt Lake City International
+  LAX   KLAX   America/Los_Angeles   Los Angeles Int'l
+  SEA   KSEA   America/Los_Angeles   Seattle-Tacoma
 
   When adding/removing a hub, update ALL of these locations:
     public/index.html  — AIRPORTS (hub:true), SCHED_HUB_TZ, hubCodes arrays,
                          hub health bar HTML, SEO metadata
-    api/irop.js      — HUBS array
+    api/irrops.js      — HUBS array
     public/sitemap.xml — hub page entries
     public/hubs/       — individual hub HTML pages + cross-nav
   ═══════════════════════════════════════════════════════════════
@@ -27,18 +27,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0e14">
-<link rel="icon" type="image/jpg" href="/icons/icon.png">
+<link rel="icon" type="image/jpg" href="/icons/icon-512.png">
 <link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/icons/icon.png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Widget Watch">
 <title>Widget Watch — Delta Flight Tracker | Live DL Flight Status, Delays & Fleet</title>
-<meta name="description" content="Free Delta Air Lines flight tracker updated every 30 seconds. Track any DL flight status live, check delays at all 9 hubs (ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA), see which planes have Starlink WiFi, browse the full fleet database, and monitor weather disruptions. Independent ops dashboard built for Delta flyers.">
-<meta name="keywords" content="Delta flight tracker, Delta Air Lines flight status, DL flight status, Delta Air Lines flight tracker, Delta Air Lines delays today, DL flight tracker, Delta Air Lines live map, Delta hub delays, Delta Starlink tracker, Delta Starlink WiFi, Delta Air Lines ORD delays, Delta Air Lines DEN delays, Delta Air Lines EWR delays, Delta Air Lines IAH delays, Delta Air Lines SFO delays, Delta Air Lines NRT delays, Delta Air Lines GUM delays, is my Delta flight on time, Delta Air Lines cancellations, Delta fleet tracker, Delta Air Lines aircraft, Delta Air Lines schedule, Delta Air Lines weather delays, DL delays, Delta Air Lines ground stops, Delta Air Lines disruptions, DL flight tracking">
+<meta name="description" content="Free Delta Air Lines flight tracker updated every 30 seconds. Track any DL flight status live, check delays at all 9 hubs (ATL, LGA, JFK, BOS, DTW, MSP, SLC, LAX, SEA), see which planes have Starlink WiFi, browse the full fleet database, and monitor weather disruptions. Independent ops dashboard built for Delta flyers.">
+<meta name="keywords" content="Delta flight tracker, Delta Air Lines flight status, DL flight status, Delta Air Lines flight tracker, Delta Air Lines delays today, DL flight tracker, Delta Air Lines live map, Delta hub delays, Delta Starlink tracker, Delta Starlink WiFi, Delta Air Lines ATL delays, Delta Air Lines JFK delays, Delta Air Lines BOS delays, Delta Air Lines DTW delays, Delta Air Lines MSP delays, Delta Air Lines SLC delays, Delta Air Lines SEA delays, is my Delta flight on time, Delta Air Lines cancellations, Delta fleet tracker, Delta Air Lines aircraft, Delta Air Lines schedule, Delta Air Lines weather delays, DL delays, Delta Air Lines ground stops, Delta Air Lines disruptions, DL flight tracking">
 <meta name="author" content="Widget Watch">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content="Widget Watch — Delta Flight Tracker | Live Status, Delays & Fleet Database">
 <meta property="og:description" content="Free Delta Air Lines flight tracker — track any DL flight live, check delays at all 9 hubs, see which planes have Starlink WiFi, and monitor disruptions. Updated every 30 seconds.">
 <meta property="og:url" content="https://widgetwatch.org">
@@ -46,18 +47,20 @@
 <meta property="og:image" content="https://widgetwatch.org/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Widget Watch — live Delta Air Lines flight tracker showing 600+ flights on a dark operations map of the Delta States with hub delay status">
+<meta property="og:image:alt" content="Widget Watch — live Delta Air Lines flight tracker showing 600+ flights on a dark operations map of the United States with hub delay status">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Widget Watch — Delta Flight Tracker | Live Status, Delays & Fleet Database">
 <meta name="twitter:description" content="Free Delta Air Lines flight tracker — track any DL flight live, check hub delays, Starlink WiFi status, fleet data, and schedules. Updated every 30 seconds.">
 <meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
-<meta name="twitter:site" content="@craighton">
-<meta name="twitter:creator" content="@craighton">
+<meta name="twitter:site" content="@theblueboard">
+<meta name="twitter:creator" content="@theblueboard">
 <link rel="canonical" href="https://widgetwatch.org">
 <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+<link rel="alternate" type="application/rss+xml" title="Widget Watch — Delta Air Lines Flight Tracker" href="/feed.xml">
 <link rel="dns-prefetch" href="https://unpkg.com">
 <link rel="dns-prefetch" href="https://mesonet.agron.iastate.edu">
 <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://unpkg.com" crossorigin>
 <!-- CSP enforced via vercel.json headers -->
 <script type="application/ld+json">
@@ -66,17 +69,17 @@
   "@type": "WebApplication",
   "name": "Widget Watch",
   "alternateName": ["Delta Flight Tracker", "Delta Air Lines Flight Tracker", "DL Flight Status", "DL Flight Tracker", "Delta Starlink Tracker", "Delta Air Lines Operations Dashboard"],
-  "description": "Track every Delta Air Lines flight in real time. Live flight map updated every 30 seconds, delay and cancellation alerts across all 9 hubs (ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA), Starlink WiFi aircraft checker, full fleet database of 1,078+ aircraft, departure and arrival schedules, weather radar, and operational analytics. Free and independent — built for Delta flyers.",
+  "description": "Track every Delta Air Lines flight in real time. Live flight map updated every 30 seconds, delay and cancellation alerts across all 9 hubs (ATL, LGA, JFK, BOS, DTW, MSP, SLC, LAX, SEA), Starlink WiFi aircraft checker, full fleet database of 1,078+ aircraft, departure and arrival schedules, weather radar, and operational analytics. Free and independent — built for Delta flyers.",
   "url": "https://widgetwatch.org",
   "applicationCategory": "Transportation",
   "operatingSystem": "Web",
   "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
-  "creator": {"@type": "Person", "name": "Jonah Berg", "url": "https://github.com/notjbg", "sameAs": ["https://x.com/craighton", "https://github.com/notjbg"]},
+  "creator": {"@type": "Person", "name": "Jonah Berg", "url": "https://github.com/notjbg", "sameAs": ["https://x.com/theblueboard", "https://github.com/notjbg"]},
   "featureList": [
     "Real-time Delta Air Lines flight tracking map with 600+ flights updated every 30 seconds",
     "Live delay and cancellation alerts for all 9 Delta hubs",
     "Ground stop and FAA NAS status monitoring",
-    "Departure and arrival schedules for ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA",
+    "Departure and arrival schedules for ATL, LGA, JFK, BOS, DTW, MSP, SLC, LAX, SEA",
     "Equipment swap detection and alerts",
     "On-time performance statistics by hub",
     "Starlink WiFi aircraft checker — see if your plane has fast internet",
@@ -91,6 +94,7 @@
   "isAccessibleForFree": true,
   "browserRequirements": "Requires JavaScript",
   "softwareVersion": "2.0",
+  "sameAs": ["https://x.com/theblueboard", "https://github.com/notjbg/the-blue-board"],
   "sourceOrganization": {"@type": "Organization", "name": "Widget Watch", "url": "https://github.com/notjbg/the-blue-board"}
 }
 </script>
@@ -104,7 +108,7 @@
       "name": "How do I check if my Delta Air Lines flight is on time?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Widget Watch shows real-time status for every Delta Air Lines flight. Use the search bar to look up your flight number (e.g., DL1234) and see its current position, delays, and estimated arrival. The hub health bar at the top shows at-a-glance delay conditions at all 9 Delta hubs."
+        "text": "Widget Watch shows real-time status for every Delta Air Lines flight. Use the search bar to look up your flight number (e.g., DL 1234) and see its current position, delays, and estimated arrival. The hub health bar at the top shows at-a-glance delay conditions at all 9 Delta hubs."
       }
     },
     {
@@ -136,7 +140,7 @@
       "name": "How do I track a Delta Air Lines flight?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use Widget Watch's free Delta flight tracker at widgetwatch.org. Enter any DL flight number (e.g., DL 875, DL1234) in the search bar to see its live position, altitude, speed, route, delay status, and aircraft details. The map updates every 30 seconds with all 600+ Delta flights in the air."
+        "text": "Use Widget Watch's free Delta flight tracker at widgetwatch.org. Enter any DL flight number (e.g., DL 875, DL 1234) in the search bar to see its live position, altitude, speed, route, delay status, and aircraft details. The map updates every 30 seconds with all 600+ Delta flights in the air."
       }
     }
   ]
@@ -153,10 +157,10 @@
   "creator": {"@type": "Person", "name": "Jonah Berg", "url": "https://github.com/notjbg"},
   "keywords": ["Delta Air Lines", "flight tracking", "flight delays", "on-time performance", "Starlink WiFi", "fleet data", "aviation", "airline operations"],
   "temporalCoverage": "2025/..",
-  "spatialCoverage": {"@type": "Place", "name": "Delta States"},
+  "spatialCoverage": {"@type": "Place", "name": "United States"},
   "variableMeasured": [
     {"@type": "PropertyValue", "name": "Flight Status", "description": "Real-time position, delay, and cancellation status for every Delta Air Lines flight"},
-    {"@type": "PropertyValue", "name": "Hub On-Time Performance", "description": "On-time percentage for ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA"},
+    {"@type": "PropertyValue", "name": "Hub On-Time Performance", "description": "On-time percentage for ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM"},
     {"@type": "PropertyValue", "name": "Starlink WiFi Equipment", "description": "Aircraft equipped with Starlink satellite internet by tail number"},
     {"@type": "PropertyValue", "name": "Fleet Composition", "description": "Aircraft type, seat configuration, IFE, and equipment details"}
   ],
@@ -167,8 +171,27 @@
   }
 }
 </script>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Widget Watch",
+  "alternateName": ["Delta Flight Tracker", "DL Flight Tracker"],
+  "url": "https://widgetwatch.org",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://widgetwatch.org/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="preload" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" as="style" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/></noscript>
 <script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
@@ -176,8 +199,8 @@
 <link rel="preload" href="https://a.basemaps.cartocdn.com/dark_all/4/3/5.png" as="image" fetchpriority="high">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--bg-card:#111827;--mono:'JetBrains Mono',monospace}
-body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);overflow:hidden;font-size:12px;height:100vh;height:100dvh;display:flex;flex-direction:column}
+:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--bg-card:#111827;--font-ui:'Inter',system-ui,-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace;--mono:'JetBrains Mono',monospace}
+body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--font-ui);overflow:hidden;font-size:12px;height:100vh;height:100dvh;display:flex;flex-direction:column}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 49px,rgba(30,41,59,.15) 50px),repeating-linear-gradient(90deg,transparent,transparent 49px,rgba(30,41,59,.15) 50px);pointer-events:none;z-index:0}
 
 /* Scrollbar */
@@ -205,7 +228,7 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 
 /* Tabs */
 #tab-bar{display:flex;background:var(--dl-panel);border-bottom:2px solid var(--dl-border);flex-shrink:0}
-.tab-btn{flex:1;padding:10px 8px;text-align:center;font-size:11px;font-weight:600;letter-spacing:.5px;color:var(--dl-muted);cursor:pointer;border:none;background:none;transition:all .25s;border-bottom:2px solid transparent;font-family:var(--mono)}
+.tab-btn{flex:1;padding:10px 8px;text-align:center;font-size:11px;font-weight:600;letter-spacing:.5px;color:var(--dl-muted);cursor:pointer;border:none;background:none;transition:color .25s cubic-bezier(.4,0,.2,1),border-color .25s cubic-bezier(.4,0,.2,1),background-color .25s cubic-bezier(.4,0,.2,1);border-bottom:2px solid transparent;font-family:var(--font-ui)}
 .tab-btn:hover{color:#94a3b8;background:rgba(30,41,59,.5)}
 .tab-btn.active{color:var(--dl-text);border-bottom-color:var(--dl-blue);background:rgba(0,93,170,.08)}
 main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
@@ -228,7 +251,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 #tab-live .map-area{flex:1;position:relative}
 #tab-live #map{width:100%;height:100%}
 #tab-live #controls{position:absolute;top:10px;right:10px;z-index:1000;display:flex;flex-direction:column;gap:5px}
-.ctrl-btn{background:rgba(10,14,20,.9);border:1px solid var(--dl-border);color:#ccc;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--mono);backdrop-filter:blur(8px);transition:all .2s}
+.ctrl-btn{background:rgba(10,14,20,.9);border:1px solid var(--dl-border);color:#ccc;padding:5px 10px;border-radius:4px;cursor:pointer;font-size:10px;font-family:var(--font-mono);backdrop-filter:blur(8px);transition:background-color .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .ctrl-btn:hover{background:rgba(0,93,170,.3);border-color:var(--dl-blue)}
 .ctrl-btn.active{border-color:var(--dl-accent);color:var(--dl-accent)}
 #search-box{position:absolute;top:10px;left:10px;z-index:1000}
@@ -271,11 +294,34 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-seats{display:flex;gap:4px;margin-top:4px}
 .seat-block{padding:1px 5px;border-radius:2px;font-size:9px;font-weight:600}
 .seat-J{background:rgba(0,93,170,.3);color:#60a5fa}
-.seat-PP,.seat-PE{background:rgba(20,184,166,.3);color:#2dd4bf}
+.seat-PS,.seat-PE{background:rgba(20,184,166,.3);color:#2dd4bf}
 .seat-F{background:rgba(139,92,246,.3);color:#a78bfa}
-.seat-E\\+{background:rgba(34,197,94,.3);color:#4ade80}
+.seat-C\+{background:rgba(34,197,94,.3);color:#4ade80}
 .seat-Y{background:rgba(100,116,139,.3);color:#94a3b8}
-.starlink-badge{background:rgba(34,197,94,.2);color:var(--dl-green);padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700}
+/* ═══ AIRCRAFT DETAIL MODAL ═══ */
+#aircraft-detail-modal{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
+.ac-modal-card{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;max-width:440px;width:90%;color:var(--dl-text);font-family:var(--font-mono);position:relative;overflow:hidden;max-height:85vh;display:flex;flex-direction:column}
+.ac-modal-header{background:linear-gradient(135deg,rgba(0,93,170,.3),rgba(0,50,100,.2));padding:16px 20px;border-bottom:1px solid var(--dl-border);flex-shrink:0}
+.ac-modal-body{padding:16px 20px;overflow-y:auto;flex:1;min-height:0}
+.ac-modal-close{position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px}
+.ac-modal-reg{font-size:20px;font-weight:700;color:var(--dl-accent);letter-spacing:1px}
+.ac-modal-type{font-size:13px;color:var(--dl-text);margin-top:2px}
+.ac-modal-acnum{font-size:10px;color:var(--dl-muted)}
+.ac-section{margin-top:12px;padding:10px;background:rgba(0,93,170,.06);border:1px solid rgba(0,93,170,.15);border-radius:4px}
+.ac-section-title{font-size:9px;color:var(--dl-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px;font-weight:600}
+.ac-detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 16px}
+.ac-detail-label{font-size:9px;color:var(--dl-muted)}
+.ac-detail-value{font-size:11px;font-weight:600}
+.ac-status-badge{display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:600}
+.ac-live-flight{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2)}
+.ac-live-ground{background:rgba(100,116,139,.08);border:1px solid rgba(100,116,139,.2)}
+.ac-seat-bar{display:flex;height:18px;border-radius:4px;overflow:hidden;margin-top:4px}
+.ac-seat-bar>div{display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;min-width:20px}
+.ac-modal-footer{padding:10px 20px;border-top:1px solid var(--dl-border);display:flex;gap:8px;flex-wrap:wrap;align-items:center;flex-shrink:0}
+.ac-action-btn{background:rgba(0,93,170,.15);border:1px solid rgba(0,93,170,.3);color:var(--dl-accent);padding:4px 10px;border-radius:4px;font-size:10px;font-family:var(--font-mono);cursor:pointer;text-decoration:none;transition:background .2s}
+.ac-action-btn:hover{background:rgba(0,93,170,.25)}
+.ac-reg-link{color:var(--dl-accent);cursor:pointer;text-decoration:none;border-bottom:1px dotted rgba(138,180,248,.3);transition:border-color .2s}
+.ac-reg-link:hover{border-bottom-color:var(--dl-accent)}
 .squawk-alert{background:var(--dl-red);color:#fff;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;animation:blink 1s infinite}
 @keyframes blink{50%{opacity:.5}}
 .popup-times{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:8px 0;padding:8px;background:rgba(0,93,170,.06);border:1px solid rgba(0,93,170,.15);border-radius:4px}
@@ -296,7 +342,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .card{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:14px;margin-bottom:14px}
 .card h3{font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
 .fleet-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-bottom:14px}
-.fleet-chip{background:rgba(15,23,41,.8);border:1px solid var(--dl-border);border-radius:6px;padding:8px;text-align:center;cursor:pointer;transition:all .2s}
+.fleet-chip{background:rgba(15,23,41,.8);border:1px solid var(--dl-border);border-radius:6px;padding:8px;text-align:center;cursor:pointer;transition:border-color .2s cubic-bezier(.4,0,.2,1),background-color .2s cubic-bezier(.4,0,.2,1)}
 .fleet-chip:hover,.fleet-chip.active{border-color:var(--dl-blue);background:rgba(0,93,170,.1)}
 .fleet-chip .count{font-size:20px;font-weight:700;color:var(--dl-blue)}
 .fleet-chip .label{font-size:9px;color:var(--dl-muted);margin-top:1px}
@@ -321,9 +367,27 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .chart-col .val{font-size:9px;color:var(--dl-accent);margin-bottom:1px}
 .config-gallery{display:flex;gap:3px;flex-wrap:wrap;margin-top:6px}
 .config-block{height:14px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;min-width:20px}
-.config-J{background:#2563eb}.config-PP,.config-PE{background:#0d9488}.config-F{background:#7c3aed}.config-E\\+{background:#16a34a}.config-Y{background:#475569}
-.refresh-btn{background:var(--dl-blue);color:#fff;border:none;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:10px;font-weight:600;transition:all .2s}
+.config-J{background:#2563eb}.config-PS,.config-PE{background:#0d9488}.config-F{background:#7c3aed}.config-E\\+{background:#16a34a}.config-Y{background:#475569}
+.refresh-btn{background:var(--dl-blue);color:#fff;border:none;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:var(--font-ui);font-size:10px;font-weight:600;transition:background-color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .refresh-btn:hover{background:#0070cc}
+
+/* Fleet Health Dashboard */
+.fleet-health-bar{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.fleet-health-bar .fh-label{font-size:10px;color:var(--dl-muted);min-width:110px;text-align:right;font-family:var(--font-ui)}
+.fleet-health-bar .fh-track{flex:1;height:16px;background:rgba(15,23,41,.8);border-radius:3px;overflow:hidden}
+.fleet-health-bar .fh-fill{height:100%;border-radius:3px;transition:width .5s}
+.fleet-health-bar .fh-count{font-size:10px;color:var(--dl-accent);font-weight:700;min-width:70px;text-align:right;font-family:var(--font-mono)}
+.fh-legend-dot{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:4px;vertical-align:middle}
+
+/* Special Aircraft Badge & Tracker */
+.special-badge{background:rgba(139,92,246,.2);color:#a78bfa;padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;font-family:var(--font-mono)}
+.special-airborne-badge{background:rgba(34,197,94,.25);color:var(--dl-green);padding:2px 6px;border-radius:3px;font-size:9px;font-weight:700;font-family:var(--font-mono);animation:pulse 1.5s ease-in-out infinite}
+.special-aircraft-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.special-aircraft-item{background:rgba(139,92,246,.06);border:1px solid rgba(139,92,246,.2);border-radius:4px;padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+.special-aircraft-item .sa-name{font-size:11px;font-weight:700;color:#a78bfa}
+.special-aircraft-item .sa-reg{font-size:10px;color:var(--dl-accent);font-weight:700;font-family:var(--font-mono)}
+.special-aircraft-item .sa-type{font-size:9px;color:var(--dl-muted)}
+.special-aircraft-item .sa-status{font-size:9px;color:var(--dl-muted);text-align:right;flex-shrink:0}
 
 /* ═══ TAB 3: WEATHER ═══ */
 #tab-weather{padding:0;flex:1;min-height:0;overflow-y:auto}
@@ -374,7 +438,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 /* Hub/Phase Filter Styles */
 .hub-row{cursor:pointer}
 .hub-row.hub-selected{background:rgba(0,93,170,.2);border-left:3px solid var(--dl-blue)}
-.show-all-btn{display:block;padding:6px 12px;font-size:10px;color:var(--dl-accent);cursor:pointer;border-bottom:1px solid var(--dl-border);text-align:center;font-family:var(--mono);font-weight:600;transition:background .15s}
+.show-all-btn{display:block;padding:6px 12px;font-size:10px;color:var(--dl-accent);cursor:pointer;border-bottom:1px solid var(--dl-border);text-align:center;font-family:var(--font-ui);font-weight:600;transition:background-color .15s cubic-bezier(.4,0,.2,1)}
 .show-all-btn:hover{background:rgba(0,93,170,.1)}
 .phase-row{display:flex;justify-content:space-between;padding:4px 0;font-size:10px;cursor:pointer;border-radius:3px;padding:4px 6px;transition:background .15s}
 .phase-row:hover{background:rgba(0,93,170,.1)}
@@ -406,7 +470,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 /* Error/Empty States */
 .error-state,.empty-state{text-align:center;padding:40px 20px;color:var(--dl-muted);font-size:12px}
 .error-state .error-icon,.empty-state .empty-icon{font-size:32px;margin-bottom:10px}
-.retry-btn{background:var(--dl-blue);color:#fff;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:11px;font-weight:600;margin-top:12px;transition:background .2s}
+.retry-btn{background:var(--dl-blue);color:#fff;border:none;padding:8px 20px;border-radius:4px;cursor:pointer;font-family:var(--font-ui);font-size:11px;font-weight:600;margin-top:12px;transition:background-color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .retry-btn:hover{background:#0070cc}
 
 /* Visually Hidden (for screen readers / LLMs) */
@@ -416,6 +480,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .tab-content.active{animation:fadeIn .2s ease}
 
+#sched-table-wrap{max-height:calc(100vh - 260px)}
 /* ═══ MOBILE RESPONSIVE ═══ */
 @media(max-width:768px){
   body{font-size:14px;height:calc(100vh - 56px);height:calc(100dvh - 56px)}
@@ -431,6 +496,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
   /* ── Hide top tab bar, show bottom nav ── */
   #tab-bar{display:none!important}
   #mobile-bottom-nav{display:flex!important}
+  .tab-content{padding-bottom:60px}
   /* ── Live Ops ── */
   #tab-live{flex:1;min-height:0}
   #tab-live .ops-layout{flex-direction:column}
@@ -462,7 +528,11 @@ tbody td{padding:5px 8px;white-space:nowrap}
   #tab-schedule select,#tab-schedule input[type="text"]{width:100%!important;min-height:44px;font-size:14px!important;padding:8px 10px!important}
   #tab-schedule button{min-height:44px}
   #sched-stats.metric-row{grid-template-columns:repeat(2,1fr)!important;gap:8px}
+  /* iOS Safari can fail to paint tbody inside nested overflow+sticky containers */
+  #tab-schedule .card[style*="overflow:hidden"]{overflow:visible!important}
+  #sched-table-wrap{max-height:none}
   .fleet-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  #sched-table th{position:static}
   table{min-width:600px}
   /* Fleet tab mobile */
   #tab-fleet{padding:10px}
@@ -470,6 +540,10 @@ tbody td{padding:5px 8px;white-space:nowrap}
   .fleet-controls{flex-direction:column}
   .fleet-controls select,.fleet-controls input{width:100%;min-height:44px;font-size:14px}
   .two-col{grid-template-columns:1fr}
+  .fleet-health-bar .fh-label{min-width:80px;font-size:9px}
+  .fleet-health-bar .fh-count{min-width:55px;font-size:9px}
+  .special-aircraft-grid{grid-template-columns:1fr}
+  .special-aircraft-item{padding:10px 12px}
   /* Weather tab mobile */
   #radar-map{height:300px}
   .hub-cards{grid-template-columns:1fr;padding:10px}
@@ -496,7 +570,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
   #mobile-more-btn{display:flex!important}
   #mobile-more-menu{display:none;position:fixed;bottom:58px;right:8px;background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:6px 0;z-index:9999;box-shadow:0 -4px 20px rgba(0,0,0,.5);min-width:160px}
   #mobile-more-menu.open{display:block}
-  #mobile-more-menu button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;color:var(--dl-text);font-family:var(--mono);font-size:13px;padding:10px 16px;cursor:pointer;transition:background .15s}
+  #mobile-more-menu button{display:flex;align-items:center;gap:10px;width:100%;background:none;border:none;color:var(--dl-text);font-family:var(--font-ui);font-size:13px;padding:10px 16px;cursor:pointer;transition:background-color .15s cubic-bezier(.4,0,.2,1)}
   #mobile-more-menu button:hover{background:rgba(30,41,59,.5)}
   #mobile-more-menu button .bnav-icon{font-size:18px}
   /* ── Hub health bar: hidden on mobile (Change 5) ── */
@@ -508,7 +582,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 }
 /* ── Bottom Nav (hidden on desktop) ── */
 #mobile-bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;height:56px;background:var(--dl-panel);border-top:1px solid var(--dl-border);z-index:9998;align-items:stretch;justify-content:space-around}
-#mobile-bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:var(--dl-muted);font-family:var(--mono);font-size:11px;cursor:pointer;padding:4px 0;transition:color .2s;min-height:44px}
+#mobile-bottom-nav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;background:none;border:none;color:var(--dl-muted);font-family:var(--font-ui);font-size:11px;cursor:pointer;padding:4px 0;transition:color .2s cubic-bezier(.4,0,.2,1);min-height:44px}
 #mobile-bottom-nav button .bnav-icon{font-size:18px;line-height:1}
 #mobile-bottom-nav button.active{color:var(--dl-blue)}
 #mobile-bottom-nav button.active .bnav-label{color:var(--dl-blue)}
@@ -517,9 +591,9 @@ tbody td{padding:5px 8px;white-space:nowrap}
 /* ── Mobile search toggle (hidden on desktop) ── */
 #mobile-search-toggle{display:none!important;background:none;border:none;color:var(--dl-muted);font-size:16px;cursor:pointer;padding:4px;align-items:center;justify-content:center}
 /* ── Mobile sidebar toggle (hidden on desktop) ── */
-#mobile-sidebar-toggle{display:none!important;align-items:center;gap:4px;background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:4px;color:var(--dl-accent);font-family:var(--mono);font-size:10px;padding:6px 12px;cursor:pointer;margin:6px 10px;width:calc(100% - 20px)}
+#mobile-sidebar-toggle{display:none!important;align-items:center;gap:4px;background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:4px;color:var(--dl-accent);font-family:var(--font-ui);font-size:10px;padding:6px 12px;cursor:pointer;margin:6px 10px;width:calc(100% - 20px)}
 /* Schedule Tab */
-.sched-day-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:3px 10px;font-family:var(--mono);font-size:10px;cursor:pointer;border-radius:3px;transition:all .2s}
+.sched-day-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:3px 10px;font-family:var(--font-ui);font-size:10px;cursor:pointer;border-radius:3px;transition:color .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1),background-color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .sched-day-btn:hover{color:var(--dl-text);border-color:var(--dl-blue)}
 .sched-day-btn.active{background:var(--dl-blue);color:white;border-color:var(--dl-blue)}
 #sched-table th{position:sticky;top:0;background:var(--bg-card);z-index:2;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--dl-muted);padding:8px 10px;border-bottom:1px solid var(--dl-border);white-space:nowrap}
@@ -535,7 +609,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .sched-fleet-match{font-size:9px;color:var(--dl-green)}
 .sched-fleet-miss{font-size:9px;color:var(--dl-muted)}
 .sched-time-actual{font-size:9px;color:#f59e0b;margin-top:1px}
-.sched-load-more{background:none;border:1px solid var(--dl-border);color:var(--dl-blue);padding:6px 16px;font-family:var(--mono);font-size:10px;cursor:pointer;border-radius:3px;margin:4px;transition:all .2s}
+.sched-load-more{background:none;border:1px solid var(--dl-border);color:var(--dl-blue);padding:6px 16px;font-family:var(--font-ui);font-size:10px;cursor:pointer;border-radius:3px;margin:4px;transition:background-color .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .sched-load-more:hover{background:rgba(0,93,170,.1);border-color:var(--dl-blue)}
 .sched-load-more:disabled{opacity:.4;cursor:default}
 
@@ -551,9 +625,9 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .onboarding-feature strong{color:var(--dl-accent);display:block}
 .onboarding-desc{color:var(--dl-muted);display:block}
 .onboarding-footer{color:var(--dl-muted);font-size:10px;margin-bottom:20px;opacity:.7}
-#onboarding-dismiss{background:var(--dl-blue);color:#fff;border:none;padding:10px 28px;border-radius:6px;font-family:var(--mono);font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:background .2s}
+#onboarding-dismiss{background:var(--dl-blue);color:#fff;border:none;padding:10px 28px;border-radius:6px;font-family:var(--font-ui);font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:background-color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 #onboarding-dismiss:hover{background:#0070cc}
-#onboarding-help{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);width:22px;height:22px;border-radius:50%;font-family:var(--mono);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;padding:0;line-height:1}
+#onboarding-help{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);width:22px;height:22px;border-radius:50%;font-family:var(--font-ui);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:border-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1);padding:0;line-height:1}
 #onboarding-help:hover{border-color:var(--dl-blue);color:var(--dl-accent)}
 @keyframes obFadeIn{from{opacity:0}to{opacity:1}}
 @media(max-width:500px){#onboarding-card{padding:24px 18px}#onboarding-card h2{font-size:17px}}
@@ -574,6 +648,11 @@ tbody td{padding:5px 8px;white-space:nowrap}
 /* Equipment Change Badge */
 .equip-change-badge{display:inline-block;background:rgba(245,158,11,.15);color:#f59e0b;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:600;margin-top:2px}
 #equip-change-summary{background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.2);border-radius:4px;padding:6px 12px;margin:4px 16px;font-size:10px;color:#f59e0b;display:none}
+.equip-swap-detail{margin-top:3px;font-size:9px;line-height:1.5}
+.equip-swap-item{display:inline-block;padding:0 4px;border-radius:2px;margin-right:2px;font-weight:600;white-space:nowrap}
+.equip-swap-upgrade{background:rgba(34,197,94,.15);color:#22c55e}
+.equip-swap-downgrade{background:rgba(239,68,68,.15);color:#ef4444}
+.equip-swap-lateral{background:rgba(100,116,139,.15);color:#94a3b8}
 
 /* Fleet Enrichment Tooltip */
 .fleet-enrich-icon{cursor:pointer;color:var(--dl-accent);font-size:10px;margin-left:3px;opacity:.7;transition:opacity .15s}
@@ -602,18 +681,18 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .faa-delay-context{font-size:9px;color:#f59e0b;font-style:italic;margin-top:2px;opacity:.85}
 
 /* Flight Watch */
-.watch-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(--mono);transition:all .15s}
+.watch-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(--font-ui);transition:border-color .15s cubic-bezier(.4,0,.2,1),color .15s cubic-bezier(.4,0,.2,1),background-color .15s cubic-bezier(.4,0,.2,1)}
 .watch-btn:hover{border-color:var(--dl-accent);color:var(--dl-accent)}
 .watch-btn.watching{border-color:#f59e0b;color:#f59e0b;background:rgba(245,158,11,.1)}
-.share-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(--mono);transition:all .15s}
+.share-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:2px 6px;border-radius:3px;cursor:pointer;font-size:10px;font-family:var(--font-ui);transition:border-color .15s cubic-bezier(.4,0,.2,1),color .15s cubic-bezier(.4,0,.2,1)}
 .share-btn:hover{border-color:var(--dl-accent);color:var(--dl-accent)}
 .share-btn.copied{border-color:#22c55e;color:#22c55e}
-#push-prompt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(17,24,39,.97);border:1px solid var(--dl-border);border-radius:8px;padding:12px 16px;font-size:11px;color:var(--dl-text);z-index:10001;display:none;align-items:center;gap:10px;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.5);max-width:400px;font-family:var(--mono)}
+#push-prompt{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:rgba(17,24,39,.97);border:1px solid var(--dl-border);border-radius:8px;padding:12px 16px;font-size:11px;color:var(--dl-text);z-index:10001;display:none;align-items:center;gap:10px;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.5);max-width:400px;font-family:var(--font-ui)}
 #push-prompt.show{display:flex}
-#push-prompt button{padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--mono);font-size:10px;border:1px solid}
+#push-prompt button{padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--font-ui);font-size:10px;border:1px solid}
 #push-prompt .pp-enable{background:var(--dl-blue);color:#fff;border-color:var(--dl-blue)}
 #push-prompt .pp-dismiss{background:none;color:var(--dl-muted);border-color:var(--dl-border)}
-#watch-header-btn{position:relative;background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:3px 8px;border-radius:4px;cursor:pointer;font-family:var(--mono);font-size:11px;transition:all .15s}
+#watch-header-btn{position:relative;background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:3px 8px;border-radius:4px;cursor:pointer;font-family:var(--font-ui);font-size:11px;transition:border-color .15s cubic-bezier(.4,0,.2,1),color .15s cubic-bezier(.4,0,.2,1)}
 #watch-header-btn:hover{border-color:var(--dl-accent);color:var(--dl-accent)}
 .watch-badge{position:absolute;top:-4px;right:-4px;background:var(--dl-red);color:#fff;font-size:8px;font-weight:700;padding:1px 4px;border-radius:6px;min-width:14px;text-align:center}
 #watch-panel{display:none;position:absolute;top:36px;right:0;background:rgba(17,24,39,.97);border:1px solid var(--dl-border);border-radius:6px;width:340px;max-height:400px;overflow-y:auto;z-index:9999;backdrop-filter:blur(12px);box-shadow:0 8px 32px rgba(0,0,0,.5)}
@@ -628,7 +707,27 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .watch-remove:hover{color:var(--dl-red)}
 #watch-notification{position:fixed;top:0;left:0;right:0;background:rgba(0,93,170,.95);color:#fff;padding:10px 16px;font-size:12px;font-weight:600;z-index:10000;display:none;align-items:center;justify-content:space-between;backdrop-filter:blur(8px)}
 #watch-notification.show{display:flex}
-#watch-notification .wn-dismiss{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--mono);font-size:10px}
+#watch-notification .wn-dismiss{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--font-ui);font-size:10px}
+
+/* ═══ HYBRID TYPOGRAPHY: Mono for data elements ═══ */
+table,thead th,tbody td,.stat-val,.metric-val,.big-number,.ticker,.ticker-item,.hub-code,.hub-card-code,.popup-callsign,.popup-field-value,.popup-route,.hub-raw,.hub-tooltip,.sched-status,#countdown,#clock,.irrops-card .iv,.irrops-score,.hh-hub,.fleet-chip .count,.equip-change-badge,.cat-badge,.hub-metric-val,.popup-phase,.seat-block,.freshness,.squawk-alert{font-family:var(--font-mono)}
+.onboarding-subtitle,.onboarding-desc,.onboarding-footer,.source-desc,.hub-explainer,.wx-explainer,.error-state,.empty-state,.hub-card-name,.stat-label,.metric-label,.big-number-label,.irrops-card .il,.hub-metric-label,.popup-field-label,.popup-route-est,.source-name,.source-link{font-family:var(--font-ui)}
+
+/* ═══ MICRO-INTERACTIONS: :active press feedback ═══ */
+.tab-btn:active,.ctrl-btn:active,.refresh-btn:active,.retry-btn:active,.sched-day-btn:active,.sched-load-more:active,#onboarding-dismiss:active,#onboarding-help:active,.watch-btn:active,.share-btn:active,#watch-header-btn:active,#mobile-bottom-nav button:active,.fleet-chip:active,.hub-nav a:active,.show-all-btn:active{transform:scale(.97)}
+
+/* ═══ SKELETON SHIMMER loading states ═══ */
+@keyframes shimmerSlide{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.shimmer-loader{background:linear-gradient(90deg,var(--dl-panel) 25%,rgba(30,41,59,.6) 50%,var(--dl-panel) 75%);background-size:200% 100%;animation:shimmerSlide 1.5s ease-in-out infinite;border-radius:4px;color:transparent!important}
+.shimmer-loader *{visibility:hidden}
+.irrops-empty,.popup-times-loading{background:linear-gradient(90deg,var(--dl-panel) 25%,rgba(30,41,59,.6) 50%,var(--dl-panel) 75%);background-size:200% 100%;animation:shimmerSlide 1.5s ease-in-out infinite;border-radius:4px}
+
+/* ═══ MOBILE SCROLL FADE MASKS ═══ */
+@media(max-width:768px){
+  #stats-bar{-webkit-mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 16px,#000 calc(100% - 24px),transparent)}
+  .fleet-table-wrap{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent)}
+  #hub-matrix{-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 32px),transparent)}
+}
 </style>
 </head>
 <body>
@@ -642,21 +741,39 @@ tbody td{padding:5px 8px;white-space:nowrap}
       <div class="onboarding-feature"><span class="onboarding-icon">⚠️</span><div><strong>Delays &amp; Disruptions</strong><span class="onboarding-desc">Know before the app does — hub delays, cancellations, and ground stops at a glance</span></div></div>
       <div class="onboarding-feature"><span class="onboarding-icon">📅</span><div><strong>Schedules</strong><span class="onboarding-desc">Departures &amp; arrivals at all 9 hubs with on-time stats and equipment swap alerts</span></div></div>
       <div class="onboarding-feature"><span class="onboarding-icon">🌦</span><div><strong>Weather &amp; Hub Status</strong><span class="onboarding-desc">Conditions at every hub airport — radar, visibility, wind, and how it's affecting flights</span></div></div>
-      <!--div class="onboarding-feature"><span class="onboarding-icon">✈️</span><div><strong>Fleet &amp; WiFi</strong><span class="onboarding-desc">Check if your plane has Starlink WiFi, seat config, and aircraft details</span></div></div-->
-      <!--div class="onboarding-feature"><span class="onboarding-icon">📊</span><div><strong>Stats</strong><span class="onboarding-desc">Fleet utilization, route patterns, and network health — the truly nerdy stuff</span></div></div-->
+      <div class="onboarding-feature"><span class="onboarding-icon">✈️</span><div><strong>Fleet &amp; WiFi</strong><span class="onboarding-desc">Check if your plane has Starlink WiFi, seat config, and aircraft details</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon">📊</span><div><strong>Stats</strong><span class="onboarding-desc">Fleet utilization, route patterns, and network health — the truly nerdy stuff</span></div></div>
     </div>
-    <p class="onboarding-footer">Built by a Delta flyer, for Delta flyers.<br />Not affiliated with Delta Air Lines.</p>
-    <button id="onboarding-dismiss">Keep Climbing ✈️</button>
+    <p class="onboarding-footer">Built by a Delta flyer, for Delta flyers. Not affiliated with Delta Air Lines.</p>
+    <button id="onboarding-dismiss">Let's Fly the Friendly Skies ✈️</button>
   </div>
 </div>
 <div id="offline-banner" aria-live="assertive" role="alert">⚠ You are offline — data may be outdated. Reconnect to see live updates.</div>
 <noscript>
-<div style="background:#111827;color:#e2e8f0;padding:40px;text-align:center;font-family:monospace">
-<h2>Widget Watch — Delta Air Lines Flight Tracker & Live Status</h2>
-<p>Track every Delta Air Lines flight in real time with Widget Watch — a free, independent operations dashboard. See live flight positions on an interactive map updated every 30 seconds. Check delays, cancellations, and ground stops at all 9 Delta hubs: Chicago O'Hare (ORD), Denver (DEN), Houston (IAH), Newark (EWR), San Francisco (SFO), Washington Dulles (IAD), Los Angeles (LAX), Tokyo Narita (NRT), and Guam (GUM). Look up any flight by number to see status, aircraft type, and route. Browse the full Delta fleet database of 1,078+ aircraft and check which planes have Starlink WiFi. View departure and arrival schedules with on-time performance stats and equipment swap alerts. Monitor weather conditions with radar, METAR observations, and FAA NAS alerts. Explore fleet utilization, route analytics, and hub-to-hub traffic patterns. Built for the Delta community. Not affiliated with Delta Air Lines, Inc. JavaScript is required.</p>
+<div style="background:#111827;color:#e2e8f0;padding:40px;font-family:monospace;max-width:900px;margin:0 auto">
+<h2 style="text-align:center;margin-bottom:16px">Widget Watch — Delta Air Lines Flight Tracker & Live Status</h2>
+<p>Track every Delta Air Lines flight in real time with Widget Watch — a free, independent operations dashboard built for Delta frequent flyers, 1K members, and AvGeeks. See live flight positions on an interactive map updated every 30 seconds. Check delays, cancellations, and ground stops at all 9 Delta hubs. Look up any flight by number to see status, aircraft type, and route. Browse the full Delta fleet database of 1,078+ aircraft and check which planes have Starlink WiFi. View departure and arrival schedules with on-time performance stats and equipment swap alerts. Monitor weather conditions with radar, METAR observations, and FAA NAS alerts. Explore fleet utilization, route analytics, and hub-to-hub traffic patterns.</p>
+<h3 style="margin:20px 0 10px">Delta Air Lines Hub Status Pages</h3>
+<nav style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+<a href="/hubs/atl" style="color:#8ab4f8">Delta at Atlanta (ATL)</a> ·
+<a href="/hubs/lga" style="color:#8ab4f8">Delta at New York LaGuardia (LGA)</a> ·
+<a href="/hubs/jfk" style="color:#8ab4f8">Delta at New York JFK (JFK)</a> ·
+<a href="/hubs/bos" style="color:#8ab4f8">Delta at Boston (BOS)</a> ·
+<a href="/hubs/dtw" style="color:#8ab4f8">Delta at Detroit (DTW)</a> ·
+<a href="/hubs/msp" style="color:#8ab4f8">Delta at Minneapolis (MSP)</a> ·
+<a href="/hubs/slc" style="color:#8ab4f8">Delta at Salt Lake City (SLC)</a> ·
+<a href="/hubs/lax" style="color:#8ab4f8">Delta at Los Angeles (LAX)</a> ·
+<a href="/hubs/sea" style="color:#8ab4f8">Delta at Seattle (SEA)</a>
+</nav>
+<h3 style="margin-bottom:10px">More Resources</h3>
+<nav style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px">
+<a href="/fleet" style="color:#8ab4f8">Delta Air Lines Fleet Database (1,078 Aircraft)</a> ·
+<a href="/hubs" style="color:#8ab4f8">All Delta Air Lines Hubs</a>
+</nav>
+<p style="font-size:11px;color:#64748b">Built for the Delta community by <a href="https://github.com/notjbg" style="color:#8ab4f8">Jonah Berg</a>. Not affiliated with Delta Air Lines, Inc. JavaScript is required for the live dashboard.</p>
 </div>
 </noscript>
-<div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or cancelled. Monitor delays and ground stops at all 9 Delta hubs: Chicago O'Hare ORD, Denver DEN, Houston IAH, Newark EWR, San Francisco SFO, Washington Dulles IAD, Los Angeles LAX, Tokyo Narita NRT, and Guam GUM. Search flights by number, tail number, or route. Check which Delta planes have Starlink WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
+<div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or cancelled. Monitor delays and ground stops at all 9 Delta hubs: Atlanta ATL, New York LaGuardia LGA, New York JFK JFK, Boston BOS, Detroit DTW, Minneapolis MSP, Salt Lake City SLC, Los Angeles LAX, and Seattle SEA. Search flights by number, tail number, or route. Check which Delta planes have Starlink WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
 <!-- TICKER -->
 <div class="ticker-wrap">
   <span class="ticker-label">▌ALERTS</span>
@@ -664,7 +781,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 </div>
 
 <!-- HUB HEALTH BAR -->
-<div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">LOADING...</span></div>
+<div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span></div>
 
 <!-- WATCH NOTIFICATION BANNER -->
 <div id="watch-notification" aria-live="polite" role="status"><span id="wn-text"></span><button class="wn-dismiss" data-action="dismiss-watch-notification">Dismiss</button></div>
@@ -674,7 +791,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 <div id="header">
   <h1><a href="#" data-action="go-home" style="text-decoration:none;color:inherit;cursor:pointer"><span class="dl">WIDGET WATCH</span></a> <span style="font-size:9px;color:var(--dl-muted);font-weight:300;letter-spacing:0.5px">FOR DELTA FLYERS, BY DELTA FLYERS</span></h1>
   <div id="global-search-wrap" style="position:relative;flex:0 1 300px">
-    <input type="text" id="global-search-input" aria-label="Global flight search" placeholder="Track a flight (DL1234, N12345, ATL...)" style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 10px;border-radius:4px;font-family:var(--mono);font-size:11px">
+    <input type="text" id="global-search-input" aria-label="Global flight search" placeholder="Track a flight (DL 1234, N525DL, ATL...)" style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 10px;border-radius:4px;font-family:var(--mono);font-size:11px">
     <div id="global-search-results" style="position:absolute;top:34px;left:0;right:0;background:rgba(17,24,39,.95);border:1px solid var(--dl-border);border-radius:4px;max-height:300px;overflow-y:auto;display:none;z-index:9999;backdrop-filter:blur(8px)"></div>
   </div>
   <div id="header-right">
@@ -691,9 +808,9 @@ tbody td{padding:5px 8px;white-space:nowrap}
 <nav id="tab-bar" aria-label="Dashboard navigation" role="tablist">
   <button class="tab-btn active" data-tab="tab-live" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-live"><span aria-hidden="true">📡</span> LIVE OPS</button>
   <button class="tab-btn" data-tab="tab-schedule" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-schedule"><span aria-hidden="true">📅</span> SCHEDULE</button>
-  <!--button class="tab-btn" data-tab="tab-fleet" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-fleet"><span aria-hidden="true">✈️</span> FLEET</button-->
+  <button class="tab-btn" data-tab="tab-fleet" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-fleet"><span aria-hidden="true">✈️</span> FLEET</button>
   <button class="tab-btn" data-tab="tab-weather" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-weather"><span aria-hidden="true">🌦</span> DELAYS · WEATHER · HUBS</button>
-  <!--button class="tab-btn" data-tab="tab-analytics" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-analytics" aria-label="Stats"><span aria-hidden="true">📊</span> STATS</button-->
+  <button class="tab-btn" data-tab="tab-analytics" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-analytics" aria-label="Stats"><span aria-hidden="true">📊</span> STATS</button>
   <button class="tab-btn" data-tab="tab-sources" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-sources"><span aria-hidden="true">ℹ️</span> SOURCES</button>
 </nav>
 
@@ -719,7 +836,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <div class="sidebar" id="sidebar">
       <h3>🏢 Hub Operations</h3>
       <div id="hub-stats"></div>
-      <button id="sidebar-filters-toggle" data-action="toggle-sidebar-filters" style="width:100%;background:none;border:none;border-bottom:1px solid var(--dl-border);color:var(--dl-accent);font-family:var(--mono);font-size:10px;padding:6px 12px;cursor:pointer;text-align:center">Filters ▾</button>
+      <button id="sidebar-filters-toggle" data-action="toggle-sidebar-filters" style="width:100%;background:none;border:none;border-bottom:1px solid var(--dl-border);color:var(--dl-accent);font-family:var(--font-ui);font-size:10px;padding:6px 12px;cursor:pointer;text-align:center">Filters ▾</button>
       <div id="sidebar-extra-filters">
       <h3 style="margin-top:4px">🔍 Search</h3>
       <div style="padding:8px 12px">
@@ -734,8 +851,8 @@ tbody td{padding:5px 8px;white-space:nowrap}
       <div id="map"></div>
       <div id="controls">
         <button class="ctrl-btn" id="mobile-ctrl-toggle" style="display:none" aria-label="Toggle map layers">☰</button>
-        <button class="ctrl-btn active" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
-        <button class="ctrl-btn active" data-action="toggle-longhaul" id="btn-longhaul">🌍 Long Haul</button>
+        <button class="ctrl-btn" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
+        <button class="ctrl-btn" data-action="toggle-longhaul" id="btn-longhaul">🌍 Long Haul</button>
         <button class="ctrl-btn" data-action="toggle-weather" id="btn-wx">🌧 Weather</button>
         <!--button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">🌏 Pacific</button-->
         <button class="ctrl-btn" data-action="refresh-flights" id="btn-refresh">🔄 Refresh</button>
@@ -747,8 +864,6 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <span class="stat-sep">│</span>
     <div class="stat-item"><span class="stat-val" id="st-util">--</span><span class="stat-label">Utilization</span></div>
     <span class="stat-sep">│</span>
-    <!--div class="stat-item"><span class="stat-val" id="st-starlink">--</span><span class="stat-label">⚡ Starlink</span></div>
-    <span class="stat-sep">│</span-->
     <div class="stat-item"><span class="stat-val" id="st-climb">--</span><span class="stat-label">Climbing</span></div>
     <span class="stat-sep">│</span>
     <div class="stat-item"><span class="stat-val" id="st-cruise">--</span><span class="stat-label">Cruising</span></div>
@@ -779,11 +894,11 @@ tbody td{padding:5px 8px;white-space:nowrap}
         <select id="sched-hub" aria-label="Schedule hub filter" style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 8px;font-family:var(--mono);font-size:10px;border-radius:3px">
           <option value="">All Hubs</option>
           <option value="ATL" selected>ATL — Atlanta</option>
-          <option value="JFK">JFK — New York</option>
-          <option value="LGA">LGA — LaGuardia</option>
+          <option value="LGA">LGA — New York LaGuardia</option>
+          <option value="JFK">JFK — New York JFK</option>
           <option value="BOS">BOS — Boston</option>
           <option value="DTW">DTW — Detroit</option>
-          <option value="MSP">MSP — Minneapolis-St. Paul</option>
+          <option value="MSP">MSP — Minneapolis</option>
           <option value="SLC">SLC — Salt Lake City</option>
           <option value="LAX">LAX — Los Angeles</option>
           <option value="SEA">SEA — Seattle</option>
@@ -792,8 +907,8 @@ tbody td{padding:5px 8px;white-space:nowrap}
           <option value="departures">Departures</option>
           <option value="arrivals">Arrivals</option>
         </select>
-        <button id="sched-refresh-btn" data-action="schedule-refresh" style="background:var(--dl-blue);color:white;border:none;padding:4px 10px;font-family:var(--mono);font-size:10px;border-radius:3px;cursor:pointer">↻ Refresh</button>
-        <button id="sched-more-filters-btn" data-action="schedule-more-filters" style="background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:4px 10px;font-family:var(--mono);font-size:10px;border-radius:3px;cursor:pointer">More Filters ▾</button>
+        <button id="sched-refresh-btn" data-action="schedule-refresh" style="background:var(--dl-blue);color:white;border:none;padding:4px 10px;font-family:var(--font-ui);font-size:10px;border-radius:3px;cursor:pointer">↻ Refresh</button>
+        <button id="sched-more-filters-btn" data-action="schedule-more-filters" style="background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:4px 10px;font-family:var(--font-ui);font-size:10px;border-radius:3px;cursor:pointer">More Filters ▾</button>
         <div id="sched-adv-filters" style="display:none;align-items:center;gap:8px;flex-wrap:wrap">
         <select id="sched-status" aria-label="Schedule status filter" style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 8px;font-family:var(--mono);font-size:10px;border-radius:3px">
           <option value="">All Status</option>
@@ -821,7 +936,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
       <div style="font-size:24px;margin-bottom:8px">📅</div>
       Select a hub and click Refresh to load schedule data
     </div>
-    <div class="fleet-table-wrap" style="max-height:calc(100vh - 260px);display:none" id="sched-table-wrap">
+    <div class="fleet-table-wrap" style="display:none" id="sched-table-wrap">
       <table id="sched-table">
         <thead>
           <tr>
@@ -851,23 +966,20 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <h2>Delta Air Lines Fleet Database — 1,078 Aircraft</h2>
     <p>Complete searchable database of all 1,078 Delta Air Lines mainline aircraft across 19 types: Boeing 737-700 (40), 737-800 (141), 737-900 (12), 737-900ER (136), 737 MAX 8 (123), 737 MAX 9 (129), 757-200 (40), 757-300 (21), 767-300ER (37), 767-400ER (16), 777-200 (19), 777-200ER (55), 777-300ER (22), 787-8 (12), 787-9 (48), 787-10 (21), and Airbus A319 (76), A320 (68), A321neo (62). Includes registration, seat configuration, WiFi type, IFE system, delivery date, and operational status. 258 aircraft equipped with SpaceX Starlink satellite WiFi. Live fleet utilization updated every 30 seconds. <a href="/fleet">View full fleet database</a>.</p>
   </section>
-  <div class="live-fleet-panel" id="live-fleet-panel">
+  <div class="live-fleet-panel" id="live-fleet-panel" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
       <h3 style="font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin:0">🛩 Live Fleet Status</h3>
       <div style="display:flex;align-items:center;gap:8px"><span class="live-badge"><span class="pulse-dot"></span> LIVE</span><span id="fleet-live-time" style="font-size:9px;color:var(--dl-muted)"></span></div>
     </div>
     <div id="fleet-live-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading live fleet data...<br><button class="retry-btn" data-action="refresh-flights" style="margin-top:8px">⏳ Load Now</button></div></div>
   </div>
+  <div class="card" id="fleet-health-card">
+    <h3>🏥 Fleet Health</h3>
+    <div id="fleet-health-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading fleet health data...</div></div>
+  </div>
   <div class="card">
     <h3 id="fleet-overview-title">Fleet Overview</h3>
     <div class="fleet-chips" id="fleet-chips"></div>
-    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
-      <div style="flex:1;background:var(--dl-border);height:4px;border-radius:2px;overflow:hidden">
-        <div id="starlink-progress" style="height:100%;background:var(--dl-green);border-radius:2px;transition:width .5s"></div>
-      </div>
-      <span id="starlink-pct" style="font-size:10px;color:var(--dl-green);font-weight:700"></span>
-      <span style="font-size:9px;color:var(--dl-muted)">Starlink Equipped</span>
-    </div>
   </div>
   <div class="two-col">
     <div class="card">
@@ -883,37 +995,24 @@ tbody td{padding:5px 8px;white-space:nowrap}
   </div>
   <div class="card">
     <h3>Aircraft Database</h3>
-    <div style="font-size:10px;color:var(--dl-muted);margin-bottom:8px">Fleet data via <a href="https://sites.google.com/site/unitedfleetsite/mainline-fleet-tracking" target="_blank" rel="noopener noreferrer" style="color:var(--dl-green)">Delta Fleet Site</a>, updated daily</div>
+    <div style="font-size:10px;color:var(--dl-muted);margin-bottom:8px">Fleet data via <a href="https://docs.google.com/spreadsheets/d/e/2PACX-1vSdBcByk1BvxkFja5yri8R4snipRYf6peHClG0NhuQMQCAdwg77HWbL_kaKTawsmm99CBNQ0P9gFr_A/pubhtml" target="_blank" rel="noopener noreferrer" style="color:var(--dl-green)">DL Fleet Sheet</a>, updated daily</div>
     <div class="fleet-controls">
       <select id="fleet-filter-type" aria-label="Fleet type filter"><option value="">All Types</option></select>
       <select id="fleet-filter-wifi" aria-label="Fleet WiFi filter"><option value="">All WiFi</option></select>
-      <select id="fleet-filter-status" aria-label="Fleet status filter"><option value="">All Status</option><option value="active">Active</option><option value="stored">Stored/Maint</option><option value="starlink">⚡ Starlink</option></select>
+      <select id="fleet-filter-status" aria-label="Fleet status filter"><option value="">All Status</option><option value="active">Active</option><option value="stored">Stored/Maint</option><option value="special">⭐ Special/Named</option></select>
       <input type="text" id="fleet-search" aria-label="Fleet search" placeholder="Search reg, config...">
       <button class="refresh-btn" data-action="refresh-fleet-data">↻ Refresh Fleet Data</button>
     </div>
     <div class="fleet-table-wrap">
       <table id="fleet-table">
-        <thead><tr><th data-sort="r">Reg ↕</th><th data-sort="t">Type ↕</th><th data-sort="a">AC# ↕</th><th data-sort="c">Config</th><th data-sort="tot">Seats ↕</th><th data-sort="w">WiFi</th><th data-sort="i">IFE</th><th data-sort="d">Del ↕</th><th data-sort="s">Status</th><th>⚡</th></tr></thead>
+        <thead><tr><th data-sort="r">Reg ↕</th><th data-sort="t">Type ↕</th><th data-sort="a">AC# ↕</th><th data-sort="c">Config</th><th data-sort="tot">Seats ↕</th><th data-sort="w">WiFi</th><th data-sort="i">IFE</th><th data-sort="d">Del ↕</th><th data-sort="s">Status</th></tr></thead>
         <tbody id="fleet-tbody"></tbody>
       </table>
     </div>
   </div>
-  <div class="card">
-    <h3>⚡ Starlink Tracker — <span id="starlink-count">258</span> Aircraft</h3>
-    <div style="font-size:10px;color:var(--dl-muted);margin-bottom:8px">Starlink data via <a href="https://unitedstarlinktracker.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-green)">unitedstarlinktracker.com</a>, updated daily</div>
-    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-      <input type="text" id="starlink-search" aria-label="Search Starlink aircraft" placeholder="Search tail..." style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 8px;font-family:var(--mono);font-size:10px;border-radius:3px;width:120px">
-      <select id="starlink-filter-fleet" aria-label="Starlink fleet filter" style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 6px;font-family:var(--mono);font-size:10px;border-radius:3px"><option value="">All Fleets</option><option value="Mainline">Mainline</option><option value="Express">Express</option></select>
-      <select id="starlink-filter-type" aria-label="Starlink type filter" style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 6px;font-family:var(--mono);font-size:10px;border-radius:3px"><option value="">All Types</option></select>
-      <select id="starlink-filter-operator" aria-label="Starlink operator filter" style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 6px;font-family:var(--mono);font-size:10px;border-radius:3px"><option value="">All Operators</option></select>
-      <span id="starlink-filtered-count" style="font-size:9px;color:var(--dl-muted);align-self:center"></span>
-    </div>
-    <div class="fleet-table-wrap" style="max-height:400px">
-      <table id="starlink-table">
-        <thead><tr><th data-starlink-sort="tail" style="cursor:pointer">Tail ↕</th><th data-starlink-sort="fleet" style="cursor:pointer">Fleet ↕</th><th data-starlink-sort="type" style="cursor:pointer">Type ↕</th><th data-starlink-sort="operator" style="cursor:pointer">Operator ↕</th></tr></thead>
-        <tbody id="starlink-tbody"></tbody>
-      </table>
-    </div>
+  <div class="card" id="special-aircraft-card">
+    <h3>⭐ Special &amp; Named Aircraft</h3>
+    <div id="special-aircraft-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading special aircraft...</div></div>
   </div>
 </div>
 
@@ -929,12 +1028,12 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <div class="wx-legend-item"><span class="wx-legend-dot" style="background:#ef4444"></span>IFR</div>
     <div class="wx-legend-item"><span class="wx-legend-dot" style="background:#c026d3"></span>LIFR</div>
   </div>
+  <div class="hub-cards" id="hub-cards"></div>
   <!-- IRROPS Monitor -->
   <div id="irrops-section">
     <h3>⚠️ IRROPS Monitor</h3>
     <div id="irrops-content" aria-live="polite"><div class="irrops-empty" style="color:var(--dl-muted);font-size:10px">Loading IRROPS data…</div></div>
   </div>
-  <div class="hub-cards" id="hub-cards"></div>
 </div>
 
 <!-- TAB 4: ANALYTICS -->
@@ -991,25 +1090,13 @@ tbody td{padding:5px 8px;white-space:nowrap}
     </div>
   </div>
 
-  <!--div class="source-item">
+  <div class="source-item">
     <div class="source-icon">✈️</div>
     <div>
-      <div class="source-name">Fleet Database — Delta Fleet Site <span class="freshness fresh-daily">DAILY</span></div>
-      <div class="source-desc">Comprehensive fleet data: mainline aircraft with type, config, WiFi, IFE, seats, delivery year.</div>
-      <a class="source-link" href="https://sites.google.com/site/unitedfleetsite/" target="_blank" rel="noopener noreferrer">Delta Fleet Site →</a>
-      <a class="source-link" href="https://docs.google.com/spreadsheets/d/1ZlYgN_IZmd6CSx_nXnuP0L0PiodapDRx3RmNkIpxXAo" target="_blank" rel="noopener noreferrer" style="margin-left:12px">Google Sheet →</a>
+      <div class="source-name">Fleet Database — Public Records <span class="freshness fresh-daily">DAILY</span></div>
+      <div class="source-desc">Fleet Data: mainline aircraft with type, config, WiFi, IFE, seats, delivery year.</div>
     </div>
-  </div-->
-
-  <!--div class="source-item">
-    <div class="source-icon">⚡</div>
-    <div>
-      <div class="source-name">Starlink Tracker — @martinamps <span class="freshness fresh-daily">DAILY</span></div>
-      <div class="source-desc">258 Starlink-equipped Delta aircraft. Community-maintained tracker.</div>
-      <a class="source-link" href="https://github.com/martinamps/dl-starlink-tracker" target="_blank" rel="noopener noreferrer">github.com/martinamps/dl-starlink-tracker →</a>
-      <a class="source-link" href="https://unitedstarlinktracker.com" target="_blank" rel="noopener noreferrer" style="margin-left:12px">unitedstarlinktracker.com →</a>
-    </div>
-  </div-->
+  </div>
 
   <div class="source-item">
     <div class="source-icon">🌦</div>
@@ -1054,7 +1141,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
     <div>
       <div class="source-name">r/delta</div>
       <div class="source-desc">The Delta Air Lines community on Reddit — news, trip reports, SkyMiles discussion, and more.</div>
-      <a class="source-link" href="https://www.reddit.com/r/delta/" target="_blank" rel="noopener noreferrer">reddit.com/r/delta →</a>
+      <a class="source-link" href="https://www.reddit.com/r/UnitedAirlines/" target="_blank" rel="noopener noreferrer">reddit.com/r/delta →</a>
     </div>
   </div>
 
@@ -1067,7 +1154,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 
 // ═══════════════════════════════════════════════
 // HUB LIST — CANONICAL REFERENCE
-// All 9 Delta hubs: ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA
+// All 9 Delta hubs: ATL, LGA, JFK, BOS, DTW, MSP, SLC, LAX, SEA
 // When adding/removing a hub, update ALL of these locations:
 //   1. AIRPORTS array (hub:true entries) — ~line 1010
 //   2. hubCodes in updateHubHealth() — search "hubCodes"
@@ -1095,48 +1182,101 @@ function escapeHtml(str) {
 // ═══════════════════════════════════════════════
 
 let FLEET_DB = [];
-let STARLINK_DB = [];
-let STARLINK_TAILS = new Set();
 
 // Build registration lookup
 const FLEET_BY_REG = {};
 
 async function loadFleetData() {
   try {
-    const [fleetRes, starlinkRes] = await Promise.all([
-      fetch('/data/fleet.json'),
-      fetch('/data/starlink.json')
-    ]);
-    if (!fleetRes.ok || !starlinkRes.ok) throw new Error('Fleet data load failed');
+    const fleetRes = await fetch('/data/fleet.json');
+    if (!fleetRes.ok) throw new Error('Fleet data load failed');
     FLEET_DB = await fleetRes.json();
-    STARLINK_DB = await starlinkRes.json();
   } catch (err) {
     console.error('Fleet data load error:', err);
     FLEET_DB = [];
-    STARLINK_DB = [];
   }
 
-  STARLINK_TAILS = new Set(STARLINK_DB.map(s => s.tail));
   Object.keys(FLEET_BY_REG).forEach(key => delete FLEET_BY_REG[key]);
   FLEET_DB.forEach(a => { FLEET_BY_REG[a.r] = a; });
+  buildSpecialAircraftIndex();
 }
+
+// ═══ FLEET HEALTH CATEGORIZATION ═══
+const FLEET_HEALTH_CATEGORIES = [
+  { key: 'active',          label: 'Active',          color: '#22c55e' },
+  { key: 'maintenance',     label: 'Maintenance',     color: '#eab308' },
+  { key: 'stored',          label: 'Stored',           color: '#ef4444' },
+  { key: 'next_retrofit',   label: 'NEXT Retrofit',    color: '#8b5cf6' },
+  { key: 'painting',        label: 'Painting',         color: '#06b6d4' },
+  { key: 'future_gum',      label: 'Future GUM',       color: '#f97316' }
+];
+
+function categorizeFleetStatus(s) {
+  if (!s) return 'active';
+  if (s.startsWith('*')) return 'active';
+  if (/100 Year Sticker|Eco Demonstrator/i.test(s)) return 'active';
+  if (/stored/i.test(s)) return 'stored';
+  if (/\bpaint\b/i.test(s)) return 'painting';
+  if (/\bmod\s*next\b/i.test(s)) return 'next_retrofit';
+  if (/future\s*gum/i.test(s)) return 'future_gum';
+  if (/maint|induction/i.test(s)) return 'maintenance';
+  // Notes about NEXT status (Partial NEXT, NEXT???, Confirmed w.o NEXT) — aircraft is active
+  if (/next/i.test(s)) return 'active';
+  // Remaining non-empty statuses are likely maintenance at MRO locations
+  if (s.trim()) return 'maintenance';
+  return 'active';
+}
+
+// ═══ SPECIAL AIRCRAFT DETECTION ═══
+const SPECIAL_AIRCRAFT = {};
+
+function buildSpecialAircraftIndex() {
+  Object.keys(SPECIAL_AIRCRAFT).forEach(k => delete SPECIAL_AIRCRAFT[k]);
+  FLEET_DB.forEach(a => {
+    if (!a.s) return;
+    if (a.s.startsWith('*')) {
+      SPECIAL_AIRCRAFT[a.r] = { name: a.s.replace(/^\*+|\*+$/g, '').trim(), type: 'named' };
+    } else if (/100 Year Sticker/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: '100 Year Sticker', type: 'livery' };
+    } else if (/Eco Demonstrator/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'Eco Demonstrator Explorer', type: 'livery' };
+    }
+  });
+}
+
+function isSpecialAircraft(reg) {
+  return SPECIAL_AIRCRAFT[reg] || null;
+}
+
+// ═══ ENGINE TYPE LOOKUP ═══
+const ENGINE_BY_TYPE = {
+  'A319':'IAE V2524-A5','A320':'IAE V2527-A5','A321neo':'CFM LEAP-1A',
+  '737-700':'CFM56-7B22','737-800':'CFM56-7B26','737-900':'CFM56-7B26',
+  '737-900ER':'CFM56-7B27','737 MAX 8':'CFM LEAP-1B28','737 MAX 9':'CFM LEAP-1B28',
+  '757-200':'RB211-535E4B','757-300':'RB211-535E4B',
+  '767-300ER':'CF6-80C2B7F','767-400ER':'CF6-80C2B8F',
+  '777-200':'PW4077','777-200ER':'PW4090','777-300ER':'GE90-115B',
+  '787-8':'GEnx-1B64','787-9':'GEnx-1B74','787-10':'GEnx-1B76'
+};
 
 // ═══ AIRPORT DATABASE (150 airports) ═══
 const AIRPORTS = [
   // Delta Hubs
-  {iata:"ATL",lat:33.6407,lon:-84.4277,hub:true},{iata:"JFK",lat:40.6413,lon:-73.7781,hub:true},
-  {iata:"LGA",lat:40.7769,lon:-73.8740,hub:true},{iata:"BOS",lat:42.3656,lon:-71.0096,hub:true},
-  {iata:"MSP",lat:44.8848,lon:-93.2223,hub:true},{iata:"DTW",lat:42.2162,lon:-83.3554,hub:true},
-  {iata:"SLC",lat:40.7899,lon:-111.9791,hub:true},{iata:"LAX",lat:33.9425,lon:-118.4081,hub:true},
+  {iata:"ATL",lat:33.6407,lon:-84.4277,hub:true},{iata:"LGA",lat:40.7769,lon:-73.8740,hub:true},
+  {iata:"JFK",lat:40.6413,lon:-73.7781,hub:true},{iata:"BOS",lat:42.3656,lon:-71.0096,hub:true},
+  {iata:"DTW",lat:42.2162,lon:-83.3554,hub:true},{iata:"LAX",lat:33.9425,lon:-118.4081,hub:true},
+  {iata:"MSP",lat:44.8848,lon:-93.2223,hub:true},{iata:"SLC",lat:40.7899,lon:-111.9791,hub:true},
   {iata:"SEA",lat:47.4502,lon:-122.3088,hub:true},
   // Major US
-  {iata:"EWR",lat:40.6925,lon:-74.1687},{iata:"IAH",lat:29.9844,lon:-95.3414,},
-  {iata:"ORD",lat:41.9742,lon:-87.9073},{iata:"DEN",lat:39.8561,lon:-104.6737},
-  {iata:"SFO",lat:37.6213,lon:-122.3790}, {iata:"IAD",lat:38.9531,lon:-77.4565},
-  {iata:"DFW",lat:32.8998,lon:-97.0403},{iata:"PHX",lat:33.4373,lon:-112.0078},
-  {iata:"MCO",lat:28.4312,lon:-81.3081},{iata:"CLT",lat:35.2140,lon:-80.9431},
-  {iata:"MIA",lat:25.7959,lon:-80.2870},{iata:"FLL",lat:26.0742,lon:-80.1506},
-  {iata:"PHL",lat:39.8744,lon:-75.2424},{iata:"SAN",lat:32.7338,lon:-117.1933},
+  {iata:"ORD",lat:41.9742,lon:-87.9073},{iata:"DFW",lat:32.8998,lon:-97.0403},
+  {iata:"EWR",lat:40.6925,lon:-74.1687},{iata:"IAH",lat:29.9844,lon:-95.3414},
+  {iata:"DEN",lat:39.8561,lon:-104.6737},{iata:"SFO",lat:37.6213,lon:-122.3790},
+  {iata:"IAD",lat:38.9531,lon:-77.4565},{iata:"PHX",lat:33.4373,lon:-112.0078},
+  {iata:"MCO",lat:28.4312,lon:-81.3081},
+  {iata:"CLT",lat:35.2140,lon:-80.9431},{iata:"MIA",lat:25.7959,lon:-80.2870},
+  {iata:"FLL",lat:26.0742,lon:-80.1506},{iata:"MSP",lat:44.8848,lon:-93.2223},
+  {iata:"DTW",lat:42.2162,lon:-83.3554},{iata:"PHL",lat:39.8744,lon:-75.2424},
+  {iata:"SLC",lat:40.7899,lon:-111.9791},{iata:"SAN",lat:32.7338,lon:-117.1933},
   {iata:"TPA",lat:27.9755,lon:-82.5332},{iata:"PDX",lat:45.5898,lon:-122.5951},
   {iata:"BNA",lat:36.1263,lon:-86.6774},{iata:"STL",lat:38.7487,lon:-90.3700},
   {iata:"AUS",lat:30.1975,lon:-97.6664},{iata:"RDU",lat:35.8801,lon:-78.7880},
@@ -1175,8 +1315,7 @@ const AIRPORTS = [
   {iata:"FCO",lat:41.8003,lon:12.2389},{iata:"MAD",lat:40.4983,lon:-3.5676},
   {iata:"BCN",lat:41.2974,lon:2.0833},{iata:"LIS",lat:38.7813,lon:-9.1359},
   {iata:"DUB",lat:53.4213,lon:-6.2701},{iata:"EDI",lat:55.9508,lon:-3.3615},
-  {iata:"GUM",lat:13.4834,lon:144.7960},{iata:"NRT",lat:35.7720,lon:140.3929},
-  {iata:"HND",lat:35.5494,lon:139.7798},
+  {iata:"GUM",lat:13.4834,lon:144.7960},{iata:"NRT",lat:35.7720,lon:140.3929},{iata:"HND",lat:35.5494,lon:139.7798},
   {iata:"ICN",lat:37.4602,lon:126.4407},{iata:"PEK",lat:40.0799,lon:116.6031},
   {iata:"PVG",lat:31.1443,lon:121.8083},{iata:"HKG",lat:22.3080,lon:113.9185},
   {iata:"SIN",lat:1.3644,lon:103.9915},{iata:"BKK",lat:13.6900,lon:100.7501},
@@ -1205,7 +1344,7 @@ const HUB_CODES = HUBS.map(h => h.iata);
 
 // ═══ DL ROUTE LOOKUP TABLE ═══
 // Static mapping of DL flight numbers to known city pairs (fallback for missing FR24 route data)
-const DL_ROUTES = {
+const UA_ROUTES = {
   1:{from:'SFO',to:'SIN'},2:{from:'SIN',to:'SFO'},3:{from:'SFO',to:'HKG'},4:{from:'HKG',to:'SFO'},
   5:{from:'SFO',to:'SYD'},6:{from:'SYD',to:'SFO'},7:{from:'SFO',to:'NRT'},8:{from:'NRT',to:'SFO'},
   9:{from:'EWR',to:'CDG'},10:{from:'CDG',to:'EWR'},11:{from:'EWR',to:'BRU'},12:{from:'BRU',to:'EWR'},
@@ -1268,11 +1407,11 @@ const DL_ROUTES = {
 // ═══ IATA → CITY NAME MAPPING ═══
 const IATA_CITIES = {
   // Delta Hubs
-  EWR:'Newark',IAH:'Houston',ORD:'Chicago O\'Hare',DEN:'Denver',SFO:'San Francisco',LAX:'Los Angeles',IAD:'Washington Dulles',
+  ATL:'Atlanta',LGA:'New York LaGuardia',JFK:'New York JFK',BOS:'Boston Logan',DTW:'Detroit Metro',LAX:'Los Angeles',MSP:'Minneapolis',SLC:'Salt Lake City',SEA:'Seattle',
   // Major US
-  ATL:'Atlanta',DFW:'Dallas/Fort Worth',JFK:'New York JFK',LGA:'New York LaGuardia',SEA:'Seattle',BOS:'Boston',
-  PHX:'Phoenix',MCO:'Orlando',CLT:'Charlotte',MIA:'Miami',FLL:'Fort Lauderdale',MSP:'Minneapolis',
-  DTW:'Detroit',PHL:'Philadelphia',SLC:'Salt Lake City',SAN:'San Diego',TPA:'Tampa',PDX:'Portland',
+  ORD:'Chicago O\'Hare',DFW:'Dallas/Fort Worth',EWR:'Newark',IAH:'Houston',DEN:'Denver',SFO:'San Francisco',IAD:'Washington Dulles',
+  PHX:'Phoenix',MCO:'Orlando',CLT:'Charlotte',MIA:'Miami',FLL:'Fort Lauderdale',
+  PHL:'Philadelphia',SAN:'San Diego',TPA:'Tampa',PDX:'Portland',
   BNA:'Nashville',STL:'St. Louis',AUS:'Austin',RDU:'Raleigh-Durham',MCI:'Kansas City',SMF:'Sacramento',
   SJC:'San José',OAK:'Oakland',CLE:'Cleveland',CMH:'Columbus',PIT:'Pittsburgh',IND:'Indianapolis',
   MKE:'Milwaukee',RSW:'Fort Myers',JAX:'Jacksonville',BDL:'Hartford',ABQ:'Albuquerque',ONT:'Ontario',
@@ -1348,10 +1487,14 @@ document.getElementById('tab-bar')?.addEventListener('keydown', function(e) {
   if (next >= 0) { e.preventDefault(); tabs[next].focus(); tabs[next].click(); }
 });
 
-// Deep-link hash on load
+// Deep-link hash on load — visual only (no data loads until initApp finishes)
 (function(){
   const h = location.hash;
-  if (h && HASH_TABS[h]) switchToTab(HASH_TABS[h], false);
+  if (h && HASH_TABS[h]) {
+    const tabId = HASH_TABS[h];
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+    document.querySelectorAll('.tab-content').forEach(p => p.classList.toggle('active', p.id === tabId));
+  }
 })();
 
 // ═══ QUERY PARAM DEEP-LINKING (hub pages) ═══
@@ -1375,7 +1518,9 @@ document.getElementById('tab-bar')?.addEventListener('keydown', function(e) {
 
   const tabId = TAB_MAP[tab];
   if (!tabId) return;
-  switchToTab(tabId, false);
+  // Visual-only tab switch — data loads deferred to initApp
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tabId));
+  document.querySelectorAll('.tab-content').forEach(p => p.classList.toggle('active', p.id === tabId));
 
   // After tab switch, handle sub-navigation
   requestAnimationFrame(() => {
@@ -1384,12 +1529,6 @@ document.getElementById('tab-bar')?.addEventListener('keydown', function(e) {
       if (tab === 'irrops') {
         const el = document.getElementById('irrops-section');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-
-      // Fleet tab: auto-select Starlink filter
-      if (tab === 'fleet' && filter === 'starlink') {
-        const sel = document.getElementById('fleet-filter-status');
-        if (sel) { sel.value = 'starlink'; sel.dispatchEvent(new Event('change')); }
       }
 
       // Schedule tab: filter by hub airport
@@ -1470,6 +1609,7 @@ switchToTab = function(tabId, updateHash) {
 (function(){
   var isMobile = function() { return window.innerWidth <= 768; };
   var rotateInterval = null;
+  var fadeTimeout = null;
   var currentIndex = 0;
 
   function setupMobileTicker() {
@@ -1479,6 +1619,10 @@ switchToTab = function(tabId, updateHash) {
     // Only take unique items (ticker duplicates items for seamless scroll)
     var uniqueCount = Math.ceil(items.length / 2);
     if (uniqueCount === 0) return;
+
+    // Cancel any in-flight fade timeout to prevent stale currentIndex updates
+    if (fadeTimeout) { clearTimeout(fadeTimeout); fadeTimeout = null; }
+    clearInterval(rotateInterval);
 
     // Reset all
     for (var i = 0; i < items.length; i++) {
@@ -1491,7 +1635,6 @@ switchToTab = function(tabId, updateHash) {
     currentIndex = 0;
     if (items[0]) items[0].classList.add('mobile-active');
 
-    clearInterval(rotateInterval);
     if (uniqueCount <= 1) return;
 
     rotateInterval = setInterval(function() {
@@ -1503,7 +1646,8 @@ switchToTab = function(tabId, updateHash) {
       var current = items[currentIndex];
       if (current) {
         current.classList.add('mobile-fade-out');
-        setTimeout(function() {
+        fadeTimeout = setTimeout(function() {
+          fadeTimeout = null;
           current.classList.remove('mobile-active', 'mobile-fade-out');
           currentIndex = (currentIndex + 1) % uniqueCount;
           var next = items[currentIndex];
@@ -1522,6 +1666,7 @@ switchToTab = function(tabId, updateHash) {
   window.addEventListener('resize', function() {
     if (isMobile()) setupMobileTicker();
     else {
+      if (fadeTimeout) { clearTimeout(fadeTimeout); fadeTimeout = null; }
       clearInterval(rotateInterval);
       // Restore all items visibility for desktop
       var items = (tickerEl || document.getElementById('ticker')).querySelectorAll('.ticker-item');
@@ -1589,8 +1734,8 @@ function estimateRoute(lat, lon, hdg, alt, vr, flightNum) {
   // Try static DL route lookup first
   if (flightNum) {
     const num = parseInt(String(flightNum).replace(/^DL/i, '').replace(/^DAL/i, ''), 10);
-    if (num && DL_ROUTES[num]) {
-      const r = DL_ROUTES[num];
+    if (num && UA_ROUTES[num]) {
+      const r = UA_ROUTES[num];
       const oApt = AIRPORTS.find(a => a.iata === r.from);
       const dApt = AIRPORTS.find(a => a.iata === r.to);
       if (oApt && dApt) return { origin: oApt, dest: dApt };
@@ -1654,7 +1799,7 @@ function getPhase(alt, vr, spd) {
   return { phase: 'En Route', icon: '✈️', cls: 'phase-cruise' };
 }
 
-// ═══ SQDLWK DECODER ═══
+// ═══ SQUAWK DECODER ═══
 function decodeSquawk(sq) {
   if (!sq) return null;
   const s = String(sq);
@@ -1803,7 +1948,7 @@ async function refreshFlights() {
   if (isRefreshing) return;
   isRefreshing = true;
   flightsLoading = true;
-  document.getElementById('btn-refresh').textContent = '⏳ LOADING...';
+  document.getElementById('btn-refresh').textContent = '⏳ Loading...';
   try {
     const res = await fetch('/api/fr24-feed?airline=DAL');
     if (!res.ok) throw new Error(res.status);
@@ -1857,14 +2002,11 @@ async function refreshFlights() {
     document.getElementById('btn-refresh').textContent = '🔄 Refresh';
     flightsLoading = false;
     isRefreshing = false;
-    updateMarkers();
-    updateStats();
-    updateHubStats();
-    updateTicker();
-    // Only update tab-specific panels when their tab is actually active
-    if (document.getElementById('tab-fleet')?.classList.contains('active')) updateLiveFleetPanel();
-    if (document.getElementById('tab-analytics')?.classList.contains('active')) updateAnalytics();
-    // Handle deep link: ?flight=DL1234 on first load
+    // Each updater is independent — one failure must not block the rest
+    [updateMarkers, updateStats, updateHubStats, updateTicker].forEach(fn => { try { fn(); } catch(e) { console.error(fn.name + ':', e); } });
+    try { if (document.getElementById('tab-fleet')?.classList.contains('active')) updateLiveFleetPanel(); } catch(e) { console.error('updateLiveFleetPanel:', e); }
+    try { if (document.getElementById('tab-analytics')?.classList.contains('active')) updateAnalytics(); } catch(e) { console.error('updateAnalytics:', e); }
+    // Handle deep link: ?flight=UA1234 on first load
     if (!deepLinkHandled) {
       deepLinkHandled = true;
       const urlParams = new URLSearchParams(window.location.search);
@@ -1915,10 +2057,9 @@ function createPlaneIcon(hdg, isLonghaul, phase) {
   const cacheKey = `${hdgRounded}|${isLonghaul?1:0}|${phase}`;
   if (_iconCache[cacheKey]) return _iconCache[cacheKey];
   const color = isLonghaul ? '#fbbf24' : (phase === 'Ground' ? '#6b7280' : '#60a5fa');
-  const size = isLonghaul ? 10 : 10;
+  const size = isLonghaul ? 12 : 12;
   // SVG plane pointing north (0°) — classic top-down aircraft silhouette, cross-platform consistent
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 256 256" fill="${color}" style="filter:drop-shadow(0 0 2px ${color})"><path d="M131.53,25.31c0-13.98-5.56-25.31-12.41-25.31s-12.41,11.33-12.41,25.31h0v60.06S0,159.82,0,159.82v14.89s106.71-29.78,106.71-29.78v59.56s-37.23,24.82-37.23,24.82v9.93s44.67-9.93,44.67-9.93h9.93s44.67,9.93,44.67,9.93v-9.93s-37.23-24.82-37.23-24.82v-59.56s106.71,29.78,106.71,29.78v-14.89s-106.71-74.45-106.71-74.45V25.31Z"/></svg>`;
-  const icon = L.divIcon({
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 256 256" fill="${color}" style="filter:drop-shadow(0 0 2px ${color})"><path d="M131.53,25.31c0-13.98-5.56-25.31-12.41-25.31s-12.41,11.33-12.41,25.31h0v60.06S0,159.82,0,159.82v14.89s106.71-29.78,106.71-29.78v59.56s-37.23,24.82-37.23,24.82v9.93s44.67-9.93,44.67-9.93h9.93s44.67,9.93,44.67,9.93v-9.93s-37.23-24.82-37.23-24.82v-59.56s106.71,29.78,106.71,29.78v-14.89s-106.71-74.45-106.71-74.45V25.31Z"/></svg>`;  const icon = L.divIcon({
     html: `<div style="transform:rotate(${hdgRounded}deg);line-height:0">${svg}</div>`,
     iconSize: [size, size], iconAnchor: [size/2, size/2], className: ''
   });
@@ -1954,6 +2095,7 @@ function getPhaseGroup(phase) {
 }
 
 function updateMarkers() {
+  if (!map) return;
   const filtered = getFilteredFlights();
   const filteredIcaos = new Set(filtered.map(f => f.icao24));
   const allIcaos = new Set(allFlights.map(f => f.icao24));
@@ -2022,7 +2164,6 @@ function showFlightPopup(f, marker) {
   const phaseInfo = getPhase(f.alt, f.vr, f.spd);
   const squawk = decodeSquawk(f.squawk);
   const aircraft = matchAircraft(f);
-  const isStarlink = aircraft ? STARLINK_TAILS.has(aircraft.r) : (f.reg && STARLINK_TAILS.has(f.reg));
   const flightNum = f.flightIATA || f.callsign.replace(/^DAL/, '');
   const displayFlight = f.flightIATA || f.callsign || 'N/A';
 
@@ -2060,9 +2201,10 @@ function showFlightPopup(f, marker) {
   // Aircraft info — FR24 type + fleet DB match
   if (aircraft) {
     html += `<div class="popup-aircraft">`;
-    html += `<div class="popup-aircraft-type">${escapeHtml(aircraft.t)} <span style="color:var(--dl-muted);font-size:10px">${escapeHtml(aircraft.r)}</span></div>`;
-    html += `<div style="font-size:10px;color:var(--dl-muted)">${escapeHtml(aircraft.c || '')} | ${escapeHtml(aircraft.w || '')} | ${escapeHtml(aircraft.i || '')}</div>`;
-    if (isStarlink) html += `<span class="starlink-badge">⚡ STARLINK</span> `;
+    html += `<div class="popup-aircraft-type">${escapeHtml(aircraft.t)} <span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(aircraft.r)}" style="font-size:10px">${escapeHtml(aircraft.r)}</span></div>`;
+    html += `<div style="font-size:10px;color:var(--dl-muted)">${escapeHtml(aircraft.d || '')} | ${escapeHtml(aircraft.c || '')} | ${escapeHtml(aircraft.w || '')}</div>`;
+    const popupSpecial = isSpecialAircraft(aircraft.r);
+    if (popupSpecial) html += `<span class="special-badge">⭐ ${escapeHtml(popupSpecial.name)}</span> `;
     if (aircraft.seats && Object.keys(aircraft.seats).length > 0) {
       html += `<div class="popup-seats">`;
       for (const [cls, cnt] of Object.entries(aircraft.seats)) {
@@ -2076,7 +2218,7 @@ function showFlightPopup(f, marker) {
     let acInfo = [];
     if (f.acType) acInfo.push(f.acType);
     if (f.reg) acInfo.push(f.reg);
-    if (acInfo.length) html += `<div style="font-size:10px;color:var(--dl-muted);margin:4px 0">${escapeHtml(acInfo.join(' · '))} (not in mainline fleet DB — likely Delta Express)</div>`;
+    if (acInfo.length) html += `<div style="font-size:10px;color:var(--dl-muted);margin:4px 0">${escapeHtml(acInfo.join(' · '))} (not in mainline fleet DB — likely Delta Connection)</div>`;
   }
 
   // Departure/Arrival times — placeholder, filled async
@@ -2293,7 +2435,7 @@ function splitAtAntimeridian(pts) {
 function updateStats() {
   const filtered = getFilteredFlights();
   let airborne = 0, ground = 0, climbing = 0, cruising = 0, descending = 0;
-  let totalAlt = 0, altCount = 0, totalSpd = 0, spdCount = 0, starlinkAirborne = 0;
+  let totalAlt = 0, altCount = 0, totalSpd = 0, spdCount = 0;
 
   filtered.forEach(f => {
     const p = getPhase(f.alt, f.vr, f.spd);
@@ -2306,10 +2448,6 @@ function updateStats() {
 
       if (f.alt) { totalAlt += f.alt * 3.28084; altCount++; }
       if (f.spd) { totalSpd += f.spd * 1.944; spdCount++; }
-
-      const ac = matchAircraft(f);
-      if (ac && STARLINK_TAILS.has(ac.r)) starlinkAirborne++;
-      else if (f.reg && STARLINK_TAILS.has(f.reg)) starlinkAirborne++;
     }
   });
 
@@ -2322,7 +2460,6 @@ function updateStats() {
   document.getElementById('st-avgalt').textContent = altCount ? Math.round(totalAlt / altCount).toLocaleString() + 'ft' : '--';
   document.getElementById('st-avgspd').textContent = spdCount ? Math.round(totalSpd / spdCount) + 'kts' : '--';
   document.getElementById('st-util').textContent = FLEET_DB.length ? Math.round((airborne / FLEET_DB.length) * 100) + '%' + filterLabel : '--';
-  //document.getElementById('st-starlink').textContent = starlinkAirborne;
 
   // Phase stats sidebar (always show total counts from allFlights, but make clickable)
   let allGround = 0, allClimb = 0, allCruise = 0, allDescent = 0, allApproach = 0;
@@ -2456,9 +2593,8 @@ function updateTicker() {
   const items = [];
 
   if (allFlights.length > 0) {
-    items.push({ text: `${airborne} DELTA FLIGHTS AIRBORNE`, cls: 'info' });
-    // items.push({ text: `Fleet: ${FLEET_DB.length} mainline aircraft`, cls: 'info' });
-    // items.push({ text: `${STARLINK_TAILS.size} Starlink-equipped aircraft (incl. Delta Express)`, cls: 'info' });
+    items.push({ text: `${airborne} Delta flights airborne`, cls: 'info' });
+    items.push({ text: `Fleet: ${FLEET_DB.length} mainline aircraft`, cls: 'info' });
   }
 
   // Check for emergency squawks
@@ -2471,13 +2607,13 @@ function updateTicker() {
 
   // Default message when no alerts
   if (items.length === 0 || items.every(i => i.cls === 'info')) {
-    const countStr = allFlights.length > 0 ? ` — TRACKING ${allFlights.length} DELTA FLIGHTS` : '';
-    items.unshift({ text: `✅ ALL SYSTEMS NORMAL${countStr}`, cls: 'info' });
+    const countStr = allFlights.length > 0 ? ` — tracking ${allFlights.length} Delta flights` : '';
+    items.unshift({ text: `✅ All systems normal${countStr}`, cls: 'info' });
   }
 
   const tickerHtml = items.map(i => `<span class="ticker-item ${escapeHtml(i.cls)}">${escapeHtml(i.text)}</span>`).join('');
   const tickerEl = document.getElementById('ticker');
-  tickerEl.innerHTML = tickerHtml + tickerHtml + tickerHtml + tickerHtml; // duplicate for seamless scroll
+  tickerEl.innerHTML = tickerHtml + tickerHtml; // duplicate for seamless scroll
   initTickerAnimation(tickerEl);
 }
 
@@ -2486,6 +2622,14 @@ let _tickerRafId = null;
 function initTickerAnimation(tickerEl) {
   // Cancel any previous animation
   if (_tickerRafId) { cancelAnimationFrame(_tickerRafId); _tickerRafId = null; }
+
+  // Mobile uses fade-rotation via setupMobileTicker — skip desktop scroll animation
+  if (window.innerWidth <= 768) {
+    tickerEl.style.animation = '';
+    tickerEl.style.transform = '';
+    return;
+  }
+
   tickerEl.style.animation = 'none';
   tickerEl.style.transform = '';
 
@@ -2540,7 +2684,7 @@ function initFleetTab() {
   // Type chips
   const typeCounts = {};
   FLEET_DB.forEach(a => { typeCounts[a.t] = (typeCounts[a.t] || 0) + 1; });
-  const typeOrder = ["A319","A320","A321neo","737-700","737-800","737-900","737-900ER","737 MAX 8","737 MAX 9","757-200","757-300","767-300ER","767-400ER","777-200","777-200ER","777-300ER","787-8","787-9","787-10"];
+  const typeOrder = ["A220-100","A220-300","A319","A320","A321","A321neo","A330-200","A330-300","A330-900neo","A350-900","717-200","737-800","737-900ER","757-200","757-300","767-300ER","767-400ER"];
   const icons = {'A319':'🔹','A320':'🔹','737-700':'🔸','737-800':'🔸','737-900':'🔸','737 MAX':'⭐','757':'🔷','767':'🔷','777':'💎','777-200':'💎','787-8':'🌟','777-300ER':'👑'};
 
   document.getElementById('fleet-chips').innerHTML = typeOrder.map(t =>
@@ -2551,11 +2695,6 @@ function initFleetTab() {
     </div>`
   ).join('');
 
-  // Starlink progress
-  const mainlineStarlink = STARLINK_DB.filter(s => s.fleet === 'Mainline').length;
-  document.getElementById('starlink-progress').style.width = (mainlineStarlink / FLEET_DB.length * 100) + '%';
-  document.getElementById('starlink-pct').textContent = Math.round(mainlineStarlink / FLEET_DB.length * 100) + '% (' + mainlineStarlink + '/' + FLEET_DB.length + ')';
-
   // Populate filters
   const wifiTypes = [...new Set(FLEET_DB.map(a => a.w).filter(Boolean))].sort();
   document.getElementById('fleet-filter-type').innerHTML = '<option value="">All Types</option>' +
@@ -2565,8 +2704,8 @@ function initFleetTab() {
 
   renderFleetTable();
   renderAgeChart();
-  renderStarlinkTable();
-  initStarlinkFilters();
+  renderFleetHealth();
+  renderSpecialAircraftPanel();
 
   // Filter listeners
   const debouncedFleetRender = debounce(renderFleetTable, 120);
@@ -2588,7 +2727,7 @@ function renderFleetTable() {
     if (wifiF && a.w !== wifiF) return false;
     if (statusF === 'active' && a.s) return false;
     if (statusF === 'stored' && !a.s) return false;
-    if (statusF === 'starlink' && !STARLINK_TAILS.has(a.r)) return false;
+    if (statusF === 'special' && !isSpecialAircraft(a.r)) return false;
     if (searchF && !a.r.toUpperCase().includes(searchF) && !a.c.toUpperCase().includes(searchF) && !a.t.toUpperCase().includes(searchF)) return false;
     return true;
   });
@@ -2602,14 +2741,13 @@ function renderFleetTable() {
   });
 
   document.getElementById('fleet-tbody').innerHTML = data.map(a => {
-    const isSL = STARLINK_TAILS.has(a.r);
-    const rowCls = a.s ? (a.s.toLowerCase().includes('stored') ? 'row-stored' : 'row-maint') : '';
+    const special = isSpecialAircraft(a.r);
+    const rowCls = a.s ? (a.s.toLowerCase().includes('stored') ? 'row-stored' : (special ? '' : 'row-maint')) : '';
     return `<tr class="${rowCls}">
-      <td style="font-weight:700;color:var(--dl-accent)">${escapeHtml(a.r)}</td>
+      <td style="font-weight:700"><span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(a.r)}">${escapeHtml(a.r)}</span>${special ? ' <span class="special-badge">⭐ ' + escapeHtml(special.name) + '</span>' : ''}</td>
       <td>${escapeHtml(a.t)}</td><td>${escapeHtml(a.a)}</td><td>${escapeHtml(a.c)}</td>
       <td>${escapeHtml(a.tot || '')}</td><td>${escapeHtml(a.w)}</td><td>${escapeHtml(a.i)}</td><td>${escapeHtml(a.d)}</td>
       <td style="font-size:9px;max-width:120px;overflow:hidden;text-overflow:ellipsis">${escapeHtml(a.s)}</td>
-      <td>${isSL ? '<span class="starlink-badge">⚡</span>' : ''}</td>
     </tr>`;
   }).join('');
 }
@@ -2623,6 +2761,91 @@ document.querySelectorAll('#fleet-table thead th[data-sort]').forEach(th => {
     renderFleetTable();
   });
 });
+
+// ═══ FLEET HEALTH DASHBOARD ═══
+function renderFleetHealth() {
+  if (!FLEET_DB.length) return;
+  const counts = {};
+  FLEET_HEALTH_CATEGORIES.forEach(c => { counts[c.key] = 0; });
+  FLEET_DB.forEach(a => {
+    const cat = categorizeFleetStatus(a.s);
+    counts[cat] = (counts[cat] || 0) + 1;
+  });
+  const total = FLEET_DB.length;
+  const nonActive = total - counts.active;
+
+  let html = `<div style="display:flex;align-items:center;gap:16px;margin-bottom:14px">`;
+  html += `<div class="big-number">${total}</div>`;
+  html += `<div><div class="big-number-label">Total Mainline Aircraft</div>`;
+  html += `<div style="font-size:10px;color:var(--dl-green);margin-top:2px">${counts.active} active (${(counts.active / total * 100).toFixed(1)}%) · ${nonActive} out of service</div></div>`;
+  html += `</div>`;
+
+  FLEET_HEALTH_CATEGORIES.forEach(cat => {
+    const count = counts[cat.key] || 0;
+    if (count === 0) return;
+    const pct = (count / total * 100).toFixed(1);
+    const barWidth = total > 0 ? (count / total * 100) : 0;
+    html += `<div class="fleet-health-bar">`;
+    html += `<span class="fh-label"><span class="fh-legend-dot" style="background:${cat.color}"></span>${escapeHtml(cat.label)}</span>`;
+    html += `<div class="fh-track"><div class="fh-fill" style="width:${barWidth}%;background:${cat.color}"></div></div>`;
+    html += `<span class="fh-count">${count} <span style="font-size:9px;color:var(--dl-muted);font-weight:400">(${pct}%)</span></span>`;
+    html += `</div>`;
+  });
+
+  document.getElementById('fleet-health-content').innerHTML = html;
+}
+
+// ═══ SPECIAL AIRCRAFT TRACKER ═══
+function renderSpecialAircraftPanel() {
+  if (!FLEET_DB.length) return;
+  const specialRegs = Object.keys(SPECIAL_AIRCRAFT);
+  if (!specialRegs.length) {
+    document.getElementById('special-aircraft-content').innerHTML =
+      '<div style="color:var(--dl-muted);font-size:11px;text-align:center;padding:10px 0">No special aircraft found</div>';
+    return;
+  }
+
+  // Cross-reference with live flights for airborne status
+  const airborneSpecial = {};
+  if (allFlights && allFlights.length) {
+    allFlights.forEach(f => {
+      if (f.onGround) return;
+      const reg = f.reg ? f.reg.replace('-', '') : null;
+      if (reg && SPECIAL_AIRCRAFT[reg]) {
+        airborneSpecial[reg] = {
+          flight: f.flightIATA || f.callsign || '',
+          route: (f.origin || '???') + '→' + (f.dest || '???')
+        };
+      }
+    });
+  }
+
+  let html = '<div class="special-aircraft-grid">';
+  specialRegs.forEach(reg => {
+    const special = SPECIAL_AIRCRAFT[reg];
+    const ac = FLEET_BY_REG[reg];
+    if (!ac) return;
+    const airborne = airborneSpecial[reg];
+
+    html += `<div class="special-aircraft-item">`;
+    html += `<div>`;
+    html += `<div class="sa-name">${escapeHtml(special.name)}</div>`;
+    html += `<div><span class="sa-reg ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(reg)}">${escapeHtml(reg)}</span> <span class="sa-type">${escapeHtml(ac.t)} · Del ${escapeHtml(ac.d || '?')}</span></div>`;
+    html += `</div>`;
+    html += `<div class="sa-status">`;
+    if (airborne) {
+      html += `<span class="special-airborne-badge"><span class="pulse-dot" style="width:6px;height:6px;display:inline-block;margin-right:3px"></span>AIRBORNE</span>`;
+      html += `<div style="font-size:9px;color:var(--dl-green);margin-top:2px">${escapeHtml(airborne.flight)} ${escapeHtml(airborne.route)}</div>`;
+    } else {
+      html += `<span class="special-badge">${special.type === 'named' ? '★ NAMED' : '✦ LIVERY'}</span>`;
+    }
+    html += `</div>`;
+    html += `</div>`;
+  });
+  html += '</div>';
+
+  document.getElementById('special-aircraft-content').innerHTML = html;
+}
 
 function filterFleetType(type) {
   document.getElementById('fleet-filter-type').value = type;
@@ -2640,7 +2863,7 @@ function showConfigGallery(type) {
     configs[key].count++;
   });
 
-  const colors = { J: '#2563eb', PP: '#0d9488', PE: '#0d9488', F: '#7c3aed', 'E+': '#16a34a', Y: '#475569', Domestic: '#6366f1' };
+  const colors = { J: '#2563eb', PS: '#0d9488', F: '#7c3aed', 'C+': '#16a34a', Y: '#475569', Domestic: '#6366f1' };
   let html = `<div style="font-size:13px;font-weight:700;color:var(--dl-accent);margin-bottom:8px">${type} Configurations</div>`;
 
   for (const [cfg, data] of Object.entries(configs)) {
@@ -2760,61 +2983,6 @@ function renderAgeChart() {
     Object.entries(decades).map(([k, v]) => `<span style="margin-right:8px">${k}: <strong>${v}</strong></span>`).join('');
 }
 
-let starlinkSortKey = 'tail', starlinkSortAsc = true;
-
-function initStarlinkFilters() {
-  // Populate type and operator dropdowns from actual data
-  const types = [...new Set(STARLINK_DB.map(s => s.type))].sort();
-  const operators = [...new Set(STARLINK_DB.map(s => s.operator))].sort();
-  const typeSelect = document.getElementById('starlink-filter-type');
-  const opSelect = document.getElementById('starlink-filter-operator');
-  types.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; typeSelect.appendChild(o); });
-  operators.forEach(t => { const o = document.createElement('option'); o.value = t; o.textContent = t; opSelect.appendChild(o); });
-
-  // Event listeners for filters
-  ['starlink-search', 'starlink-filter-fleet', 'starlink-filter-type', 'starlink-filter-operator'].forEach(id => {
-    document.getElementById(id).addEventListener(id === 'starlink-search' ? 'input' : 'change', renderStarlinkTable);
-  });
-
-  // Sort headers
-  document.querySelectorAll('[data-starlink-sort]').forEach(th => {
-    th.addEventListener('click', () => {
-      const key = th.getAttribute('data-starlink-sort');
-      if (starlinkSortKey === key) starlinkSortAsc = !starlinkSortAsc;
-      else { starlinkSortKey = key; starlinkSortAsc = true; }
-      renderStarlinkTable();
-    });
-  });
-}
-
-function renderStarlinkTable() {
-  const search = (document.getElementById('starlink-search').value || '').trim().toUpperCase();
-  const fleetFilter = document.getElementById('starlink-filter-fleet').value;
-  const typeFilter = document.getElementById('starlink-filter-type').value;
-  const opFilter = document.getElementById('starlink-filter-operator').value;
-
-  let filtered = STARLINK_DB.filter(s => {
-    if (search && !s.tail.toUpperCase().includes(search)) return false;
-    if (fleetFilter && s.fleet !== fleetFilter) return false;
-    if (typeFilter && s.type !== typeFilter) return false;
-    if (opFilter && s.operator !== opFilter) return false;
-    return true;
-  });
-
-  filtered.sort((a, b) => {
-    const va = (a[starlinkSortKey] || '').toLowerCase();
-    const vb = (b[starlinkSortKey] || '').toLowerCase();
-    return starlinkSortAsc ? va.localeCompare(vb) : vb.localeCompare(va);
-  });
-
-  document.getElementById('starlink-filtered-count').textContent = filtered.length < STARLINK_DB.length ? `${filtered.length} of ${STARLINK_DB.length}` : '';
-  document.getElementById('starlink-count').textContent = STARLINK_DB.length;
-
-  document.getElementById('starlink-tbody').innerHTML = filtered.map(s =>
-    `<tr><td style="font-weight:700;color:var(--dl-green)">${escapeHtml(s.tail)}</td><td>${escapeHtml(s.fleet)}</td><td>${escapeHtml(s.type)}</td><td style="font-size:10px">${escapeHtml(s.operator)}</td></tr>`
-  ).join('');
-}
-
 // ═══ FLEET DATA REFRESH ═══
 function refreshFleetData() {
   // Fleet data is embedded at build time — a page reload pulls the latest deployment
@@ -2823,7 +2991,7 @@ function refreshFleetData() {
 
 // ═══ WEATHER TAB ═══
 let weatherInitialized = false;
-const HUB_NAMES = {ATL:"Hartsfield-Jackson Atlanta International Airport",JFK:"John F. Kennedy International Airport",LGA:"LaGuardia Airport",BOS:"Boston Logan International Airport",DTW:"Detroit Metropolitan Wayne County Airport",MSP:"Minneapolis-Saint Paul International Airport",SLC:"Salt Lake City International Airport",LAX:"Los Angeles International Airport",SEA:"Seattle-Tacoma International Airport"};
+const HUB_NAMES = {ATL:"Hartsfield-Jackson",LGA:"LaGuardia",JFK:"JFK International",BOS:"Boston Logan",DTW:"Detroit Metro",LAX:"Los Angeles Int'l",MSP:"Minneapolis-St. Paul",SLC:"Salt Lake City",SEA:"Seattle-Tacoma"};
 const CAT_COLORS = {VFR:'#22c55e',MVFR:'#eab308',IFR:'#ef4444',LIFR:'#c026d3'};
 
 // Compute flight category from raw METAR — strict AIM standard (ceiling + vis only)
@@ -2916,12 +3084,12 @@ async function initWeatherTab() {
   // Ensure IRROPS data is loading (may not have fired from idle preload yet)
   fetchIrropsFromAPI();
 
-  const hubStations = {ATL:'KATL',JFK:'KJFK',LGA:'KLGA',BOS:'KBOS',DTW:'KDTW',MSP:'KMSP',SLC:'KSLC',LAX:'KLAX',SEA:'KSEA'};
+  const hubStations = {ATL:'KATL',LGA:'KLGA',JFK:'KJFK',BOS:'KBOS',DTW:'KDTW',LAX:'KLAX',MSP:'KMSP',SLC:'KSLC',SEA:'KSEA'};
   const hubs = Object.keys(hubStations);
 
   // Show loading skeletons for hub cards immediately
   const hubCardsEl = document.getElementById('hub-cards');
-  hubCardsEl.innerHTML = hubs.map(h => `<div class="hub-card" style="border-top:3px solid #334155;opacity:0.5"><div class="hub-card-top"><span class="hub-card-code">${escapeHtml(h)}</span><span class="cat-badge" style="background:#334155;color:#94a3b8">…</span></div><div class="hub-card-name">${escapeHtml(HUB_NAMES[h]||h)}</div><div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">LOADING...</div></div>`).join('');
+  hubCardsEl.innerHTML = hubs.map(h => `<div class="hub-card" style="border-top:3px solid #334155;opacity:0.5"><div class="hub-card-top"><span class="hub-card-code">${escapeHtml(h)}</span><span class="cat-badge" style="background:#334155;color:#94a3b8">…</span></div><div class="hub-card-name">${escapeHtml(HUB_NAMES[h]||h)}</div><div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">Loading…</div></div>`).join('');
 
   // Initialize radar map IMMEDIATELY — don't wait for data fetches
   const radarMap = L.map('radar-map', {center:[39,-98],zoom:4,zoomControl:true,attributionControl:false});
@@ -3037,24 +3205,16 @@ function updateAnalytics() {
   const ages = FLEET_DB.filter(a => parseInt(a.d)).map(a => currentYear - parseInt(a.d));
   const avgAge = ages.length ? (ages.reduce((a, b) => a + b, 0) / ages.length).toFixed(1) : '--';
 
-  // Count Starlink airborne
-  let starlinkAirborne = 0;
-  airborneFlights.forEach(f => {
-    const ac = matchAircraft(f);
-    if ((ac && STARLINK_TAILS.has(ac.r)) || (f.reg && STARLINK_TAILS.has(f.reg))) starlinkAirborne++;
-  });
-  const starlinkPct = airborne > 0 ? Math.round((starlinkAirborne / airborne) * 100) : 0;
   const utilPct = FLEET_DB.length ? Math.round((airborne / FLEET_DB.length) * 100) : 0;
 
   document.getElementById('analytics-metrics').innerHTML = [
     { val: airborne, label: 'Flights Airborne' },
     { val: utilPct + '%', label: 'Fleet Utilization' },
-    { val: avgAge + 'y', label: 'Avg Fleet Age' },
-    { val: starlinkPct + '%', label: 'Starlink Coverage', sub: `${starlinkAirborne} of ${airborne} airborne` }
+    { val: avgAge + 'y', label: 'Avg Fleet Age' }
   ].map(m => `<div class="metric-card"><div class="metric-val">${m.val}</div><div class="metric-label">${m.label}</div>${m.sub ? `<div style="font-size:8px;color:var(--dl-muted);margin-top:2px">${m.sub}</div>` : ''}</div>`).join('');
 
   // ═══ LIVE FLEET UTILIZATION ═══
-  const typeOrder = ["A319","A320","A321neo","737-700","737-800","737-900","737-900ER","737 MAX 8","737 MAX 9","757-200","757-300","767-300ER","767-400ER","777-200","777-200ER","777-300ER","787-8","787-9","787-10"];
+  const typeOrder = ["A220-100","A220-300","A319","A320","A321","A321neo","A330-200","A330-300","A330-900neo","A350-900","717-200","737-800","737-900ER","757-200","757-300","767-300ER","767-400ER"];
   const typeTotals = {};
   const typeAirborne = {};
   FLEET_DB.forEach(a => { typeTotals[a.t] = (typeTotals[a.t] || 0) + 1; });
@@ -3122,7 +3282,7 @@ function updateAnalytics() {
   document.getElementById('phase-chart').innerHTML = phaseHtml;
 
   // ═══ HUB-TO-HUB FLOW MATRIX ═══
-  const hubCodes = ['ATL','JFK','LGA','BOS','DTW','MSP','SLC','LAX','SEA'];
+  const hubCodes = ['ATL','LGA','JFK','BOS','DTW','MSP','SLC','LAX','SEA'];
   const hubSet = new Set(hubCodes);
   const matrix = {};
   hubCodes.forEach(o => { matrix[o] = {}; hubCodes.forEach(d => { matrix[o][d] = 0; }); });
@@ -3211,7 +3371,7 @@ function updateAnalytics() {
 function updateLiveFleetPanel() {
   if (!allFlights.length) return;
   const airborne = [];
-  const typeOrder = ["A319","A320","A321neo","737-700","737-800","737-900","737-900ER","737 MAX 8","737 MAX 9","757-200","757-300","767-300ER","767-400ER","777-200","777-200ER","777-300ER","787-8","787-9","787-10"];
+  const typeOrder = ["A220-100","A220-300","A319","A320","A321","A321neo","A330-200","A330-300","A330-900neo","A350-900","717-200","737-800","737-900ER","757-200","757-300","767-300ER","767-400ER"];
   const typeCounts = {}; typeOrder.forEach(t => typeCounts[t] = { airborne: 0, total: 0 });
   FLEET_DB.forEach(a => { if (typeCounts[a.t]) typeCounts[a.t].total++; });
 
@@ -3225,14 +3385,12 @@ function updateLiveFleetPanel() {
     // Use FR24's real route data
     const routeStr = (f.origin || '???') + '→' + (f.dest || '???');
     const phase = getPhase(f.alt, f.vr, f.spd);
-    const isStar = STARLINK_TAILS.has(ac.r) || STARLINK_TAILS.has(f.reg);
     airborne.push({
       reg: ac.r, type: ac.t,
       flight: f.flightIATA || f.callsign,
       route: routeStr,
       alt: f.alt ? Math.round(f.alt * 3.28084).toLocaleString() + 'ft' : '--',
-      phase: phase.phase,
-      starlink: isStar
+      phase: phase.phase
     });
   });
 
@@ -3254,21 +3412,24 @@ function updateLiveFleetPanel() {
   html += `</div>`;
 
   if (airborne.length) {
-    html += `<div class="live-table-wrap"><table><thead><tr><th>Reg</th><th>Type</th><th>Flight</th><th>Route</th><th>Alt</th><th>Phase</th><th></th></tr></thead><tbody>`;
+    html += `<div class="live-table-wrap"><table><thead><tr><th>Reg</th><th>Type</th><th>Flight</th><th>Route</th><th>Alt</th><th>Phase</th></tr></thead><tbody>`;
     airborne.forEach(a => {
-      html += `<tr><td style="font-weight:700;color:var(--dl-accent)">${escapeHtml(a.reg)}</td><td>${escapeHtml(a.type)}</td><td>${escapeHtml(a.flight)}</td><td>${escapeHtml(a.route)}</td><td>${escapeHtml(a.alt)}</td><td>${escapeHtml(a.phase)}</td><td>${a.starlink ? '⚡' : ''}</td></tr>`;
+      const sp = isSpecialAircraft(a.reg);
+      html += `<tr><td style="font-weight:700"><span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(a.reg)}">${escapeHtml(a.reg)}</span>${sp ? ' <span class="special-badge">⭐</span>' : ''}</td><td>${escapeHtml(a.type)}</td><td>${escapeHtml(a.flight)}</td><td>${escapeHtml(a.route)}</td><td>${escapeHtml(a.alt)}</td><td>${escapeHtml(a.phase)}</td></tr>`;
     });
     html += `</tbody></table></div>`;
   }
 
   document.getElementById('fleet-live-content').innerHTML = html;
   document.getElementById('fleet-live-time').textContent = 'Updated ' + new Date().toUTCString().slice(17, 25) + 'Z';
+  document.getElementById('live-fleet-panel').style.display = '';
+  renderSpecialAircraftPanel();
 }
 
 // ═══ WEATHER EXPLAINERS ═══
 function explainMETAR(rawMetar, hub, cat) {
   if (!rawMetar) return '';
-  const hubNames = {ATL:"Hartsfield-Jackson Atlanta International Airport",JFK:"John F. Kennedy International Airport",LGA:"LaGuardia Airport",BOS:"Boston Logan International Airport",DTW:"Detroit Metropolitan Wayne County Airport",MSP:"Minneapolis-Saint Paul International Airport",SLC:"Salt Lake City International Airport",LAX:"Los Angeles International Airport",SEA:"Seattle-Tacoma International Airport"};
+  const hubNames = {EWR:"Newark",IAH:"Houston Intercontinental",ORD:"O'Hare",DEN:"Denver International",SFO:"San Francisco",LAX:"Los Angeles",IAD:"Washington Dulles",NRT:"Tokyo Narita",GUM:"Guam"};
   const name = hubNames[hub] || hub;
 
   // Build context-aware assessment instead of static category blurbs
@@ -3419,7 +3580,7 @@ function explainFAAStatus(airportCode, delays, rawData) {
 }
 
 // ═══ SCHEDULE TAB ═══
-const SCHED_HUB_TZ = {ATL:'America/New_York',JFK:'America/New_York',LGA:'America/New_York',BOS:'America/New_York',DTW:'America/Detroit',MSP:'America/Chicago',SLC:'America/Denver',LAX:'America/Los_Angeles',SEA:'America/Los_Angeles'};
+const SCHED_HUB_TZ = {ATL:'America/New_York',LGA:'America/New_York',JFK:'America/New_York',BOS:'America/New_York',DTW:'America/Detroit',MSP:'America/Chicago',SLC:'America/Denver',LAX:'America/Los_Angeles',SEA:'America/Los_Angeles'};
 let schedCache = {}; // key: "hub-dir-day-page"
 let schedAllFlights = []; // current filtered DL flights
 let schedRawByHub = {}; // key: "hub-dir-day" → [pages of DL flights]
@@ -3511,7 +3672,7 @@ function updateSchedDayLabels() {
 async function preloadScheduleData() {
   // Fetch all 9 hubs IN PARALLEL — no sequential waiting
   // Only preload top 3 domestic hubs on startup; rest load on demand
-  const preloadHubs = ['ATL','JFK','LGA'];
+  const preloadHubs = ['ATL','JFK','BOS'];
   const timestamp = getSchedDayTimestamp(0); // today
   const results = await Promise.allSettled(
     preloadHubs.map(hub => fetchScheduleAggregated(hub, 'departures', timestamp).then(r => ({hub, result: r})))
@@ -3598,7 +3759,7 @@ async function loadScheduleData() {
   loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)} for ${escapeHtml(getSchedDayLabel(schedCurrentDay))}...<br><span style="font-size:10px">Fetching via server cache</span>`;
   const btn = document.getElementById('sched-refresh-btn');
   btn.disabled = true;
-  btn.textContent = '⏳ LOADING...';
+  btn.textContent = '⏳ Loading...';
 
   try {
     const timestamp = getSchedDayTimestamp(schedCurrentDay);
@@ -3628,16 +3789,16 @@ async function loadScheduleData() {
       }
       if (lastErr) throw lastErr;
     }
-    const allDLFlights = result.flights || [];
+    const allUAFlights = result.flights || [];
 
     // Show cache indicator
     if (result.cached || result.fromLocalCache) {
-      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)}...<br><span style="font-size:10px;color:#4ecdc4">⚡ Served from cache · ${allDLFlights.length} DL flights</span>`;
+      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)}...<br><span style="font-size:10px;color:#4ecdc4">⚡ Served from cache · ${allUAFlights.length} DL flights</span>`;
     }
 
-    schedAllFlights = allDLFlights;
-    schedRawByHub[hubKey] = allDLFlights;
-    detectEquipmentSwaps(allDLFlights, schedCurrentHub, schedCurrentDir, schedCurrentDay);
+    schedAllFlights = allUAFlights;
+    schedRawByHub[hubKey] = allUAFlights;
+    detectEquipmentSwaps(allUAFlights, schedCurrentHub, schedCurrentDir, schedCurrentDay);
     populateAircraftFilter();
     loadEl.style.display = 'none';
     tableWrap.style.display = 'block';
@@ -3645,7 +3806,7 @@ async function loadScheduleData() {
     renderScheduleStats();
     updateHubHealth();
     updateIrrops();
-    checkWatchedFlightChanges(allDLFlights);
+    checkWatchedFlightChanges(allUAFlights);
   } catch (err) {
     console.error('Schedule load error:', err);
     loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px">⚠️</div>Error loading schedule: ${escapeHtml(err.message)}<br><span style="font-size:10px">Try again in a moment</span><br><button onclick="loadScheduleData()" style="margin-top:8px;padding:4px 12px;background:var(--dl-blue);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px">↻ Retry</button>`;
@@ -3736,7 +3897,7 @@ function sortScheduleFlights(flights) {
 }
 
 function updateSchedTzFooter() {
-  const hub = schedCurrentHub || 'ATL';
+  const hub = schedCurrentHub || 'ORD';
   const abbr = getHubTzAbbrev(hub);
   const hubLabel = hub || 'selected hub';
   const footer = document.getElementById('sched-tz-footer');
@@ -3804,8 +3965,7 @@ function renderScheduleTable() {
       const regClean = reg.replace('-', '');
       const match = FLEET_BY_REG[regClean] || FLEET_BY_REG[reg];
       if (match) {
-        const isStar = STARLINK_TAILS.has(regClean) || STARLINK_TAILS.has(reg);
-        fleetMatch = `<span class="sched-fleet-match">${isStar ? '⚡' : '✓'} ${escapeHtml(match.c || match.t)}</span>`;
+        fleetMatch = `<span class="sched-fleet-match">✓ ${escapeHtml(match.c || match.t)}</span>`;
         // Fleet enrichment inline
         const parts = [];
         if (match.seats && typeof match.seats === 'object') {
@@ -3813,7 +3973,6 @@ function renderScheduleTable() {
           parts.push(seatStr);
         }
         if (match.w) parts.push(match.w);
-        if (isStar) parts.push('⚡ Starlink');
         if (match.i) parts.push(match.i);
         if (match.d) parts.push('Del ' + match.d);
         if (parts.length) fleetEnrich = `<div class="fleet-enrich-inline">${escapeHtml(parts.join(' · '))}</div>`;
@@ -3822,12 +3981,29 @@ function renderScheduleTable() {
       }
     }
 
-    // Equipment change detection
+    // Equipment change detection with impact analysis
     let equipBadge = '';
     const eqChange = getEquipChangeForFlight(ident);
     if (eqChange) {
-      equipBadge = `<div class="equip-change-badge">⚠️ ${escapeHtml(eqChange.oldAc)} → ${escapeHtml(eqChange.newAc)}</div>`;
+      const oldType = ICAO_TO_FLEET_TYPE[eqChange.oldAc] || eqChange.oldAc;
+      const newType = ICAO_TO_FLEET_TYPE[eqChange.newAc] || eqChange.newAc;
+      const impacts = analyzeSwapImpact(eqChange.oldAc, eqChange.newAc, reg);
+      const hasDown = impacts.some(i => i.cls === 'downgrade');
+      const hasUp = impacts.some(i => i.cls === 'upgrade');
+      const icon = hasDown ? '🔴' : hasUp ? '🟢' : '⚠️';
+      const regLink = reg !== '—' ? ` <span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(reg)}" style="font-size:8px">${escapeHtml(reg)}</span>` : '';
+      equipBadge = `<div class="equip-change-badge" style="background:${hasDown ? 'rgba(239,68,68,.15);color:#ef4444' : hasUp ? 'rgba(34,197,94,.15);color:#22c55e' : ''}">${icon} ${escapeHtml(oldType)} → ${escapeHtml(newType)}${regLink}</div>`;
+      if (impacts.length) {
+        equipBadge += `<div class="equip-swap-detail">`;
+        impacts.forEach(i => {
+          equipBadge += `<span class="equip-swap-item equip-swap-${i.cls}">${escapeHtml(i.text)}</span>`;
+        });
+        equipBadge += `</div>`;
+      }
     }
+
+    // Special aircraft detection
+    const schedSpecial = reg !== '—' ? (isSpecialAircraft(reg.replace('-','')) || isSpecialAircraft(reg)) : null;
 
     // FAA delay context
     let faaContext = '';
@@ -3850,7 +4026,7 @@ function renderScheduleTable() {
       <td style="font-weight:600;color:var(--dl-accent)">${escapeHtml(ident)}</td>
       <td>${routeStr}</td>
       <td title="${escapeHtml(acText)}">${escapeHtml(acCode)}${acShort ? `<div style="font-size:9px;color:var(--dl-muted)">${escapeHtml(acShort)}</div>` : ''}${equipBadge}</td>
-      <td style="font-family:var(--mono);font-size:10px">${reg !== '—' ? `<a href="#fleet" data-action="fleet-search" data-reg="${escapeHtml(reg)}" data-prevent-default="1" style="color:var(--dl-accent);text-decoration:none;cursor:pointer">${escapeHtml(reg)}</a>` : '—'}${fleetEnrich}</td>
+      <td style="font-family:var(--mono);font-size:10px">${reg !== '—' ? `<span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(reg)}">${escapeHtml(reg)}</span>` : '—'}${schedSpecial ? ' <span class="special-badge">⭐ ' + escapeHtml(schedSpecial.name) + '</span>' : ''}${fleetEnrich}</td>
       <td>${escapeHtml(gate)}</td>
       <td><span class="sched-status ${escapeHtml(status.cls)}">${escapeHtml(status.text)}</span>${faaContext}</td>
       <td>${fleetMatch}</td>
@@ -3970,7 +4146,7 @@ document.getElementById('global-search-input').addEventListener('input', debounc
   }
 
   // Check if query looks like a flight number for FR24 lookup
-  const flightPattern = /^(DL[L]?\s*\d{1,4}|\d{1,4})$/i;
+  const flightPattern = /^(DA[L]?\s*\d{1,4}|\d{1,4})$/i;
   const normalizedQ = q.replace(/\s+/g, '');
   const looksLikeFlight = flightPattern.test(normalizedQ);
   const fr24Option = looksLikeFlight ? `<div class="search-result" style="border-top:1px solid var(--dl-border);color:var(--dl-accent);font-size:10px" data-action="lookup-fr24" data-query="${escapeHtml(normalizedQ)}" data-close-global="1">🔍 Look up ${escapeHtml(normalizedQ.startsWith('DL') || normalizedQ.startsWith('DAL') ? normalizedQ : 'DL' + normalizedQ)} via FlightRadar24...</div>` : '';
@@ -3988,15 +4164,139 @@ document.getElementById('global-search-input').addEventListener('input', debounc
 document.addEventListener('click', function(e) { if (!document.getElementById('global-search-wrap').contains(e.target)) document.getElementById('global-search-results').style.display = 'none'; });
 
 // ═══ EQUIPMENT SWAP DETECTION ═══
+const ICAO_TO_FLEET_TYPE = {
+  'A319':'A319','A320':'A320','A21N':'A321neo',
+  'B737':'737-700','B738':'737-800','B739':'737-900',
+  'B39M':'737 MAX 9','B38M':'737 MAX 8',
+  'B752':'757-200','B753':'757-300',
+  'B763':'767-300ER','B764':'767-400ER',
+  'B772':'777-200','B77E':'777-200ER','B77W':'777-300ER',
+  'B788':'787-8','B789':'787-9','B78X':'787-10'
+};
+
+// Cabin class rankings: higher = more premium
+const CABIN_RANK = { 'J': 4, 'F': 3, 'PS': 2, 'C+': 1, 'Y': 0 };
+
+// WiFi quality ranking: higher = better
+const WIFI_RANK = { 'Starlink': 3, 'ViaSatKA': 2, 'Satl Ka': 1, 'Satl Ka US': 1, 'Satl Ku': 1, 'Satl KU': 1, 'NO': 0 };
+
+// IFE quality ranking
+const IFE_RANK = { 'AVOD': 3, 'AVOD+PDE': 3, 'AVOD/PDE': 3, 'Seatback': 2, 'DTV/PDE': 1, 'PDE': 0 };
+
+function getTypicalFleetStats(icaoCode) {
+  const fleetType = ICAO_TO_FLEET_TYPE[icaoCode];
+  if (!fleetType || !FLEET_DB.length) return null;
+  // Find all aircraft of this type to get typical stats
+  const ofType = FLEET_DB.filter(a => a.t === fleetType && categorizeFleetStatus(a.s) === 'active');
+  if (!ofType.length) return null;
+  // Use the most common config (mode)
+  const configCounts = {};
+  ofType.forEach(a => { const k = a.c || ''; configCounts[k] = (configCounts[k] || 0) + 1; });
+  const topConfig = Object.entries(configCounts).sort((a, b) => b[1] - a[1])[0][0];
+  const representative = ofType.find(a => (a.c || '') === topConfig) || ofType[0];
+  // Collect WiFi types used by this fleet type
+  const wifiCounts = {};
+  ofType.forEach(a => { if (a.w) wifiCounts[a.w] = (wifiCounts[a.w] || 0) + 1; });
+  const topWifi = Object.entries(wifiCounts).sort((a, b) => b[1] - a[1])[0]?.[0] || '';
+  // Premium cabin: highest cabin class available
+  const topCabin = representative.seats ? Object.keys(representative.seats).reduce((best, cls) =>
+    (CABIN_RANK[cls] || 0) > (CABIN_RANK[best] || 0) ? cls : best, 'Y') : 'Y';
+  return {
+    type: fleetType,
+    seats: representative.seats || {},
+    tot: representative.tot || 0,
+    wifi: topWifi,
+    ife: representative.i || '',
+    topCabin
+  };
+}
+
+function analyzeSwapImpact(oldAcCode, newAcCode, newReg) {
+  const impacts = [];
+  const oldStats = getTypicalFleetStats(oldAcCode);
+  const newStats = getTypicalFleetStats(newAcCode);
+
+  // If we have the actual new aircraft registration, use it for precise data
+  let newActual = null;
+  if (newReg && newReg !== '—') {
+    const regClean = newReg.replace(/-/g, '');
+    newActual = FLEET_BY_REG[regClean] || FLEET_BY_REG[newReg];
+  }
+
+  if (!oldStats && !newStats) return impacts;
+
+  // Cabin class comparison
+  if (oldStats && (newActual || newStats)) {
+    const oldTop = oldStats.topCabin;
+    const newSeats = newActual?.seats || newStats?.seats || {};
+    const newTop = Object.keys(newSeats).reduce((best, cls) =>
+      (CABIN_RANK[cls] || 0) > (CABIN_RANK[best] || 0) ? cls : best, 'Y');
+    const oldRank = CABIN_RANK[oldTop] || 0;
+    const newRank = CABIN_RANK[newTop] || 0;
+    const cabinLabels = { 'J': 'Delta One', 'F': 'First', 'PS': 'Premium Select', 'C+': 'Comfort Plus', 'Y': 'Economy' };
+    if (oldRank > newRank) {
+      impacts.push({ text: 'Lost ' + (cabinLabels[oldTop] || oldTop), cls: 'downgrade' });
+    } else if (newRank > oldRank) {
+      impacts.push({ text: '+ ' + (cabinLabels[newTop] || newTop), cls: 'upgrade' });
+    }
+  }
+
+  // Seat count comparison
+  const oldTot = oldStats?.tot || 0;
+  const newTot = newActual?.tot || newStats?.tot || 0;
+  if (oldTot && newTot && oldTot !== newTot) {
+    const delta = newTot - oldTot;
+    impacts.push({
+      text: (delta > 0 ? '+' : '') + delta + ' seats',
+      cls: delta > 0 ? 'lateral' : 'downgrade'
+    });
+  }
+
+  // WiFi comparison
+  const oldWifi = oldStats?.wifi || '';
+  const newWifi = newActual?.w || newStats?.wifi || '';
+  if (oldWifi && newWifi && oldWifi !== newWifi) {
+    const oldWR = WIFI_RANK[oldWifi] ?? 1;
+    const newWR = WIFI_RANK[newWifi] ?? 1;
+    if (oldWR !== newWR) {
+      const shortWifi = newWifi.replace('ViaSatKA', 'ViaSat').replace('Satl ', '');
+      impacts.push({
+        text: shortWifi + ' WiFi',
+        cls: newWR > oldWR ? 'upgrade' : 'downgrade'
+      });
+    }
+  }
+
+  // IFE comparison
+  const oldIfe = oldStats?.ife || '';
+  const newIfe = newActual?.i || newStats?.ife || '';
+  if (oldIfe && newIfe && oldIfe !== newIfe) {
+    const oldIR = IFE_RANK[oldIfe] ?? 1;
+    const newIR = IFE_RANK[newIfe] ?? 1;
+    if (oldIR !== newIR) {
+      impacts.push({
+        text: newIfe.replace('AVOD/PDE', 'AVOD').replace('AVOD+PDE', 'AVOD').replace('DTV/PDE', 'DTV'),
+        cls: newIR > oldIR ? 'upgrade' : 'downgrade'
+      });
+    }
+  }
+
+  return impacts;
+}
+
 let equipmentChanges = [];
 
 function detectEquipmentSwaps(flights, hub, dir, day) {
   const storageKey = `bb_sched_${hub}_${dir}_${day}`;
   const newMap = {};
+  const regMap = {};
   flights.forEach(fl => {
     const fnum = fl.identification?.number?.default;
     const acCode = fl.aircraft?.model?.code;
-    if (fnum && acCode) newMap[fnum] = acCode;
+    if (fnum && acCode) {
+      newMap[fnum] = acCode;
+      regMap[fnum] = fl.aircraft?.registration || '';
+    }
   });
   equipmentChanges = [];
   try {
@@ -4005,7 +4305,7 @@ function detectEquipmentSwaps(flights, hub, dir, day) {
       const oldMap = JSON.parse(oldData);
       for (const [fnum, newAc] of Object.entries(newMap)) {
         if (oldMap[fnum] && oldMap[fnum] !== newAc) {
-          equipmentChanges.push({ flight: fnum, oldAc: oldMap[fnum], newAc });
+          equipmentChanges.push({ flight: fnum, oldAc: oldMap[fnum], newAc, reg: regMap[fnum] || '' });
         }
       }
     }
@@ -4018,7 +4318,17 @@ function updateEquipChangeSummary() {
   const el = document.getElementById('equip-change-summary');
   if (equipmentChanges.length > 0) {
     el.style.display = 'block';
-    el.innerHTML = `⚠️ ${equipmentChanges.length} equipment change${equipmentChanges.length > 1 ? 's' : ''} detected since last check`;
+    // Count upgrades/downgrades/lateral
+    let ups = 0, downs = 0;
+    equipmentChanges.forEach(c => {
+      const impacts = analyzeSwapImpact(c.oldAc, c.newAc, c.reg);
+      if (impacts.some(i => i.cls === 'downgrade')) downs++;
+      else if (impacts.some(i => i.cls === 'upgrade')) ups++;
+    });
+    let detail = '';
+    if (downs) detail += ` · <span style="color:#ef4444">${downs} downgrade${downs > 1 ? 's' : ''}</span>`;
+    if (ups) detail += ` · <span style="color:#22c55e">${ups} upgrade${ups > 1 ? 's' : ''}</span>`;
+    el.innerHTML = `⚠️ ${equipmentChanges.length} equipment swap${equipmentChanges.length > 1 ? 's' : ''} detected${detail}`;
   } else {
     el.style.display = 'none';
   }
@@ -4033,7 +4343,7 @@ let hubHealthData = {};
 
 function updateHubHealth() {
   const bar = document.getElementById('hub-health-bar');
-  const hubs = ['ATL','JFK','LGA','BOS','DTW','MSP','SLC','LAX','SEA'];
+  const hubs = ['ATL','LGA','JFK','BOS','DTW','MSP','SLC','LAX','SEA'];
   let hasData = false;
 
   // Gather OTP from all loaded schedule data
@@ -4193,7 +4503,7 @@ async function fetchIrropsFromAPI() {
 function renderIrropsFromAPI(data) {
   // Hydrate schedule cache from IRROPS hub flights (avoids 7 separate schedule calls)
   if (data.hubFlights) {
-    const hubs = ['ATL','JFK','LGA','BOS','DTW','MSP','SLC','LAX','SEA'];
+    const hubs = ['ATL','LGA','JFK','BOS','DTW','MSP','SLC','LAX','SEA'];
     hubs.forEach(hub => {
       const flights = data.hubFlights[hub];
       if (!flights || !flights.length) return;
@@ -4213,7 +4523,7 @@ function renderIrropsFromAPI(data) {
   // Use hub metrics from IRROPS API to populate hub health bar immediately
   if (data.hubMetrics) {
     const bar = document.getElementById('hub-health-bar');
-    const hubs = ['ATL','JFK','LGA','BOS','DTW','MSP','SLC','LAX','SEA'];
+    const hubs = ['ATL','LGA','JFK','BOS','DTW','MSP','SLC','LAX','SEA'];
     let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span>';
     hubs.forEach((hub, i) => {
       const m = data.hubMetrics[hub];
@@ -4420,7 +4730,7 @@ function checkWatchedFlightChanges(flights) {
         if ('Notification' in window && Notification.permission === 'granted') {
           const n = new Notification('Widget Watch', {
             body: `${ident}: ${newStatus} (was: ${oldStatus})`,
-            icon: '/icons/icon.png',
+            icon: '/icons/icon-192.png',
             tag: 'bb-watch-' + ident,
             data: { flight: ident }
           });
@@ -4611,15 +4921,6 @@ document.addEventListener('click', function(e) {
       lookupFR24Flight(actionEl.dataset.query || '');
       if (actionEl.dataset.closeGlobal) hideGlobalSearchResults();
       break;
-    case 'fleet-search': {
-      switchToTab('tab-fleet');
-      if (actionEl.dataset.reg) {
-        const input = document.getElementById('fleet-search');
-        if (input) input.value = actionEl.dataset.reg;
-      }
-      renderFleetTable();
-      break;
-    }
     case 'show-disclaimer':
       showDisclaimer();
       break;
@@ -4636,6 +4937,37 @@ document.addEventListener('click', function(e) {
     case 'close-fr24-modal': {
       const modal = document.getElementById('fr24-modal');
       if (modal) modal.style.display = 'none';
+      break;
+    }
+    case 'aircraft-detail': {
+      const reg = actionEl.dataset.reg;
+      if (reg) showAircraftDetail(reg);
+      break;
+    }
+    case 'close-aircraft-modal': {
+      const acm = document.getElementById('aircraft-detail-modal');
+      if (acm) acm.style.display = 'none';
+      break;
+    }
+    case 'share-aircraft': {
+      const shareReg = actionEl.dataset.reg;
+      if (shareReg) {
+        const shareUrl = new URL(window.location);
+        shareUrl.searchParams.set('aircraft', shareReg);
+        navigator.clipboard.writeText(shareUrl.toString()).then(function() {
+          actionEl.textContent = '✓ Copied!';
+          setTimeout(function() { actionEl.textContent = '📤 Share'; }, 2000);
+        }).catch(function() {
+          const ta = document.createElement('textarea');
+          ta.value = shareUrl.toString();
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          actionEl.textContent = '✓ Copied!';
+          setTimeout(function() { actionEl.textContent = '📤 Share'; }, 2000);
+        });
+      }
       break;
     }
     default:
@@ -4663,8 +4995,16 @@ async function initApp() {
   initMap();
   await fleetReady; // Ensure fleet data is loaded before fleet tab init
   initFleetTab();
+  // Handle ?aircraft= deep link (fleet data is ready now)
+  var acDeepLink = new URLSearchParams(location.search).get('aircraft');
+  var onboardingEl = document.getElementById('onboarding-overlay');
+  if (acDeepLink && FLEET_DB.length > 0 && (!onboardingEl || onboardingEl.style.display === 'none')) setTimeout(function() { showAircraftDetail(acDeepLink); }, 500);
   showConfigGallery('737-800'); // default
   updateTicker();
+  // Now that map + fleet data are ready, activate the hash-linked tab's data layer.
+  // The hash IIFE only set the visual state; this triggers the actual data loads.
+  const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
+  if (activeTab && activeTab !== 'tab-live') switchToTab(activeTab, false);
   // Defer IRROPS + schedule preload to idle — they're only needed for Weather/Schedule tabs
   // Background preload: fetch top 3 hubs on idle so Schedule tab is fast without hammering mobile
   const idlePreload = () => { preloadScheduleData(); fetchIrropsFromAPI(); };
@@ -4698,50 +5038,26 @@ function hideDisclaimer() {
         <li><a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">FAA NAS Status</a> — Airport delay and closure information</li>
         <li>Fleet configuration data sourced from publicly available records</li>
       </ul>
-      <p style="margin-bottom:12px"><strong>Data Accuracy:</strong> All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. <strong style="color:var(--dl-red)">Do not use this dashboard for operational or safety-critical decisions.</strong> Always verify flight status directly with <a href="https://www.delta.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">DELTA.com</a> or your airline.</p>
-      <p style="margin-bottom:12px"><strong>Open Source:</strong> This project is open source. <a href="https://github.com/notjbg/the-blue-board" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">View on GitHub →</a> · <a href="https://x.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">Follow on X →</a></p>
-      <p style="margin-bottom:12px"><strong>Support:</strong> Built by a Delta flyer, not a corporation. If Widget Watch saved you a headache today, consider <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">supporting our site ☕</a>, <a href="https://buymeacoffee.com/notjbg/membership" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">become a monthly supporter →</a>, or <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">suggest a feature →</a></p>
-      <!-- Supporters Wall — update periodically from BMAC CSV exports -->
-      <div style="margin-bottom:12px">
-        <p style="margin-bottom:8px"><strong>✈️ Supporters</strong></p>
-        <div style="display:flex;flex-wrap:wrap;gap:4px 8px;font-size:10px;color:var(--dl-muted);line-height:1.6">
-          <span>Greeby</span><span>·</span><span>natto</span><span>·</span><span>u/WrldDriftR</span><span>·</span><span>Leo</span><span>·</span><span>FlyerTalk JCG1005</span><span>·</span><span>@paytonwolfee</span><span>·</span><span>@misadventurelab</span><span>·</span><span>@MissLynsey</span><span>·</span><span>Danny</span><span>·</span><span>K2</span><span>·</span><span>James W</span><span>·</span><span>Aaron</span><span>·</span><span>@pconrad0</span><span>·</span><span>Stephen R</span><span>·</span><span>ML</span>
-        </div>
-        <p style="margin-top:6px;font-size:10px;color:var(--dl-muted)">Want to see your name here? <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">☕ Buy me a coffee</a></p>
-      </div>
+      <p style="margin-bottom:12px"><strong>Data Accuracy:</strong> All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. <strong style="color:var(--dl-red)">Do not use this dashboard for operational or safety-critical decisions.</strong> Always verify flight status directly with <a href="https://www.delta.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">delta.com</a> or your airline.</p>
+      <p style="margin-bottom:12px"><strong>Open Source:</strong> This project is open source. <a href="https://github.com/craighton/widgetwatch" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">View on GitHub →</a></p>
     </div>
-    <button data-action="hide-disclaimer" style="margin-top:16px;background:var(--dl-blue);color:white;border:none;padding:8px 24px;font-family:var(--mono);font-size:11px;cursor:pointer;border-radius:4px;width:100%">Got it</button>
+    <button data-action="hide-disclaimer" style="margin-top:16px;background:var(--dl-blue);color:white;border:none;padding:8px 24px;font-family:var(--font-ui);font-size:11px;cursor:pointer;border-radius:4px;width:100%">Got it</button>
   </div>
 </div>
 
 <!-- SITE FOOTER -->
 <footer style="background:var(--dl-panel);border-top:1px solid var(--dl-border);padding:10px 16px;font-size:9px;color:var(--dl-muted);text-align:center;line-height:1.8">
-  <!--div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 10px">
+  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 10px">
     <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-accent);text-decoration:none">About</a>
-    <span>·</span>
-    <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-accent);text-decoration:none">Disclaimer</a>
     <span>·</span>
     <a href="/fleet" style="color:var(--dl-accent);text-decoration:none">Fleet Database</a>
     <span>·</span>
-    <a href="https://github.com/notjbg/the-blue-board/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Support / Feedback</a>
-    <span>·</span>
-    <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Donate</a>
-  </div-->
-  <!--div class="footer-hub-links" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 8px;margin-top:4px">
-    <a href="/hubs/atl" style="color:var(--dl-accent);text-decoration:none">ATL</a> ·
-    <a href="/hubs/jfk" style="color:var(--dl-accent);text-decoration:none">JFK</a> ·
-    <a href="/hubs/lga" style="color:var(--dl-accent);text-decoration:none">LGA</a> ·
-    <a href="/hubs/bos" style="color:var(--dl-accent);text-decoration:none">BOS</a> ·
-    <a href="/hubs/dtw" style="color:var(--dl-accent);text-decoration:none">DTW</a> ·
-    <a href="/hubs/msp" style="color:var(--dl-accent);text-decoration:none">MSP</a> ·
-    <a href="/hubs/slc" style="color:var(--dl-accent);text-decoration:none">SLC</a> ·
-    <a href="/hubs/lax" style="color:var(--dl-accent);text-decoration:none">LAX</a> ·
-    <a href="/hubs/sea" style="color:var(--dl-accent);text-decoration:none">SEA</a>
-  </div-->
-  <div style="margin-top:4px">Widget Watch · Independent · Not affiliated with Delta Air Lines, Inc. · Data may be delayed</div>
+    <a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Support / Feedback</a>
+  </div>
+  <div style="margin-top:4px">Widget Watch · Not affiliated with Delta Air Lines, Inc. · Data may be delayed</div>
   <div class="footer-data-sources" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
-    <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · Modified by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a></span>
+    <span style="white-space:nowrap">Original Project by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · Modified by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a></span>
   </div>
 </footer>
 
@@ -4775,7 +5091,7 @@ function hideDisclaimer() {
   // Trigger 1: After 5 minutes of active use
   setTimeout(function() {
     if (!bmacShownThisSession && !bmacDismissed) {
-      showBmacToast('Built by a Delta flyer, not a corporation.');
+      showBmacToast('Built by a Delta flyer, not a corporation. If Widget Watch saved you a headache today, consider <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none;font-weight:700">supporting our site ☕</a>');
     }
   }, 5 * 60 * 1000);
 
@@ -4783,7 +5099,7 @@ function hideDisclaimer() {
   document.addEventListener('click', function() {
     bmacInteractions++;
     if (bmacInteractions === 10 && !bmacShownThisSession && !bmacDismissed) {
-      showBmacToast('You\'re really digging in! 🛫 This dashboard is free, ad-free, and built with love.');
+      showBmacToast('You\'re really digging in! 🛫 This dashboard is free, ad-free, and built with love. <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none;font-weight:700">☕ Support the project</a>');
     }
   });
 
@@ -4793,17 +5109,173 @@ function hideDisclaimer() {
     // Delay slightly so the watch notification shows first
     setTimeout(function() {
       bmacShownThisSession = false; // Allow this special one even if another showed
-      showBmacToast('Your flight ' + escapeHtml(flight) + ' landed! 🎉', 15000);
+      showBmacToast('Your flight ' + escapeHtml(flight) + ' landed! 🎉 If Widget Watch helped ease the wait — <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none;font-weight:700">☕ buy me a coffee</a>', 15000);
     }, 3000);
   };
 
   var visited=localStorage.getItem('bb-visited');
-  if(!visited){localStorage.setItem('bb-visited','1');overlay.style.display='none'}
+  if(!visited){localStorage.setItem('bb-visited','1')}
   else if(localStorage.getItem('bb-onboarded')){overlay.style.display='none'}
   btn.addEventListener('click',hideOverlay);
   overlay.addEventListener('click',function(e){if(e.target===overlay)hideOverlay()});
   helpBtn.addEventListener('click',showOverlay);
 })();
+
+// ═══ AIRCRAFT DETAIL MODAL ═══
+const SEAT_BAR_COLORS = {
+  'J':'rgba(0,93,170,.5)','F':'rgba(139,92,246,.5)',
+  'PS':'rgba(20,184,166,.5)',
+  'C+':'rgba(34,197,94,.5)','Y':'rgba(100,116,139,.5)'
+};
+
+function showAircraftDetail(reg) {
+  if (!reg) return;
+  reg = reg.replace(/-/g, '').toUpperCase();
+
+  let modal = document.getElementById('aircraft-detail-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'aircraft-detail-modal';
+    modal.style.display = 'none';
+    modal.addEventListener('click', function(e) { if (e.target === modal) modal.style.display = 'none'; });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.style.display !== 'none') modal.style.display = 'none';
+    });
+    document.body.appendChild(modal);
+  }
+
+  const ac = FLEET_BY_REG[reg];
+  if (!ac) {
+    modal.style.display = 'flex';
+    modal.innerHTML = '<div class="ac-modal-card"><div class="ac-modal-header">' +
+      '<button class="ac-modal-close" data-action="close-aircraft-modal" aria-label="Close">✕</button>' +
+      '<div class="ac-modal-reg">' + escapeHtml(reg) + '</div>' +
+      '<div class="ac-modal-type" style="color:var(--dl-muted)">Not in mainline fleet database</div>' +
+      '</div><div class="ac-modal-body">' +
+      '<div style="text-align:center;padding:20px;color:var(--dl-muted);font-size:11px">' +
+      'This aircraft is not in the Delta mainline fleet database.<br>It may be a Delta Connection (regional) aircraft.</div>' +
+      '</div><div class="ac-modal-footer">' +
+      '<a class="ac-action-btn" href="https://www.planespotters.net/search?q=' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>' +
+      '</div></div>';
+    return;
+  }
+
+  modal.style.display = 'flex';
+  modal.innerHTML = buildAircraftDetailHTML(ac, reg);
+}
+
+function buildAircraftDetailHTML(ac, reg) {
+  const special = isSpecialAircraft(reg);
+  const age = ac.d ? (new Date().getFullYear() - parseInt(ac.d)) : null;
+  const engine = ENGINE_BY_TYPE[ac.t] || 'Unknown';
+  const category = categorizeFleetStatus(ac.s);
+  const catInfo = FLEET_HEALTH_CATEGORIES.find(c => c.key === category) || { label: 'Active', color: '#22c55e' };
+
+  // Live flight lookup
+  const liveFlight = allFlights.find(function(f) {
+    var fReg = (f.reg || '').replace(/-/g, '');
+    return fReg === reg && !f.onGround;
+  });
+
+  var html = '<div class="ac-modal-card">';
+
+  // ── Header ──
+  html += '<div class="ac-modal-header">';
+  html += '<button class="ac-modal-close" data-action="close-aircraft-modal" aria-label="Close">✕</button>';
+  html += '<div class="ac-modal-reg">' + escapeHtml(reg) + '</div>';
+  html += '<div class="ac-modal-type">' + escapeHtml(ac.t);
+  if (ac.a) html += ' <span class="ac-modal-acnum">AC# ' + escapeHtml(ac.a) + '</span>';
+  html += '</div>';
+  if (special) html += '<span class="special-badge" style="margin-top:4px;display:inline-block">⭐ ' + escapeHtml(special.name) + '</span> ';
+  html += '</div>';
+
+  // ── Body ──
+  html += '<div class="ac-modal-body">';
+
+  // Biography section
+  html += '<div class="ac-section"><div class="ac-section-title">Biography</div>';
+  html += '<div class="ac-detail-grid">';
+  html += '<div><div class="ac-detail-label">Delivered</div><div class="ac-detail-value">' + escapeHtml(ac.d || '—') + (age !== null ? ' (' + age + ' yrs)' : '') + '</div></div>';
+  html += '<div><div class="ac-detail-label">Total Seats</div><div class="ac-detail-value">' + escapeHtml(String(ac.tot || '—')) + '</div></div>';
+  html += '<div><div class="ac-detail-label">WiFi</div><div class="ac-detail-value">' + escapeHtml(ac.w || '—') + '</div></div>';
+  html += '<div><div class="ac-detail-label">IFE</div><div class="ac-detail-value">' + escapeHtml(ac.i || '—') + '</div></div>';
+  html += '<div><div class="ac-detail-label">Power</div><div class="ac-detail-value">' + escapeHtml(ac.p || '—') + '</div></div>';
+  html += '<div><div class="ac-detail-label">Engine</div><div class="ac-detail-value">' + escapeHtml(engine) + '</div></div>';
+  if (ac.c) html += '<div><div class="ac-detail-label">Config</div><div class="ac-detail-value">' + escapeHtml(ac.c) + '</div></div>';
+  html += '</div></div>';
+
+  // Fleet health status
+  html += '<div class="ac-section"><div class="ac-section-title">Status</div>';
+  html += '<span class="ac-status-badge" style="background:' + catInfo.color + '22;color:' + catInfo.color + ';border:1px solid ' + catInfo.color + '44">' + escapeHtml(catInfo.label) + '</span>';
+  if (ac.s && !ac.s.startsWith('*')) html += '<span style="font-size:10px;color:var(--dl-muted);margin-left:8px">' + escapeHtml(ac.s) + '</span>';
+  html += '</div>';
+
+  // Live flight status
+  html += '<div class="ac-section ' + (liveFlight ? 'ac-live-flight' : 'ac-live-ground') + '">';
+  html += '<div class="ac-section-title">Live Status</div>';
+  if (liveFlight) {
+    var fltNum = liveFlight.flightIATA || liveFlight.callsign || '?';
+    var origCode = liveFlight.origin || '?';
+    var destCode = liveFlight.dest || '?';
+    var origCity = IATA_CITIES[origCode] || '';
+    var destCity = IATA_CITIES[destCode] || '';
+    var altFt = liveFlight.alt ? Math.round(liveFlight.alt * 3.28084) : null;
+    var spdKts = liveFlight.spd ? Math.round(liveFlight.spd * 1.944) : null;
+    var phaseInfo = getPhase(liveFlight.alt, liveFlight.vr, liveFlight.spd);
+
+    html += '<div style="font-size:13px;font-weight:700;color:var(--dl-green);margin-bottom:6px">' + phaseInfo.icon + ' Airborne — ' + escapeHtml(fltNum) + '</div>';
+    html += '<div style="font-size:12px;font-weight:600;margin-bottom:4px">';
+    if (origCity && destCity) html += escapeHtml(origCity) + ' → ' + escapeHtml(destCity) + ' ';
+    html += '<span style="color:var(--dl-muted);font-size:10px">' + escapeHtml(origCode) + ' → ' + escapeHtml(destCode) + '</span></div>';
+    html += '<div class="ac-detail-grid" style="margin-top:6px">';
+    html += '<div><div class="ac-detail-label">Altitude</div><div class="ac-detail-value">' + (altFt ? altFt.toLocaleString() + ' ft' : '—') + '</div></div>';
+    html += '<div><div class="ac-detail-label">Speed</div><div class="ac-detail-value">' + (spdKts ? spdKts + ' kts' : '—') + '</div></div>';
+    html += '<div><div class="ac-detail-label">Heading</div><div class="ac-detail-value">' + (liveFlight.hdg ? Math.round(liveFlight.hdg) + '°' : '—') + '</div></div>';
+    html += '<div><div class="ac-detail-label">Phase</div><div class="ac-detail-value">' + escapeHtml(phaseInfo.phase) + '</div></div>';
+    html += '</div>';
+  } else {
+    html += '<div style="font-size:11px;color:var(--dl-muted)">On ground / Not currently tracked</div>';
+  }
+  html += '</div>';
+
+  // Seat configuration
+  if (ac.seats && Object.keys(ac.seats).length > 0) {
+    html += '<div class="ac-section"><div class="ac-section-title">Seat Configuration</div>';
+    html += '<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px">';
+    Object.entries(ac.seats).forEach(function(entry) {
+      html += '<span class="seat-block seat-' + entry[0] + '">' + entry[1] + entry[0] + '</span>';
+    });
+    if (ac.tot) html += '<span style="font-size:9px;color:var(--dl-muted);align-self:center;margin-left:2px">(' + ac.tot + ' total)</span>';
+    html += '</div>';
+    // Proportional bar
+    html += '<div class="ac-seat-bar">';
+    Object.entries(ac.seats).forEach(function(entry) {
+      var pct = ac.tot ? (entry[1] / ac.tot * 100) : 0;
+      var barColor = SEAT_BAR_COLORS[entry[0]] || 'rgba(100,116,139,.5)';
+      html += '<div style="flex:' + entry[1] + ';background:' + barColor + '">' + (pct > 8 ? entry[1] + entry[0] : '') + '</div>';
+    });
+    html += '</div>';
+    html += '</div>';
+  }
+
+  html += '</div>'; // end body
+
+  // ── Footer ──
+  html += '<div class="ac-modal-footer">';
+  if (liveFlight) {
+    var watchFlt = liveFlight.flightIATA || liveFlight.callsign || '';
+    var watchRoute = (liveFlight.origin || '?') + '→' + (liveFlight.dest || '?');
+    var watched = watchFlt ? isFlightWatched(watchFlt) : false;
+    html += '<button class="ac-action-btn watch-btn' + (watched ? ' watching' : '') + '" data-action="toggle-watch-flight" data-flight="' + escapeHtml(watchFlt) + '" data-route="' + escapeHtml(watchRoute) + '" data-status="airborne">' + (watched ? '👁️ Watching' : '👁 Watch') + '</button>';
+  }
+  html += '<a class="ac-action-btn" href="https://www.planespotters.net/search?q=' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>';
+  html += '<a class="ac-action-btn" href="https://flightaware.com/resources/registration/' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">FlightAware ↗</a>';
+  html += '<button class="ac-action-btn" data-action="share-aircraft" data-reg="' + escapeHtml(reg) + '">📤 Share</button>';
+  html += '</div>';
+
+  html += '</div>'; // end card
+  return html;
+}
 
 // ═══ FR24 FLIGHT LOOKUP ═══
 function lookupFR24Flight(query) {
@@ -4895,7 +5367,7 @@ function renderFR24Modal(f, source, cached) {
   html += '</div>';
   // Aircraft
   if (f.aircraft && (f.aircraft.type || f.aircraft.reg)) {
-    html += '<div style="font-size:10px;margin-bottom:4px"><span style="color:var(--dl-muted)">Aircraft:</span> ' + escapeHtml(f.aircraft.type || '?') + (f.aircraft.reg ? ' • ' + escapeHtml(f.aircraft.reg) : '') + '</div>';
+    html += '<div style="font-size:10px;margin-bottom:4px"><span style="color:var(--dl-muted)">Aircraft:</span> ' + escapeHtml(f.aircraft.type || '?') + (f.aircraft.reg ? ' • <span class="ac-reg-link" data-action="aircraft-detail" data-reg="' + escapeHtml(f.aircraft.reg) + '">' + escapeHtml(f.aircraft.reg) + '</span>' : '') + '</div>';
   }
   // Times
   html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;font-size:10px">';

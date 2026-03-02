@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'v7';
+const CACHE_VERSION = 'v2';
 const PAGE_CACHE = `widgetwatch-pages-${CACHE_VERSION}`;
 const DATA_CACHE = `widgetwatch-data-${CACHE_VERSION}`;
 const STATIC_CACHE = `widgetwatch-static-${CACHE_VERSION}`;

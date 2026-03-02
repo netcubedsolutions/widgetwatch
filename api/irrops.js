@@ -6,8 +6,8 @@ import { createRateLimiter } from './_rate-limit.js';
 
 const isRateLimited = createRateLimiter('irrops', 60);
 
-const HUBS = ['ATL', 'JFK', 'LGA', 'BOS', 'DTW', 'MSP', 'SLC', 'LAX', 'SEA'];
-const HUB_TZ = {ATL:'America/New_York',JFK:'America/New_York',LGA:'America/New_York',BOS:'America/New_York',DTW:'America/Detroit',MSP:'America/Chicago',SLC:'America/Denver',LAX:'America/Los_Angeles',SEA:'America/Los_Angeles'};
+const HUBS = ['ATL', 'LGA', 'JFK', 'BOS', 'DTW', 'MSP', 'SLC', 'LAX', 'SEA'];
+const HUB_TZ = {ATL:'America/New_York',LGA:'America/New_York',JFK:'America/New_York',BOS:'America/New_York',DTW:'America/Detroit',MSP:'America/Chicago',SLC:'America/Denver',LAX:'America/Los_Angeles',SEA:'America/Los_Angeles'};
 const CACHE_TTL = 15 * 60 * 1000; // 15 minutes — hub health doesn't need real-time
 const INTER_HUB_DELAY = 1500; // ms between hub fetches to avoid rate limiting
 const INTER_PAGE_DELAY = 800; // ms between pages within a hub

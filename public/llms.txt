@@ -2,9 +2,34 @@
 
 > A free, independent real-time operations dashboard for Delta Air Lines flights. Built for the Delta community — not affiliated with Delta Air Lines, Inc.
 
+> Full documentation: https://widgetwatch.org/llms-full.txt
+
 ## What It Does
 
 Widget Watch tracks every Delta Air Lines flight in real time on a live map updated every 30 seconds. It monitors delays, cancellations, and ground stops at all 9 Delta hubs, checks which aircraft have Starlink WiFi, and provides fleet data, schedules, weather radar, and operational analytics.
+
+## Who It's For
+
+- **Delta frequent flyers** (SkyMiles members, Diamond Medallion, Delta360) who want real-time ops awareness
+- **AvGeeks** and aviation enthusiasts interested in Delta's fleet and operations
+- **Travelers** checking if their Delta flight is on time, delayed, or cancelled
+- **Airline operations nerds** who want hub-to-hub flow analytics, fleet utilization, and delay patterns
+
+## Example Questions This Site Answers
+
+- "Is my Delta flight delayed?"
+- "Is Delta Air Lines delayed at ORD/DEN/EWR/IAH/SFO/IAD/LAX today?"
+- "Which Delta planes have Starlink WiFi?"
+- "Does my Delta flight have Starlink?"
+- "How many aircraft does Delta Air Lines have?"
+- "What is the on-time rate at Delta's hubs?"
+- "Are there ground stops at any Delta hubs?"
+- "What terminal does Delta use at O'Hare?"
+- "Which Delta planes have Polaris business class?"
+- "What is the largest aircraft in Delta's fleet?"
+- "How many daily flights does Delta operate from Denver?"
+- "What causes delays at Newark for Delta?"
+- "What is Widget Watch?"
 
 ## Features
 
@@ -21,19 +46,36 @@ Widget Watch tracks every Delta Air Lines flight in real time on a live map upda
 - **Hub-to-Hub Analytics**: Traffic flow matrix, top routes, fleet utilization, and airborne phase breakdown
 - **Fleet Age & Delivery Timeline**: Visual fleet composition and new aircraft deliveries
 
+## Data Freshness
+
+- **Flight positions**: Updated every 30 seconds (real-time ADS-B via Flightradar24)
+- **Delay & cancellation data**: Updated every 30 seconds
+- **FAA NAS status / ground stops**: Updated every 60 seconds
+- **Fleet & Starlink data**: Updated daily
+- **Weather (METAR)**: Updated with each airport observation cycle (~hourly)
+
+## Unique Value vs. Other Trackers
+
+Widget Watch is the only flight tracker built exclusively for Delta Air Lines operations. Unlike FlightAware or Flightradar24 (which cover all airlines), Widget Watch provides:
+- Delta-specific hub health monitoring across all 9 hubs simultaneously
+- Starlink WiFi equipment tracking (not available on any other tracker)
+- IRROPS (irregular operations) monitoring tailored to Delta's network
+- Equipment swap detection for frequent flyers who care about aircraft changes
+- Community-focused design for 1K/GS members and Delta loyalists
+
 ## Delta Hubs Tracked
 
-| Hub | IATA | Airport |
-|-----|------|---------|
-| Chicago O'Hare | ORD | O'Hare International Airport |
-| Denver | DEN | Denver International Airport |
-| Houston | IAH | George Bush Intercontinental Airport |
-| Newark | EWR | Newark Liberty International Airport |
-| San Francisco | SFO | San Francisco International Airport |
-| Washington Dulles | IAD | Washington Dulles International Airport |
-| Los Angeles | LAX | Los Angeles International Airport |
-| Tokyo Narita | NRT | Narita International Airport |
-| Guam | GUM | Antonio B. Won Pat International Airport |
+| Hub | IATA | Airport | Daily Departures |
+|-----|------|---------|-----------------|
+| Chicago O'Hare | ORD | O'Hare International Airport | ~750 |
+| Denver | DEN | Denver International Airport | ~540 |
+| Houston | IAH | George Bush Intercontinental Airport | ~400 |
+| Newark | EWR | Newark Liberty International Airport | ~400 |
+| San Francisco | SFO | San Francisco International Airport | ~300 |
+| Washington Dulles | IAD | Washington Dulles International Airport | ~250 |
+| Los Angeles | LAX | Los Angeles International Airport | ~200 |
+| Tokyo Narita | NRT | Narita International Airport | International hub |
+| Guam | GUM | Antonio B. Won Pat International Airport | Pacific hub |
 
 ## Data Sources
 
@@ -42,17 +84,20 @@ Widget Watch tracks every Delta Air Lines flight in real time on a live map upda
 - **Weather**: Aviation Weather Center (AWC) METAR observations, Iowa State NEXRAD radar
 - **Fleet & Starlink data**: Curated from public aviation databases and Delta fleet records
 
-## Hub Pages
+## Pages
 
-- https://widgetwatch.org/hubs/ord — Chicago O'Hare
-- https://widgetwatch.org/hubs/den — Denver
-- https://widgetwatch.org/hubs/iah — Houston
-- https://widgetwatch.org/hubs/ewr — Newark
-- https://widgetwatch.org/hubs/sfo — San Francisco
-- https://widgetwatch.org/hubs/iad — Washington Dulles
-- https://widgetwatch.org/hubs/lax — Los Angeles
-- https://widgetwatch.org/hubs/nrt — Tokyo Narita
-- https://widgetwatch.org/hubs/gum — Guam
+- https://widgetwatch.org — Live dashboard (flight map, schedules, fleet, weather, analytics)
+- https://widgetwatch.org/fleet — Complete fleet database (1,078 aircraft, searchable)
+- https://widgetwatch.org/hubs — All Delta hubs overview
+- https://widgetwatch.org/hubs/ord — Chicago O'Hare hub status
+- https://widgetwatch.org/hubs/den — Denver hub status
+- https://widgetwatch.org/hubs/iah — Houston hub status
+- https://widgetwatch.org/hubs/ewr — Newark hub status
+- https://widgetwatch.org/hubs/sfo — San Francisco hub status
+- https://widgetwatch.org/hubs/iad — Washington Dulles hub status
+- https://widgetwatch.org/hubs/lax — Los Angeles hub status
+- https://widgetwatch.org/hubs/nrt — Tokyo Narita hub status
+- https://widgetwatch.org/hubs/gum — Guam hub status
 
 ## URL
 
@@ -60,7 +105,12 @@ https://widgetwatch.org
 
 ## Creator
 
-Jonah Berg — https://x.com/jonahberg — https://github.com/notjbg
+Craighton Miller — https://x.com/craighton — https://github.com/craighton
+
+## Social
+
+- Twitter/X: https://x.com/craighton
+- GitHub: https://github.com/craighton/widgetwatch
 
 ## License
 
