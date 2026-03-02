@@ -2,7 +2,7 @@
 
 **An unofficial, real-time operations dashboard for Delta Air Lines — built by flyers, for flyers.**
 
-**[→ Live Dashboard](https://widgetwatch.org)** · **[☕ Support the source Project](https://buymeacoffee.com/notjbg)** · **[𝕏 Follow @craighton](https://x.com/craighton)**
+**[→ Live Dashboard](https://widgetwatch.org)** · **[📋 Changelog](CHANGELOG.md)** · **[💡 Suggest a Feature](https://github.com/craighton/widgetwatch/issues)**
 
 ![Widget Watch — Live Operations Map](public/og-image.png)
 
@@ -25,10 +25,16 @@ Real-time map tracking 600+ Delta flights, updated every 30 seconds. Filter by h
 Server-side disruption scoring across all 9 hubs — cancellations, delays (30m/60m), diversions, and FAA ground stops. Preloaded automatically on page load with 5-minute server-side caching. No manual trigger needed.
 
 ### 📅 [Schedule](https://widgetwatch.org#schedule)
-Departure and arrival boards for all 9 DL hubs (ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
+Departure and arrival boards for all 9 DL hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
+
+### ✈️ [Fleet](https://widgetwatch.org#fleet)
+Complete database of 1,078+ mainline aircraft — searchable and sortable by type, registration, seat config, WiFi, and IFE. Filters by fleet, type, and operator. Live fleet status correlates airborne flights with the database.
 
 ### 🌦 [Delays · Weather · Hubs](https://widgetwatch.org#weather)
 FAA NAS delay and ground stop alerts, METAR observations with plain-English explainers, NEXRAD radar overlay, and hub health indicators. Each hub gets a unified card with conditions, visibility, wind, ceiling, and current delay status. **Ops Impact Assessment** goes beyond standard flight categories to flag real operational risks — snow, gusts, freezing precipitation, thunderstorms — even when conditions are technically VFR. Radar map renders instantly; weather data loads in parallel via batched API calls.
+
+### 📊 [Stats](https://widgetwatch.org#stats)
+Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Starlink coverage metrics. All live data updates every 30 seconds.
 
 ### 🔍 Flight Search
 Look up any DL flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
@@ -40,7 +46,7 @@ Look up any DL flight number from the header search bar. Returns live position, 
 - **Equipment swap alerts** — Badges when scheduled aircraft type changes
 - **📱 Mobile-first design** — Map-maximized layout with bottom tab bar navigation, collapsible filters
 - **PWA support** — Installable as a home screen app on iOS/Android with offline caching
-- **Click the title** — "Widget Watch" header always takes you back to Live Ops
+- **Click the title** — "WIDGETWATCH" header always takes you back to Live Ops
 
 ---
 
@@ -48,32 +54,32 @@ Look up any DL flight number from the header search bar. Returns live position, 
 
 ```
 ┌─────────────────────────────────────────────────────┐
-│                    Browser (SPA)                     │
-│                                                      │
-│  public/index.html — single-file dark NOC dashboard  │
-│  ├── Leaflet map + CartoDB dark tiles                │
-│  ├── NEXRAD radar tile overlay                       │
-│  ├── Event delegation (data-action attributes)       │
-│  ├── Fleet/Starlink data loaded async from /data/    │
-│  └── All API calls go through server-side proxies    │
+│                    Browser (SPA)                    │
+│                                                     │
+│  public/index.html — single-file dark NOC dashboard │
+│  ├── Leaflet map + CartoDB dark tiles               │
+│  ├── NEXRAD radar tile overlay                      │
+│  ├── Event delegation (data-action attributes)      │
+│  ├── Fleet data loaded async from /data/            │
+│  └── All API calls go through server-side proxies   │
 └──────────────┬──────────────────────────────────────┘
                │
-    ┌──────────▼──────────────────────────────┐
-    │        Vercel Serverless Functions       │
-    │                                          │
-    │  /api/schedule    — FR24 schedule proxy  │
-    │                     (cached, rate-limited│
-    │                      DL-filtered)        │
-    │  /api/irrops      — Precomputed IRROPS   │
+    ┌──────────▼────────────────────────────────┐
+    │        Vercel Serverless Functions        │
+    │                                           │
+    │  /api/schedule    — FR24 schedule proxy   │
+    │                     (cached, rate-limited │
+    │                      DL-filtered)         │
+    │  /api/irrops      — Precomputed IRROPS    │
     │                     metrics (5min cache)  │
-    │  /api/fr24-feed   — Live flight positions│
-    │  /api/fr24-flight — Flight lookup        │
-    │                     (official FR24 API)  │
-    │  /api/metar       — AWC weather proxy    │
+    │  /api/fr24-feed   — Live flight positions │
+    │  /api/fr24-flight — Flight lookup         │
+    │                     (official FR24 API)   │
+    │  /api/metar       — AWC weather proxy     │
     │                     (batched, all hubs)   │
-    │  /api/faa         — FAA NAS status proxy │
-    │  /api/fleet       — Fleet data proxy     │
-    └─────────────────────────────────────────┘
+    │  /api/faa         — FAA NAS status proxy  │
+    │  /api/fleet       — Fleet data proxy      │
+    └───────────────────────────────────────────┘
 ```
 
 ### Why Server-Side Proxies?
@@ -93,8 +99,6 @@ Look up any DL flight number from the header search bar. Returns live position, 
 | [Flightradar24](https://flightradar24.com) | Live positions, schedules, flight lookup | ~15s–60s | Server-side proxy with caching |
 | [Aviation Weather Center](https://aviationweather.gov) | METAR observations | ~5min | NOAA/CORS proxy, batched |
 | [FAA NAS Status](https://nasstatus.faa.gov) | Delays & ground stops | ~5min | XML→JSON proxy |
-| [Delta Fleet Site](https://sites.google.com/site/unitedfleetsite/) | Fleet database | Daily | Community-maintained |
-| [Starlink Tracker](https://unitedstarlinktracker.com) | WiFi-equipped aircraft | Daily | [@martinamps](https://github.com/martinamps/dl-starlink-tracker) |
 | [Iowa State NEXRAD](https://mesonet.agron.iastate.edu) | Radar imagery | ~5min | Direct tile server |
 
 ---
@@ -108,7 +112,7 @@ Look up any DL flight number from the header search bar. Returns live position, 
 - **Build:** [Astro](https://astro.build) (static site generator for hub pages)
 - **Hosting:** [Vercel](https://vercel.com) (serverless functions + edge CDN)
 - **Analytics:** Vercel Web Analytics + Speed Insights
-- **Design:** Dark NOC theme, inspired by Bloomberg terminals and airline ops centers
+- **Design:** Dark theme, inspired by Bloomberg terminals and airline ops centers
 
 ---
 
@@ -138,8 +142,7 @@ Look up any DL flight number from the header search bar. Returns live position, 
 ├── public/
 │   ├── index.html       # The entire dashboard (single file)
 │   ├── data/
-│   │   ├── fleet.json   # Fleet database
-│   │   └── starlink.json # Starlink-equipped aircraft
+│   │   └── fleet.json   # Fleet database
 │   ├── og-image.png     # Social media preview image (1200×630)
 │   ├── manifest.json    # PWA manifest
 │   ├── sw.js            # Service worker (split caches, offline support)
@@ -159,11 +162,19 @@ Look up any DL flight number from the header search bar. Returns live position, 
 
 ---
 
+## 💡 Feature Requests & Contributing
+
+Got an idea? Found a bug? **[Open an issue →](https://github.com/craighton/widgetwatch/issues)**
+
+The community drives this project. Some of the best features came from user suggestions on Reddit and FlyerTalk. PRs welcome too — it's a single HTML file, so the barrier to entry is low.
+
+---
+
 ## Disclaimer
 
 **Widget Watch is not affiliated with, endorsed by, or connected to Delta Air Lines, Inc.** "Delta Air Lines" and the Delta logo are trademarks of Delta Air Lines, Inc.
 
-All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. **Do not use this dashboard for operational or safety-critical decisions.** Always verify flight status directly with [delta.com](https://www.DELTA.com).
+All flight data is provided for informational purposes only and may be delayed, incomplete, or inaccurate. **Do not use this dashboard for operational or safety-critical decisions.** Always verify flight status directly with [delta.com](https://www.delta.com).
 
 ---
 
@@ -173,4 +184,4 @@ MIT — see [LICENSE](LICENSE) for details.
 
 ---
 
-*Built on a ✈️ by [Jonah Berg](https://github.com/notjbg)*
+*Original source code by [Jonah Berg](https://github.com/notjbg)*

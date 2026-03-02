@@ -49,7 +49,7 @@ export default async function handler(req, res) {
       const upstream = await fetch(`https://data-cloud.flightradar24.com/zones/fcgi/feed.js?airline=${encodeURIComponent(airline)}`, {
         signal: controller.signal,
         headers: {
-          'User-Agent': 'WidgetWatch/1.0 (https://widgetwatch.org)',
+          'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
           'Accept': 'application/json'
         }
       });

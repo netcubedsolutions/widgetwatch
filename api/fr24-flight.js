@@ -1,5 +1,5 @@
 // FR24 Official API — Flight Lookup Endpoint
-// Usage: /api/fr24-flight?flight=DL838
+// Usage: /api/fr24-flight?flight=UA838
 //
 // Endpoints (from official SDK):
 //   Live positions: GET /api/live/flight-positions/full?flights={iata}
@@ -95,7 +95,7 @@ async function fr24Fetch(path, params) {
       'Authorization': `Bearer ${process.env.FR24_API_TOKEN}`,
       'Accept': 'application/json',
       'Accept-Version': API_VERSION,
-      'User-Agent': 'WidgetWatch/1.0 (https://widgetwatch.org)',
+      'User-Agent': 'WidgetWatchDashboard/1.0 (https://widgetwatch.org)',
     },
   });
   clearTimeout(timeout);

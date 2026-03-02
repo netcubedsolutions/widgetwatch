@@ -36,7 +36,7 @@ airportSchemaObj.url = airport.url;
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0a0e14">
-<link rel="icon" type="image/jpg" href="/icons/icon.png">
+<link rel="icon" type="image/jpg" href="/icons/icon-512.png">
 <title>{data.title}</title>
 <meta name="description" content={data.description}>
 <meta name="keywords" content={data.keywords}>
@@ -44,6 +44,7 @@ airportSchemaObj.url = airport.url;
 <meta name="robots" content="index, follow">
 <link rel="canonical" href={`https://widgetwatch.org/hubs/${iataLower}`}>
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
 <meta property="og:title" content={data.ogTitle}>
 <meta property="og:description" content={data.ogDescription}>
 <meta property="og:url" content={`https://widgetwatch.org/hubs/${iataLower}`}>
@@ -51,11 +52,11 @@ airportSchemaObj.url = airport.url;
 <meta property="og:image" content="https://widgetwatch.org/og-image.png">
 <meta property="og:image:alt" content={data.ogImageAlt}>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:creator" content="@craighton">
+<meta name="twitter:creator" content="@theblueboard">
 <meta name="twitter:title" content={data.twitterTitle}>
 <meta name="twitter:description" content={data.twitterDescription}>
 <meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
-<meta name="twitter:site" content="@craighton">
+<meta name="twitter:site" content="@theblueboard">
 
 <!-- Schema: BreadcrumbList -->
 <script type="application/ld+json" set:html={JSON.stringify({
@@ -63,7 +64,7 @@ airportSchemaObj.url = airport.url;
   "@type": "BreadcrumbList",
   "itemListElement": [
     {"@type": "ListItem", "position": 1, "name": "Widget Watch", "item": "https://widgetwatch.org"},
-    {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://widgetwatch.org"},
+    {"@type": "ListItem", "position": 2, "name": "Hubs", "item": "https://widgetwatch.org/hubs"},
     {"@type": "ListItem", "position": 3, "name": data.breadcrumbName, "item": `https://widgetwatch.org/hubs/${iataLower}`}
   ]
 })} />
@@ -87,15 +88,15 @@ airportSchemaObj.url = airport.url;
 )}
 <script type="application/ld+json" set:html={JSON.stringify(airportSchemaObj)} />
 
-{variant === 'full' && (
-  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Sans+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-)}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 {variant === 'full' ? (
 <style is:inline>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#64748b;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--mono:'JetBrains Mono',monospace}
-body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh}
+:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--font-ui:'Inter',system-ui,-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace;--mono:'JetBrains Mono',monospace}
+body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--font-ui);font-size:13px;line-height:1.7;min-height:100vh}
 a{color:var(--dl-accent);text-decoration:none}
 a:hover{text-decoration:underline}
 
@@ -152,7 +153,7 @@ a:hover{text-decoration:underline}
 
 /* Jump Nav */
 .jump-nav{display:flex;flex-wrap:wrap;gap:8px;padding:16px 0;margin-bottom:24px}
-.jump-nav a{color:var(--dl-text);background:var(--dl-panel);border:1px solid var(--dl-border);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;text-decoration:none;white-space:nowrap;transition:all .2s ease}
+.jump-nav a{color:var(--dl-text);background:var(--dl-panel);border:1px solid var(--dl-border);padding:6px 14px;border-radius:20px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;text-decoration:none;white-space:nowrap;transition:border-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),background-color .2s cubic-bezier(.4,0,.2,1),transform .2s cubic-bezier(.4,0,.2,1),box-shadow .2s cubic-bezier(.4,0,.2,1)}
 .jump-nav a:hover{border-color:var(--dl-blue);color:#fff;background:var(--dl-blue);text-decoration:none;transform:translateY(-1px);box-shadow:0 2px 8px rgba(0,93,170,.3)}
 
 /* Scroll Indicator */
@@ -160,12 +161,13 @@ a:hover{text-decoration:underline}
 .scroll-hint-inner{display:inline-flex;align-items:center;gap:8px;color:var(--dl-accent);font-size:11px;font-weight:500;letter-spacing:.5px;opacity:.85}
 .scroll-hint-arrow{display:inline-block;animation:bounce 1.5s ease-in-out infinite;font-size:14px}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
-
+.stat-card .value,.iata{font-family:var(--font-mono)}
+.jump-nav a:active,.hub-nav a:active,.live-panel .cta:active{transform:scale(.97)}
 </style>
 ) : (
 <style is:inline>
-:root{--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:rgba(30,41,59,.6);--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#005DAA;--dl-blue:#005DAA;--dl-green:#22c55e;--dl-red:#ef4444;--mono:'SF Mono',SFMono-Regular,Menlo,Consolas,monospace}
-body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--mono);font-size:13px;line-height:1.7;min-height:100vh}
+:root{--dl-blue:#005DAA;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#8ab4f8;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--font-ui:'Inter',system-ui,-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace;--mono:'JetBrains Mono',monospace}
+body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--font-ui);font-size:13px;line-height:1.7;min-height:100vh}
 a{color:var(--dl-accent);text-decoration:none}
 a:hover{text-decoration:underline}
 .container{max-width:900px;margin:0 auto;padding:20px 16px}
@@ -185,7 +187,7 @@ h3{font-size:13px;color:var(--dl-text);margin:16px 0 6px}
 .section ul{margin:6px 0;padding-left:20px}
 .section li{color:var(--dl-muted);font-size:12px;margin:4px 0}
 .hub-nav{display:flex;flex-wrap:wrap;gap:8px}
-.hub-nav a{background:var(--dl-dark);border:1px solid var(--dl-border);padding:6px 14px;border-radius:4px;font-size:11px;color:var(--dl-muted);transition:all .2s}
+.hub-nav a{background:var(--dl-dark);border:1px solid var(--dl-border);padding:6px 14px;border-radius:4px;font-size:11px;color:var(--dl-muted);transition:background-color .2s cubic-bezier(.4,0,.2,1),color .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1)}
 .hub-nav a:hover,.hub-nav a.active{background:var(--dl-accent);color:#fff;border-color:var(--dl-accent);text-decoration:none}
 .scroll-hint{text-align:center;color:var(--dl-muted);font-size:10px;margin:12px 0;opacity:.7}
 nav.jump-nav{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:20px}
@@ -196,6 +198,8 @@ nav.jump-nav a:hover{border-color:var(--dl-accent);color:var(--dl-accent);text-d
   .live-bar{flex-direction:column;align-items:flex-start;gap:8px}
   .stat-row{flex-direction:column}
 }
+.stat-card .value{font-family:var(--font-mono)}
+.hub-nav a:active,.jump-nav a:active{transform:scale(.97)}
 </style>
 )}
 </head>
@@ -267,8 +271,8 @@ nav.jump-nav a:hover{border-color:var(--dl-accent);color:var(--dl-accent);text-d
   <div><a href="/" style="color:var(--dl-accent);text-decoration:none">Widget Watch</a> · Unofficial · Not affiliated with Delta Air Lines, Inc. · Data may be delayed · <a href="/" style="color:var(--dl-accent);text-decoration:none">Open Dashboard →</a></div>
   <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
     <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
-    <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--dl-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--mono);white-space:nowrap">☕ Support Server Costs</a>
-    <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Follow @craighton</a></span>
+    <a href="https://buymeacoffee.com/notjbg" target="_blank" rel="noopener noreferrer" style="background:var(--dl-blue);color:white;padding:3px 10px;border-radius:3px;text-decoration:none;font-size:9px;font-family:var(--font-ui);white-space:nowrap">☕ Support Server Costs</a>
+    <span style="white-space:nowrap">Built by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · <a href="https://x.com/theblueboard" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Follow @theblueboard</a></span>
   </div>
 </div>
 

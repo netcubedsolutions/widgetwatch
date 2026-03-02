@@ -1,28 +1,40 @@
 #!/usr/bin/env node
-// Rebuild FLEET_DB from Google Sheet CSV tabs
+// Rebuild public/data/fleet.json from Delta fleet Google Sheet CSV tabs
 const fs = require('fs');
 const path = require('path');
 
-// GID → type mapping
+const PUBLISHED_ID = process.env.FLEET_SHEET_ID || '2PACX-1vSdBcByk1BvxkFja5yri8R4snipRYf6peHClG0NhuQMQCAdwg77HWbL_kaKTawsmm99CBNQ0P9gFr_A';
+
+// GID → aircraft type mapping
 const GID_TYPE_MAP = {
-  '0': 'A319',
-  '1': 'A320',
-  '3': '737-700',
-  '4': '737-800',
-  '5': '737-900/900ER',
-  '6': '737 MAX 8',
-  '7': '757-200',
-  '8': '757-300',
-  '10': '767',           // will split 763ER vs 764ER
-  '12': '777-200',       // will split 200 vs 200ER
-  '13': '787-8/10',
-  '15': '777-300ER',
-  '70572532': '737 MAX 9',
-  '948315825': 'A321neo',
-  '1855629492': '737 MAX 9',
-  '2098141434': '787-9',
-  // '1151318329': EXCLUDED - future orders/reserved N-numbers
+  '1360817651': 'A220-100',    // BCS1
+  '823190082':  'A220-300',    // BCS3
+  '2045075120': 'A319',        // A319
+  '2073364725': 'A320',        // A320
+  '1538397382': 'A321',        // A321
+  '1227229540': 'A321neo',     // A21N
+  '803014129':  'A330-200',    // A332
+  '382039884':  'A330-300',    // A333
+  '829064758':  'A330-900neo', // A339
+  '26759434':   'A350-900',    // A359
+  '372900393':  '717-200',     // B712
+  '1891757144': '737-800',     // B738
+  '1574327079': '737-900ER',   // B739
+  '1720938178': '757-200',     // B752
+  '503337945':  '757-300',     // B753
+  '1883016033': '767-300ER',   // B763
+  '870301959':  '767-400ER',   // B764
 };
+
+const typeOrder = [
+  'A220-100', 'A220-300',
+  'A319', 'A320', 'A321', 'A321neo',
+  'A330-200', 'A330-300', 'A330-900neo', 'A350-900',
+  '717-200',
+  '737-800', '737-900ER',
+  '757-200', '757-300',
+  '767-300ER', '767-400ER',
+];
 
 function parseCSVLine(line) {
   const result = [];
@@ -43,244 +55,163 @@ function parseCSVLine(line) {
   return result;
 }
 
-function parseSeats(configStr) {
-  if (!configStr) return { seats: {}, tot: 0 };
-  const seats = {};
-  let tot = 0;
-  const parts = configStr.match(/(\d+)(J|PE|PP|F|E\+|Y)/g);
-  if (!parts) return { seats: {}, tot: 0 };
-  for (const p of parts) {
-    const m = p.match(/(\d+)(J|PE|PP|F|E\+|Y)/);
-    if (m) {
-      const count = parseInt(m[1]);
-      seats[m[2]] = count;
-      tot += count;
-    }
-  }
-  return { seats, tot };
-}
-
 function isValidReg(reg) {
   return reg && /^N\d/.test(reg) && reg.length >= 4;
 }
 
-// 767: model-based split
-const MODEL_767 = {
-  '763ER': '767-300ER', '76A': '767-300ER', '76Q': '767-300ER',
-  '764ER': '767-400ER', '764': '767-400ER',
-};
-
-// 777-200: model-based split
-const MODEL_777 = {
-  '77G': '777-200', '77M': '777-200',
-  '772ER': '777-200ER', '77U': '777-200ER', '77N': '777-200ER',
-  '77O': '777-200ER', '77E': '777-200ER',
-};
-
-// 737-900: ER detection
-const MODEL_739 = {
-  '739': '737-900', '73C': '737-900',
-  '739ER': '737-900ER', '73W': '737-900ER',
-};
-
-const fleet = [];
-const seenRegs = new Set();
-
-for (const [gid, baseType] of Object.entries(GID_TYPE_MAP)) {
-  const csvFile = path.join(__dirname, `csv_gid_${gid}.csv`);
-  if (!fs.existsSync(csvFile)) {
-    console.error(`Missing CSV: ${csvFile}`);
-    continue;
+async function fetchCSV(gid) {
+  const url = `https://docs.google.com/spreadsheets/d/e/${PUBLISHED_ID}/pub?output=csv&gid=${gid}`;
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20000);
+  try {
+    const res = await fetch(url, { signal: controller.signal });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.text();
+  } finally {
+    clearTimeout(timeout);
   }
-  
-  const lines = fs.readFileSync(csvFile, 'utf8').split('\n');
-  
-  // Find header row
-  let headerIdx = -1;
-  let headers = [];
-  for (let i = 0; i < Math.min(5, lines.length); i++) {
-    const cols = parseCSVLine(lines[i]);
-    const regCol = cols.findIndex(c => /Reg\s*#/i.test(c));
-    if (regCol >= 0) {
-      headerIdx = i;
-      headers = cols;
-      break;
-    }
-  }
-  
-  if (headerIdx < 0) {
-    console.error(`No header found for GID ${gid} (${baseType})`);
-    continue;
-  }
-  
-  // Map column indices
-  const colMap = {};
-  headers.forEach((h, i) => {
-    const hl = h.toLowerCase().trim();
-    if (/reg\s*#/i.test(h)) colMap.reg = i;
-    if (/ac\s*#/i.test(h)) colMap.ac = i;
-    if (/deliver|delvr/i.test(h)) colMap.delivery = i;
-    if (/wifi/i.test(h)) colMap.wifi = i;
-    if (/config/i.test(h)) colMap.config = i;
-    if (/status/i.test(h)) colMap.status = i;
-    if (/ife/i.test(h)) colMap.ife = i;
-    if (/power/i.test(h)) colMap.power = i;
-    if (/seat\s*map/i.test(h)) colMap.seatmap = i;
-  });
-  
-  // GID 1855629492 has different columns (no seat map cols at end)
-  // It has: Reg #, AC #, Winglets, Delivery, SEAT MAP, Configuration, IFE, Chnl 9, WiFi, Power, Livery/Yr, Status, Status #2
-  
-  let count = 0;
-  for (let i = headerIdx + 1; i < lines.length; i++) {
-    const line = lines[i].trim();
-    if (!line) continue;
-    
-    const cols = parseCSVLine(line);
-    const reg = (cols[colMap.reg] || '').replace(/\s/g, '');
-    
-    if (!isValidReg(reg)) continue;
-    
-    // For GID 1855629492 (newer MAX 9 deliveries), prefer newer data over GID 70572532
-    if (seenRegs.has(reg)) {
-      if (gid === '1855629492') {
-        const oldIdx = fleet.findIndex(e => e.r === reg);
-        if (oldIdx >= 0) fleet.splice(oldIdx, 1);
-        seenRegs.delete(reg);
-      } else {
+}
+
+(async () => {
+  const fleet = [];
+  const seenRegs = new Set();
+
+  for (const [gid, baseType] of Object.entries(GID_TYPE_MAP)) {
+    let csv;
+
+    // Use local cache if present (place csv_gid_<gid>.csv next to this script to skip download)
+    const csvFile = path.join(__dirname, `csv_gid_${gid}.csv`);
+    if (fs.existsSync(csvFile)) {
+      console.log(`GID ${gid} (${baseType}): using local cache`);
+      csv = fs.readFileSync(csvFile, 'utf8');
+    } else {
+      process.stdout.write(`GID ${gid} (${baseType}): downloading... `);
+      try {
+        csv = await fetchCSV(gid);
+        console.log('done');
+      } catch (e) {
+        console.error(`FAILED: ${e.message}`);
         continue;
       }
     }
-    
-    const ac = (cols[colMap.ac] || '').replace(/\s/g, '');
-    const delivery = (cols[colMap.delivery] || '').replace(/\s/g, '');
-    const wifi = cols[colMap.wifi] || '';
-    const config = cols[colMap.config] || '';
-    const status = cols[colMap.status] || '';
-    const ife = cols[colMap.ife] || '';
-    const power = cols[colMap.power] || '';
-    const model = (cols[0] || '').trim();
-    
-    // Determine type
-    let type = baseType;
-    if (baseType === '767') {
-      type = MODEL_767[model] || (model.includes('764') ? '767-400ER' : '767-300ER');
-    } else if (baseType === '777-200') {
-      type = MODEL_777[model] || (model.includes('ER') ? '777-200ER' : '777-200');
-    } else if (baseType === '787-8/10') {
-      type = (model === '787-10' || model === '78J') ? '787-10' : '787-8';
-    } else if (baseType === '737-900/900ER') {
-      type = MODEL_739[model];
-      if (!type) {
-        // Fallback: check delivery year
-        const yr = parseInt(delivery);
-        type = (yr && yr >= 2008) ? '737-900ER' : '737-900';
+
+    const lines = csv.split('\n');
+
+    // Find header row (look for REG column)
+    let headerIdx = -1;
+    let headers = [];
+    for (let i = 0; i < Math.min(5, lines.length); i++) {
+      const cols = parseCSVLine(lines[i]);
+      if (cols.findIndex(c => /^REG$/i.test(c.trim())) >= 0) {
+        headerIdx = i;
+        headers = cols;
+        break;
       }
     }
-    
-    let year = '';
-    const yrMatch = delivery.match(/(\d{4})/);
-    if (yrMatch) year = yrMatch[1];
-    
-    const { seats, tot } = parseSeats(config);
-    
-    const entry = { r: reg, t: type, a: ac, w: wifi, c: config, s: status, d: year, i: ife, p: power };
-    if (Object.keys(seats).length > 0) {
-      entry.seats = seats;
-      entry.tot = tot;
+
+    if (headerIdx < 0) {
+      console.error(`No header found for GID ${gid} (${baseType})`);
+      continue;
     }
-    
-    fleet.push(entry);
-    seenRegs.add(reg);
-    count++;
+
+    // Map column indices
+    const colMap = {};
+    const seatCols = {};
+    headers.forEach((h, i) => {
+      const ht = h.trim();
+      if (/^REG$/i.test(ht))            colMap.reg      = i;
+      if (/^AC\s*#$/i.test(ht))         colMap.ac       = i;
+      if (/^DELIVERED$/i.test(ht))      colMap.delivery = i;
+      if (/^WIFI$/i.test(ht))           colMap.wifi     = i;
+      if (/^CONFIGURATION$/i.test(ht))  colMap.config   = i;
+      if (/^STATUS$/i.test(ht))         colMap.status   = i;
+      if (/^IFE$/i.test(ht))            colMap.ife      = i;
+      if (/^J$/i.test(ht))              seatCols.J      = i;
+      if (/^F$/i.test(ht))              seatCols.F      = i;
+      if (/^PS$/i.test(ht))             seatCols.PS     = i;
+      if (/^C\+$/i.test(ht))            seatCols['C+']  = i;
+      if (/^Y$/i.test(ht))              seatCols.Y      = i;
+    });
+
+    let count = 0;
+    for (let i = headerIdx + 1; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+
+      const cols = parseCSVLine(line);
+      const reg = (cols[colMap.reg] || '').replace(/\s/g, '');
+      if (!isValidReg(reg)) continue;
+      if (seenRegs.has(reg)) continue;
+
+      const ac       = (cols[colMap.ac]       || '').replace(/\s/g, '');
+      const delivery = (cols[colMap.delivery] || '').trim();
+      const wifi     = (cols[colMap.wifi]     || '').trim();
+      const config   = (cols[colMap.config]   || '').trim();
+      const status   = (cols[colMap.status]   || '').trim();
+      const ife      = (cols[colMap.ife]      || '').trim();
+
+      // Parse individual seat-class columns
+      const seats = {};
+      let tot = 0;
+      for (const [cls, idx] of Object.entries(seatCols)) {
+        const val = parseInt(cols[idx] || '');
+        if (val > 0) {
+          seats[cls] = val;
+          tot += val;
+        }
+      }
+
+      const entry = { r: reg, t: baseType, a: ac, w: wifi, c: config, s: status, d: delivery, i: ife };
+      if (tot > 0) {
+        entry.seats = seats;
+        entry.tot = tot;
+      }
+
+      fleet.push(entry);
+      seenRegs.add(reg);
+      count++;
+    }
+
+    console.log(`GID ${gid} (${baseType}): ${count} aircraft`);
   }
-  
-  console.log(`GID ${gid} (${baseType}): ${count} aircraft`);
-}
 
-// Sort by type order then registration
-const typeOrder = [
-  'A319', 'A320', 'A321neo',
-  '737-700', '737-800', '737-900', '737-900ER', '737 MAX 8', '737 MAX 9',
-  '757-200', '757-300',
-  '767-300ER', '767-400ER',
-  '777-200', '777-200ER', '777-300ER',
-  '787-8', '787-9', '787-10'
-];
+  // Sort by type order then registration
+  fleet.sort((a, b) => {
+    const ta = typeOrder.indexOf(a.t);
+    const tb = typeOrder.indexOf(b.t);
+    if (ta !== tb) return (ta === -1 ? 999 : ta) - (tb === -1 ? 999 : tb);
+    return a.r.localeCompare(b.r);
+  });
 
-fleet.sort((a, b) => {
-  const ta = typeOrder.indexOf(a.t);
-  const tb = typeOrder.indexOf(b.t);
-  if (ta !== tb) return (ta === -1 ? 999 : ta) - (tb === -1 ? 999 : tb);
-  return a.r.localeCompare(b.r);
-});
+  // Summary
+  console.log(`\nTotal fleet: ${fleet.length}`);
+  const typeCounts = {};
+  fleet.forEach(e => { typeCounts[e.t] = (typeCounts[e.t] || 0) + 1; });
+  for (const t of typeOrder) {
+    if (typeCounts[t]) console.log(`  ${t}: ${typeCounts[t]}`);
+  }
 
-// Summary
-console.log(`\nTotal fleet: ${fleet.length}`);
-const typeCounts = {};
-fleet.forEach(e => { typeCounts[e.t] = (typeCounts[e.t] || 0) + 1; });
-for (const t of typeOrder) {
-  if (typeCounts[t]) console.log(`  ${t}: ${typeCounts[t]}`);
-}
+  // Write fleet.json
+  const json = JSON.stringify(fleet);
+  const fleetJsonPath = path.join(__dirname, 'public', 'data', 'fleet.json');
+  fs.writeFileSync(fleetJsonPath, json);
+  console.log(`\nWrote ${fleet.length} aircraft to public/data/fleet.json`);
 
-// Write the fleet JSON
-const json = JSON.stringify(fleet);
+  // Update typeOrder arrays in index.html
+  const htmlPath = path.join(__dirname, 'public', 'index.html');
+  let html = fs.readFileSync(htmlPath, 'utf8');
+  const typeOrderStr = JSON.stringify(typeOrder);
+  const htmlUpdated = html.replace(/const typeOrder = \[.*?]/gs, `const typeOrder = ${typeOrderStr}`);
+  if (htmlUpdated !== html) {
+    fs.writeFileSync(htmlPath, htmlUpdated);
+    console.log('Updated typeOrder in index.html');
+  }
 
-// Now update index.html
-const htmlPath = path.join(__dirname, 'public', 'index.html');
-let html = fs.readFileSync(htmlPath, 'utf8');
-
-// Replace FLEET_DB
-const fleetMatch = html.match(/const FLEET_DB = \[.*?\];/s);
-if (!fleetMatch) {
-  console.error('Could not find FLEET_DB in index.html');
-  process.exit(1);
-}
-
-html = html.replace(fleetMatch[0], `const FLEET_DB = ${json};`);
-
-// Update fleet count references
-const total = fleet.length;
-// Replace any existing count patterns
-html = html.replace(/\b\d{3,4}\s*aircraft/g, (match) => {
-  const num = parseInt(match);
-  if (num >= 800 && num <= 1300) return `${total} aircraft`;
-  return match;
-});
-
-// Update typeOrder arrays
-const typeOrderStr = JSON.stringify(typeOrder);
-html = html.replace(/const typeOrder = \[.*?\]/gs, `const typeOrder = ${typeOrderStr}`);
-
-// Update GID map in the fleet refresh function
-const newGidMap = `const gidMap = {
-            0: 'A319',
-            1: 'A320',
-            3: '737-700',
-            4: '737-800',
-            5: '737-900/900ER',
-            6: '737 MAX 8',
-            7: '757-200',
-            8: '757-300',
-            10: '767',
-            12: '777-200',
-            13: '787-8',
-            15: '777-300ER',
-            70572532: '737 MAX 9',
-            948315825: 'A321neo',
-            1855629492: '737 MAX 9',
-            2098141434: '787-9'
-          }`;
-
-html = html.replace(/const gidMap = \{[^}]+\}/s, newGidMap);
-
-fs.writeFileSync(htmlPath, html);
-console.log(`\nUpdated index.html with ${total} aircraft`);
-
-// Validate
-try {
-  const check = JSON.parse(json);
-  console.log(`JSON validation: OK (${check.length} entries)`);
-} catch (e) {
-  console.error('JSON INVALID:', e.message);
-}
+  // Validate
+  try {
+    const check = JSON.parse(json);
+    console.log(`JSON validation: OK (${check.length} entries)`);
+  } catch (e) {
+    console.error('JSON INVALID:', e.message);
+  }
+})();

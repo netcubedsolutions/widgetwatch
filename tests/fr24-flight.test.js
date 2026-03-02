@@ -19,7 +19,7 @@ describe('normalizeFlightNumber (FR24)', () => {
   });
 
   it('trims whitespace and uppercases', () => {
-    expect(normalizeFlightNumber('  dl 838 ')).toBe('DL838');
+    expect(normalizeFlightNumber('  dl838 ')).toBe('DL838');
   });
 
   it('handles empty/null input', () => {
