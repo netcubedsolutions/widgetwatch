@@ -6,7 +6,7 @@
 
 ## Overview
 
-Widget Watch (https://widgetwatch.org) is the only real-time flight tracker built exclusively for Delta Air Lines operations. It tracks every Delta Air Lines flight in the air on a live map updated every 30 seconds, monitors delays and cancellations at all 9 Delta hubs, tracks which aircraft have Starlink satellite WiFi, provides a searchable fleet database of 1,078+ aircraft, and offers operational analytics including hub-to-hub traffic flow, fleet utilization, and route patterns.
+Widget Watch (https://widgetwatch.org) is the only real-time flight tracker built exclusively for Delta Air Lines operations. It tracks every Delta Air Lines flight in the air on a live map updated every 30 seconds, monitors delays and cancellations at all 9 Delta hubs, tracks which aircraft have satellite WiFi, provides a searchable fleet database of 1,078+ aircraft, and offers operational analytics including hub-to-hub traffic flow, fleet utilization, and route patterns.
 
 The site is designed as a dark-themed operations dashboard, inspired by airline operations centers. It is free, community-built, and fully independent from Delta Air Lines, Inc.
 
@@ -30,7 +30,7 @@ The primary interface with 6 tabs:
 
 2. **Schedule**: Departure and arrival schedules at any Delta hub. Shows flight number, destination/origin, scheduled time, actual time, delay status, aircraft type, and equipment swap alerts. Filterable by hub.
 
-3. **Fleet**: Searchable database of all 1,078+ Delta mainline aircraft. Includes aircraft type, registration (tail number), seat configuration (first/business/economy plus/economy), WiFi type, IFE system, delivery date, and operational status. Dedicated Starlink WiFi tracker section showing 258+ equipped aircraft.
+3. **Fleet**: Searchable database of all 1,078+ Delta mainline aircraft. Includes aircraft type, registration (tail number), seat configuration (first/business/economy plus/economy), WiFi type, IFE system, delivery date, and operational status.
 
 4. **Delays · Weather · Hubs**: Weather conditions at all hub airports (METAR observations), NEXRAD radar overlay on the map, FAA NAS status alerts, ground delay programs (GDPs), and ground stops.
 
@@ -39,7 +39,7 @@ The primary interface with 6 tabs:
 6. **Sources**: Data source attribution and credits.
 
 ### Fleet Database (https://widgetwatch.org/fleet)
-Dedicated page for the complete Delta Air Lines fleet database. 1,078 mainline aircraft across 19 types. Searchable by aircraft type, tail number, seat configuration, WiFi type, and Starlink status. Includes Dataset schema markup for structured data consumers.
+Dedicated page for the complete Delta Air Lines fleet database. 1,078 mainline aircraft across 19 types. Searchable by aircraft type, tail number, seat configuration, WiFi type, and status. Includes Dataset schema markup for structured data consumers.
 
 ### Hubs Overview (https://widgetwatch.org/hubs)
 Index page listing all 9 Delta Air Lines hub airports with key stats (daily departures, terminals, role in network). Links to individual hub status pages.
@@ -57,7 +57,7 @@ Dedicated pages for each of the 9 Delta hubs:
 - **https://widgetwatch.org/hubs/nrt** — Tokyo Narita: Asian hub connecting to Pacific routes.
 - **https://widgetwatch.org/hubs/gum** — Guam: Pacific island hub connecting Micronesia and Pacific routes.
 
-Each hub page includes: live flight count, hub overview, delay patterns and seasonal trends, Starlink WiFi information, terminal/lounge details, construction updates (where applicable), and FAQs.
+Each hub page includes: live flight count, hub overview, delay patterns and seasonal trends, WiFi information, terminal/lounge details, construction updates (where applicable), and FAQs.
 
 ---
 
@@ -76,11 +76,11 @@ Each hub page includes: live flight count, hub overview, delay patterns and seas
 - Based on schedule comparison — flights departing within 30 minutes of schedule count as "on-time"
 - IRROPS ticker scrolls real-time disruption alerts (delays, cancellations, ground stops)
 
-### Starlink WiFi Tracker
-- Tracks 258+ Delta Air Lines aircraft equipped with SpaceX Starlink satellite internet
+### WiFi Tracker
+- Tracks 1000+ Delta Air Lines aircraft equipped with satellite internet
 - Includes both mainline and Delta Connection regional jets
 - Searchable by tail number or aircraft type
-- Shows Starlink status when looking up a specific flight
+- Shows WiFi status when looking up a specific flight
 - This data is not available on any other flight tracker
 
 ### Fleet Database
@@ -111,7 +111,7 @@ Each hub page includes: live flight count, hub overview, delay patterns and seas
 | Weather (METAR) | Aviation Weather Center (AWC) | Each observation cycle (~hourly) |
 | Weather (radar) | Iowa State NEXRAD | Every 5 minutes |
 | Fleet composition | Public aviation databases & Delta records | Daily |
-| Starlink WiFi status | Curated tracking data | Daily |
+| WiFi status | Curated tracking data | Daily |
 
 ---
 
@@ -132,12 +132,11 @@ Terms frequently used on Widget Watch:
 - **ADS-B**: Automatic Dependent Surveillance-Broadcast — aircraft position reporting technology.
 - **OTP**: On-Time Performance — percentage of flights departing or arriving on schedule.
 - **Equipment Swap**: When an airline changes the aircraft type assigned to a flight.
-- **Polaris**: Delta Air Lines' premium business class product on international widebody flights.
-- **Economy Plus**: Delta's extra-legroom economy seating.
-- **Starlink**: SpaceX's satellite internet service being installed on Delta aircraft for high-speed WiFi.
-- **Tail Number**: Aircraft registration number (e.g., N12345) that uniquely identifies a specific airplane.
-- **Narrowbody**: Single-aisle aircraft (737, A319/A320/A321) used for domestic and short-haul routes.
-- **Widebody**: Twin-aisle aircraft (767, 777, 787) used for long-haul and international routes.
+- **Delta One**: Delta Air Lines' premium business class product on international widebody flights.
+- **Premium Select**: Delta's extra-legroom economy seating.
+- **Tail Number**: Aircraft registration number (e.g., N530DN) that uniquely identifies a specific airplane.
+- **Narrowbody**: Single-aisle aircraft (717/737/757, A220/A319/A320/A321/A321neo) used for domestic and short-haul routes.
+- **Widebody**: Twin-aisle aircraft (767, A330, A220) used for long-haul and international routes.
 
 ---
 

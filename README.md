@@ -25,7 +25,7 @@ Real-time map tracking 600+ Delta flights, updated every 30 seconds. Filter by h
 Server-side disruption scoring across all 9 hubs — cancellations, delays (30m/60m), diversions, and FAA ground stops. Preloaded automatically on page load with 5-minute server-side caching. No manual trigger needed.
 
 ### 📅 [Schedule](https://widgetwatch.org#schedule)
-Departure and arrival boards for all 9 DL hubs (ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, GUM). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
+Departure and arrival boards for all 9 DL hubs (ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
 
 ### ✈️ [Fleet](https://widgetwatch.org#fleet)
 Complete database of 1,078+ mainline aircraft — searchable and sortable by type, registration, seat config, WiFi, and IFE. Filters by fleet, type, and operator. Live fleet status correlates airborne flights with the database.
@@ -34,7 +34,7 @@ Complete database of 1,078+ mainline aircraft — searchable and sortable by typ
 FAA NAS delay and ground stop alerts, METAR observations with plain-English explainers, NEXRAD radar overlay, and hub health indicators. Each hub gets a unified card with conditions, visibility, wind, ceiling, and current delay status. **Ops Impact Assessment** goes beyond standard flight categories to flag real operational risks — snow, gusts, freezing precipitation, thunderstorms — even when conditions are technically VFR. Radar map renders instantly; weather data loads in parallel via batched API calls.
 
 ### 📊 [Stats](https://widgetwatch.org#stats)
-Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Starlink coverage metrics. All live data updates every 30 seconds.
+Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Wifi coverage metrics. All live data updates every 30 seconds.
 
 ### 🔍 Flight Search
 Look up any DL flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
