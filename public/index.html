@@ -293,11 +293,18 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-aircraft-type{font-size:13px;font-weight:700;color:var(--dl-blue)}
 .popup-seats{display:flex;gap:4px;margin-top:4px}
 .seat-block{padding:1px 5px;border-radius:2px;font-size:9px;font-weight:600}
+.seat-J{background:#AD17C0}
+.seat-F{background:#B30051}
+.seat-PS{background:#B30051}
+.seat-C\+{background:#0F6EBE}
+.seat-Y{background:#1E4E8E}
+/*
 .seat-J{background:rgba(173, 23, 192,.3);color:#AD17C0}
-.seat-PS,.seat-PE{background:rgba(179, 0, 81,.3);color:#B30051}
+.seat-PS{background:rgba(179, 0, 81,.3);color:#B30051}
 .seat-F{background:rgba(179, 0, 81,.3);color:#B30051}
 .seat-C\+{background:rgba(15, 110, 190,.3);color:#0F6EBE}
 .seat-Y{background:rgba(30, 78, 142,.3);color:#1E4E8E}
+*/
 /* ═══ AIRCRAFT DETAIL MODAL ═══ */
 #aircraft-detail-modal{position:fixed;inset:0;z-index:10001;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)}
 .ac-modal-card{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;max-width:440px;width:90%;color:var(--dl-text);font-family:var(--font-mono);position:relative;overflow:hidden;max-height:85vh;display:flex;flex-direction:column}
@@ -2230,7 +2237,7 @@ function showFlightPopup(f, marker) {
   html += `<div class="alt-bar"><div class="alt-bar-fill" style="width:${altPct}%"></div></div></div>`;
   html += `<div class="popup-field"><span class="popup-field-label">Speed</span><span class="popup-field-value">${spdKts ? spdKts + ' kts' : 'N/A'}${mach ? ' / M' + mach : ''}</span></div>`;
   html += `<div class="popup-field"><span class="popup-field-label">Heading</span><span class="popup-field-value">${f.hdg ? Math.round(f.hdg) + '°' : 'N/A'}</span></div>`;
-  html += `<div class="popup-field"><span class="popup-field-label">V/S</span><span class="popup-field-value">${f.vr ? Math.round(f.vr * 196.85) + ' fpm' : 'N/A'}</span></div>`;
+  html += `<div class="popup-field"><span class="popup-field-label">V/S</span><span class="popup-field-value">${f.vr ? Math.round(f.vr * 196.85) + ' fpm' : '0'}</span></div>`;
   html += `</div>`;
 
   // Aircraft info — FR24 type + fleet DB match
