@@ -3,10 +3,10 @@
   <channel>
     <title>Widget Watch — Delta Air Lines Flight Tracker</title>
     <link>https://widgetwatch.org</link>
-    <description>Real-time Delta Air Lines operations dashboard. Live flight tracking, hub delay monitoring, Starlink WiFi fleet status, and operational analytics for all 9 Delta hubs.</description>
+    <description>Real-time Delta Air Lines operations dashboard. Live flight tracking, hub delay monitoring, WiFi fleet status, and operational analytics for all 9 Delta hubs.</description>
     <language>en-us</language>
     <atom:link href="https://widgetwatch.org/feed.xml" rel="self" type="application/rss+xml"/>
-    <lastBuildDate>Fri, 21 Feb 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 04 Mar 2026 00:00:00 GMT</lastBuildDate>
     <item>
       <title>Delta Air Lines Live Flight Dashboard</title>
       <link>https://widgetwatch.org</link>
@@ -17,49 +17,49 @@
       <title>Delta Air Lines Fleet Database — 1,078 Aircraft</title>
       <link>https://widgetwatch.org/fleet</link>
       <guid isPermaLink="true">https://widgetwatch.org/fleet</guid>
-      <description>Complete Delta Air Lines fleet database. Search 1,078 mainline aircraft by type, registration, seat configuration, WiFi, and Starlink status. Boeing 737, 757, 767, 777, 787, Airbus A319, A320, A321neo.</description>
+      <description>Complete Delta Air Lines fleet database. Search 1,078 mainline aircraft by type, registration, seat configuration, WiFi, and status. Boeing 737, 757, 767, 777, 787, Airbus A319, A320, A321neo.</description>
     </item>
     <item>
       <title>Delta Air Lines Hub Airports — All 9 Hubs</title>
       <link>https://widgetwatch.org/hubs</link>
       <guid isPermaLink="true">https://widgetwatch.org/hubs</guid>
-      <description>Live status at all 9 Delta Air Lines hub airports. Delays, cancellations, on-time performance at ORD, DEN, IAH, EWR, SFO, IAD, LAX, NRT, and GUM.</description>
+      <description>Live status at all 9 Delta Air Lines hub airports. Delays, cancellations, on-time performance at ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Chicago O'Hare (ORD) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/ord</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/ord</guid>
-      <description>Live Delta Air Lines status at Chicago O'Hare. Real-time delays, cancellations, on-time performance, Starlink WiFi, and schedules. Delta's largest hub with ~750 daily departures.</description>
+      <title>Delta Air Lines at Atlanta (ATL) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/atl</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/atl</guid>
+      <description>Live Delta Air Lines status at Atlanta. Real-time delays, cancellations, on-time performance, WiFi, and schedules. Delta's largest hub with ~750 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Denver (DEN) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/den</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/den</guid>
-      <description>Live Delta Air Lines status at Denver International. Delays, cancellations, on-time performance, Starlink WiFi. Delta's second-largest hub with ~540 daily departures.</description>
+      <title>Delta Air Lines at LaGuardia (LGA) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/lga</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/lga</guid>
+      <description>Live Delta Air Lines status at LaGuardia. Delays, cancellations, on-time performance, WiFi. Delta's second-largest hub with ~540 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Houston (IAH) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/iah</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/iah</guid>
-      <description>Live Delta Air Lines status at Houston Intercontinental. Delays, cancellations, on-time performance. Delta's Latin America gateway with ~400 daily departures.</description>
+      <title>Delta Air Lines at New York (JFK) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/jfk</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/jfk</guid>
+      <description>Live Delta Air Lines status at New York. Delays, cancellations, on-time performance. Delta's International gateway with ~400 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Newark (EWR) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/ewr</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/ewr</guid>
-      <description>Live Delta Air Lines status at Newark Liberty. Delays, cancellations, on-time performance. Delta's East Coast transatlantic gateway with ~400 daily departures.</description>
+      <title>Delta Air Lines at Boston (BOS) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/bos</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/bos</guid>
+      <description>Live Delta Air Lines status at Boston Logan. Real-time delays, cancellations, on-time performance, WiFi, and schedules. Delta's New England hub with ~200 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at San Francisco (SFO) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/sfo</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/sfo</guid>
-      <description>Live Delta Air Lines status at San Francisco International. Delays, cancellations, on-time performance. Delta's Asia-Pacific gateway with ~300 daily departures.</description>
+      <title>Delta Air Lines at Detroit (DTW) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/dtw</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/dtw</guid>
+      <description>Live Delta Air Lines status at Detroit Metropolitan. Delays, cancellations, on-time performance, WiFi. Delta's Midwest hub with ~350 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Washington Dulles (IAD) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/iad</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/iad</guid>
-      <description>Live Delta Air Lines status at Washington Dulles. Delays, cancellations, on-time performance. ~250 daily departures.</description>
+      <title>Delta Air Lines at Minneapolis (MSP) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/msp</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/msp</guid>
+      <description>Live Delta Air Lines status at Minneapolis-Saint Paul International. Delays, cancellations, on-time performance. Delta's Upper Midwest hub with ~400 daily departures.</description>
     </item>
     <item>
       <title>Delta Air Lines at Los Angeles (LAX) — Hub Status</title>
@@ -68,16 +68,16 @@
       <description>Live Delta Air Lines status at Los Angeles International. Delays, cancellations, on-time performance. Delta's Pacific gateway with ~200 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Tokyo Narita (NRT) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/nrt</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/nrt</guid>
-      <description>Live Delta Air Lines status at Tokyo Narita International. Delta's Asian hub connecting Pacific routes.</description>
+      <title>Delta Air Lines at Seattle (SEA) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/sea</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/sea</guid>
+      <description>Live Delta Air Lines status at Seattle-Tacoma International. Delays, cancellations, on-time performance. Delta's Pacific Northwest hub with ~250 daily departures.</description>
     </item>
     <item>
-      <title>Delta Air Lines at Guam (GUM) — Hub Status</title>
-      <link>https://widgetwatch.org/hubs/gum</link>
-      <guid isPermaLink="true">https://widgetwatch.org/hubs/gum</guid>
-      <description>Live Delta Air Lines status at Guam International. Delta's Pacific island hub.</description>
+      <title>Delta Air Lines at Salt Lake City (SLC) — Hub Status</title>
+      <link>https://widgetwatch.org/hubs/slc</link>
+      <guid isPermaLink="true">https://widgetwatch.org/hubs/slc</guid>
+      <description>Live Delta Air Lines status at Salt Lake City International. Delays, cancellations, on-time performance. Delta's Mountain West hub with ~300 daily departures.</description>
     </item>
   </channel>
 </rss>
