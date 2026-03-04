@@ -123,6 +123,7 @@ async function fetchCSV(gid) {
       if (/^AC\s*#$/i.test(ht))         colMap.ac       = i;
       if (/^DELIVERED$/i.test(ht))      colMap.delivery = i;
       if (/^WIFI$/i.test(ht))           colMap.wifi     = i;
+      if (/^POWER$/i.test(ht))          colMap.power    = i;
       if (/^CONFIGURATION$/i.test(ht))  colMap.config   = i;
       if (/^STATUS$/i.test(ht))         colMap.status   = i;
       if (/^IFE$/i.test(ht))            colMap.ife      = i;
@@ -146,6 +147,7 @@ async function fetchCSV(gid) {
       const ac       = (cols[colMap.ac]       || '').replace(/\s/g, '');
       const delivery = (cols[colMap.delivery] || '').trim();
       const wifi     = (cols[colMap.wifi]     || '').trim();
+      const power    = (cols[colMap.power]    || '').trim();
       const config   = (cols[colMap.config]   || '').trim();
       const status   = (cols[colMap.status]   || '').trim();
       const ife      = (cols[colMap.ife]      || '').trim();
@@ -161,7 +163,7 @@ async function fetchCSV(gid) {
         }
       }
 
-      const entry = { r: reg, t: baseType, a: ac, w: wifi, c: config, s: status, d: delivery, i: ife };
+      const entry = { r: reg, t: baseType, a: ac, w: wifi, c: config, s: status, d: delivery, i: ife, p: power };
       if (tot > 0) {
         entry.seats = seats;
         entry.tot = tot;
