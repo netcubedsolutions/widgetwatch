@@ -373,8 +373,8 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .chart-col .lbl{font-size:9px;color:var(--dl-muted);margin-top:2px;writing-mode:vertical-rl;transform:rotate(180deg);max-height:50px;overflow:hidden}
 .chart-col .val{font-size:9px;color:var(--dl-accent);margin-bottom:1px}
 .config-gallery{display:flex;gap:3px;flex-wrap:wrap;margin-top:6px}
-.config-block{height:14px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;min-width:20px}
-.config-J{background:#2563eb}.config-PS,.config-PE{background:#0d9488}.config-F{background:#7c3aed}.config-E\\+{background:#16a34a}.config-Y{background:#475569}
+.config-block{height:14px;border-radius:2px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;min-width:40px}
+.config-J{background:#AD17C0}.config-PS{background:#B30051}.config-F{background:#B30051}.config-C\+{background:#0F6EBE}.config-Y{background:#1E4E8E}
 .refresh-btn{background:var(--dl-blue);color:#fff;border:none;padding:6px 14px;border-radius:4px;cursor:pointer;font-family:var(--font-ui);font-size:10px;font-weight:600;transition:background-color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .refresh-btn:hover{background:#1a4d8a}
 
@@ -2905,7 +2905,7 @@ function showConfigGallery(type) {
     configs[key].count++;
   });
 
-  const colors = { J: '#2563eb', PS: '#0d9488', F: '#7c3aed', 'C+': '#16a34a', Y: '#475569', Domestic: '#6366f1' };
+  const colors = { J: '#AD17C0', PS: '#B30051', F: '#B30051', 'C+': '#0F6EBE', Y: '#1E4E8E', Domestic: '#1E4E8E' };
   let html = `<div style="font-size:13px;font-weight:700;color:var(--dl-accent);margin-bottom:8px">${type} Configurations</div>`;
 
   for (const [cfg, data] of Object.entries(configs)) {
