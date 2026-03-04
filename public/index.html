@@ -780,7 +780,7 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.ticker,.ticker-item,.
 <p style="font-size:11px;color:#64748b">Built for the Delta community by <a href="https://github.com/notjbg" style="color:#8ab4f8">Jonah Berg</a>. Not affiliated with Delta Air Lines, Inc. JavaScript is required for the live dashboard.</p>
 </div>
 </noscript>
-<div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or cancelled. Monitor delays and ground stops at all 9 Delta hubs: Atlanta ATL, New York LaGuardia LGA, New York JFK, Boston BOS, Detroit DTW, Minneapolis MSP, Salt Lake City SLC, Los Angeles LAX, and Seattle SEA. Search flights by number, tail number, or route. Check which Delta planes have WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
+<div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or canceled. Monitor delays and ground stops at all 9 Delta hubs: Atlanta ATL, New York LaGuardia LGA, New York JFK, Boston BOS, Detroit DTW, Minneapolis MSP, Salt Lake City SLC, Los Angeles LAX, and Seattle SEA. Search flights by number, tail number, or route. Check which Delta planes have WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
 <!-- TICKER -->
 <div class="ticker-wrap">
   <span class="ticker-label">▌ALERTS</span>
@@ -1221,7 +1221,7 @@ const FLEET_HEALTH_CATEGORIES = [
 function categorizeFleetStatus(s) {
   if (!s) return 'active';
   if (s.startsWith('*')) return 'active';
-  // if (/SPIRIT OF FREEDOM|ANDREW YOUNG TRIBUTE|D-DAY DEDICATION|AMERICAN CANCER SOCIETY|VINCE DOOLEY DEDICATION|SKYTEAM|BREAST CANCER PINK PLANE|CAPTAIN DAVE VORGIAS|THANK YOU PLANE|CIRIUM-PLANTINUM AWARD|TEAM USA|THE DELTA SPIRIT|LA28 SUMMER OLYMPICS|DELTA CENTENNIAL|MILANO CORTINO 2026|ATLANTA BRAVES|SPIRIT OF SEATTLE|CE WOOLMAN TRIBUTE|MARIANO RIVERA/i.test(s)) return 'active';
+  if (/SPIRIT OF FREEDOM|ANDREW YOUNG TRIBUTE|D-DAY DEDICATION|AMERICAN CANCER SOCIETY|VINCE DOOLEY DEDICATION|SKYTEAM|BREAST CANCER PINK PLANE|CAPTAIN DAVE VORGIAS|THANK YOU PLANE|CIRIUM-PLANTINUM AWARD|TEAM USA|THE DELTA SPIRIT|LA28 SUMMER OLYMPICS|DELTA CENTENNIAL|MILANO CORTINO 2026|ATLANTA BRAVES|SPIRIT OF SEATTLE|CE WOOLMAN TRIBUTE|MARIANO RIVERA/i.test(s)) return 'active';
   if (/stored/i.test(s)) return 'stored';
   if (/\bpaint\b/i.test(s)) return 'painting';
   if (/\bmod\s*next\b/i.test(s)) return 'next_retrofit';
@@ -4579,7 +4579,7 @@ function renderIrropsFromAPI(data) {
         // High cancellation rate: show red even if too few operated flights
         const cancelRate = m.total > 10 ? (m.cancellations || 0) / m.total : 0;
         if ((!operated || operated < 5) && cancelRate >= 0.5) {
-          // Mostly/fully cancelled hub — show as critical
+          // Mostly/fully canceled hub — show as critical
           const cancelPct = Math.round(cancelRate * 100);
           hubHealthData[hub] = 0;
           html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> 🔴 <span class="hh-pct" style="color:#ef4444">${cancelPct}% CX</span></span>`;
@@ -4741,7 +4741,7 @@ function clearAllWatched() {
 function isSignificantStatusChange(oldStatus, newStatus) {
   if (!oldStatus || !newStatus || oldStatus === newStatus) return false;
   const nl = newStatus.toLowerCase();
-  // Always notify: cancelled, diverted, landed, departed
+  // Always notify: canceled, diverted, landed, departed
   if (nl.includes('cancel') || nl.includes('divert') || nl.includes('landed') || nl.includes('departed')) return true;
   // Notify if delay appeared or gate changed
   if (nl.includes('delay')) return true;
@@ -5077,7 +5077,7 @@ function hideDisclaimer() {
       <p style="margin-bottom:12px"><strong style="color:var(--dl-yellow)">Widget Watch is an independent, fan-built project and is not affiliated with, endorsed by, or connected to Delta Air Lines, Inc.</strong> "Delta Air Lines" and the Delta logo are trademarks of Delta Air Lines, Inc. An independent tool built for the Delta community.</p>
       <p style="margin-bottom:12px"><strong>Data Sources & Attribution:</strong></p>
       <ul style="margin:0 0 12px 20px;color:var(--dl-muted)">
-        <li><a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">Flightradar24</a> — Live flight positions and schedule data</li>
+        <li><a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">FlightRadar24</a> — Live flight positions and schedule data</li>
         <li><a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">Aviation Weather Center (NOAA)</a> — METAR weather observations</li>
         <li><a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent)">FAA NAS Status</a> — Airport delay and closure information</li>
         <li>Fleet configuration data sourced from publicly available records</li>
