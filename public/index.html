@@ -199,7 +199,7 @@
 <link rel="preload" href="https://a.basemaps.cartocdn.com/dark_all/4/3/5.png" as="image" fetchpriority="high">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--dl-blue:#003A70;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#E8294A;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--bg-card:#111827;--font-ui:'Inter',system-ui,-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace;--mono:'JetBrains Mono',monospace}
+:root{--dl-blue:#7799CC;--dl-dark:#0a0e14;--dl-panel:#111827;--dl-border:#1e293b;--dl-text:#e2e8f0;--dl-muted:#94a3b8;--dl-accent:#E8294A;--dl-green:#22c55e;--dl-yellow:#eab308;--dl-red:#ef4444;--bg-card:#111827;--font-ui:'Inter',system-ui,-apple-system,sans-serif;--font-mono:'JetBrains Mono',monospace;--mono:'JetBrains Mono',monospace}
 body{background:var(--dl-dark);color:var(--dl-text);font-family:var(--font-ui);overflow:hidden;font-size:12px;height:100vh;height:100dvh;display:flex;flex-direction:column}
 body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 49px,rgba(30,41,59,.15) 50px),repeating-linear-gradient(90deg,transparent,transparent 49px,rgba(30,41,59,.15) 50px);pointer-events:none;z-index:0}
 
@@ -341,7 +341,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 #tab-fleet{padding:16px;flex:1;min-height:0;overflow-y:auto}
 .card{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:14px;margin-bottom:14px}
 .card h3{font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
-.fleet-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px;margin-bottom:14px}
+.fleet-chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px;margin-bottom:14px}
 .fleet-chip{background:rgba(15,23,41,.8);border:1px solid var(--dl-border);border-radius:6px;padding:8px;text-align:center;cursor:pointer;transition:border-color .2s cubic-bezier(.4,0,.2,1),background-color .2s cubic-bezier(.4,0,.2,1)}
 .fleet-chip:hover,.fleet-chip.active{border-color:var(--dl-blue);background:rgba(0,58,112,.1)}
 .fleet-chip .count{font-size:20px;font-weight:700;color:var(--dl-blue)}
@@ -973,10 +973,10 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.ticker,.ticker-item,.
     </div>
     <div id="fleet-live-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading live fleet data...<br><button class="retry-btn" data-action="refresh-flights" style="margin-top:8px">⏳ Load Now</button></div></div>
   </div>
-  <!--div class="card" id="fleet-health-card">
+  <div class="card" id="fleet-health-card">
     <h3>🏥 Fleet Health</h3>
     <div id="fleet-health-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading fleet health data...</div></div>
-  </div-->
+  </div>
   <div class="card">
     <h3 id="fleet-overview-title">Fleet Overview</h3>
     <div class="fleet-chips" id="fleet-chips"></div>
@@ -1214,7 +1214,7 @@ const FLEET_HEALTH_CATEGORIES = [
 function categorizeFleetStatus(s) {
   if (!s) return 'active';
   if (s.startsWith('*')) return 'active';
-  if (/100 Year Sticker|Eco Demonstrator/i.test(s)) return 'active';
+  if (/SPIRIT OF FREEDOM|ANDREW YOUNG TRIBUTE|D-DAY DEDICATION|AMERICAN CANCER SOCIETY|VINCE DOOLEY DEDICATION|SKYTEAM|BREAST CANCER PINK PLANE|CAPTAIN DAVE VORGIAS|THANK YOU PLANE|CIRIUM-PLANTINUM AWARD|TEAM USA|THE DELTA SPIRIT|LA28 SUMMER OLYMPICS|DELTA CENTENNIAL|MILANO CORTINO 2026|ATLANTA BRAVES|SPIRIT OF SEATTLE|CE WOOLMAN TRIBUTE|MARIANO RIVERA/i.test(s)) return 'active';
   if (/stored/i.test(s)) return 'stored';
   if (/\bpaint\b/i.test(s)) return 'painting';
   if (/\bmod\s*next\b/i.test(s)) return 'next_retrofit';
@@ -1236,10 +1236,45 @@ function buildSpecialAircraftIndex() {
     if (!a.s) return;
     if (a.s.startsWith('*')) {
       SPECIAL_AIRCRAFT[a.r] = { name: a.s.replace(/^\*+|\*+$/g, '').trim(), type: 'named' };
-    } else if (/100 Year Sticker/i.test(a.s)) {
-      SPECIAL_AIRCRAFT[a.r] = { name: '100 Year Sticker', type: 'livery' };
-    } else if (/Eco Demonstrator/i.test(a.s)) {
-      SPECIAL_AIRCRAFT[a.r] = { name: 'Eco Demonstrator Explorer', type: 'livery' };
+    } else if (/SPIRIT OF FREEDOM/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'SPIRIT OF FREEDOM', type: 'livery' };
+    } else if (/ANDREW YOUNG TRIBUTE/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'ANDREW YOUNG TRIBUTE', type: 'livery' };
+    } else if (/D-DAY DEDICATION/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'D-DAY DEDICATION', type: 'livery' };
+    } else if (/AMERICAN CANCER SOCIETY/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'AMERICAN CANCER SOCIETY', type: 'livery' };
+    } else if (/VINCE DOOLEY DEDICATION/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'VINCE DOOLEY DEDICATION', type: 'livery' };
+    } else if (/SKYTEAM/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'SKYTEAM', type: 'livery' };
+    } else if (/BREAST CANCER PINK PLANE/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'BREAST CANCER PINK PLANE', type: 'livery' };
+    } else if (/CAPTAIN DAVE VORGIAS/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'CAPTAIN DAVE VORGIAS', type: 'livery' };
+    } else if (/THANK YOU PLANE/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'THANK YOU PLANE', type: 'livery' };
+    } else if (/CIRIUM-PLANTINUM AWARD/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'CIRIUM-PLANTINUM AWARD', type: 'livery' };
+    } else if (/TEAM USA/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'TEAM USA', type: 'livery' };
+    } else if (/LA28 SUMMER OLYMPICS/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'LA28 SUMMER OLYMPICS', type: 'livery' };
+    } else if (/DELTA CENTENNIAL/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'DELTA CENTENNIAL', type: 'livery' };
+    } else if (/MILANO CORTINO 2026/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'MILANO CORTINO 2026', type: 'livery' };
+    } else if (/ATLANTA BRAVES/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'ATLANTA BRAVES', type: 'livery' };
+    } else if (/SPIRIT OF SEATTLE/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'SPIRIT OF SEATTLE', type: 'livery' };
+    } else if (/CE WOOLMAN TRIBUTE/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'CE WOOLMAN TRIBUTE', type: 'livery' };
+    } else if (/MARIANO RIVERA/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = {name: 'MARIANO RIVERA', type: 'livery'};
+    }
+    else if (/THE DELTA SPIRIT/i.test(a.s)) {
+      SPECIAL_AIRCRAFT[a.r] = { name: 'THE DELTA SPIRIT', type: 'livery' };
     }
   });
 }
@@ -1250,13 +1285,14 @@ function isSpecialAircraft(reg) {
 
 // ═══ ENGINE TYPE LOOKUP ═══
 const ENGINE_BY_TYPE = {
-  'A319':'IAE V2524-A5','A320':'IAE V2527-A5','A321neo':'CFM LEAP-1A',
-  '737-700':'CFM56-7B22','737-800':'CFM56-7B26','737-900':'CFM56-7B26',
-  '737-900ER':'CFM56-7B27','737 MAX 8':'CFM LEAP-1B28','737 MAX 9':'CFM LEAP-1B28',
-  '757-200':'RB211-535E4B','757-300':'RB211-535E4B',
-  '767-300ER':'CF6-80C2B7F','767-400ER':'CF6-80C2B8F',
-  '777-200':'PW4077','777-200ER':'PW4090','777-300ER':'GE90-115B',
-  '787-8':'GEnx-1B64','787-9':'GEnx-1B74','787-10':'GEnx-1B76'
+  '717-200': 'BR715-C1',
+  'A220-100':'PW1521G','A220-300':'PW1524G',
+  'A319':'CFM56-5-A5','A320':'CFM56-5-A3','A321':'CFM56-5B3','A321neo':'PW1133G',
+  '737-800':'CFM56-7B26','737-900ER':'CFM56-7B27',
+  '757-200':'PW2037','757-300':'PW2040',
+  '767-300ER':'CF6-80C2B6F','767-400ER':'CF6-80C2B8FG01',
+  'A330-200':'PW4168A','A330-300':'CF6-80E1A4','A330-900neo':'TRENT7000',
+  'A350-900':'TRENTXWB84'
 };
 
 // ═══ AIRPORT DATABASE (150 airports) ═══
@@ -2685,7 +2721,7 @@ function initFleetTab() {
   const typeCounts = {};
   FLEET_DB.forEach(a => { typeCounts[a.t] = (typeCounts[a.t] || 0) + 1; });
   const typeOrder = ["A220-100","A220-300","A319","A320","A321","A321neo","A330-200","A330-300","A330-900neo","A350-900","717-200","737-800","737-900ER","757-200","757-300","767-300ER","767-400ER"];
-  const icons = {'A319':'🔹','A320':'🔹','737-700':'🔸','737-800':'🔸','737-900':'🔸','737 MAX':'⭐','757':'🔷','767':'🔷','777':'💎','777-200':'💎','787-8':'🌟','777-300ER':'👑'};
+  const icons = {'A220-100':'🟡','A220-300':'🟡','A319':'🟠','A320':'🟠','A321':'🟠','A321neo':'🟠','A330-200':'🟢','A330-300':'🟢','A330-900neo':'🟢','A350-900':'🟣','B717-200':'🟨','737-800':'🟧','737-900ER':'🟧','757-200':'🟩','757-300':'🟩','767-300ER':'🟪','767-400ER':'🟥'};
 
   document.getElementById('fleet-chips').innerHTML = typeOrder.map(t =>
     `<div class="fleet-chip" data-action="filter-fleet-type" data-type="${t}">
@@ -2882,13 +2918,14 @@ function showConfigGallery(type) {
 
 function renderAgeChart() {
   const familyColor = {
-    'A319': '#8b5cf6', 'A320': '#8b5cf6', 'A321neo': '#a78bfa',
+    '717-200': '#d46306',
+    'A220-100': '#06b6d4', 'A220-300': '#06b6d4',
+    'A319': '#8b5cf6', 'A320': '#8b5cf6', 'A321': '#a78bfa', 'A321neo': '#a78bfa',
     '737-700': '#3b82f6', '737-800': '#3b82f6', '737-900': '#3b82f6', '737-900ER': '#3b82f6',
-    '737 MAX 8': '#22c55e', '737 MAX 9': '#22c55e',
+    'A330-200': '#22c55e', 'A330-300': '#22c55e','A330-900neo': '#22c55e',
     '757-200': '#f59e0b', '757-300': '#f59e0b',
     '767-300ER': '#ef4444', '767-400ER': '#ef4444',
-    '777-200': '#ec4899', '777-200ER': '#ec4899', '777-300ER': '#ec4899',
-    '787-8': '#06b6d4', '787-9': '#06b6d4', '787-10': '#06b6d4'
+    'A350-900': '#ec4899',
   };
   const familyNames = {
     '#8b5cf6': 'A320 family', '#a78bfa': 'A321neo', '#3b82f6': '737NG',
@@ -4165,13 +4202,14 @@ document.addEventListener('click', function(e) { if (!document.getElementById('g
 
 // ═══ EQUIPMENT SWAP DETECTION ═══
 const ICAO_TO_FLEET_TYPE = {
-  'A319':'A319','A320':'A320','A21N':'A321neo',
-  'B737':'737-700','B738':'737-800','B739':'737-900',
-  'B39M':'737 MAX 9','B38M':'737 MAX 8',
+  'B717':'717-200',
+  'BCS1':'A220-100','BCS3':'A220-300',
+  'A319':'A319','A320':'A320','A321':'A321','A21N':'A321neo',
+  'A332':'A330-200','A333':'A330-300','A339':'A330-900neo',
+  'A359':'A350-900',
+  'B737':'737-700','B738':'737-800','B739':'737-900ER',
   'B752':'757-200','B753':'757-300',
   'B763':'767-300ER','B764':'767-400ER',
-  'B772':'777-200','B77E':'777-200ER','B77W':'777-300ER',
-  'B788':'787-8','B789':'787-9','B78X':'787-10'
 };
 
 // Cabin class rankings: higher = more premium
