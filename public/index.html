@@ -32,25 +32,25 @@
 <link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Craighton Miller">
+<meta name="apple-mobile-web-app-title" content="Widget Watch">
 <title>Widget Watch — Delta Flight Tracker</title>
-<meta name="description" content="Free Delta Air Lines flight tracker updated every 30 seconds. Track any DL flight status live, check delays at all 9 hubs (ATL, LGA, JFK, BOS, DTW, MSP, SLC, LAX, SEA), see which planes have WiFi, browse the full fleet database, and monitor weather disruptions. Independent ops dashboard built for Delta flyers.">
-<meta name="keywords" content="Delta flight tracker, Delta Air Lines flight status, DL flight status, Delta Air Lines flight tracker, Delta Air Lines delays today, DL flight tracker, Delta Air Lines live map, Delta hub delays, Delta WiFi tracker, Delta WiFi, Delta Air Lines ATL delays, Delta Air Lines JFK delays, Delta Air Lines BOS delays, Delta Air Lines DTW delays, Delta Air Lines MSP delays, Delta Air Lines SLC delays, Delta Air Lines SEA delays, is my Delta flight on time, Delta Air Lines cancellations, Delta fleet tracker, Delta Air Lines aircraft, Delta Air Lines schedule, Delta Air Lines weather delays, DL delays, Delta Air Lines ground stops, Delta Air Lines disruptions, DL flight tracking">
-<meta name="author" content="Craighton Miller">
+<meta name="description" content="Free Delta Air Lines flight tracker updated every 30 seconds. Track any Delta flight status live, check delays at all 9 hubs (ATL, LGA, JFK, BOS, DTW, MSP, SLC, LAX, SEA), see which planes have WiFi, browse the full fleet database, and monitor weather disruptions. Independent ops dashboard built for Delta flyers.">
+<meta name="keywords" content="Delta flight tracker, Delta Air Lines flight status, Delta flight status, Delta Air Lines flight tracker, Delta Air Lines delays today, Delta flight tracker, Delta Air Lines live map, Delta hub delays, Delta WiFi tracker, Delta WiFi, Delta Air Lines ATL delays, Delta Air Lines JFK delays, Delta Air Lines BOS delays, Delta Air Lines DTW delays, Delta Air Lines MSP delays, Delta Air Lines SLC delays, Delta Air Lines SEA delays, is my Delta flight on time, Delta Air Lines cancellations, Delta fleet tracker, Delta Air Lines aircraft, Delta Air Lines schedule, Delta Air Lines weather delays, DL delays, Delta Air Lines ground stops, Delta Air Lines disruptions, Delta flight tracking">
+<meta name="author" content="Widget Watch">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<meta property="og:title" content="Widget Watch — Delta Flight Tracker — Live Status, Delays & Fleet Database">
-<meta property="og:description" content="Free Delta Air Lines flight tracker — track any DL flight live, check delays at all 9 hubs, see which planes have WiFi, and monitor disruptions. Updated every 30 seconds.">
+<meta property="og:title" content="Widget Watch — Delta Flight Tracker, Live Status, Delays & Fleet Database">
+<meta property="og:description" content="Free Delta Air Lines flight tracker — track any Delta flight live, check delays at all 9 hubs, see which planes have WiFi, and monitor disruptions. Updated every 30 seconds.">
 <meta property="og:url" content="https://widgetwatch.org">
-<meta property="og:site_name" content="Craighton Miller">
+<meta property="og:site_name" content="Widget Watch">
 <meta property="og:image" content="https://widgetwatch.org/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="Widget Watch — live Delta Air Lines flight tracker showing 600+ flights on a dark operations map of the United States with hub delay status">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Widget Watch — Delta Flight Tracker — Live Status, Delays & Fleet Database">
-<meta name="twitter:description" content="Free Delta Air Lines flight tracker — track any DL flight live, check hub delays, WiFi status, fleet data, and schedules. Updated every 30 seconds.">
+<meta name="twitter:title" content="Widget Watch — Delta Flight Tracker, Live Status, Delays & Fleet Database">
+<meta name="twitter:description" content="Free Delta Air Lines flight tracker — track any Delta flight live, check hub delays, WiFi status, fleet data, and schedules. Updated every 30 seconds.">
 <meta name="twitter:image" content="https://widgetwatch.org/og-image.png">
 <meta name="twitter:site" content="@theblueboard">
 <meta name="twitter:creator" content="@theblueboard">
@@ -140,7 +140,7 @@
       "name": "How do I track a Delta Air Lines flight?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Use Widget Watch's free Delta flight tracker at widgetwatch.org. Enter any DL flight number (e.g., DL 875, DL1234) in the search bar to see its live position, altitude, speed, route, delay status, and aircraft details. The map updates every 30 seconds with all 600+ Delta flights in the air."
+        "text": "Use Widget Watch's free Delta flight tracker at widgetwatch.org. Enter any Delta flight number (e.g., DL 875, DL1234) in the search bar to see its live position, altitude, speed, route, delay status, and aircraft details. The map updates every 30 seconds with all 600+ Delta flights in the air."
       }
     }
   ]
@@ -1385,65 +1385,96 @@ const HUBS = AIRPORTS.filter(a => a.hub);
 const HUB_CODES = HUBS.map(h => h.iata);
 
 // ═══ DL ROUTE LOOKUP TABLE ═══
-// Static mapping of DL flight numbers to known city pairs (fallback for missing FR24 route data)
-const UA_ROUTES = {
-  1:{from:'SFO',to:'SIN'},2:{from:'SIN',to:'SFO'},3:{from:'SFO',to:'HKG'},4:{from:'HKG',to:'SFO'},
-  5:{from:'SFO',to:'SYD'},6:{from:'SYD',to:'SFO'},7:{from:'SFO',to:'NRT'},8:{from:'NRT',to:'SFO'},
-  9:{from:'EWR',to:'CDG'},10:{from:'CDG',to:'EWR'},11:{from:'EWR',to:'BRU'},12:{from:'BRU',to:'EWR'},
-  17:{from:'EWR',to:'LHR'},18:{from:'LHR',to:'EWR'},21:{from:'EWR',to:'LIS'},22:{from:'LIS',to:'EWR'},
-  23:{from:'SFO',to:'ICN'},24:{from:'ICN',to:'SFO'},25:{from:'EWR',to:'FRA'},26:{from:'FRA',to:'EWR'},
-  27:{from:'EWR',to:'ZRH'},28:{from:'ZRH',to:'EWR'},29:{from:'EWR',to:'DUB'},30:{from:'DUB',to:'EWR'},
-  31:{from:'EWR',to:'FCO'},32:{from:'FCO',to:'EWR'},33:{from:'EWR',to:'AMS'},34:{from:'AMS',to:'EWR'},
-  35:{from:'SFO',to:'TPE'},36:{from:'TPE',to:'SFO'},37:{from:'EWR',to:'IST'},38:{from:'IST',to:'EWR'},
-  39:{from:'EWR',to:'MAD'},40:{from:'MAD',to:'EWR'},41:{from:'EWR',to:'BCN'},42:{from:'BCN',to:'EWR'},
-  43:{from:'SFO',to:'BKK'},44:{from:'BKK',to:'SFO'},45:{from:'IAH',to:'LHR'},46:{from:'LHR',to:'IAH'},
-  50:{from:'EWR',to:'TLV'},51:{from:'TLV',to:'EWR'},52:{from:'IAD',to:'LHR'},53:{from:'LHR',to:'IAD'},
-  54:{from:'SFO',to:'DEL'},55:{from:'DEL',to:'SFO'},56:{from:'EWR',to:'DEL'},57:{from:'DEL',to:'EWR'},
-  58:{from:'EWR',to:'EDI'},59:{from:'EDI',to:'EWR'},60:{from:'EWR',to:'MUC'},61:{from:'MUC',to:'EWR'},
-  62:{from:'EWR',to:'CPH'},63:{from:'CPH',to:'EWR'},64:{from:'EWR',to:'HEL'},65:{from:'HEL',to:'EWR'},
-  66:{from:'EWR',to:'ARN'},67:{from:'ARN',to:'EWR'},68:{from:'EWR',to:'OSL'},69:{from:'OSL',to:'EWR'},
-  70:{from:'IAD',to:'CDG'},71:{from:'CDG',to:'IAD'},72:{from:'IAD',to:'FRA'},73:{from:'FRA',to:'IAD'},
-  78:{from:'ORD',to:'LHR'},79:{from:'LHR',to:'ORD'},80:{from:'ORD',to:'FRA'},81:{from:'FRA',to:'ORD'},
-  82:{from:'ORD',to:'CDG'},83:{from:'CDG',to:'ORD'},84:{from:'ORD',to:'MUC'},85:{from:'MUC',to:'ORD'},
-  86:{from:'ORD',to:'NRT'},87:{from:'NRT',to:'ORD'},88:{from:'ORD',to:'PEK'},89:{from:'PEK',to:'ORD'},
-  90:{from:'ORD',to:'ICN'},91:{from:'ICN',to:'ORD'},92:{from:'ORD',to:'HND'},93:{from:'HND',to:'ORD'},
-  94:{from:'ORD',to:'DEL'},95:{from:'DEL',to:'ORD'},96:{from:'SFO',to:'PVG'},97:{from:'PVG',to:'SFO'},
-  100:{from:'EWR',to:'PEK'},101:{from:'PEK',to:'EWR'},102:{from:'EWR',to:'PVG'},103:{from:'PVG',to:'EWR'},
-  106:{from:'EWR',to:'HND'},107:{from:'HND',to:'EWR'},108:{from:'EWR',to:'NRT'},109:{from:'NRT',to:'EWR'},
-  116:{from:'SFO',to:'MNL'},117:{from:'MNL',to:'SFO'},118:{from:'IAH',to:'NRT'},119:{from:'NRT',to:'IAH'},
-  120:{from:'LAX',to:'SYD'},121:{from:'SYD',to:'LAX'},122:{from:'LAX',to:'MEL'},123:{from:'MEL',to:'LAX'},
-  130:{from:'IAD',to:'TLV'},131:{from:'TLV',to:'IAD'},132:{from:'IAH',to:'EZE'},133:{from:'EZE',to:'IAH'},
-  134:{from:'IAH',to:'GRU'},135:{from:'GRU',to:'IAH'},136:{from:'EWR',to:'GRU'},137:{from:'GRU',to:'EWR'},
-  138:{from:'IAH',to:'SCL'},139:{from:'SCL',to:'IAH'},142:{from:'IAH',to:'BOG'},143:{from:'BOG',to:'IAH'},
-  146:{from:'IAH',to:'LIM'},147:{from:'LIM',to:'IAH'},148:{from:'EWR',to:'BOG'},149:{from:'BOG',to:'EWR'},
-  150:{from:'DEN',to:'NRT'},151:{from:'NRT',to:'DEN'},152:{from:'LAX',to:'NRT'},153:{from:'NRT',to:'LAX'},
-  154:{from:'LAX',to:'ICN'},155:{from:'ICN',to:'LAX'},156:{from:'LAX',to:'PVG'},157:{from:'PVG',to:'LAX'},
-  160:{from:'SFO',to:'LHR'},161:{from:'LHR',to:'SFO'},162:{from:'IAH',to:'FRA'},163:{from:'FRA',to:'IAH'},
-  168:{from:'EWR',to:'SIN'},169:{from:'SIN',to:'EWR'},170:{from:'SFO',to:'FRA'},171:{from:'FRA',to:'SFO'},
-  174:{from:'EWR',to:'HKG'},175:{from:'HKG',to:'EWR'},176:{from:'EWR',to:'BOM'},177:{from:'BOM',to:'EWR'},
-  178:{from:'DEN',to:'LHR'},179:{from:'LHR',to:'DEN'},180:{from:'DEN',to:'FRA'},181:{from:'FRA',to:'DEN'},
-  182:{from:'IAH',to:'MEX'},183:{from:'MEX',to:'IAH'},186:{from:'ORD',to:'DUB'},187:{from:'DUB',to:'ORD'},
-  194:{from:'LAX',to:'LHR'},195:{from:'LHR',to:'LAX'},198:{from:'IAH',to:'CUN'},199:{from:'CUN',to:'IAH'},
-  200:{from:'SFO',to:'GRU'},201:{from:'GRU',to:'SFO'},204:{from:'IAH',to:'PTY'},205:{from:'PTY',to:'IAH'},
-  214:{from:'IAD',to:'IST'},215:{from:'IST',to:'IAD'},218:{from:'DEN',to:'NRT'},219:{from:'NRT',to:'DEN'},
-  234:{from:'ORD',to:'AMS'},235:{from:'AMS',to:'ORD'},238:{from:'ORD',to:'IST'},239:{from:'IST',to:'ORD'},
-  250:{from:'ORD',to:'BCN'},251:{from:'BCN',to:'ORD'},252:{from:'ORD',to:'ZRH'},253:{from:'ZRH',to:'ORD'},
-  254:{from:'ORD',to:'FCO'},255:{from:'FCO',to:'ORD'},262:{from:'ORD',to:'EDI'},263:{from:'EDI',to:'ORD'},
-  315:{from:'DEN',to:'HND'},316:{from:'HND',to:'DEN'},400:{from:'DEN',to:'SFO'},401:{from:'SFO',to:'DEN'},
-  444:{from:'EWR',to:'LAX'},445:{from:'LAX',to:'EWR'},500:{from:'SFO',to:'EWR'},501:{from:'EWR',to:'SFO'},
-  507:{from:'LAX',to:'HNL'},508:{from:'HNL',to:'LAX'},509:{from:'SFO',to:'HNL'},510:{from:'HNL',to:'SFO'},
-  708:{from:'ORD',to:'DOH'},709:{from:'DOH',to:'ORD'},730:{from:'IAD',to:'ADD'},731:{from:'ADD',to:'IAD'},
-  733:{from:'IAD',to:'ACC'},734:{from:'ACC',to:'IAD'},735:{from:'IAD',to:'JNB'},736:{from:'JNB',to:'IAD'},
-  737:{from:'EWR',to:'CPT'},738:{from:'CPT',to:'EWR'},780:{from:'EWR',to:'DOH'},781:{from:'DOH',to:'EWR'},
-  788:{from:'EWR',to:'DXB'},789:{from:'DXB',to:'EWR'},838:{from:'SFO',to:'ICN'},839:{from:'ICN',to:'SFO'},
-  857:{from:'SFO',to:'PEK'},858:{from:'PEK',to:'SFO'},872:{from:'SFO',to:'HND'},873:{from:'HND',to:'SFO'},
-  875:{from:'SFO',to:'NRT'},876:{from:'NRT',to:'SFO'},881:{from:'LAX',to:'HND'},882:{from:'HND',to:'LAX'},
-  893:{from:'IAH',to:'SYD'},894:{from:'SYD',to:'IAH'},896:{from:'SFO',to:'MEL'},897:{from:'MEL',to:'SFO'},
-  1100:{from:'EWR',to:'SFO'},1101:{from:'SFO',to:'EWR'},1200:{from:'SFO',to:'ORD'},1201:{from:'ORD',to:'SFO'},
-  1300:{from:'DEN',to:'EWR'},1301:{from:'EWR',to:'DEN'},1400:{from:'IAH',to:'SFO'},1401:{from:'SFO',to:'IAH'},
-  1500:{from:'DEN',to:'LAX'},1501:{from:'LAX',to:'DEN'},1600:{from:'ORD',to:'LAX'},1601:{from:'LAX',to:'ORD'},
-  1700:{from:'DEN',to:'ORD'},1701:{from:'ORD',to:'DEN'},1800:{from:'IAH',to:'EWR'},1801:{from:'EWR',to:'IAH'},
-  1900:{from:'IAD',to:'LAX'},1901:{from:'LAX',to:'IAD'},2000:{from:'IAD',to:'SFO'},2001:{from:'SFO',to:'IAD'}
+// Static mapping of Delta flight numbers to known city pairs (fallback for missing FR24 route data)
+const DL_ROUTES = {
+  // JFK: London Heathrow (flagship Delta One routes, multiple daily)
+  1:{from:'JFK',to:'LHR'},2:{from:'LHR',to:'JFK'},
+  3:{from:'JFK',to:'LHR'},4:{from:'LHR',to:'JFK'},
+  // LAX: Tokyo Haneda
+  7:{from:'LAX',to:'HND'},8:{from:'HND',to:'LAX'},
+  // MSP: London Heathrow
+  9:{from:'LHR',to:'MSP'},10:{from:'MSP',to:'LHR'},
+  // SEA: London Heathrow
+  20:{from:'SEA',to:'LHR'},21:{from:'LHR',to:'SEA'},
+  // JFK: Mumbai
+  24:{from:'JFK',to:'BOM'},25:{from:'BOM',to:'JFK'},
+  // ATL: Seoul Incheon (multiple daily)
+  26:{from:'ICN',to:'ATL'},27:{from:'ATL',to:'ICN'},
+  // ATL: London Heathrow (multiple daily)
+  30:{from:'ATL',to:'LHR'},31:{from:'LHR',to:'ATL'},
+  32:{from:'ATL',to:'LHR'},33:{from:'LHR',to:'ATL'},
+  36:{from:'ATL',to:'LHR'},37:{from:'LHR',to:'ATL'},
+  // LAX: Shanghai Pudong
+  38:{from:'PVG',to:'LAX'},39:{from:'LAX',to:'PVG'},
+  // LAX: Sydney (multiple daily)
+  40:{from:'SYD',to:'LAX'},41:{from:'LAX',to:'SYD'},
+  42:{from:'SYD',to:'LAX'},43:{from:'LAX',to:'SYD'},
+  // JFK: Amsterdam (multiple daily)
+  46:{from:'JFK',to:'AMS'},47:{from:'AMS',to:'JFK'},
+  48:{from:'JFK',to:'AMS'},49:{from:'AMS',to:'JFK'},
+  // BOS: London Heathrow
+  58:{from:'BOS',to:'LHR'},59:{from:'LHR',to:'BOS'},
+  // ATL: Rome Fiumicino
+  66:{from:'ATL',to:'FCO'},67:{from:'FCO',to:'ATL'},
+  // ATL: Amsterdam (multiple daily)
+  72:{from:'ATL',to:'AMS'},73:{from:'AMS',to:'ATL'},
+  74:{from:'ATL',to:'AMS'},75:{from:'AMS',to:'ATL'},
+  // ATL: Paris CDG (multiple daily)
+  82:{from:'ATL',to:'CDG'},83:{from:'CDG',to:'ATL'},
+  84:{from:'ATL',to:'CDG'},85:{from:'CDG',to:'ATL'},
+  // ATL: Buenos Aires
+  101:{from:'ATL',to:'EZE'},110:{from:'EZE',to:'ATL'},
+  // ATL: São Paulo
+  104:{from:'GRU',to:'ATL'},105:{from:'ATL',to:'GRU'},
+  // MSP: Tokyo Haneda
+  120:{from:'HND',to:'MSP'},121:{from:'MSP',to:'HND'},
+  // DTW: Amsterdam (multiple daily)
+  132:{from:'DTW',to:'AMS'},133:{from:'AMS',to:'DTW'},
+  134:{from:'DTW',to:'AMS'},135:{from:'AMS',to:'DTW'},
+  136:{from:'DTW',to:'AMS'},137:{from:'AMS',to:'DTW'},
+  // SEA: Amsterdam
+  142:{from:'SEA',to:'AMS'},143:{from:'AMS',to:'SEA'},
+  // JFK: Rome Fiumicino
+  148:{from:'JFK',to:'FCO'},149:{from:'FCO',to:'JFK'},
+  // DTW: Seoul Incheon
+  158:{from:'ICN',to:'DTW'},159:{from:'DTW',to:'ICN'},
+  // MSP: Amsterdam
+  160:{from:'MSP',to:'AMS'},161:{from:'AMS',to:'MSP'},
+  // SEA: Tokyo Haneda
+  166:{from:'HND',to:'SEA'},167:{from:'SEA',to:'HND'},
+  // MSP: Seoul Incheon
+  170:{from:'ICN',to:'MSP'},171:{from:'MSP',to:'ICN'},
+  // ATL: Seoul Incheon (2nd daily)
+  188:{from:'ICN',to:'ATL'},189:{from:'ATL',to:'ICN'},
+  // ATL: Barcelona
+  194:{from:'ATL',to:'BCN'},195:{from:'BCN',to:'ATL'},
+  // SEA: Seoul Incheon
+  196:{from:'ICN',to:'SEA'},197:{from:'SEA',to:'ICN'},
+  // JFK: Athens
+  202:{from:'JFK',to:'ATH'},203:{from:'ATH',to:'JFK'},
+  // ATL: Rome Fiumicino (2nd daily)
+  214:{from:'ATL',to:'FCO'},215:{from:'FCO',to:'ATL'},
+  // ATL: Athens
+  222:{from:'ATL',to:'ATH'},223:{from:'ATH',to:'ATL'},
+  // JFK: Rome Fiumicino (2nd daily)
+  230:{from:'JFK',to:'FCO'},231:{from:'FCO',to:'JFK'},
+  // JFK: Paris CDG (multiple daily)
+  262:{from:'JFK',to:'CDG'},263:{from:'CDG',to:'JFK'},
+  266:{from:'JFK',to:'CDG'},267:{from:'CDG',to:'JFK'},
+  // ATL: Buenos Aires (2nd daily)
+  278:{from:'EZE',to:'ATL'},279:{from:'ATL',to:'EZE'},
+  // DTW: Tokyo Haneda
+  275:{from:'DTW',to:'HND'},276:{from:'HND',to:'DTW'},
+  // LAX: Paris CDG
+  290:{from:'LAX',to:'CDG'},291:{from:'CDG',to:'LAX'},
+  // ATL: Tokyo Haneda
+  294:{from:'HND',to:'ATL'},295:{from:'ATL',to:'HND'},
+  // DTW: Shanghai Pudong
+  388:{from:'PVG',to:'DTW'},389:{from:'DTW',to:'PVG'},
+  // JFK: Nice (seasonal)
+  412:{from:'JFK',to:'NCE'},413:{from:'NCE',to:'JFK'},
+  // SEA: Shanghai Pudong
+  588:{from:'PVG',to:'SEA'},589:{from:'SEA',to:'PVG'}
 };
 
 // ═══ IATA → CITY NAME MAPPING ═══
@@ -1776,8 +1807,8 @@ function estimateRoute(lat, lon, hdg, alt, vr, flightNum) {
   // Try static DL route lookup first
   if (flightNum) {
     const num = parseInt(String(flightNum).replace(/^DL/i, '').replace(/^DAL/i, ''), 10);
-    if (num && UA_ROUTES[num]) {
-      const r = UA_ROUTES[num];
+    if (num && DL_ROUTES[num]) {
+      const r = DL_ROUTES[num];
       const oApt = AIRPORTS.find(a => a.iata === r.from);
       const dApt = AIRPORTS.find(a => a.iata === r.to);
       if (oApt && dApt) return { origin: oApt, dest: dApt };
@@ -2048,7 +2079,7 @@ async function refreshFlights() {
     [updateMarkers, updateStats, updateHubStats, updateTicker].forEach(fn => { try { fn(); } catch(e) { console.error(fn.name + ':', e); } });
     try { if (document.getElementById('tab-fleet')?.classList.contains('active')) updateLiveFleetPanel(); } catch(e) { console.error('updateLiveFleetPanel:', e); }
     try { if (document.getElementById('tab-analytics')?.classList.contains('active')) updateAnalytics(); } catch(e) { console.error('updateAnalytics:', e); }
-    // Handle deep link: ?flight=UA1234 on first load
+    // Handle deep link: ?flight=DL1234 on first load
     if (!deepLinkHandled) {
       deepLinkHandled = true;
       const urlParams = new URLSearchParams(window.location.search);
@@ -3625,8 +3656,8 @@ function explainFAAStatus(airportCode, delays, rawData) {
 // ═══ SCHEDULE TAB ═══
 const SCHED_HUB_TZ = {ATL:'America/New_York',LGA:'America/New_York',JFK:'America/New_York',BOS:'America/New_York',DTW:'America/Detroit',MSP:'America/Chicago',SLC:'America/Denver',LAX:'America/Los_Angeles',SEA:'America/Los_Angeles'};
 let schedCache = {}; // key: "hub-dir-day-page"
-let schedAllFlights = []; // current filtered DL flights
-let schedRawByHub = {}; // key: "hub-dir-day" → [pages of DL flights]
+let schedAllFlights = []; // current filtered Delta flights
+let schedRawByHub = {}; // key: "hub-dir-day" → [pages of Delta flights]
 let schedCurrentDay = 0;
 let schedCurrentHub = '';
 let schedCurrentDir = 'departures';
@@ -3832,16 +3863,16 @@ async function loadScheduleData() {
       }
       if (lastErr) throw lastErr;
     }
-    const allUAFlights = result.flights || [];
+    const allDLFlights = result.flights || [];
 
     // Show cache indicator
     if (result.cached || result.fromLocalCache) {
-      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)}...<br><span style="font-size:10px;color:#4ecdc4">⚡ Served from cache · ${allUAFlights.length} DL flights</span>`;
+      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)}...<br><span style="font-size:10px;color:#4ecdc4">⚡ Served from cache · ${allDLFlights.length} Delta flights</span>`;
     }
 
-    schedAllFlights = allUAFlights;
-    schedRawByHub[hubKey] = allUAFlights;
-    detectEquipmentSwaps(allUAFlights, schedCurrentHub, schedCurrentDir, schedCurrentDay);
+    schedAllFlights = allDLFlights;
+    schedRawByHub[hubKey] = allDLFlights;
+    detectEquipmentSwaps(allDLFlights, schedCurrentHub, schedCurrentDir, schedCurrentDay);
     populateAircraftFilter();
     loadEl.style.display = 'none';
     tableWrap.style.display = 'block';
@@ -3849,7 +3880,7 @@ async function loadScheduleData() {
     renderScheduleStats();
     updateHubHealth();
     updateIrrops();
-    checkWatchedFlightChanges(allUAFlights);
+    checkWatchedFlightChanges(allDLFlights);
   } catch (err) {
     console.error('Schedule load error:', err);
     loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px">⚠️</div>Error loading schedule: ${escapeHtml(err.message)}<br><span style="font-size:10px">Try again in a moment</span><br><button onclick="loadScheduleData()" style="margin-top:8px;padding:4px 12px;background:var(--dl-blue);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px">↻ Retry</button>`;

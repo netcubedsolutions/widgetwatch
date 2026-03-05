@@ -1,5 +1,5 @@
 // FR24 Official API — Flight Lookup Endpoint
-// Usage: /api/fr24-flight?flight=UA838
+// Usage: /api/fr24-flight?flight=DL838
 //
 // Endpoints (from official SDK):
 //   Live positions: GET /api/live/flight-positions/full?flights={iata}
