@@ -1,5 +1,5 @@
 // Flight Times API — scrapes FlightAware for departure/arrival times
-// Usage: /api/flight-times?flight=UA2221
+// Usage: /api/flight-times?flight=DL2221
 // Returns scheduled, estimated, and actual gate/takeoff/landing times
 
 const CACHE_TTL_MS = 120_000; // 2 minutes

@@ -68,7 +68,7 @@ Each hub page includes: live flight count, hub overview, delay patterns and seas
 - Updated every 30 seconds using ADS-B data via Flightradar24
 - Interactive Leaflet map with dark theme tile layer
 - Click any flight icon to see: flight number, route, aircraft type/tail, altitude, speed, heading, delay status
-- Flight search by DL flight number (e.g., "DL 1234"), tail number (e.g., "N12345"), or airport code (e.g., "ORD")
+- Flight search by Delta flight number (e.g., "DL 1234"), tail number (e.g., "N12345"), or airport code (e.g., "ORD")
 
 ### Hub Health Monitoring
 - Real-time on-time percentage for all 9 hubs displayed in a health bar

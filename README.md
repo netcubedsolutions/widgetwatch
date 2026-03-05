@@ -37,7 +37,7 @@ FAA NAS delay and ground stop alerts, METAR observations with plain-English expl
 Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Wifi coverage metrics. All live data updates every 30 seconds.
 
 ### 🔍 Flight Search
-Look up any DL flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
+Look up any Delta flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
 
 ### More
 - **Deep-link hashes** — Share direct links to any tab (`#live`, `#schedule`, `#fleet`, `#weather`, `#stats`)
