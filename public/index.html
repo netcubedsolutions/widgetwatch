@@ -209,13 +209,6 @@ body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradi
 ::-webkit-scrollbar-thumb{background:var(--dl-border);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:#2d3a4f}
 
-/* Ticker */
-.ticker-wrap{background:var(--dl-panel);border-bottom:1px solid var(--dl-border);overflow:hidden;height:28px;position:relative;z-index:100;flex-shrink:0}
-.ticker{display:flex;align-items:center;height:100%;white-space:nowrap;will-change:transform}
-@keyframes tickerScroll{0%{transform:translate3d(0,0,0)}100%{transform:translate3d(var(--ticker-offset,-50%),0,0)}}
-.ticker-item{padding:0 40px;font-size:11px;font-weight:500;letter-spacing:.3px}
-.ticker-item.info{color:var(--dl-green)}.ticker-item.advisory{color:var(--dl-yellow)}.ticker-item.critical{color:var(--dl-red)}
-.ticker-label{background:var(--dl-blue);color:#fff;font-size:10px;font-weight:700;padding:2px 10px;position:absolute;left:0;top:0;height:100%;display:flex;align-items:center;z-index:2;letter-spacing:1px}
 
 /* Header */
 #header{display:flex;align-items:center;justify-content:space-between;padding:6px 16px;background:linear-gradient(90deg,var(--dl-dark),#0d1520);border-bottom:1px solid rgba(0,58,112,.3);flex-shrink:0}
@@ -564,13 +557,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
   .search-result{padding:10px 12px}
   /* Footer mobile */
   #disclaimer-modal > div{margin:10px;padding:16px}
-  /* ── Ticker: static single-line with fade rotation (Change 3) ── */
-  .ticker-wrap{overflow:hidden}
-  .ticker{animation:none!important;transform:none!important;overflow:hidden;position:relative}
-  .ticker .ticker-item{display:none;position:absolute;left:60px;right:0;top:0;height:100%;align-items:center;overflow:hidden;text-overflow:ellipsis;padding:0 10px;transition:opacity .4s ease}
-  .ticker .ticker-item.mobile-active{display:flex;opacity:1}
-  .ticker .ticker-item.mobile-fade-out{opacity:0}
-  /* ── Bottom nav: 4 tabs max, larger icons (Change 4) ── */
+/* ── Bottom nav: 4 tabs max, larger icons (Change 4) ── */
   #mobile-bottom-nav button .bnav-icon{font-size:22px}
   #mobile-bottom-nav button .bnav-label{font-size:12px}
   #mobile-bottom-nav .bnav-overflow-item{display:none}
@@ -717,7 +704,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 #watch-notification .wn-dismiss{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;padding:4px 10px;border-radius:3px;cursor:pointer;font-family:var(--font-ui);font-size:10px}
 
 /* ═══ HYBRID TYPOGRAPHY: Mono for data elements ═══ */
-table,thead th,tbody td,.stat-val,.metric-val,.big-number,.ticker,.ticker-item,.hub-code,.hub-card-code,.popup-callsign,.popup-field-value,.popup-route,.hub-raw,.hub-tooltip,.sched-status,#countdown,#clock,.irrops-card .iv,.irrops-score,.hh-hub,.fleet-chip .count,.equip-change-badge,.cat-badge,.hub-metric-val,.popup-phase,.seat-block,.freshness,.squawk-alert{font-family:var(--font-mono)}
+table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-code,.popup-callsign,.popup-field-value,.popup-route,.hub-raw,.hub-tooltip,.sched-status,#countdown,#clock,.irrops-card .iv,.irrops-score,.hh-hub,.fleet-chip .count,.equip-change-badge,.cat-badge,.hub-metric-val,.popup-phase,.seat-block,.freshness,.squawk-alert{font-family:var(--font-mono)}
 .onboarding-subtitle,.onboarding-desc,.onboarding-footer,.source-desc,.hub-explainer,.wx-explainer,.error-state,.empty-state,.hub-card-name,.stat-label,.metric-label,.big-number-label,.irrops-card .il,.hub-metric-label,.popup-field-label,.popup-route-est,.source-name,.source-link{font-family:var(--font-ui)}
 
 /* ═══ MICRO-INTERACTIONS: :active press feedback ═══ */
@@ -781,11 +768,6 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.ticker,.ticker-item,.
 </div>
 </noscript>
 <div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or canceled. Monitor delays and ground stops at all 9 Delta hubs: Atlanta ATL, New York LaGuardia LGA, New York JFK, Boston BOS, Detroit DTW, Minneapolis MSP, Salt Lake City SLC, Los Angeles LAX, and Seattle SEA. Search flights by number, tail number, or route. Check which Delta planes have WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <span class="ticker-label">▌ALERTS</span>
-  <div class="ticker" id="ticker"></div>
-</div>
 
 <!-- HUB HEALTH BAR -->
 <div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span></div>
@@ -1678,78 +1660,6 @@ switchToTab = function(tabId, updateHash) {
   }
 })();
 
-// ═══ MOBILE TICKER ROTATION (Change 3) ═══
-(function(){
-  var isMobile = function() { return window.innerWidth <= 768; };
-  var rotateInterval = null;
-  var fadeTimeout = null;
-  var currentIndex = 0;
-
-  function setupMobileTicker() {
-    var ticker = document.getElementById('ticker');
-    if (!ticker) return;
-    var items = ticker.querySelectorAll('.ticker-item');
-    // Only take unique items (ticker duplicates items for seamless scroll)
-    var uniqueCount = Math.ceil(items.length / 2);
-    if (uniqueCount === 0) return;
-
-    // Cancel any in-flight fade timeout to prevent stale currentIndex updates
-    if (fadeTimeout) { clearTimeout(fadeTimeout); fadeTimeout = null; }
-    clearInterval(rotateInterval);
-
-    // Reset all
-    for (var i = 0; i < items.length; i++) {
-      items[i].classList.remove('mobile-active', 'mobile-fade-out');
-    }
-
-    if (!isMobile()) return;
-
-    // Show first item
-    currentIndex = 0;
-    if (items[0]) items[0].classList.add('mobile-active');
-
-    if (uniqueCount <= 1) return;
-
-    rotateInterval = setInterval(function() {
-      if (!isMobile()) { clearInterval(rotateInterval); return; }
-      var items = ticker.querySelectorAll('.ticker-item');
-      var uniqueCount = Math.ceil(items.length / 2);
-      if (uniqueCount <= 1) return;
-
-      var current = items[currentIndex];
-      if (current) {
-        current.classList.add('mobile-fade-out');
-        fadeTimeout = setTimeout(function() {
-          fadeTimeout = null;
-          current.classList.remove('mobile-active', 'mobile-fade-out');
-          currentIndex = (currentIndex + 1) % uniqueCount;
-          var next = items[currentIndex];
-          if (next) next.classList.add('mobile-active');
-        }, 400);
-      }
-    }, 5000);
-  }
-
-  // Run on load and whenever ticker content changes
-  var tickerEl = document.getElementById('ticker');
-  if (tickerEl) {
-    var observer = new MutationObserver(function() { setTimeout(setupMobileTicker, 50); });
-    observer.observe(tickerEl, { childList: true, subtree: true });
-  }
-  window.addEventListener('resize', function() {
-    if (isMobile()) setupMobileTicker();
-    else {
-      if (fadeTimeout) { clearTimeout(fadeTimeout); fadeTimeout = null; }
-      clearInterval(rotateInterval);
-      // Restore all items visibility for desktop
-      var items = (tickerEl || document.getElementById('ticker')).querySelectorAll('.ticker-item');
-      for (var i = 0; i < items.length; i++) {
-        items[i].classList.remove('mobile-active', 'mobile-fade-out');
-      }
-    }
-  });
-  setTimeout(setupMobileTicker, 1000);
-})();
 
 // ═══ MOBILE SEARCH TOGGLE ═══
 (function(){
@@ -2076,7 +1986,7 @@ async function refreshFlights() {
     flightsLoading = false;
     isRefreshing = false;
     // Each updater is independent — one failure must not block the rest
-    [updateMarkers, updateStats, updateHubStats, updateTicker].forEach(fn => { try { fn(); } catch(e) { console.error(fn.name + ':', e); } });
+    [updateMarkers, updateStats, updateHubStats].forEach(fn => { try { fn(); } catch(e) { console.error(fn.name + ':', e); } });
     try { if (document.getElementById('tab-fleet')?.classList.contains('active')) updateLiveFleetPanel(); } catch(e) { console.error('updateLiveFleetPanel:', e); }
     try { if (document.getElementById('tab-analytics')?.classList.contains('active')) updateAnalytics(); } catch(e) { console.error('updateAnalytics:', e); }
     // Handle deep link: ?flight=DL1234 on first load
@@ -2660,94 +2570,6 @@ function focusFlight(icao24) {
   }
 }
 
-// ═══ TICKER ═══
-function updateTicker() {
-  const airborne = allFlights.filter(f=>!f.onGround).length;
-  const items = [];
-
-  if (allFlights.length > 0) {
-    items.push({ text: `${airborne} DELTA FLIGHTS AIRBORNE`, cls: 'info' });
-    items.push({ text: `FLEET: ${FLEET_DB.length} MAINLINE AIRCRAFT`, cls: 'info' });
-  }
-
-  // Check for emergency squawks
-  allFlights.forEach(f => {
-    const sq = decodeSquawk(f.squawk);
-    if (sq && sq.cls === 'squawk-alert') {
-      items.push({ text: `${sq.text}: ${escapeHtml(f.callsign)} (${escapeHtml(f.squawk)})`, cls: 'critical' });
-    }
-  });
-
-  // Default message when no alerts
-  if (items.length === 0 || items.every(i => i.cls === 'info')) {
-    const countStr = allFlights.length > 0 ? ` — TRACKING ${allFlights.length} DELTA FLIGHTS` : '';
-    items.unshift({ text: `✅ ALL SYSTEMS NORMAL${countStr}`, cls: 'info' });
-  }
-
-  const tickerHtml = items.map(i => `<span class="ticker-item ${escapeHtml(i.cls)}">${escapeHtml(i.text)}</span>`).join('');
-  const tickerEl = document.getElementById('ticker');
-  tickerEl.innerHTML = tickerHtml + tickerHtml+ tickerHtml; // duplicate for seamless scroll
-  initTickerAnimation(tickerEl);
-}
-
-// JS-driven ticker animation — measures actual content width for reliable scrolling
-let _tickerRafId = null;
-function initTickerAnimation(tickerEl) {
-  // Cancel any previous animation
-  if (_tickerRafId) { cancelAnimationFrame(_tickerRafId); _tickerRafId = null; }
-
-  // Mobile uses fade-rotation via setupMobileTicker — skip desktop scroll animation
-  if (window.innerWidth <= 768) {
-    tickerEl.style.animation = '';
-    tickerEl.style.transform = '';
-    return;
-  }
-
-  tickerEl.style.animation = 'none';
-  tickerEl.style.transform = '';
-
-  // Wait a frame for layout to settle, then measure
-  requestAnimationFrame(() => {
-    const items = tickerEl.querySelectorAll('.ticker-item');
-    const halfCount = Math.ceil(items.length / 2);
-    if (halfCount === 0) return;
-
-    // Measure the width of the first half (original content)
-    let contentWidth = 0;
-    for (let i = 0; i < halfCount; i++) {
-      contentWidth += items[i].offsetWidth;
-    }
-
-    if (contentWidth < 10) return; // no real content
-
-    // Set CSS custom property for the scroll offset and use CSS animation
-    tickerEl.style.setProperty('--ticker-offset', `-${contentWidth}px`);
-    // Speed: ~50px/s — adjust duration based on content width
-    const duration = Math.max(15, contentWidth / 50);
-    tickerEl.style.animation = `tickerScroll ${duration}s linear infinite`;
-
-    // JS fallback: detect if CSS animation isn't running after 500ms
-    let fallbackTimer = setTimeout(() => {
-      const computedAnim = getComputedStyle(tickerEl).animationName;
-      if (computedAnim === 'none' || computedAnim === '') {
-        // CSS animation failed — drive with rAF
-        tickerEl.style.animation = 'none';
-        let pos = 0;
-        const speed = 50; // px/s
-        let lastTime = performance.now();
-        function tickerStep(now) {
-          const dt = (now - lastTime) / 1000;
-          lastTime = now;
-          pos -= speed * dt;
-          if (pos <= -contentWidth) pos += contentWidth;
-          tickerEl.style.transform = `translate3d(${pos}px,0,0)`;
-          _tickerRafId = requestAnimationFrame(tickerStep);
-        }
-        _tickerRafId = requestAnimationFrame(tickerStep);
-      }
-    }, 500);
-  });
-}
 
 // ═══ FLEET TAB ═══
 function initFleetTab() {
@@ -5075,7 +4897,6 @@ async function initApp() {
   var onboardingEl = document.getElementById('onboarding-overlay');
   if (acDeepLink && FLEET_DB.length > 0 && (!onboardingEl || onboardingEl.style.display === 'none')) setTimeout(function() { showAircraftDetail(acDeepLink); }, 500);
   showConfigGallery('737-800'); // default
-  updateTicker();
   // Now that map + fleet data are ready, activate the hash-linked tab's data layer.
   // The hash IIFE only set the visual state; this triggers the actual data loads.
   const activeTab = document.querySelector('.tab-btn.active')?.dataset.tab;
