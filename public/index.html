@@ -3082,8 +3082,9 @@ async function initWeatherTab() {
     if (radarHubMarkers[hub]) {
       radarHubMarkers[hub].setStyle({color:borderColor,fillColor:borderColor});
       radarHubMarkers[hub].unbindTooltip();
-      const opsTag = ops.level !== 'normal' ? ` (${ops.reasons[0] || ops.level})` : '';
-      radarHubMarkers[hub].bindTooltip(`<b>${hub}</b> ${cat}${opsTag}`,{permanent:true,direction:'top',className:'hub-tooltip',offset:[0,-8]});
+      //const opsTag = ops.level !== 'normal' ? ` (${ops.reasons[0] || ops.level})` : '';
+      //radarHubMarkers[hub].bindTooltip(`<b>${hub}</b> ${cat}${opsTag}`,{permanent:true,direction:'top',className:'hub-tooltip',offset:[0,-8]});
+      radarHubMarkers[hub].bindTooltip(`<b>${hub}</b> ${cat}`,{permanent:true,direction:'top',className:'hub-tooltip',offset:[0,-8]});
     }
   });
 
