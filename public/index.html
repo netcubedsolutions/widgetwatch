@@ -441,7 +441,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 .phase-row.phase-selected{background:rgba(0,58,112,.2);border-left:2px solid var(--dl-accent)}
 
 /* Live Fleet Status */
-.live-fleet-panel{background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:6px;padding:14px;margin-bottom:14px;position:relative;overflow:hidden}
+.live-fleet-panel{padding:14px;margin-bottom:15px;position:relative;overflow:hidden}
 .live-fleet-panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--dl-green),var(--dl-blue),var(--dl-green));background-size:200% 100%;animation:liveShimmer 2s linear infinite}
 @keyframes liveShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .live-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(34,197,94,.15);color:var(--dl-green);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;letter-spacing:1px}
@@ -585,7 +585,7 @@ tbody td{padding:5px 8px;white-space:nowrap}
 /* Schedule Tab */
 .sched-day-btn{background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:3px 10px;font-family:var(--font-ui);font-size:10px;cursor:pointer;border-radius:3px;transition:color .2s cubic-bezier(.4,0,.2,1),border-color .2s cubic-bezier(.4,0,.2,1),background-color .2s cubic-bezier(.4,0,.2,1),transform .15s cubic-bezier(.4,0,.2,1)}
 .sched-day-btn:hover{color:var(--dl-text);border-color:var(--dl-blue)}
-.sched-day-btn.active{background:var(--dl-blue);color:white;border-color:var(--dl-blue)}
+.sched-day-btn.active{color:white;border-color:var(--dl-blue)}
 #sched-table th{position:sticky;top:0;background:var(--bg-card);z-index:2;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--dl-muted);padding:8px 10px;border-bottom:1px solid var(--dl-border);white-space:nowrap}
 #sched-table td{padding:6px 10px;font-size:11px;border-bottom:1px solid rgba(51,65,85,.3);white-space:nowrap}
 #sched-table tr:hover{background:rgba(0,58,112,.06)}
