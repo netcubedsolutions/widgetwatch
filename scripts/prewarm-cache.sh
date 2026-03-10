@@ -10,7 +10,7 @@ DIRS=("departures" "arrivals")
 # Get today's start-of-day timestamp (UTC)
 TODAY_TS=$(date -u -j -f "%Y-%m-%d %H:%M:%S" "$(date -u +%Y-%m-%d) 00:00:00" "+%s" 2>/dev/null || date -d "$(date -u +%Y-%m-%d)" "+%s")
 
-echo "$(date) — Prewarming Blue Board CDN cache"
+echo "$(date) — Prewarming The Widget Watch CDN Cache"
 echo "Timestamp: $TODAY_TS"
 
 WARMED=0
