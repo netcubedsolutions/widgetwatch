@@ -3230,7 +3230,7 @@ function updateAnalytics() {
       <span style="font-size:9px;color:var(--dl-muted);min-width:16px;text-align:right">${i+1}</span>
       <span style="font-size:11px;min-width:100px;font-weight:600">${route}</span>
       <div style="flex:1;height:6px;background:var(--dl-border);border-radius:3px;overflow:hidden">
-        <div style="height:100%;width:${count/maxRouteCount*100}%;background:linear-gradient(90deg,var(--dl-blue),var(--dl-accent));border-radius:3px"></div>
+        <div style="height:100%;width:${count/maxRouteCount*100}%;background:linear-gradient(90deg,var(--dl-blue),var(--dl-red));border-radius:3px"></div>
       </div>
       <span style="font-size:10px;color:var(--dl-accent);font-weight:700">${count}</span>
     </div>`
@@ -3253,7 +3253,7 @@ function updateAnalytics() {
     return `<div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid rgba(30,41,59,.3)">
       <span style="font-size:10px;min-width:85px">${t}</span>
       <div style="flex:1;margin:0 8px;height:8px;background:var(--dl-border);border-radius:4px;overflow:hidden">
-        <div style="height:100%;width:${avg / maxAge * 100}%;background:${avg > 20 ? '#ef4444' : avg > 15 ? '#f59e0b' : avg > 8 ? '#003A70' : '#22c55e'};border-radius:4px"></div>
+        <div style="height:100%;width:${avg / maxAge * 100}%;background:${avg > 20 ? '#ef4444' : avg > 15 ? '#f59e0b' : avg > 8 ? '#0077cc' : '#22c55e'};border-radius:4px"></div>
       </div>
       <span style="font-size:10px;color:var(--dl-accent);font-weight:700;min-width:40px;text-align:right">${avg}y</span>
     </div>`;
