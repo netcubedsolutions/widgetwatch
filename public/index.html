@@ -240,7 +240,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .hub-counts{font-size:10px;color:var(--dl-muted)}
 .hub-bar{height:3px;background:var(--dl-border);border-radius:2px;margin-top:3px}
 .hub-bar-fill{height:100%;background:var(--dl-blue);border-radius:2px;transition:width .5s}
-.busiest-badge{background:linear-gradient(90deg,#dc2626,#991b1b);color:#fff;font-size:9px;padding:1px 5px;border-radius:3px;font-weight:700}
+.busiest-badge{background:linear-gradient(90deg,#dc2626,#991b1b);color:#fff;font-size:9px;padding:1px 5px;border-radius:3px}
 #tab-live .map-area{flex:1;position:relative}
 #tab-live #map{width:100%;height:100%}
 #tab-live #controls{position:absolute;top:10px;right:10px;z-index:1000;display:flex;flex-direction:column;gap:5px}
@@ -321,7 +321,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .squawk-alert{background:var(--dl-red);color:#fff;padding:2px 8px;border-radius:3px;font-size:10px;font-weight:700;animation:blink 1s infinite}
 @keyframes blink{50%{opacity:.5}}
 .popup-times{display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;margin:8px 0;padding:8px;background:rgba(0,58,112,.06);border:1px solid rgba(0,58,112,.15);border-radius:4px}
-.popup-times .popup-field-value{font-size:11px}
+.popup-times .popup-field-value{font-size:11px;white-space:nowrap}
 .popup-times .time-delta{font-size:9px;font-weight:600;margin-left:4px}
 .popup-times .time-delta.late{color:#ef4444}
 .popup-times .time-delta.early{color:#22c55e}
@@ -4277,8 +4277,10 @@ function updateHubHealth() {
     }
   }
 
+  const hhNavLinks = '<span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span>';
+
   if (!hasData) {
-    bar.innerHTML = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Load schedule data for hub health</span>';
+    bar.innerHTML = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Load schedule data for hub health</span>' + hhNavLinks;
     return;
   }
 
@@ -4302,7 +4304,7 @@ function updateHubHealth() {
     const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
     html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
   }
-  bar.innerHTML = html;
+  bar.innerHTML = html + hhNavLinks;
 }
 
 // ═══ IROPS DASHBOARD ═══
@@ -4436,6 +4438,7 @@ function renderIropsFromAPI(data) {
   if (data.hubMetrics) {
     const bar = document.getElementById('hub-health-bar');
     const hubs = ['ATL','LGA','JFK','BOS','DTW','MSP','SLC','LAX','SEA'];
+    const hhNavLinks = '<span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span>';
     let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span>';
     hubs.forEach((hub, i) => {
       const m = data.hubMetrics[hub];
@@ -4477,7 +4480,7 @@ function renderIropsFromAPI(data) {
       const avgColor = avg > 70 ? '#22c55e' : avg >= 50 ? '#f59e0b' : '#ef4444';
       html += `<span class="hh-sep">│</span><span class="hh-avg" style="color:${avgColor};font-size:9px;font-weight:700">${avgLabel}</span>`;
     }
-    bar.innerHTML = html;
+    bar.innerHTML = html + hhNavLinks;
   }
 
   const content = document.getElementById('irops-content');
