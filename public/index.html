@@ -264,7 +264,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-card{padding:12px}
 .popup-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--dl-border)}
 .popup-callsign{font-size:18px;font-weight:700;color:var(--dl-accent)}
-.popup-route{font-size:13px;color:#fff;margin-top:2px}
+.popup-route{font-size:13px;color:#fff;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .popup-route-est{font-size:9px;color:var(--dl-muted);font-style:italic}
 .popup-phase{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:600;display:inline-block;white-space:nowrap}
 .phase-ground{background:#374151;color:#9ca3af}
@@ -767,7 +767,7 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
 <div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or canceled. Monitor delays and ground stops at all 9 Delta hubs: Atlanta ATL, New York LaGuardia LGA, New York JFK, Boston BOS, Detroit DTW, Minneapolis MSP, Salt Lake City SLC, Los Angeles LAX, and Seattle SEA. Search flights by number, tail number, or route. Check which Delta planes have WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
 
 <!-- HUB HEALTH BAR -->
-<div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span></div>
+<div id="hub-health-bar" aria-live="polite" title="On-Time Performance: % of operated flights departing within 30 min of schedule. 🟢 >70% · 🟡 50-70% · 🔴 <50%"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span><span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span></div>
 
 <!-- WATCH NOTIFICATION BANNER -->
 <div id="watch-notification" aria-live="polite" role="status"><span id="wn-text"></span><button class="wn-dismiss" data-action="dismiss-watch-notification">Dismiss</button></div>
@@ -861,6 +861,8 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
     <div class="stat-item"><span class="stat-val" id="st-avgalt">--</span><span class="stat-label">Avg Alt</span></div>
     <span class="stat-sep">│</span>
     <div class="stat-item"><span class="stat-val" id="st-avgspd">--</span><span class="stat-label">Avg Spd</span></div>
+    <span class="stat-sep">│</span>
+    <div class="footer-data-sources" style="margin-left:auto;font-size:9px;color:var(--dl-muted);white-space:nowrap">Data: FR24 · AWC · FAA · Original Project by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · Modified by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a></div>
   </div>
 </div>
 
@@ -4954,21 +4956,6 @@ function hideDisclaimer() {
   </div>
 </div>
 
-<!-- SITE FOOTER -->
-<footer style="background:var(--dl-panel);border-top:1px solid var(--dl-border);padding:10px 16px;font-size:9px;color:var(--dl-muted);text-align:center;line-height:1.8">
-  <div style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:4px 10px">
-    <a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-accent);text-decoration:none">About</a>
-    <span>·</span>
-    <a href="/fleet" style="color:var(--dl-accent);text-decoration:none">Fleet Database</a>
-    <span>·</span>
-    <a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Support / Feedback</a>
-  </div>
-  <div style="margin-top:4px">Widget Watch · Not affiliated with Delta Air Lines, Inc. · Data may be delayed</div>
-  <div class="footer-data-sources" style="display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:6px 12px;margin-top:4px">
-    <span>Data: <a href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FR24</a> · <a href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">AWC</a> · <a href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">FAA</a></span>
-    <span style="white-space:nowrap">Original Project by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · Modified by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a></span>
-  </div>
-</footer>
 
 <script defer src="/_vercel/insights/script.js"></script>
 <script defer src="/_vercel/speed-insights/script.js"></script>
