@@ -266,7 +266,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-callsign{font-size:18px;font-weight:700;color:var(--dl-accent)}
 .popup-route{font-size:13px;color:#fff;margin-top:2px}
 .popup-route-est{font-size:9px;color:var(--dl-muted);font-style:italic}
-.popup-phase{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:600;display:inline-block}
+.popup-phase{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:600;display:inline-block;white-space:nowrap}
 .phase-ground{background:#374151;color:#9ca3af}
 .phase-climb{background:rgba(34,197,94,.15);color:var(--dl-green)}
 .phase-cruise{background:rgba(0,58,112,.15);color:var(--dl-accent)}
@@ -328,7 +328,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-times .time-delta.ontime{color:var(--dl-muted)}
 .popup-times-loading{font-size:10px;color:var(--dl-muted);text-align:center;padding:6px;animation:pulse-fade 1.5s ease-in-out infinite}
 @keyframes pulse-fade{0%,100%{opacity:1}50%{opacity:.4}}
-.popup-links{display:flex;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--dl-border)}
+.popup-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--dl-border)}
 .popup-links a{color:var(--dl-accent);text-decoration:none;font-size:10px;opacity:.7;transition:opacity .2s}
 .popup-links a:hover{opacity:1}
 .hub-tooltip{background:rgba(10,14,20,.85)!important;border:1px solid var(--dl-blue)!important;color:#ffffff!important;font-size:10px!important;font-weight:700!important;padding:2px 6px!important;border-radius:3px!important;font-family:var(--mono)!important}
@@ -2206,6 +2206,7 @@ function showFlightPopup(f, marker) {
   html += `<div class="popup-links">`;
   const fltLink = flightNum.replace(/^DL/, '');
   if (fltLink) html += `<a href="https://flightaware.com/live/flight/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FlightAware ↗</a>`;
+  if (fltLink) html += `<a href="https://www.flightradar24.com/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FR24 ↗</a>`;
   const regLink = aircraft?.r || f.reg;
   if (regLink) html += `<a href="https://www.planespotters.net/search?q=${encodeURIComponent(regLink)}" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>`;
   html += `<a href="https://globe.adsbexchange.com/?icao=${encodeURIComponent(f.icao24)}" target="_blank" rel="noopener noreferrer">ADS-B ↗</a>`;
