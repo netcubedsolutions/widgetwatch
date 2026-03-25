@@ -110,14 +110,14 @@ async function tryFR24Summary(req, res, flight, cacheKey) {
         takeoff: {
           scheduled: '',
           estimated: '',
-          actual: f.datetime_takeoff || '',
+          actual: epochToISO(f.datetime_takeoff),
         },
       },
       arrival: {
         landing: {
           scheduled: '',
           estimated: '',
-          actual: f.datetime_landed || '',
+          actual: epochToISO(f.datetime_landed),
         },
         gate: { scheduled: '', estimated: '', actual: '' },
       },
