@@ -328,7 +328,8 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-times .time-delta.ontime{color:var(--dl-muted)}
 .popup-times-loading{font-size:10px;color:var(--dl-muted);text-align:center;padding:6px;animation:pulse-fade 1.5s ease-in-out infinite}
 @keyframes pulse-fade{0%,100%{opacity:1}50%{opacity:.4}}
-.popup-links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--dl-border)}
+.popup-links{display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--dl-border)}
+.popup-links a,.popup-links button{white-space:nowrap;flex-shrink:0}
 .popup-links a{color:var(--dl-accent);text-decoration:none;font-size:10px;opacity:.7;transition:opacity .2s}
 .popup-links a:hover{opacity:1}
 .hub-tooltip{background:rgba(10,14,20,.85)!important;border:1px solid var(--dl-blue)!important;color:#ffffff!important;font-size:10px!important;font-weight:700!important;padding:2px 6px!important;border-radius:3px!important;font-family:var(--mono)!important}

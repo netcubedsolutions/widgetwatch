@@ -12,9 +12,7 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versio
 
 ### Changed
 - Watch and Share buttons moved to sit inline right of the popup callsign
-- Popup links row centered horizontally
-- Popup phase badge now forced to single line (`white-space: nowrap`)
-- Popup links row now wraps gracefully with `flex-wrap` and consistent gap
+- Popup links row centered horizontally and locked to a single line (no wrap, no clip)
 - UI theme refresh with updated CSS color variables
 - Busiest hub badge now uses a red gradient
 - Cruise phase color updated to `#0077cc`
