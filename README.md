@@ -22,7 +22,7 @@ Widget Watch is a fan-built operations dashboard that lets you see Delta Air Lin
 Real-time map tracking 600+ Delta flights, updated every 30 seconds. Filter by hub, toggle longhaul routes, overlay NEXRAD weather radar. Hub status sidebar shows departure/arrival counts and identifies the busiest hub. Search any flight by number, tail, or route. Great circle route lines show flight paths with city names.
 
 ### ⚠️ IROPS Monitor
-Server-side disruption scoring across all 9 hubs — cancellations, delays (30m/60m), diversions, and FAA ground stops. Preloaded automatically on page load with 5-minute server-side caching. No manual trigger needed.
+Server-side disruption scoring across all 9 hubs — cancellations, delays (30m/60m), diversions, and FAA ground stops. Hub-aware: alerts are scoped per hub so you see exactly where disruptions are occurring. Preloaded automatically on page load with 5-minute server-side caching. No manual trigger needed.
 
 ### 📅 [Schedule](https://widgetwatch.org#schedule)
 Departure and arrival boards for all 9 DL hubs (ATL, JFK, LGA, BOS, DTW, MSP, SLC, LAX, SEA). Filter by status or aircraft type. Equipment swap detection flags when a plane type changes. On-time performance stats. All times in airport-local timezone.
@@ -37,11 +37,11 @@ FAA NAS delay and ground stop alerts, METAR observations with plain-English expl
 Live fleet utilization by aircraft type (airborne vs. total), flight phase distribution (climb/cruise/descent donut chart), hub-to-hub traffic flow matrix, top active routes, fleet delivery timeline with stacked histogram colored by aircraft family, and Wifi coverage metrics. All live data updates every 30 seconds.
 
 ### 🔍 Flight Search
-Look up any Delta flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API.
+Look up any Delta flight number from the header search bar. Returns live position, route, aircraft details, and scheduled/actual times via the official Flightradar24 API. Flight popups include a direct link to FlightRadar24 for additional tracking detail.
 
 ### More
 - **Deep-link hashes** — Share direct links to any tab (`#live`, `#schedule`, `#fleet`, `#weather`, `#stats`)
-- **Flight watch** — Pin a flight and get browser push notifications on status changes
+- **Flight watch** — Watch and Share buttons sit inline in the flight popup; pin a flight and get browser push notifications on status changes
 - **Hub health bar** — At-a-glance on-time performance across all 9 hubs, with cancellation rate detection (shows `100% CX` when a hub is shut down)
 - **Equipment swap alerts** — Badges when scheduled aircraft type changes
 - **📱 Mobile-first design** — Map-maximized layout with bottom tab bar navigation, collapsible filters
@@ -136,6 +136,7 @@ Look up any Delta flight number from the header search bar. Returns live positio
 │   ├── pages/
 │   │   ├── 404.astro        # Branded "Flight not found" 404 page
 │   │   └── hubs/
+│   │       ├── index.astro  # Hub directory index page
 │   │       └── [hub].astro  # Dynamic route → generates all 9 hub pages
 │   └── data/
 │       └── hubs.js          # Hub metadata, content, SEO, schemas (all 9 hubs)
@@ -150,13 +151,18 @@ Look up any Delta flight number from the header search bar. Returns live positio
 │   ├── robots.txt       # Search engine directives (blocks /api/ and /data/ from crawlers)
 │   └── sitemap.xml      # Sitemap (homepage + all hub pages)
 ├── api/
+│   ├── _rate-limit.js   # Shared rate-limiting helper
 │   ├── schedule.js      # FR24 schedule proxy (cached, rate-limited, DL-filtered)
-│   ├── irops.js        # Server-side IROPS aggregation (all hubs, 5min cache)
+│   ├── irops.js         # Server-side IROPS aggregation (all hubs, 5min cache)
 │   ├── fr24-feed.js     # FR24 live flight feed proxy
 │   ├── fr24-flight.js   # FR24 official API flight lookup
 │   ├── metar.js         # AWC METAR weather proxy (supports batched station IDs)
 │   ├── faa.js           # FAA NAS status proxy (XML → JSON)
 │   └── fleet.js         # Fleet data proxy
+├── scripts/
+│   └── prewarm-cache.sh # Cache prewarm script for serverless cold starts
+├── docs/                # Reference docs and research assets
+├── tests/               # API unit tests
 └── vercel.json          # Vercel config + security headers + CSP + caching
 ```
 
