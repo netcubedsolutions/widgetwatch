@@ -328,7 +328,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-times .time-delta.ontime{color:var(--dl-muted)}
 .popup-times-loading{font-size:10px;color:var(--dl-muted);text-align:center;padding:6px;animation:pulse-fade 1.5s ease-in-out infinite}
 @keyframes pulse-fade{0%,100%{opacity:1}50%{opacity:.4}}
-.popup-links{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--dl-border)}
+.popup-links{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 10px;margin-top:8px;padding-top:8px;border-top:1px solid var(--dl-border)}
 .popup-links a{color:var(--dl-accent);text-decoration:none;font-size:10px;opacity:.7;transition:opacity .2s}
 .popup-links a:hover{opacity:1}
 .hub-tooltip{background:rgba(10,14,20,.85)!important;border:1px solid var(--dl-blue)!important;color:#ffffff!important;font-size:10px!important;font-weight:700!important;padding:2px 6px!important;border-radius:3px!important;font-family:var(--mono)!important}
@@ -2158,9 +2158,17 @@ function showFlightPopup(f, marker) {
   const hasCityNames = origCity && destCity;
   const routeStr = origCode + ' → ' + destCode;
 
+  const popupFlt = displayFlight;
+  const popupRoute = (f.origin||'?') + '→' + (f.dest||'?');
+  const popupWatched = isFlightWatched(popupFlt);
+
   let html = `<div class="popup-card">`;
   html += `<div class="popup-header"><div>`;
+  html += `<div style="display:flex;align-items:center;gap:6px">`;
   html += `<div class="popup-callsign">${escapeHtml(displayFlight)}</div>`;
+  html += `<button class="watch-btn${popupWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(popupFlt)}" data-route="${escapeHtml(popupRoute)}" data-status="airborne" aria-label="${popupWatched ? 'Unwatch flight' : 'Watch flight'}">${popupWatched ? '👁️ Watching' : '👁 Watch'}</button>`;
+  html += `<button class="share-btn" data-action="share-flight" data-flight="${escapeHtml(popupFlt)}" aria-label="Share flight link" title="Copy shareable link">📤 Share</button>`;
+  html += `</div>`;
   if (hasCityNames) html += `<div class="popup-route" style="font-size:14px;font-weight:600">${escapeHtml(origCity)} → ${escapeHtml(destCity)}</div>`;
   html += `<div class="popup-route" style="${hasCityNames ? 'font-size:11px;color:var(--dl-muted);margin-top:1px' : ''}">${escapeHtml(routeStr)}</div>`;
   if (!hasRealRoute && (originObj || destObj)) html += `<div class="popup-route-est">estimated route</div>`;
@@ -2210,12 +2218,6 @@ function showFlightPopup(f, marker) {
   const regLink = aircraft?.r || f.reg;
   if (regLink) html += `<a href="https://www.planespotters.net/search?q=${encodeURIComponent(regLink)}" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>`;
   html += `<a href="https://globe.adsbexchange.com/?icao=${encodeURIComponent(f.icao24)}" target="_blank" rel="noopener noreferrer">ADS-B ↗</a>`;
-  // Watch button in popup
-  const popupFlt = displayFlight;
-  const popupRoute = (f.origin||'?') + '→' + (f.dest||'?');
-  const popupWatched = isFlightWatched(popupFlt);
-  html += `<button class="watch-btn${popupWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(popupFlt)}" data-route="${escapeHtml(popupRoute)}" data-status="airborne" aria-label="${popupWatched ? 'Unwatch flight' : 'Watch flight'}" style="margin-left:auto">${popupWatched ? '👁️ Watching' : '👁 Watch'}</button>`;
-  html += `<button class="share-btn" data-action="share-flight" data-flight="${escapeHtml(popupFlt)}" aria-label="Share flight link" title="Copy shareable link">📤 Share</button>`;
   html += `</div></div>`;
 
   if (marker.getPopup()) marker.unbindPopup();

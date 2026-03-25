@@ -11,6 +11,8 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versio
 - IROPS hub-awareness — IROPS alerts now scoped per hub
 
 ### Changed
+- Watch and Share buttons moved to sit inline right of the popup callsign
+- Popup links row centered horizontally
 - Popup phase badge now forced to single line (`white-space: nowrap`)
 - Popup links row now wraps gracefully with `flex-wrap` and consistent gap
 - UI theme refresh with updated CSS color variables
