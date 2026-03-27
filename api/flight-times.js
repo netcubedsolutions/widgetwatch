@@ -16,7 +16,7 @@ function setCache(key, data) {
   cache.set(key, { data, ts: Date.now() });
 }
 
-// Rate limiting: 5 req/min per IP
+// Rate limiting: 15 req/min per IP
 const rateLimitByIp = new Map();
 function getClientIp(req) {
   const xff = req.headers?.['x-forwarded-for'];
@@ -30,7 +30,7 @@ function isRateLimited(req) {
   if (!rateLimitByIp.has(ip)) rateLimitByIp.set(ip, []);
   const ipLog = rateLimitByIp.get(ip);
   while (ipLog.length && ipLog[0] < now - 60_000) ipLog.shift();
-  if (ipLog.length >= 5) return true;
+  if (ipLog.length >= 15) return true;
   ipLog.push(now);
   // Evict stale IPs every 5 minutes
   if (now - lastRateLimitCleanup > 300_000) {
@@ -106,20 +106,28 @@ async function tryFR24Summary(req, res, flight, cacheKey) {
       origin: { iata: '', name: '', terminal: '', gate: '', tz: '' },
       destination: { iata: '', name: '', terminal: '', gate: '', tz: '' },
       departure: {
-        gate: { scheduled: '', estimated: '', actual: '' },
+        gate: {
+          scheduled: epochToISO(f.scheduled_departure || f.datetime_scheduled_departure),
+          estimated: epochToISO(f.estimated_departure),
+          actual: epochToISO(f.datetime_departure || f.actual_departure),
+        },
         takeoff: {
-          scheduled: '',
+          scheduled: epochToISO(f.scheduled_departure || f.datetime_scheduled_departure),
           estimated: '',
           actual: epochToISO(f.datetime_takeoff),
         },
       },
       arrival: {
         landing: {
-          scheduled: '',
-          estimated: '',
+          scheduled: epochToISO(f.scheduled_arrival || f.datetime_scheduled_arrival),
+          estimated: epochToISO(f.estimated_arrival),
           actual: epochToISO(f.datetime_landed),
         },
-        gate: { scheduled: '', estimated: '', actual: '' },
+        gate: {
+          scheduled: epochToISO(f.scheduled_arrival || f.datetime_scheduled_arrival),
+          estimated: epochToISO(f.estimated_arrival),
+          actual: '',
+        },
       },
       aircraft: f.type || '',
       status: f.flight_ended ? 'landed' : 'en-route',
@@ -223,7 +231,7 @@ export default async function handler(req, res) {
     }
 
     if (!bestFlight) {
-      return res.status(404).json({ success: false, error: 'No active flight found' });
+      return await tryFR24Summary(req, res, flight, cacheKey);
     }
 
     const f = bestFlight;

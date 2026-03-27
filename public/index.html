@@ -2238,12 +2238,24 @@ function showFlightPopup(f, marker) {
       if (el) el.style.display = 'none';
       return;
     }
-    fetch('/api/flight-times?flight=' + encodeURIComponent(fltQuery))
-      .then(r => r.ok ? r.json() : { success: false })
-      .then(data => {
-        const el = document.getElementById(timesId);
-        if (!el) return;
-        if (!data.success) { el.style.display = 'none'; return; }
+    function doFetch(retrying) {
+      fetch('/api/flight-times?flight=' + encodeURIComponent(fltQuery))
+        .then(r => {
+          if (r.status === 429) return { success: false, rateLimited: true };
+          return r.ok ? r.json() : { success: false };
+        })
+        .then(data => {
+          const el = document.getElementById(timesId);
+          if (!el) return;
+          if (!data.success) {
+            if (data.rateLimited && !retrying) {
+              // Back off and retry once
+              setTimeout(() => doFetch(true), 3000);
+              return;
+            }
+            el.style.display = 'none';
+            return;
+          }
 
         const dep = data.departure || {};
         const arr = data.arrival || {};
@@ -2352,6 +2364,8 @@ function showFlightPopup(f, marker) {
         const el = document.getElementById(timesId);
         if (el) el.style.display = 'none';
       });
+    }
+    doFetch(false);
   })();
 
   // Draw great circle route lines with traveled/remaining segments + endpoint markers
