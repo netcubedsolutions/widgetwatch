@@ -4,6 +4,21 @@ All notable changes to Widget Watch are documented here.
 
 Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioned per [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.1] - 2026-03-27
+
+### Changed
+- Flight popup header restructured: callsign and phase badge on their own line, followed by airport city names, then airport codes as separate lines
+- `popup-header` changed to `flex-direction: column` so route lines stack vertically
+
+### Fixed
+- Departure/arrival times now appear more reliably in flight popups:
+  - "No active flight found" on FlightAware now falls through to FR24 fallback instead of returning a blank
+  - Rate limit raised from 5 to 15 requests/min so browsing multiple flights quickly no longer silently drops times
+  - FR24 fallback now maps scheduled/estimated departure and arrival fields when available
+  - Client retries once after a 3-second backoff on a 429 rate-limit response instead of hiding the times section
+
+---
+
 ## [1.3.0] - 2026-03-26
 
 ### Added
