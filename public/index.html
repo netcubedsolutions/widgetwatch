@@ -265,7 +265,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;overflow:hidden}
 .popup-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;padding-bottom:8px;border-bottom:1px solid var(--dl-border)}
 .popup-callsign{font-size:18px;font-weight:700;color:var(--dl-accent)}
 .popup-route{font-size:14px;font-weight:600;color:#fff;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.popup-route-code{font-size:11px;color:var(--dl-muted);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--font-mono)}
+.popup-route-code{font-size:11px;color:var(--dl-muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .popup-route-est{font-size:9px;color:var(--dl-muted);font-style:italic}
 .popup-phase{font-size:10px;padding:2px 8px;border-radius:3px;font-weight:600;display:inline-block;white-space:nowrap}
 .phase-ground{background:#374151;color:#9ca3af}
@@ -2169,13 +2169,13 @@ function showFlightPopup(f, marker) {
 
   let html = `<div class="popup-card">`;
   html += `<div class="popup-header">`;
-  html += `<div style="display:flex;align-items:center;gap:6px">`;
+  html += `<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">`;
   html += `<div class="popup-callsign">${escapeHtml(displayFlight)}</div>`;
   html += `<span class="popup-phase ${phaseInfo.cls}">${phaseInfo.icon} ${phaseInfo.phase}</span>`;
   html += `</div>`;
-  if (squawk) html += `<div style="margin-top:3px"><span class="${squawk.cls}">${squawk.text}</span></div>`;
+  if (squawk) html += `<div style="margin-bottom:3px"><span class="${squawk.cls}">${squawk.text}</span></div>`;
   if (hasCityNames) html += `<div class="popup-route">${escapeHtml(origCity)} → ${escapeHtml(destCity)}</div>`;
-  html += `<div class="${hasCityNames ? 'popup-route-code' : 'popup-route'}">${escapeHtml(routeStr)}</div>`;
+  html += `<div class="popup-route-code">${escapeHtml(routeStr)}</div>`;
   if (!hasRealRoute && (originObj || destObj)) html += `<div class="popup-route-est">estimated route</div>`;
   html += `</div>`;
 
