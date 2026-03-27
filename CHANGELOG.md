@@ -21,6 +21,7 @@
 - Removed native browser tooltip from hub health bar that was showing on-time performance text when hovering the upper-right links (About, Fleet Database, Support)
 - `getClientIp` in `flight-times.js` now checks `x-real-ip` before `x-forwarded-for`, preventing rate limit bypass via spoofed header
 - METAR input validation tightened to require 3–4 letter ICAO codes only (no digits), max 20 codes per request
+- Hub health bar `?` tooltip now displays correctly — `overflow:hidden` on the bar was clipping the absolutely-positioned tooltip
 
 ### Security
 - Added `Strict-Transport-Security` header (`max-age=31536000; includeSubDomains; preload`) to enforce HTTPS across all routes
