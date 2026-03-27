@@ -863,7 +863,7 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
     <span class="stat-sep">│</span>
     <div class="stat-item"><span class="stat-val" id="st-avgspd">--</span><span class="stat-label">Avg Spd</span></div>
     <span class="stat-sep">│</span>
-    <div class="footer-data-sources" style="margin-left:auto;font-size:9px;color:var(--dl-muted);white-space:nowrap">Data: FR24 · AWC · FAA · Original Project by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · Modified by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a></div>
+    <div class="footer-data-sources" style="margin-left:auto;font-size:9px;color:var(--dl-muted);white-space:nowrap">Data: FR24 · AWC · FAA · Original Project by <a href="https://github.com/notjbg" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Jonah Berg</a> · Modified by <a href="https://github.com/craighton" target="_blank" rel="noopener noreferrer" style="color:var(--dl-accent);text-decoration:none">Craighton Miller</a> · <button data-action="show-changelog" style="background:none;border:none;padding:0;font-size:9px;color:var(--dl-accent);font-family:var(--font-mono);cursor:pointer;text-decoration:underline dotted">v1.3.1</button></div>
   </div>
 </div>
 
@@ -4854,6 +4854,12 @@ document.addEventListener('click', function(e) {
     case 'hide-disclaimer':
       hideDisclaimer();
       break;
+    case 'show-changelog':
+      showChangelog();
+      break;
+    case 'hide-changelog':
+      hideChangelog();
+      break;
     case 'close-bmac': {
       const toast = actionEl.closest('#bmac-toast');
       if (toast) toast.remove();
@@ -4912,6 +4918,8 @@ document.addEventListener('click', function(e) {
 document.addEventListener('click', function(e) {
   const modal = document.getElementById('disclaimer-modal');
   if (modal && e.target === modal) hideDisclaimer();
+  const clModal = document.getElementById('changelog-modal');
+  if (clModal && e.target === clModal) hideChangelog();
 });
 
 // ═══ INIT ═══
@@ -4948,9 +4956,71 @@ function showDisclaimer() {
 function hideDisclaimer() {
   document.getElementById('disclaimer-modal').style.display = 'none';
 }
+
+// ═══ CHANGELOG MODAL ═══
+let changelogLoaded = false;
+function renderChangelogMd(md, container) {
+  container.textContent = '';
+  for (const raw of md.split('\n')) {
+    let el;
+    if (/^## /.test(raw)) {
+      el = document.createElement('h3');
+      el.textContent = raw.slice(3);
+      el.style.cssText = 'color:var(--dl-blue);font-size:12px;margin:16px 0 6px;text-transform:uppercase;letter-spacing:.5px';
+    } else if (/^### /.test(raw)) {
+      el = document.createElement('h4');
+      el.textContent = raw.slice(4);
+      el.style.cssText = 'color:var(--dl-accent);font-size:10px;margin:10px 0 4px;text-transform:uppercase;letter-spacing:.5px';
+    } else if (/^- /.test(raw)) {
+      el = document.createElement('div');
+      el.textContent = raw.slice(2);
+      el.style.cssText = 'padding:1px 0 1px 12px;color:var(--dl-text)';
+    } else if (/^---/.test(raw)) {
+      el = document.createElement('hr');
+      el.style.cssText = 'border:none;border-top:1px solid var(--dl-border);margin:12px 0';
+    } else if (raw.trim() && !/^#/.test(raw)) {
+      el = document.createElement('p');
+      el.textContent = raw;
+      el.style.cssText = 'margin:4px 0;color:var(--dl-muted)';
+    } else {
+      continue;
+    }
+    container.appendChild(el);
+  }
+}
+function showChangelog() {
+  const modal = document.getElementById('changelog-modal');
+  modal.style.display = 'flex';
+  if (changelogLoaded) return;
+  fetch('/api/changelog')
+    .then(r => r.ok ? r.text() : Promise.reject())
+    .then(md => {
+      renderChangelogMd(md, document.getElementById('changelog-body'));
+      changelogLoaded = true;
+    })
+    .catch(() => {
+      const body = document.getElementById('changelog-body');
+      body.textContent = 'Could not load changelog.';
+    });
+}
+function hideChangelog() {
+  document.getElementById('changelog-modal').style.display = 'none';
+}
 </script>
 
 </main>
+<!-- CHANGELOG MODAL -->
+<div id="changelog-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;align-items:center;justify-content:center;padding:20px">
+  <div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;max-width:640px;width:100%;max-height:80vh;display:flex;flex-direction:column">
+    <div style="padding:16px 20px;border-bottom:1px solid var(--dl-border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+      <h2 style="color:var(--dl-blue);font-size:13px;margin:0;text-transform:uppercase;letter-spacing:1px">📋 Changelog</h2>
+      <button data-action="hide-changelog" style="background:none;border:none;color:var(--dl-muted);font-size:18px;cursor:pointer;line-height:1;padding:0 4px">&times;</button>
+    </div>
+    <div id="changelog-body" style="padding:16px 20px;overflow-y:auto;font-size:11px;line-height:1.7;color:var(--dl-text)">
+      <div style="color:var(--dl-muted);text-align:center;padding:20px">Loading…</div>
+    </div>
+  </div>
+</div>
 <!-- DISCLAIMER MODAL -->
 <div id="disclaimer-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;align-items:center;justify-content:center;padding:20px">
   <div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;max-width:600px;width:100%;padding:24px;max-height:80vh;overflow-y:auto">
