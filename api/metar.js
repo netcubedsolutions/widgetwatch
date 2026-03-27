@@ -18,8 +18,8 @@ export default async function handler(req, res) {
 
   try {
     const ids = req.query.ids || 'KATL';
-    // Validate: comma-separated ICAO codes, max 200 chars
-    if (!/^[A-Z0-9,]{1,200}$/i.test(ids)) {
+    // Validate: comma-separated ICAO codes (3-4 uppercase letters each), max 20 codes
+    if (!/^[A-Z]{3,4}(,[A-Z]{3,4}){0,19}$/i.test(ids)) {
       return res.status(400).json({ error: 'Invalid airport IDs' });
     }
     const controller = new AbortController();

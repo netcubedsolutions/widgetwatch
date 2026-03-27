@@ -1,14 +1,16 @@
 # Changelog
 
-All notable changes to Widget Watch are documented here.
-
-Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versioned per [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
 ## [1.3.1] - 2026-03-27
+
+### Added
+- Version badge (`v1.3.1`) in the footer; clicking it opens an in-page changelog modal
+- `/api/changelog` endpoint serves `CHANGELOG.md` as plain text for the modal
+- Changelog modal renders markdown (headers, lists, dividers) using DOM methods with no `innerHTML` for fetched content
 
 ### Changed
 - Flight popup header restructured: callsign and phase badge on their own line, followed by airport city names, then airport codes as separate lines
 - `popup-header` changed to `flex-direction: column` so route lines stack vertically
+- `popup-route` (city names) uses consistent `14px / font-weight:600` styling; airport codes use new `popup-route-code` class (11px, muted)
 
 ### Fixed
 - Departure/arrival times now appear more reliably in flight popups:
@@ -16,6 +18,12 @@ Format based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versio
   - Rate limit raised from 5 to 15 requests/min so browsing multiple flights quickly no longer silently drops times
   - FR24 fallback now maps scheduled/estimated departure and arrival fields when available
   - Client retries once after a 3-second backoff on a 429 rate-limit response instead of hiding the times section
+- Removed native browser tooltip from hub health bar that was showing on-time performance text when hovering the upper-right links (About, Fleet Database, Support)
+- `getClientIp` in `flight-times.js` now checks `x-real-ip` before `x-forwarded-for`, preventing rate limit bypass via spoofed header
+- METAR input validation tightened to require 3–4 letter ICAO codes only (no digits), max 20 codes per request
+
+### Security
+- Added `Strict-Transport-Security` header (`max-age=31536000; includeSubDomains; preload`) to enforce HTTPS across all routes
 
 ---
 
