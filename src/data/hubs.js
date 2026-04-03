@@ -76,9 +76,9 @@ atl: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at ATL in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=atl" style="margin:0">🗺️ Live ATL Map</a>
-      <a class="cta" href="/?tab=schedule&hub=atl" style="margin:0">📋 ATL Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=atl" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=atl" style="margin:0"><i class="fa-solid fa-map"></i> Live ATL Map</a>
+      <a class="cta" href="/?tab=schedule&hub=atl" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> ATL Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=atl" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -93,7 +93,7 @@ atl: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> The <a href="https://www.atl.com/about-atl/atl-development/" target="_blank" rel="noopener noreferrer">ATL Next</a> transformation project is underway, including a new consolidated rental car facility, updated ground transportation center, and concourse modernization projects. Expect construction impacts on ground transportation and terminal access through 2028.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> The <a href="https://www.atl.com/about-atl/atl-development/" target="_blank" rel="noopener noreferrer">ATL Next</a> transformation project is underway, including a new consolidated rental car facility, updated ground transportation center, and concourse modernization projects. Expect construction impacts on ground transportation and terminal access through 2028.
     </div>
 
     <h3>Key Routes from ATL</h3>
@@ -197,9 +197,9 @@ lga: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at LGA in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=lga" style="margin:0">🗺️ Live LGA Map</a>
-      <a class="cta" href="/?tab=schedule&hub=lga" style="margin:0">📋 LGA Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=lga" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=lga" style="margin:0"><i class="fa-solid fa-map"></i> Live LGA Map</a>
+      <a class="cta" href="/?tab=schedule&hub=lga" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> LGA Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=lga" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -214,7 +214,7 @@ lga: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-green)">
-      <span id="construction"></span><strong>✅ Redevelopment Update:</strong> The new <a href="https://www.laguardiaairport.com/en/redevelopment" target="_blank" rel="noopener noreferrer">LaGuardia Terminal C</a> is substantially complete, with modern gates, updated concessions, and improved amenities. Delta Sky Club in Terminal C opened 2023. The new Delta terminal is a vast improvement over the former facility.
+      <span id="construction"></span><strong><i class="fa-solid fa-circle-check"></i> Redevelopment Update:</strong> The new <a href="https://www.laguardiaairport.com/en/redevelopment" target="_blank" rel="noopener noreferrer">LaGuardia Terminal C</a> is substantially complete, with modern gates, updated concessions, and improved amenities. Delta Sky Club in Terminal C opened 2023. The new Delta terminal is a vast improvement over the former facility.
     </div>
 
     <h3>Key Routes from LGA</h3>
@@ -316,9 +316,9 @@ jfk: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at JFK in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=jfk" style="margin:0">🗺️ Live JFK Map</a>
-      <a class="cta" href="/?tab=schedule&hub=jfk" style="margin:0">📋 JFK Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=jfk" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=jfk" style="margin:0"><i class="fa-solid fa-map"></i> Live JFK Map</a>
+      <a class="cta" href="/?tab=schedule&hub=jfk" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> JFK Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=jfk" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -333,7 +333,7 @@ jfk: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> The <a href="https://www.jfkairport.com/jfk-forward" target="_blank" rel="noopener noreferrer">JFK Forward</a> redevelopment project is transforming JFK with a new Terminal 6 (set to open in phases) and upgrades to Terminals 1, 4, and 8. Expect construction impacts on ground transportation and some terminal areas through 2030.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> The <a href="https://www.jfkairport.com/jfk-forward" target="_blank" rel="noopener noreferrer">JFK Forward</a> redevelopment project is transforming JFK with a new Terminal 6 (set to open in phases) and upgrades to Terminals 1, 4, and 8. Expect construction impacts on ground transportation and some terminal areas through 2030.
     </div>
 
     <h3>Key Routes from JFK</h3>
@@ -436,9 +436,9 @@ bos: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at BOS in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=bos" style="margin:0">🗺️ Live BOS Map</a>
-      <a class="cta" href="/?tab=schedule&hub=bos" style="margin:0">📋 BOS Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=bos" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=bos" style="margin:0"><i class="fa-solid fa-map"></i> Live BOS Map</a>
+      <a class="cta" href="/?tab=schedule&hub=bos" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> BOS Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=bos" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -453,7 +453,7 @@ bos: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> Massport's <a href="https://www.massport.com/logan-airport/about-logan/airport-planning/" target="_blank" rel="noopener noreferrer">Logan Forward</a> plan includes Terminal E modernization (international) and apron improvements. Check the Massport website for current construction impacts.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> Massport's <a href="https://www.massport.com/logan-airport/about-logan/airport-planning/" target="_blank" rel="noopener noreferrer">Logan Forward</a> plan includes Terminal E modernization (international) and apron improvements. Check the Massport website for current construction impacts.
     </div>
 
     <h3>Key Routes from BOS</h3>
@@ -556,9 +556,9 @@ dtw: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at DTW in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=dtw" style="margin:0">🗺️ Live DTW Map</a>
-      <a class="cta" href="/?tab=schedule&hub=dtw" style="margin:0">📋 DTW Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=dtw" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=dtw" style="margin:0"><i class="fa-solid fa-map"></i> Live DTW Map</a>
+      <a class="cta" href="/?tab=schedule&hub=dtw" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> DTW Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=dtw" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -573,7 +573,7 @@ dtw: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> DTW McNamara Terminal gate area renovations continue with incremental improvements to gate areas and concourse amenities. Check <a href="https://www.metroairport.com" target="_blank" rel="noopener noreferrer">Detroit Metro Airport</a> for current updates.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> DTW McNamara Terminal gate area renovations continue with incremental improvements to gate areas and concourse amenities. Check <a href="https://www.metroairport.com" target="_blank" rel="noopener noreferrer">Detroit Metro Airport</a> for current updates.
     </div>
 
     <h3>Key Routes from DTW</h3>
@@ -676,9 +676,9 @@ msp: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at MSP in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=msp" style="margin:0">🗺️ Live MSP Map</a>
-      <a class="cta" href="/?tab=schedule&hub=msp" style="margin:0">📋 MSP Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=msp" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=msp" style="margin:0"><i class="fa-solid fa-map"></i> Live MSP Map</a>
+      <a class="cta" href="/?tab=schedule&hub=msp" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> MSP Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=msp" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -693,7 +693,7 @@ msp: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> The <a href="https://www.mspairport.com/about-msp/capital-improvement-program" target="_blank" rel="noopener noreferrer">MSP Capital Improvement Program</a> includes ongoing concourse and gate area upgrades. Check the MSP Airport website for current project status.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> The <a href="https://www.mspairport.com/about-msp/capital-improvement-program" target="_blank" rel="noopener noreferrer">MSP Capital Improvement Program</a> includes ongoing concourse and gate area upgrades. Check the MSP Airport website for current project status.
     </div>
 
     <h3>Key Routes from MSP</h3>
@@ -796,9 +796,9 @@ slc: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at SLC in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=slc" style="margin:0">🗺️ Live SLC Map</a>
-      <a class="cta" href="/?tab=schedule&hub=slc" style="margin:0">📋 SLC Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=slc" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=slc" style="margin:0"><i class="fa-solid fa-map"></i> Live SLC Map</a>
+      <a class="cta" href="/?tab=schedule&hub=slc" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> SLC Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=slc" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -813,7 +813,7 @@ slc: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-green)">
-      <span id="construction"></span><strong>✅ New Terminal Complete:</strong> The new <a href="https://www.slcairport.com/the-new-slc/" target="_blank" rel="noopener noreferrer">Salt Lake City International Airport</a> terminal and concourses are fully operational as of 2024. The modern facility is a vast improvement over the former 1960s-era terminal.
+      <span id="construction"></span><strong><i class="fa-solid fa-circle-check"></i> New Terminal Complete:</strong> The new <a href="https://www.slcairport.com/the-new-slc/" target="_blank" rel="noopener noreferrer">Salt Lake City International Airport</a> terminal and concourses are fully operational as of 2024. The modern facility is a vast improvement over the former 1960s-era terminal.
     </div>
 
     <h3>Key Routes from SLC</h3>
@@ -916,9 +916,9 @@ lax: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at LAX in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=lax" style="margin:0">🗺️ Live LAX Map</a>
-      <a class="cta" href="/?tab=schedule&hub=lax" style="margin:0">📋 LAX Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=lax" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=lax" style="margin:0"><i class="fa-solid fa-map"></i> Live LAX Map</a>
+      <a class="cta" href="/?tab=schedule&hub=lax" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> LAX Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=lax" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -934,7 +934,7 @@ lax: {
 
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> The <a href="https://www.flylax.com/lax-people-mover" target="_blank" rel="noopener noreferrer">LAX Automated People Mover (APM)</a> elevated train is under construction with a target 2026 opening, connecting terminals to Metro K Line and the consolidated rental car facility. Expect ongoing construction impacts on ground transportation.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> The <a href="https://www.flylax.com/lax-people-mover" target="_blank" rel="noopener noreferrer">LAX Automated People Mover (APM)</a> elevated train is under construction with a target 2026 opening, connecting terminals to Metro K Line and the consolidated rental car facility. Expect ongoing construction impacts on ground transportation.
     </div>
 
     <h3>Key Routes from LAX</h3>
@@ -1038,9 +1038,9 @@ sea: {
     <p><strong>Widget Watch</strong> is the only real-time operations dashboard built specifically for Delta Air Lines passengers. Live flight tracking, delay alerts, and IROPS monitoring, updated in real-time.</p>
     <p>This page gives you the overview — but the real action is on the dashboard. Track every Delta flight at SEA in real time, set up flight watch alerts, check equipment swaps, and monitor weather radar overlaid on the live map.</p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:12px">
-      <a class="cta" href="/?hub=sea" style="margin:0">🗺️ Live SEA Map</a>
-      <a class="cta" href="/?tab=schedule&hub=sea" style="margin:0">📋 SEA Schedules</a>
-      <a class="cta" href="/?tab=irops&hub=sea" style="margin:0">⚠️ IROPS Monitor</a>
+      <a class="cta" href="/?hub=sea" style="margin:0"><i class="fa-solid fa-map"></i> Live SEA Map</a>
+      <a class="cta" href="/?tab=schedule&hub=sea" style="margin:0"><i class="fa-solid fa-clipboard-list"></i> SEA Schedules</a>
+      <a class="cta" href="/?tab=irops&hub=sea" style="margin:0"><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</a>
     </div>
   </div>
 
@@ -1055,7 +1055,7 @@ sea: {
     </div>
 
     <div class="highlight-box" style="border-left-color:var(--dl-yellow)">
-      <span id="construction"></span><strong>⚠️ Construction Alert:</strong> The <a href="https://www.portseattle.org/sea-tac/at-the-airport/construction-updates" target="_blank" rel="noopener noreferrer">SEA airport expansion</a> includes a new International Arrivals Facility (opened 2022), Concourse D expansion planning, and ongoing gate area improvements. Check the Port of Seattle website for current project status.
+      <span id="construction"></span><strong><i class="fa-solid fa-triangle-exclamation"></i> Construction Alert:</strong> The <a href="https://www.portseattle.org/sea-tac/at-the-airport/construction-updates" target="_blank" rel="noopener noreferrer">SEA airport expansion</a> includes a new International Arrivals Facility (opened 2022), Concourse D expansion planning, and ongoing gate area improvements. Check the Port of Seattle website for current project status.
     </div>
 
     <h3>Key Routes from SEA</h3>

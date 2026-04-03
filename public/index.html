@@ -188,6 +188,7 @@
   }
 }
 </script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
@@ -726,21 +727,21 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
 <!-- ONBOARDING OVERLAY -->
 <div id="onboarding-overlay">
   <div id="onboarding-card">
-    <h2>Welcome to Widget Watch ✈️</h2>
+    <h2>Welcome to Widget Watch <i class="fa-solid fa-plane"></i></h2>
     <p class="onboarding-subtitle">Your real-time command center for Delta flights</p>
     <div class="onboarding-features">
-      <div class="onboarding-feature"><span class="onboarding-icon">📡</span><div><strong>Live Map</strong><span class="onboarding-desc">See where every Delta flight is right now — updated every 30 seconds</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">⚠️</span><div><strong>Delays &amp; Disruptions</strong><span class="onboarding-desc">Know before the app does — hub delays, cancellations, and ground stops at a glance</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">📅</span><div><strong>Schedules</strong><span class="onboarding-desc">Departures &amp; arrivals at all 9 hubs with on-time stats and equipment swap alerts</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">🌦</span><div><strong>Weather &amp; Hub Status</strong><span class="onboarding-desc">Conditions at every hub airport — radar, visibility, wind, and how it's affecting flights</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">✈️</span><div><strong>Fleet &amp; WiFi</strong><span class="onboarding-desc">Check if your plane has WiFi, seat config, and aircraft details</span></div></div>
-      <div class="onboarding-feature"><span class="onboarding-icon">📊</span><div><strong>Stats</strong><span class="onboarding-desc">Fleet utilization, route patterns, and network health — the truly nerdy stuff</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon"><i class="fa-solid fa-satellite-dish"></i></span><div><strong>Live Map</strong><span class="onboarding-desc">See where every Delta flight is right now — updated every 30 seconds</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon"><i class="fa-solid fa-triangle-exclamation"></i></span><div><strong>Delays &amp; Disruptions</strong><span class="onboarding-desc">Know before the app does — hub delays, cancellations, and ground stops at a glance</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon"><i class="fa-solid fa-calendar-days"></i></span><div><strong>Schedules</strong><span class="onboarding-desc">Departures &amp; arrivals at all 9 hubs with on-time stats and equipment swap alerts</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon"><i class="fa-solid fa-cloud-sun-rain"></i></span><div><strong>Weather &amp; Hub Status</strong><span class="onboarding-desc">Conditions at every hub airport — radar, visibility, wind, and how it's affecting flights</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon"><i class="fa-solid fa-plane"></i></span><div><strong>Fleet &amp; WiFi</strong><span class="onboarding-desc">Check if your plane has WiFi, seat config, and aircraft details</span></div></div>
+      <div class="onboarding-feature"><span class="onboarding-icon"><i class="fa-solid fa-chart-bar"></i></span><div><strong>Stats</strong><span class="onboarding-desc">Fleet utilization, route patterns, and network health — the truly nerdy stuff</span></div></div>
     </div>
     <p class="onboarding-footer">Built by a Delta flyer, for Delta flyers. Not affiliated with Delta Air Lines.</p>
-    <button id="onboarding-dismiss">Let's Keep Climbing ✈️</button>
+    <button id="onboarding-dismiss">Let's Keep Climbing <i class="fa-solid fa-plane"></i></button>
   </div>
 </div>
-<div id="offline-banner" aria-live="assertive" role="alert">⚠ You are offline — data may be outdated. Reconnect to see live updates.</div>
+<div id="offline-banner" aria-live="assertive" role="alert"><i class="fa-solid fa-triangle-exclamation"></i> You are offline — data may be outdated. Reconnect to see live updates.</div>
 <noscript>
 <div style="background:#111827;color:#e2e8f0;padding:40px;font-family:monospace;max-width:900px;margin:0 auto">
 <h2 style="text-align:center;margin-bottom:16px">Widget Watch — Delta Air Lines Flight Tracker & Live Status</h2>
@@ -768,11 +769,11 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
 <div class="sr-only">Widget Watch is a free, independent Delta Air Lines flight tracker and operations dashboard. Track every Delta flight in real time on a live map updated every 30 seconds. Check if your Delta flight is on time, delayed, or canceled. Monitor delays and ground stops at all 9 Delta hubs: Atlanta ATL, New York LaGuardia LGA, New York JFK, Boston BOS, Detroit DTW, Minneapolis MSP, Salt Lake City SLC, Los Angeles LAX, and Seattle SEA. Search flights by number, tail number, or route. Check which Delta planes have WiFi. Browse the full fleet database of 1,078+ aircraft with seat configurations and IFE details. View departure and arrival schedules with on-time performance and equipment swap alerts. Weather radar, METAR conditions, and FAA delay alerts for all hub airports. Fleet utilization analytics, hub-to-hub route flow, and network health stats. Built for the Delta community. Not affiliated with Delta Air Lines, Inc.</div>
 
 <!-- HUB HEALTH BAR -->
-<div id="hub-health-bar" aria-live="polite"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span><span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span></div>
+<div id="hub-health-bar" aria-live="polite"><span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. <i class="fa-solid fa-circle" style="color:#22c55e"></i> &gt;70% · <i class="fa-solid fa-circle" style="color:#eab308"></i> 50–70% · <i class="fa-solid fa-circle" style="color:#ef4444"></i> &lt;50%</span></span><span style="color:var(--dl-muted)">Loading…</span><span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span></div>
 
 <!-- WATCH NOTIFICATION BANNER -->
 <div id="watch-notification" aria-live="polite" role="status"><span id="wn-text"></span><button class="wn-dismiss" data-action="dismiss-watch-notification">Dismiss</button></div>
-<div id="push-prompt">🔔 Get push alerts for watched flights?<div style="display:flex;gap:6px"><button class="pp-enable" data-action="enable-push">Enable</button><button class="pp-dismiss" data-action="dismiss-push">No thanks</button></div></div>
+<div id="push-prompt"><i class="fa-solid fa-bell"></i> Get push alerts for watched flights?<div style="display:flex;gap:6px"><button class="pp-enable" data-action="enable-push">Enable</button><button class="pp-dismiss" data-action="dismiss-push">No thanks</button></div></div>
 
 <!-- HEADER -->
 <div id="header">
@@ -785,64 +786,64 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
     <span><span class="status-dot live" id="status-dot"></span><span id="status-text">LIVE</span> <span id="header-flight-count" style="color:var(--dl-muted);font-size:10px"></span></span>
     <span id="countdown">NEXT REFRESH: --:--</span>
     <span id="clock" style="color:var(--dl-muted)"></span>
-    <div style="position:relative"><button id="watch-header-btn" data-action="toggle-watch-panel" title="Watched flights" aria-label="Toggle watched flights panel">👁️<span class="watch-badge" id="watch-badge" style="display:none">0</span></button><div id="watch-panel"><div class="watch-panel-header"><span>👁️ Watched Flights</span><button data-action="clear-all-watched" style="background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:9px;font-family:var(--mono)">Clear All</button></div><div id="watch-panel-list"></div></div></div>
-    <button id="mobile-search-toggle" aria-label="Toggle search" title="Search">🔍</button>
+    <div style="position:relative"><button id="watch-header-btn" data-action="toggle-watch-panel" title="Watched flights" aria-label="Toggle watched flights panel"><i class="fa-solid fa-eye"></i><span class="watch-badge" id="watch-badge" style="display:none">0</span></button><div id="watch-panel"><div class="watch-panel-header"><span><i class="fa-solid fa-eye"></i> Watched Flights</span><button data-action="clear-all-watched" style="background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:9px;font-family:var(--mono)">Clear All</button></div><div id="watch-panel-list"></div></div></div>
+    <button id="mobile-search-toggle" aria-label="Toggle search" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
     <button id="onboarding-help" title="About this dashboard" aria-label="About this dashboard">?</button>
   </div>
 </div>
 
 <!-- TAB BAR -->
 <nav id="tab-bar" aria-label="Dashboard navigation" role="tablist">
-  <button class="tab-btn active" data-tab="tab-live" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-live"><span aria-hidden="true">📡</span> LIVE OPS</button>
-  <button class="tab-btn" data-tab="tab-schedule" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-schedule"><span aria-hidden="true">📅</span> SCHEDULE</button>
-  <button class="tab-btn" data-tab="tab-fleet" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-fleet"><span aria-hidden="true">✈️</span> FLEET</button>
-  <button class="tab-btn" data-tab="tab-weather" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-weather"><span aria-hidden="true">🌦</span> DELAYS · WEATHER · HUBS</button>
-  <button class="tab-btn" data-tab="tab-analytics" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-analytics" aria-label="Stats"><span aria-hidden="true">📊</span> STATS</button>
-  <button class="tab-btn" data-tab="tab-sources" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-sources"><span aria-hidden="true">ℹ️</span> SOURCES</button>
+  <button class="tab-btn active" data-tab="tab-live" role="tab" tabindex="0" aria-selected="true" aria-controls="tab-live"><span aria-hidden="true"><i class="fa-solid fa-satellite-dish"></i></span> LIVE OPS</button>
+  <button class="tab-btn" data-tab="tab-schedule" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-schedule"><span aria-hidden="true"><i class="fa-solid fa-calendar-days"></i></span> SCHEDULE</button>
+  <button class="tab-btn" data-tab="tab-fleet" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-fleet"><span aria-hidden="true"><i class="fa-solid fa-plane"></i></span> FLEET</button>
+  <button class="tab-btn" data-tab="tab-weather" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-weather"><span aria-hidden="true"><i class="fa-solid fa-cloud-sun-rain"></i></span> DELAYS · WEATHER · HUBS</button>
+  <button class="tab-btn" data-tab="tab-analytics" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-analytics" aria-label="Stats"><span aria-hidden="true"><i class="fa-solid fa-chart-bar"></i></span> STATS</button>
+  <button class="tab-btn" data-tab="tab-sources" role="tab" tabindex="-1" aria-selected="false" aria-controls="tab-sources"><span aria-hidden="true"><i class="fa-solid fa-circle-info"></i></span> SOURCES</button>
 </nav>
 
 <!-- MOBILE BOTTOM NAV -->
 <nav id="mobile-bottom-nav" aria-label="Mobile navigation">
-  <button data-tab="tab-live" class="active"><span class="bnav-icon">📡</span><span class="bnav-label">Live</span></button>
-  <button data-tab="tab-schedule"><span class="bnav-icon">📅</span><span class="bnav-label">Schedule</span></button>
-  <button data-tab="tab-fleet"><span class="bnav-icon">✈️</span><span class="bnav-label">Fleet</span></button>
-  <button data-tab="tab-weather"><span class="bnav-icon">🌦</span><span class="bnav-label">Weather</span></button>
-  <button data-tab="tab-analytics" class="bnav-overflow-item"><span class="bnav-icon">📊</span><span class="bnav-label">Stats</span></button>
-  <button data-tab="tab-sources" class="bnav-overflow-item"><span class="bnav-icon">ℹ️</span><span class="bnav-label">Sources</span></button>
-  <button id="mobile-more-btn" aria-label="More tabs"><span class="bnav-icon">▾</span><span class="bnav-label">More</span></button>
+  <button data-tab="tab-live" class="active"><span class="bnav-icon"><i class="fa-solid fa-satellite-dish"></i></span><span class="bnav-label">Live</span></button>
+  <button data-tab="tab-schedule"><span class="bnav-icon"><i class="fa-solid fa-calendar-days"></i></span><span class="bnav-label">Schedule</span></button>
+  <button data-tab="tab-fleet"><span class="bnav-icon"><i class="fa-solid fa-plane"></i></span><span class="bnav-label">Fleet</span></button>
+  <button data-tab="tab-weather"><span class="bnav-icon"><i class="fa-solid fa-cloud-sun-rain"></i></span><span class="bnav-label">Weather</span></button>
+  <button data-tab="tab-analytics" class="bnav-overflow-item"><span class="bnav-icon"><i class="fa-solid fa-chart-bar"></i></span><span class="bnav-label">Stats</span></button>
+  <button data-tab="tab-sources" class="bnav-overflow-item"><span class="bnav-icon"><i class="fa-solid fa-circle-info"></i></span><span class="bnav-label">Sources</span></button>
+  <button id="mobile-more-btn" aria-label="More tabs"><span class="bnav-icon"><i class="fa-solid fa-caret-down"></i></span><span class="bnav-label">More</span></button>
 </nav>
 <div id="mobile-more-menu">
-  <button data-tab="tab-analytics"><span class="bnav-icon">📊</span> Stats</button>
-  <button data-tab="tab-sources"><span class="bnav-icon">ℹ️</span> Sources</button>
+  <button data-tab="tab-analytics"><span class="bnav-icon"><i class="fa-solid fa-chart-bar"></i></span> Stats</button>
+  <button data-tab="tab-sources"><span class="bnav-icon"><i class="fa-solid fa-circle-info"></i></span> Sources</button>
 </div>
 
 <!-- TAB 1: LIVE OPS -->
 <main><div class="tab-content active" id="tab-live" role="tabpanel" aria-label="Live flight operations map">
   <div class="ops-layout">
-    <button id="mobile-sidebar-toggle" aria-label="Toggle filters">🔍 Filters ▾</button>
+    <button id="mobile-sidebar-toggle" aria-label="Toggle filters"><i class="fa-solid fa-magnifying-glass"></i> Filters <i class="fa-solid fa-caret-down"></i></button>
     <div class="sidebar" id="sidebar">
-      <h3>🏢 Hub Operations</h3>
+      <h3><i class="fa-solid fa-building"></i> Hub Operations</h3>
       <div id="hub-stats"></div>
-      <button id="sidebar-filters-toggle" data-action="toggle-sidebar-filters" style="width:100%;background:none;border:none;border-bottom:1px solid var(--dl-border);color:var(--dl-accent);font-family:var(--font-ui);font-size:10px;padding:6px 12px;cursor:pointer;text-align:center">Filters ▾</button>
+      <button id="sidebar-filters-toggle" data-action="toggle-sidebar-filters" style="width:100%;background:none;border:none;border-bottom:1px solid var(--dl-border);color:var(--dl-accent);font-family:var(--font-ui);font-size:10px;padding:6px 12px;cursor:pointer;text-align:center">Filters <i class="fa-solid fa-caret-down"></i></button>
       <div id="sidebar-extra-filters">
-      <h3 style="margin-top:4px">🔍 Search</h3>
+      <h3 style="margin-top:4px"><i class="fa-solid fa-magnifying-glass"></i> Search</h3>
       <div style="padding:8px 12px">
         <input type="text" id="search-input-side" aria-label="Sidebar flight search" placeholder="Flight #, tail, airport..." style="width:100%;background:rgba(15,23,41,.8);border:1px solid var(--dl-border);color:var(--dl-text);padding:6px 8px;border-radius:4px;font-family:var(--mono);font-size:10px">
         <div id="search-results-side" style="max-height:400px;overflow-y:auto;margin-top:4px"></div>
       </div>
-      <h3>📊 Phase Breakdown</h3>
+      <h3><i class="fa-solid fa-chart-bar"></i> Phase Breakdown</h3>
       <div id="phase-stats" style="padding:8px 12px"></div>
       </div>
     </div>
     <div class="map-area">
       <div id="map"></div>
       <div id="controls">
-        <button class="ctrl-btn" id="mobile-ctrl-toggle" style="display:none" aria-label="Toggle map layers">☰</button>
-        <button class="ctrl-btn active" data-action="toggle-hubs" id="btn-hubs">🏢 Hubs</button>
-        <button class="ctrl-btn active" data-action="toggle-longhaul" id="btn-longhaul">🌍 Long Haul</button>
-        <button class="ctrl-btn" data-action="toggle-weather" id="btn-wx">🌧 Weather</button>
-        <!--button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">🌏 Pacific</button-->
-        <button class="ctrl-btn" data-action="refresh-flights" id="btn-refresh">🔄 Refresh</button>
+        <button class="ctrl-btn" id="mobile-ctrl-toggle" style="display:none" aria-label="Toggle map layers"><i class="fa-solid fa-bars"></i></button>
+        <button class="ctrl-btn active" data-action="toggle-hubs" id="btn-hubs"><i class="fa-solid fa-building"></i> Hubs</button>
+        <button class="ctrl-btn active" data-action="toggle-longhaul" id="btn-longhaul"><i class="fa-solid fa-globe"></i> Long Haul</button>
+        <button class="ctrl-btn" data-action="toggle-weather" id="btn-wx"><i class="fa-solid fa-cloud-rain"></i> Weather</button>
+        <!--button class="ctrl-btn" data-action="view-pacific" id="btn-pacific">Pacific</button-->
+        <button class="ctrl-btn" data-action="refresh-flights" id="btn-refresh"><i class="fa-solid fa-arrows-rotate"></i> Refresh</button>
       </div>
     </div>
   </div>
@@ -872,7 +873,7 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
   <div class="card" style="margin-bottom:0;padding:12px 16px">
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between">
       <div style="display:flex;align-items:center;gap:12px">
-        <h3 style="font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin:0">📅 Flight Schedule</h3>
+        <h3 style="font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin:0"><i class="fa-solid fa-calendar-days"></i> Flight Schedule</h3>
         <div id="sched-day-btns" style="display:flex;gap:4px">
           <button class="sched-day-btn" data-day="-1">Yesterday</button>
           <button class="sched-day-btn active" data-day="0">Today</button>
@@ -896,8 +897,8 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
           <option value="departures">Departures</option>
           <option value="arrivals">Arrivals</option>
         </select>
-        <button id="sched-refresh-btn" data-action="schedule-refresh" style="background:var(--dl-blue);color:white;border:none;padding:4px 10px;font-family:var(--font-ui);font-size:10px;border-radius:3px;cursor:pointer">↻ Refresh</button>
-        <button id="sched-more-filters-btn" data-action="schedule-more-filters" style="background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:4px 10px;font-family:var(--font-ui);font-size:10px;border-radius:3px;cursor:pointer">More Filters ▾</button>
+        <button id="sched-refresh-btn" data-action="schedule-refresh" style="background:var(--dl-blue);color:white;border:none;padding:4px 10px;font-family:var(--font-ui);font-size:10px;border-radius:3px;cursor:pointer"><i class="fa-solid fa-rotate-right"></i> Refresh</button>
+        <button id="sched-more-filters-btn" data-action="schedule-more-filters" style="background:none;border:1px solid var(--dl-border);color:var(--dl-muted);padding:4px 10px;font-family:var(--font-ui);font-size:10px;border-radius:3px;cursor:pointer">More Filters <i class="fa-solid fa-caret-down"></i></button>
         <div id="sched-adv-filters" style="display:none;align-items:center;gap:8px;flex-wrap:wrap">
         <select id="sched-status" aria-label="Schedule status filter" style="background:var(--bg-card);color:var(--dl-text);border:1px solid var(--dl-border);padding:4px 8px;font-family:var(--mono);font-size:10px;border-radius:3px">
           <option value="">All Status</option>
@@ -922,22 +923,22 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
   <div id="sched-stats" class="metric-row" style="margin:8px 0"></div>
   <div class="card" style="padding:0;overflow:hidden">
     <div id="sched-loading" style="text-align:center;padding:40px;color:var(--dl-muted);font-size:12px">
-      <div style="font-size:24px;margin-bottom:8px">📅</div>
+      <div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-calendar-days"></i></div>
       Select a hub and click Refresh to load schedule data
     </div>
     <div class="fleet-table-wrap" style="display:none" id="sched-table-wrap">
       <table id="sched-table">
         <thead>
           <tr>
-            <th data-sort="time" style="cursor:pointer;min-width:100px">Time ↕</th>
-            <th data-sort="flight" style="cursor:pointer">Flight ↕</th>
+            <th data-sort="time" data-label="Time" style="cursor:pointer;min-width:100px">Time <i class="fa-solid fa-sort"></i></th>
+            <th data-sort="flight" data-label="Flight" style="cursor:pointer">Flight <i class="fa-solid fa-sort"></i></th>
             <th data-sort="route" style="cursor:pointer;min-width:140px">Route</th>
             <th data-sort="aircraft" style="cursor:pointer">Aircraft</th>
             <th data-sort="reg" style="cursor:pointer">Reg</th>
             <th>Gate</th>
-            <th data-sort="status" style="cursor:pointer;min-width:130px">Status ↕</th>
+            <th data-sort="status" data-label="Status" style="cursor:pointer;min-width:130px">Status <i class="fa-solid fa-sort"></i></th>
             <th>Fleet</th>
-            <th>👁️</th>
+            <th><i class="fa-solid fa-eye"></i></th>
           </tr>
         </thead>
         <tbody id="sched-tbody"></tbody>
@@ -957,13 +958,13 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
   </section>
   <div class="live-fleet-panel" id="live-fleet-panel" style="display:none">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-      <h3 style="font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin:0">🛩 Live Fleet Status</h3>
+      <h3 style="font-size:10px;color:var(--dl-blue);text-transform:uppercase;letter-spacing:1.5px;margin:0"><i class="fa-solid fa-plane"></i> Live Fleet Status</h3>
       <div style="display:flex;align-items:center;gap:8px"><span class="live-badge"><span class="pulse-dot"></span> LIVE</span><span id="fleet-live-time" style="font-size:9px;color:var(--dl-muted)"></span></div>
     </div>
-    <div id="fleet-live-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading live fleet data...<br><button class="retry-btn" data-action="refresh-flights" style="margin-top:8px">⏳ Load Now</button></div></div>
+    <div id="fleet-live-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading live fleet data...<br><button class="retry-btn" data-action="refresh-flights" style="margin-top:8px"><i class="fa-solid fa-spinner fa-spin"></i> Load Now</button></div></div>
   </div>
   <div class="card" id="fleet-health-card">
-    <h3>🏥 Fleet Health</h3>
+    <h3><i class="fa-solid fa-heart-pulse"></i> Fleet Health</h3>
     <div id="fleet-health-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading fleet health data...</div></div>
   </div>
   <div class="card">
@@ -990,17 +991,17 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
       <select id="fleet-filter-wifi" aria-label="Fleet WiFi filter"><option value="">All WiFi</option></select>
       <select id="fleet-filter-status" aria-label="Fleet status filter"><option value="">All Status</option><option value="active">Active</option><option value="stored">Stored/Maint</option><option value="special">⭐ Special/Named</option></select>
       <input type="text" id="fleet-search" aria-label="Fleet search" placeholder="Search reg, config...">
-      <button class="refresh-btn" data-action="refresh-fleet-data">↻ Refresh Fleet Data</button>
+      <button class="refresh-btn" data-action="refresh-fleet-data"><i class="fa-solid fa-rotate-right"></i> Refresh Fleet Data</button>
     </div>
     <div class="fleet-table-wrap">
       <table id="fleet-table">
-        <thead><tr><th data-sort="r">Reg ↕</th><th data-sort="t">Type ↕</th><th data-sort="a">AC# ↕</th><th data-sort="c">Config</th><th data-sort="tot">Seats ↕</th><th data-sort="w">WiFi</th><th data-sort="i">IFE</th><th data-sort="d">Del ↕</th><th data-sort="s">Status</th></tr></thead>
+        <thead><tr><th data-sort="r">Reg <i class="fa-solid fa-sort"></i></th><th data-sort="t">Type <i class="fa-solid fa-sort"></i></th><th data-sort="a">AC# <i class="fa-solid fa-sort"></i></th><th data-sort="c">Config</th><th data-sort="tot">Seats <i class="fa-solid fa-sort"></i></th><th data-sort="w">WiFi</th><th data-sort="i">IFE</th><th data-sort="d">Del <i class="fa-solid fa-sort"></i></th><th data-sort="s">Status</th></tr></thead>
         <tbody id="fleet-tbody"></tbody>
       </table>
     </div>
   </div>
   <div class="card" id="special-aircraft-card">
-    <h3>⭐ Special &amp; Named Aircraft</h3>
+    <h3><i class="fa-solid fa-star"></i> Special &amp; Named Aircraft</h3>
     <div id="special-aircraft-content"><div style="color:var(--dl-muted);font-size:11px;padding:20px 0;text-align:center">Loading special aircraft...</div></div>
   </div>
 </div>
@@ -1008,7 +1009,7 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
 <!-- TAB 3: WEATHER -->
 <div class="tab-content" id="tab-weather" role="tabpanel" aria-label="Delays, weather, and hub status">
   <div class="wx-hero">
-    <h3 id="radar-title">🌧 NEXRAD Radar</h3>
+    <h3 id="radar-title"><i class="fa-solid fa-cloud-rain"></i> NEXRAD Radar</h3>
     <div id="radar-map"></div>
   </div>
   <div class="wx-legend">
@@ -1020,7 +1021,7 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
   <div class="hub-cards" id="hub-cards"></div>
   <!-- IROPS Monitor -->
   <div id="irops-section">
-    <h3>⚠️ IROPS Monitor</h3>
+    <h3><i class="fa-solid fa-triangle-exclamation"></i> IROPS Monitor</h3>
     <div id="irops-content" aria-live="polite"><div class="irops-empty" style="color:var(--dl-muted);font-size:10px">Loading IROPS data…</div></div>
   </div>
 </div>
@@ -1030,28 +1031,28 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
   <div class="metric-row" id="analytics-metrics"></div>
   <div class="two-col">
     <div class="card">
-      <h3>✈️ Live Fleet Utilization</h3>
+      <h3><i class="fa-solid fa-plane"></i> Live Fleet Utilization</h3>
       <div style="font-size:9px;color:var(--dl-muted);margin-bottom:8px">Airborne now vs. total fleet · updates every 30s</div>
       <div id="util-chart"></div>
     </div>
     <div class="card">
-      <h3>🛫 Airborne by Flight Phase</h3>
+      <h3><i class="fa-solid fa-plane-departure"></i> Airborne by Flight Phase</h3>
       <div style="font-size:9px;color:var(--dl-muted);margin-bottom:8px">Current phase distribution · updates every 30s</div>
       <div id="phase-chart"></div>
     </div>
   </div>
   <div class="card">
-    <h3>🔥 Hub-to-Hub Flow Matrix</h3>
+    <h3><i class="fa-solid fa-fire"></i> Hub-to-Hub Flow Matrix</h3>
     <div style="font-size:9px;color:var(--dl-muted);margin-bottom:8px">Active flights between DL hubs · darker = more traffic</div>
     <div id="hub-matrix" style="overflow-x:auto"></div>
   </div>
   <div class="two-col">
     <div class="card">
-      <h3>📈 Top Routes Right Now</h3>
+      <h3><i class="fa-solid fa-chart-line"></i> Top Routes Right Now</h3>
       <div id="route-heatmap" style="min-height:200px"></div>
     </div>
     <div class="card">
-      <h3>📅 Average Fleet Age by Type</h3>
+      <h3><i class="fa-solid fa-calendar-days"></i> Average Fleet Age by Type</h3>
       <div id="avg-age-chart"></div>
     </div>
   </div>
@@ -1059,28 +1060,28 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
 
 <!-- TAB 5: SOURCES -->
 <div class="tab-content" id="tab-sources" role="tabpanel" aria-label="Data sources and credits">
-  <h2 style="font-size:16px;margin-bottom:16px;color:var(--dl-accent)">📋 Data Sources & Credits</h2>
+  <h2 style="font-size:16px;margin-bottom:16px;color:var(--dl-accent)"><i class="fa-solid fa-clipboard-list"></i> Data Sources & Credits</h2>
 
   <div class="source-item">
-    <div class="source-icon">📡</div>
+    <div class="source-icon"><i class="fa-solid fa-satellite-dish"></i></div>
     <div>
       <div class="source-name">Flight Data — Flightradar24 <span class="freshness fresh-live">LIVE</span></div>
       <div class="source-desc">Real-time flight tracking with registration, origin, destination, aircraft type, and flight number. Updates every 30 seconds.</div>
-      <a class="source-link" href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer">flightradar24.com →</a>
+      <a class="source-link" href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer">flightradar24.com <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
   <div class="source-item">
-    <div class="source-icon">📅</div>
+    <div class="source-icon"><i class="fa-solid fa-calendar-days"></i></div>
     <div>
       <div class="source-name">Flight Schedule — Flightradar24 <span class="freshness fresh-live">LIVE</span></div>
       <div class="source-desc">Airport departure/arrival schedules with status, gate, terminal, and aircraft info.</div>
-      <a class="source-link" href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer">flightradar24.com →</a>
+      <a class="source-link" href="https://www.flightradar24.com" target="_blank" rel="noopener noreferrer">flightradar24.com <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
   <div class="source-item">
-    <div class="source-icon">✈️</div>
+    <div class="source-icon"><i class="fa-solid fa-plane"></i></div>
     <div>
       <div class="source-name">Fleet Database — Public Records <span class="freshness fresh-daily">DAILY</span></div>
       <div class="source-desc">Fleet Data: mainline aircraft with type, config, WiFi, IFE, seats, delivery year.</div>
@@ -1088,34 +1089,34 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
   </div>
 
   <div class="source-item">
-    <div class="source-icon">🌦</div>
+    <div class="source-icon"><i class="fa-solid fa-cloud-sun-rain"></i></div>
     <div>
       <div class="source-name">Aviation Weather — AWC <span class="freshness fresh-live">LIVE</span></div>
       <div class="source-desc">METAR observations and TAF forecasts for hub airports.</div>
-      <a class="source-link" href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer">aviationweather.gov →</a>
+      <a class="source-link" href="https://aviationweather.gov" target="_blank" rel="noopener noreferrer">aviationweather.gov <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
   <div class="source-item">
-    <div class="source-icon">🌧</div>
+    <div class="source-icon"><i class="fa-solid fa-cloud-rain"></i></div>
     <div>
       <div class="source-name">NEXRAD Radar — Iowa State / NWS <span class="freshness fresh-live">LIVE</span></div>
       <div class="source-desc">Composite NEXRAD radar imagery overlaid on maps.</div>
-      <a class="source-link" href="https://mesonet.agron.iastate.edu" target="_blank" rel="noopener noreferrer">Iowa State Mesonet →</a>
+      <a class="source-link" href="https://mesonet.agron.iastate.edu" target="_blank" rel="noopener noreferrer">Iowa State Mesonet <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
   <div class="source-item">
-    <div class="source-icon">🏛</div>
+    <div class="source-icon"><i class="fa-solid fa-landmark"></i></div>
     <div>
       <div class="source-name">NAS Status — FAA <span class="freshness fresh-live">LIVE</span></div>
       <div class="source-desc">National Airspace System status, ground stops, delays, and TFRs.</div>
-      <a class="source-link" href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer">nasstatus.faa.gov →</a>
+      <a class="source-link" href="https://nasstatus.faa.gov" target="_blank" rel="noopener noreferrer">nasstatus.faa.gov <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
   <div class="source-item">
-    <div class="source-icon">🛠</div>
+    <div class="source-icon"><i class="fa-solid fa-wrench"></i></div>
     <div>
       <div class="source-name">Route Estimation — Algorithmic</div>
       <div class="source-desc">Origin/destination airports estimated using aircraft position, heading, and nearest airport matching. Routes marked as "estimated" — not from flight plans.</div>
@@ -1123,14 +1124,14 @@ table,thead th,tbody td,.stat-val,.metric-val,.big-number,.hub-code,.hub-card-co
     </div>
   </div>
 
-  <h2 style="font-size:14px;margin:24px 0 12px;color:var(--dl-accent)">🤝 Community</h2>
+  <h2 style="font-size:14px;margin:24px 0 12px;color:var(--dl-accent)"><i class="fa-solid fa-handshake"></i> Community</h2>
 
   <div class="source-item">
-    <div class="source-icon">💬</div>
+    <div class="source-icon"><i class="fa-solid fa-comments"></i></div>
     <div>
       <div class="source-name">r/delta</div>
       <div class="source-desc">The Delta Air Lines community on Reddit — news, trip reports, SkyMiles discussion, and more.</div>
-      <a class="source-link" href="https://www.reddit.com/r/delta/" target="_blank" rel="noopener noreferrer">reddit.com/r/delta →</a>
+      <a class="source-link" href="https://www.reddit.com/r/delta/" target="_blank" rel="noopener noreferrer">reddit.com/r/delta <i class="fa-solid fa-arrow-right"></i></a>
     </div>
   </div>
 
@@ -1682,7 +1683,7 @@ switchToTab = function(tabId, updateHash) {
   if (btn && sidebar) {
     btn.addEventListener('click', () => {
       sidebar.classList.toggle('mobile-sidebar-open');
-      btn.textContent = sidebar.classList.contains('mobile-sidebar-open') ? '🔍 Filters ▴' : '🔍 Filters ▾';
+      btn.innerHTML = sidebar.classList.contains('mobile-sidebar-open') ? '<i class="fa-solid fa-magnifying-glass"></i> Filters <i class="fa-solid fa-caret-up"></i>' : '<i class="fa-solid fa-magnifying-glass"></i> Filters <i class="fa-solid fa-caret-down"></i>';
       if (map) setTimeout(() => map.invalidateSize(), 300);
     });
   }
@@ -1773,22 +1774,22 @@ function getPhase(alt, vr, spd) {
   const vrFpm = vr != null ? vr * 196.85 : null; // m/s to fpm
   const spdKts = spd != null ? spd * 1.944 : null;
 
-  if (altFt !== null && altFt < 100 && spdKts !== null && spdKts < 50) return { phase: 'Ground', icon: '🅿️', cls: 'phase-ground' };
-  if (altFt !== null && altFt < 5000 && vrFpm !== null && vrFpm > 500) return { phase: 'Takeoff', icon: '🛫', cls: 'phase-climb' };
-  if (altFt !== null && altFt < 5000 && vrFpm !== null && vrFpm < -300) return { phase: 'Approach', icon: '🛬', cls: 'phase-approach' };
-  if (vrFpm !== null && vrFpm > 300) return { phase: 'Climb', icon: '↗️', cls: 'phase-climb' };
-  if (vrFpm !== null && vrFpm < -300) return { phase: 'Descent', icon: '↘️', cls: 'phase-descent' };
-  if (altFt !== null && altFt > 25000) return { phase: 'Cruise', icon: '✈️', cls: 'phase-cruise' };
-  return { phase: 'En Route', icon: '✈️', cls: 'phase-cruise' };
+  if (altFt !== null && altFt < 100 && spdKts !== null && spdKts < 50) return { phase: 'Ground', icon: '<i class="fa-solid fa-square-parking"></i>', cls: 'phase-ground' };
+  if (altFt !== null && altFt < 5000 && vrFpm !== null && vrFpm > 500) return { phase: 'Takeoff', icon: '<i class="fa-solid fa-plane-departure"></i>', cls: 'phase-climb' };
+  if (altFt !== null && altFt < 5000 && vrFpm !== null && vrFpm < -300) return { phase: 'Approach', icon: '<i class="fa-solid fa-plane-arrival"></i>', cls: 'phase-approach' };
+  if (vrFpm !== null && vrFpm > 300) return { phase: 'Climb', icon: '<i class="fa-solid fa-arrow-trend-up"></i>', cls: 'phase-climb' };
+  if (vrFpm !== null && vrFpm < -300) return { phase: 'Descent', icon: '<i class="fa-solid fa-arrow-trend-down"></i>', cls: 'phase-descent' };
+  if (altFt !== null && altFt > 25000) return { phase: 'Cruise', icon: '<i class="fa-solid fa-plane"></i>', cls: 'phase-cruise' };
+  return { phase: 'En Route', icon: '<i class="fa-solid fa-plane"></i>', cls: 'phase-cruise' };
 }
 
 // ═══ SQUAWK DECODER ═══
 function decodeSquawk(sq) {
   if (!sq) return null;
   const s = String(sq);
-  if (s === '7500') return { text: '⚠️ HIJACK', cls: 'squawk-alert' };
-  if (s === '7600') return { text: '⚠️ RADIO FAILURE', cls: 'squawk-alert' };
-  if (s === '7700') return { text: '⚠️ EMERGENCY', cls: 'squawk-alert' };
+  if (s === '7500') return { text: '<i class="fa-solid fa-triangle-exclamation"></i> HIJACK', cls: 'squawk-alert' };
+  if (s === '7600') return { text: '<i class="fa-solid fa-triangle-exclamation"></i> RADIO FAILURE', cls: 'squawk-alert' };
+  if (s === '7700') return { text: '<i class="fa-solid fa-triangle-exclamation"></i> EMERGENCY', cls: 'squawk-alert' };
   if (s === '1200') return { text: 'VFR', cls: '' };
   return null;
 }
@@ -1932,7 +1933,7 @@ async function refreshFlights() {
   if (isRefreshing) return;
   isRefreshing = true;
   flightsLoading = true;
-  document.getElementById('btn-refresh').textContent = '⏳ Loading...';
+  document.getElementById('btn-refresh').innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
   try {
     const res = await fetch('/api/fr24-feed?airline=DAL');
     if (!res.ok) throw new Error(res.status);
@@ -1976,14 +1977,14 @@ async function refreshFlights() {
         const overlay = document.createElement('div');
         overlay.id = 'map-error-overlay';
         overlay.style.cssText = 'position:absolute;inset:0;z-index:999;display:flex;align-items:center;justify-content:center;background:rgba(10,14,20,.85);pointer-events:auto';
-        overlay.innerHTML = '<div class="error-state"><div class="error-icon">📡</div><div style="color:var(--dl-text);font-size:13px;margin-bottom:4px">Live data temporarily unavailable</div><div style="color:var(--dl-muted);font-size:11px">Could not reach flight data server</div><button class="retry-btn" data-action="map-error-retry">↻ Retry</button></div>';
+        overlay.innerHTML = '<div class="error-state"><div class="error-icon"><i class="fa-solid fa-satellite-dish"></i></div><div style="color:var(--dl-text);font-size:13px;margin-bottom:4px">Live data temporarily unavailable</div><div style="color:var(--dl-muted);font-size:11px">Could not reach flight data server</div><button class="retry-btn" data-action="map-error-retry"><i class="fa-solid fa-rotate-right"></i> Retry</button></div>';
         mapEl.parentElement.style.position = 'relative';
         mapEl.parentElement.appendChild(overlay);
       }
     }
   } finally {
     countdown = 30;
-    document.getElementById('btn-refresh').textContent = '🔄 Refresh';
+    document.getElementById('btn-refresh').innerHTML = '<i class="fa-solid fa-arrows-rotate"></i> Refresh';
     flightsLoading = false;
     isRefreshing = false;
     // Each updater is independent — one failure must not block the rest
@@ -2174,7 +2175,7 @@ function showFlightPopup(f, marker) {
   html += `<span class="popup-phase ${phaseInfo.cls}">${phaseInfo.icon} ${phaseInfo.phase}</span>`;
   html += `</div>`;
   if (squawk) html += `<div style="margin-bottom:3px"><span class="${squawk.cls}">${squawk.text}</span></div>`;
-  if (hasCityNames) html += `<div class="popup-route">${escapeHtml(origCity)} → ${escapeHtml(destCity)}</div>`;
+  if (hasCityNames) html += `<div class="popup-route">${escapeHtml(origCity)} <i class="fa-solid fa-arrow-right"></i> ${escapeHtml(destCity)}</div>`;
   html += `<div class="popup-route-code">${escapeHtml(routeStr)}</div>`;
   if (!hasRealRoute && (originObj || destObj)) html += `<div class="popup-route-est">estimated route</div>`;
   html += `</div>`;
@@ -2193,7 +2194,7 @@ function showFlightPopup(f, marker) {
     html += `<div class="popup-aircraft-type">${escapeHtml(aircraft.t)} <span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(aircraft.r)}" style="font-size:10px">${escapeHtml(aircraft.r)}</span></div>`;
     html += `<div style="font-size:10px;color:var(--dl-muted)">${escapeHtml(aircraft.d || '')} | ${escapeHtml(aircraft.i || '')} | ${escapeHtml(aircraft.w || '')}</div>`;
     const popupSpecial = isSpecialAircraft(aircraft.r);
-    if (popupSpecial) html += `<span class="special-badge">⭐ ${escapeHtml(popupSpecial.name)}</span> `;
+    if (popupSpecial) html += `<span class="special-badge"><i class="fa-solid fa-star"></i> ${escapeHtml(popupSpecial.name)}</span> `;
     if (aircraft.seats && Object.keys(aircraft.seats).length > 0) {
       html += `<div class="popup-seats">`;
       for (const [cls, cnt] of Object.entries(aircraft.seats)) {
@@ -2211,19 +2212,19 @@ function showFlightPopup(f, marker) {
   }
 
   // Departure/Arrival times — placeholder, filled async
-  html += `<div id="popup-times-${escapeHtml(f.icao24)}" class="popup-times-loading">✈️ Loading departure & arrival times…</div>`;
+  html += `<div id="popup-times-${escapeHtml(f.icao24)}" class="popup-times-loading"><i class="fa-solid fa-plane"></i> Loading departure & arrival times…</div>`;
 
   html += `<div class="popup-links">`;
   const fltLink = flightNum.replace(/^DL/, '');
-  if (fltLink) html += `<a href="https://flightaware.com/live/flight/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FlightAware ↗</a>`;
-  if (fltLink) html += `<a href="https://www.flightradar24.com/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FR24 ↗</a>`;
+  if (fltLink) html += `<a href="https://flightaware.com/live/flight/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FlightAware <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+  if (fltLink) html += `<a href="https://www.flightradar24.com/DAL${encodeURIComponent(fltLink)}" target="_blank" rel="noopener noreferrer">FR24 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
   const regLink = aircraft?.r || f.reg;
-  if (regLink) html += `<a href="https://www.planespotters.net/search?q=${encodeURIComponent(regLink)}" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>`;
-  html += `<a href="https://globe.adsbexchange.com/?icao=${encodeURIComponent(f.icao24)}" target="_blank" rel="noopener noreferrer">ADS-B ↗</a>`;
+  if (regLink) html += `<a href="https://www.planespotters.net/search?q=${encodeURIComponent(regLink)}" target="_blank" rel="noopener noreferrer">Planespotters <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+  html += `<a href="https://globe.adsbexchange.com/?icao=${encodeURIComponent(f.icao24)}" target="_blank" rel="noopener noreferrer">ADS-B <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
   html += `</div>`;
   html += `<div class="popup-links">`;
-  html += `<button class="watch-btn${popupWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(popupFlt)}" data-route="${escapeHtml(popupRoute)}" data-status="airborne" aria-label="${popupWatched ? 'Unwatch flight' : 'Watch flight'}">${popupWatched ? '👁️ Watching' : '👁 Watch'}</button>`;
-  html += `<button class="share-btn" data-action="share-flight" data-flight="${escapeHtml(popupFlt)}" aria-label="Share flight link" title="Copy shareable link">📤 Share</button>`;
+  html += `<button class="watch-btn${popupWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(popupFlt)}" data-route="${escapeHtml(popupRoute)}" data-status="airborne" aria-label="${popupWatched ? 'Unwatch flight' : 'Watch flight'}">${popupWatched ? '<i class="fa-solid fa-eye"></i> Watching' : '<i class="fa-solid fa-eye"></i> Watch'}</button>`;
+  html += `<button class="share-btn" data-action="share-flight" data-flight="${escapeHtml(popupFlt)}" aria-label="Share flight link" title="Copy shareable link"><i class="fa-solid fa-share-from-square"></i> Share</button>`;
   html += `</div></div>`;
 
   if (marker.getPopup()) marker.unbindPopup();
@@ -2479,9 +2480,9 @@ function updateStats() {
   });
 
   document.getElementById('phase-stats').innerHTML = [
-    ['🅿️ Ground', allGround, 'Ground'], ['🛫 Climb', allClimb, 'Climb'],
-    ['✈️ Cruise', allCruise, 'Cruise'], ['↘️ Descent', allDescent, 'Descent'],
-    ['🛬 Approach', allApproach, 'Approach']
+    ['<i class="fa-solid fa-square-parking"></i> Ground', allGround, 'Ground'], ['<i class="fa-solid fa-plane-departure"></i> Climb', allClimb, 'Climb'],
+    ['<i class="fa-solid fa-plane"></i> Cruise', allCruise, 'Cruise'], ['<i class="fa-solid fa-arrow-trend-down"></i> Descent', allDescent, 'Descent'],
+    ['<i class="fa-solid fa-plane-arrival"></i> Approach', allApproach, 'Approach']
   ].map(([label, val, key]) =>
     `<div class="phase-row${activePhaseFilter === key ? ' phase-selected' : ''}" data-action="toggle-phase-filter" data-phase="${key}" role="button" tabindex="0"><span style="color:var(--dl-muted)">${label}</span><span style="color:var(--dl-accent);font-weight:700">${val}</span></div>`
   ).join('');
@@ -2541,8 +2542,8 @@ function updateHubStats() {
     const isBusiest = h === busiestHub;
     const isSelected = activeHubFilter === h;
     return `<div class="hub-row${isSelected ? ' hub-selected' : ''}" data-action="toggle-hub-filter" data-hub="${h}">
-      <div><span class="hub-code">${h}</span>${isBusiest ? ' <span class="busiest-badge">BUSIEST</span>' : ''}${isSelected ? ' <span style="font-size:9px;color:var(--dl-green)">✓ FILTERED</span>' : ''}</div>
-      <div class="hub-counts">↗ ${d.outbound} ↙ ${d.inbound}</div>
+      <div><span class="hub-code">${h}</span>${isBusiest ? ' <span class="busiest-badge">BUSIEST</span>' : ''}${isSelected ? ' <span style="font-size:9px;color:var(--dl-green)"><i class="fa-solid fa-check"></i> FILTERED</span>' : ''}</div>
+      <div class="hub-counts"><i class="fa-solid fa-plane-departure"></i> ${d.outbound} <i class="fa-solid fa-plane-arrival"></i> ${d.inbound}</div>
     </div>
     <div style="padding:0 12px 6px"><div class="hub-bar"><div class="hub-bar-fill" style="width:${pct}%"></div></div></div>`;
   }).join('');
@@ -2566,13 +2567,13 @@ document.getElementById('search-input-side').addEventListener('input', debounce(
 
   // Check if query matches a hub code — suggest hub filter
   const isHub = HUB_CODES.includes(q);
-  const hubHint = isHub ? `<div style="padding:6px 12px;font-size:10px;background:rgba(0,58,112,.1);border-bottom:1px solid var(--dl-border);cursor:pointer" data-action="toggle-hub-filter" data-hub="${q}"><span style="color:var(--dl-accent)">🏢 Filter map to ${q}</span> <span style="color:var(--dl-muted)">(${allMatches.length} flights)</span></div>` : '';
+  const hubHint = isHub ? `<div style="padding:6px 12px;font-size:10px;background:rgba(0,58,112,.1);border-bottom:1px solid var(--dl-border);cursor:pointer" data-action="toggle-hub-filter" data-hub="${q}"><span style="color:var(--dl-accent)"><i class="fa-solid fa-building"></i> Filter map to ${q}</span> <span style="color:var(--dl-muted)">(${allMatches.length} flights)</span></div>` : '';
   const countHeader = `<div style="padding:4px 12px;font-size:9px;color:var(--dl-muted);border-bottom:1px solid var(--dl-border)">${allMatches.length} flight${allMatches.length !== 1 ? 's' : ''} found${allMatches.length > 50 ? ' (showing 50)' : ''}</div>`;
 
   if (allMatches.length === 0) {
     results.innerHTML = `<div style="padding:10px 12px;color:var(--dl-muted);font-size:10px;line-height:1.5">
       <div style="margin-bottom:4px">No flights matching "${escapeHtml(q)}"</div>
-      <div style="font-size:9px">✈️ Flights at the gate or boarding may not appear until after pushback. Check the <strong style="color:var(--dl-accent);cursor:pointer" data-action="switch-tab" data-tab="tab-schedule">Schedule</strong> tab for gate status.</div>
+      <div style="font-size:9px"><i class="fa-solid fa-plane"></i> Flights at the gate or boarding may not appear until after pushback. Check the <strong style="color:var(--dl-accent);cursor:pointer" data-action="switch-tab" data-tab="tab-schedule">Schedule</strong> tab for gate status.</div>
     </div>`;
   } else {
     results.innerHTML = hubHint + countHeader + matches.map(f => {
@@ -2606,7 +2607,7 @@ function initFleetTab() {
 
   document.getElementById('fleet-chips').innerHTML = typeOrder.map(t =>
     `<div class="fleet-chip" data-action="filter-fleet-type" data-type="${t}">
-      <div style="font-size:14px">${icons[t]||'✈️'}</div>
+      <div style="font-size:14px">${icons[t]||'<i class="fa-solid fa-plane"></i>'}</div>
       <div class="count">${typeCounts[t]||0}</div>
       <div class="label">${t}</div>
     </div>`
@@ -2661,7 +2662,7 @@ function renderFleetTable() {
     const special = isSpecialAircraft(a.r);
     const rowCls = a.s ? (a.s.toLowerCase().includes('stored') ? 'row-stored' : (special ? '' : 'row-maint')) : '';
     return `<tr class="${rowCls}">
-      <td style="font-weight:700"><span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(a.r)}">${escapeHtml(a.r)}</span>${special ? ' <span class="special-badge">⭐ ' + escapeHtml(special.name) + '</span>' : ''}</td>
+      <td style="font-weight:700"><span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(a.r)}">${escapeHtml(a.r)}</span>${special ? ' <span class="special-badge"><i class="fa-solid fa-star"></i> ' + escapeHtml(special.name) + '</span>' : ''}</td>
       <td>${escapeHtml(a.t)}</td><td>${escapeHtml(a.a)}</td><td>${escapeHtml(a.c)}</td>
       <td>${escapeHtml(a.tot || '')}</td><td>${escapeHtml(a.w)}</td><td>${escapeHtml(a.i)}</td><td>${escapeHtml(a.d)}</td>
       <td style="font-size:9px;max-width:120px;overflow:hidden;text-overflow:ellipsis">${escapeHtml(a.s)}</td>
@@ -2754,7 +2755,7 @@ function renderSpecialAircraftPanel() {
       html += `<span class="special-airborne-badge"><span class="pulse-dot" style="width:6px;height:6px;display:inline-block;margin-right:3px"></span>AIRBORNE</span>`;
       html += `<div style="font-size:9px;color:var(--dl-green);margin-top:2px">${escapeHtml(airborne.flight)} ${escapeHtml(airborne.route)}</div>`;
     } else {
-      html += `<span class="special-badge">${special.type === 'named' ? '★ NAMED' : '✦ LIVERY'}</span>`;
+      html += `<span class="special-badge">${special.type === 'named' ? '<i class="fa-solid fa-star"></i> NAMED' : '<i class="fa-solid fa-wand-magic-sparkles"></i> LIVERY'}</span>`;
     }
     html += `</div>`;
     html += `</div>`;
@@ -3013,7 +3014,7 @@ async function initWeatherTab() {
   const radarMap = L.map('radar-map', {center:[39,-98],zoom:4,zoomControl:true,attributionControl:false});
   L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{maxZoom:18,subdomains:'abcd'}).addTo(radarMap);
   L.tileLayer('https://mesonet.agron.iastate.edu/cache/tile.py/1.0.0/nexrad-n0q-900913/{z}/{x}/{y}.png',{opacity:0.6}).addTo(radarMap);
-  document.getElementById('radar-title').textContent = `🌧 NEXRAD Radar — ${new Date().toUTCString().slice(17,25)}Z`;
+  document.getElementById('radar-title').innerHTML = `<i class="fa-solid fa-cloud-rain"></i> NEXRAD Radar — ${new Date().toUTCString().slice(17,25)}Z`;
 
   // Place hub markers immediately with neutral color (updated after METAR loads)
   const radarHubMarkers = {};
@@ -3071,15 +3072,15 @@ async function initWeatherTab() {
     // Status line: FAA delays take priority, then ops impact, then normal
     let faaLine;
     if (hasDelay) {
-      faaLine = `<div class="hub-faa delay">⚠ ${faa.delays.map(d=>d.reason||d.type||'Delay').join(', ')}</div>`;
+      faaLine = `<div class="hub-faa delay"><i class="fa-solid fa-triangle-exclamation"></i> ${faa.delays.map(d=>d.reason||d.type||'Delay').join(', ')}</div>`;
     } else if (ops.level === 'severe') {
-      faaLine = `<div class="hub-faa delay">⚠ Severe Weather Impact — ${ops.reasons.join(', ')}</div>`;
+      faaLine = `<div class="hub-faa delay"><i class="fa-solid fa-triangle-exclamation"></i> Severe Weather Impact — ${ops.reasons.join(', ')}</div>`;
     } else if (ops.level === 'warning') {
-      faaLine = `<div class="hub-faa delay">⚠ Weather Advisory — ${ops.reasons.join(', ')}</div>`;
+      faaLine = `<div class="hub-faa delay"><i class="fa-solid fa-triangle-exclamation"></i> Weather Advisory — ${ops.reasons.join(', ')}</div>`;
     } else if (ops.level === 'caution') {
-      faaLine = `<div class="hub-faa" style="color:#eab308">⚠ Weather Caution — ${ops.reasons.join(', ')}</div>`;
+      faaLine = `<div class="hub-faa" style="color:#eab308"><i class="fa-solid fa-triangle-exclamation"></i> Weather Caution — ${ops.reasons.join(', ')}</div>`;
     } else {
-      faaLine = `<div class="hub-faa normal">✓ Normal Operations</div>`;
+      faaLine = `<div class="hub-faa normal"><i class="fa-solid fa-check"></i> Normal Operations</div>`;
     }
 
     const explainer = data ? explainMETAR(raw, hub, cat) : '';
@@ -3111,7 +3112,7 @@ async function initWeatherTab() {
   });
 
   if (!cardsHtml) {
-    cardsHtml = '<div class="error-state" style="grid-column:1/-1"><div class="error-icon">🌦</div><div style="color:var(--dl-text)">Weather data unavailable</div><div style="color:var(--dl-muted);font-size:11px">Could not load METAR observations</div><button class="retry-btn" data-action="weather-retry">↻ Retry</button></div>';
+    cardsHtml = '<div class="error-state" style="grid-column:1/-1"><div class="error-icon"><i class="fa-solid fa-cloud-sun-rain"></i></div><div style="color:var(--dl-text)">Weather data unavailable</div><div style="color:var(--dl-muted);font-size:11px">Could not load METAR observations</div><button class="retry-btn" data-action="weather-retry"><i class="fa-solid fa-rotate-right"></i> Retry</button></div>';
   }
   document.getElementById('hub-cards').innerHTML = cardsHtml;
 }
@@ -3161,7 +3162,7 @@ function updateAnalytics() {
   // ═══ AIRBORNE BY FLIGHT PHASE ═══
   const phaseCounts = { 'Takeoff': 0, 'Climb': 0, 'Cruise': 0, 'En Route': 0, 'Descent': 0, 'Approach': 0, 'Ground': 0 };
   const phaseColors = { 'Takeoff': '#22c55e', 'Climb': '#3b82f6', 'Cruise': '#0077cc', 'En Route': '#6366f1', 'Descent': '#f59e0b', 'Approach': '#ef4444', 'Ground': '#64748b' };
-  const phaseIcons = { 'Takeoff': '🛫', 'Climb': '↗️', 'Cruise': '✈️', 'En Route': '✈️', 'Descent': '↘️', 'Approach': '🛬', 'Ground': '🅿️' };
+  const phaseIcons = { 'Takeoff': '<i class="fa-solid fa-plane-departure"></i>', 'Climb': '<i class="fa-solid fa-arrow-trend-up"></i>', 'Cruise': '<i class="fa-solid fa-plane"></i>', 'En Route': '<i class="fa-solid fa-plane"></i>', 'Descent': '<i class="fa-solid fa-arrow-trend-down"></i>', 'Approach': '<i class="fa-solid fa-plane-arrival"></i>', 'Ground': '<i class="fa-solid fa-square-parking"></i>' };
 
   allFlights.forEach(f => {
     const p = getPhase(f.alt, f.vr, f.spd);
@@ -3333,7 +3334,7 @@ function updateLiveFleetPanel() {
     html += `<div class="live-table-wrap"><table><thead><tr><th>Reg</th><th>Type</th><th>Flight</th><th>Route</th><th>Alt</th><th>Phase</th></tr></thead><tbody>`;
     airborne.forEach(a => {
       const sp = isSpecialAircraft(a.reg);
-      html += `<tr><td style="font-weight:700"><span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(a.reg)}">${escapeHtml(a.reg)}</span>${sp ? ' <span class="special-badge">⭐</span>' : ''}</td><td>${escapeHtml(a.type)}</td><td>${escapeHtml(a.flight)}</td><td>${escapeHtml(a.route)}</td><td>${escapeHtml(a.alt)}</td><td>${escapeHtml(a.phase)}</td></tr>`;
+      html += `<tr><td style="font-weight:700"><span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(a.reg)}">${escapeHtml(a.reg)}</span>${sp ? ' <span class="special-badge"><i class="fa-solid fa-star"></i></span>' : ''}</td><td>${escapeHtml(a.type)}</td><td>${escapeHtml(a.flight)}</td><td>${escapeHtml(a.route)}</td><td>${escapeHtml(a.alt)}</td><td>${escapeHtml(a.phase)}</td></tr>`;
     });
     html += `</tbody></table></div>`;
   }
@@ -3665,7 +3666,7 @@ async function loadScheduleData() {
   if (schedLoading) { _schedPendingReload = true; return; }
   if (!schedCurrentHub) {
     document.getElementById('sched-loading').style.display = 'block';
-    document.getElementById('sched-loading').innerHTML = '<div style="font-size:24px;margin-bottom:8px">📅</div>Select a hub to load schedule data';
+    document.getElementById('sched-loading').innerHTML = '<div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-calendar-days"></i></div>Select a hub to load schedule data';
     document.getElementById('sched-table-wrap').style.display = 'none';
     return;
   }
@@ -3674,10 +3675,10 @@ async function loadScheduleData() {
   const tableWrap = document.getElementById('sched-table-wrap');
   loadEl.style.display = 'block';
   tableWrap.style.display = 'none';
-  loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)} for ${escapeHtml(getSchedDayLabel(schedCurrentDay))}...<br><span style="font-size:10px">Fetching via server cache</span>`;
+  loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite"><i class="fa-solid fa-plane"></i></div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)} for ${escapeHtml(getSchedDayLabel(schedCurrentDay))}...<br><span style="font-size:10px">Fetching via server cache</span>`;
   const btn = document.getElementById('sched-refresh-btn');
   btn.disabled = true;
-  btn.textContent = '⏳ Loading...';
+  btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Loading...';
 
   try {
     const timestamp = getSchedDayTimestamp(schedCurrentDay);
@@ -3695,7 +3696,7 @@ async function loadScheduleData() {
         try {
           if (attempt > 0) {
             const delay = Math.min(1000 * Math.pow(2, attempt - 1), 4000);
-            loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Retrying ${escapeHtml(schedCurrentHub)} (attempt ${attempt + 1}/${MAX_RETRIES})...<br><span style="font-size:10px">Waiting ${delay / 1000}s before retry</span>`;
+            loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite"><i class="fa-solid fa-plane"></i></div>Retrying ${escapeHtml(schedCurrentHub)} (attempt ${attempt + 1}/${MAX_RETRIES})...<br><span style="font-size:10px">Waiting ${delay / 1000}s before retry</span>`;
             await new Promise(r => setTimeout(r, delay));
           }
           result = await fetchScheduleAggregated(schedCurrentHub, schedCurrentDir, timestamp);
@@ -3711,7 +3712,7 @@ async function loadScheduleData() {
 
     // Show cache indicator
     if (result.cached || result.fromLocalCache) {
-      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite">✈️</div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)}...<br><span style="font-size:10px;color:#4ecdc4">⚡ Served from cache · ${allDLFlights.length} Delta flights</span>`;
+      loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px;animation:pulse 1.5s infinite"><i class="fa-solid fa-plane"></i></div>Loading ${escapeHtml(schedCurrentHub)} ${escapeHtml(schedCurrentDir)}...<br><span style="font-size:10px;color:#4ecdc4"><i class="fa-solid fa-bolt"></i> Served from cache · ${allDLFlights.length} Delta flights</span>`;
     }
 
     schedAllFlights = allDLFlights;
@@ -3727,11 +3728,11 @@ async function loadScheduleData() {
     checkWatchedFlightChanges(allDLFlights);
   } catch (err) {
     console.error('Schedule load error:', err);
-    loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px">⚠️</div>Error loading schedule: ${escapeHtml(err.message)}<br><span style="font-size:10px">Try again in a moment</span><br><button onclick="loadScheduleData()" style="margin-top:8px;padding:4px 12px;background:var(--dl-blue);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px">↻ Retry</button>`;
+    loadEl.innerHTML = `<div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-triangle-exclamation"></i></div>Error loading schedule: ${escapeHtml(err.message)}<br><span style="font-size:10px">Try again in a moment</span><br><button onclick="loadScheduleData()" style="margin-top:8px;padding:4px 12px;background:var(--dl-blue);color:#fff;border:none;border-radius:4px;cursor:pointer;font-size:11px"><i class="fa-solid fa-rotate-right"></i> Retry</button>`;
   } finally {
     schedLoading = false;
     btn.disabled = false;
-    btn.textContent = '↻ Refresh';
+    btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> Refresh';
     if (_schedPendingReload) { _schedPendingReload = false; loadScheduleData(); }
   }
 }
@@ -3831,12 +3832,14 @@ function renderScheduleTable() {
 
   // Update sort indicators
   document.querySelectorAll('#sched-table th[data-sort]').forEach(th => {
-    const arrow = th.dataset.sort === schedSortCol ? (schedSortAsc ? ' ↑' : ' ↓') : ' ↕';
-    th.textContent = th.textContent.replace(/\s[↑↓↕]$/, '') + arrow;
+    if (th.dataset.label) {
+      const icon = th.dataset.sort === schedSortCol ? (schedSortAsc ? '<i class="fa-solid fa-sort-up"></i>' : '<i class="fa-solid fa-sort-down"></i>') : '<i class="fa-solid fa-sort"></i>';
+      th.innerHTML = th.dataset.label + ' ' + icon;
+    }
   });
 
   if (sorted.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--dl-muted)"><div style="font-size:24px;margin-bottom:8px">🔍</div>No flights match your filters<br><span style="font-size:10px">Try adjusting hub, status, or search criteria</span></td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--dl-muted)"><div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-magnifying-glass"></i></div>No flights match your filters<br><span style="font-size:10px">Try adjusting hub, status, or search criteria</span></td></tr>`;
     renderScheduleStats(filtered);
     return;
   }
@@ -3850,8 +3853,8 @@ function renderScheduleTable() {
     if (actualTime && schedTime && actualTime !== schedTime) {
       const diff = Math.round((actualTime - schedTime) / 60);
       const actualStr = formatSchedTime(actualTime, hub);
-      if (diff > 5) timeExtra = `<div class="sched-time-actual">→ ${actualStr} (+${diff}m)</div>`;
-      else if (diff < -5) timeExtra = `<div class="sched-time-actual" style="color:#22c55e">→ ${actualStr} (${diff}m)</div>`;
+      if (diff > 5) timeExtra = `<div class="sched-time-actual"><i class="fa-solid fa-arrow-right"></i> ${actualStr} (+${diff}m)</div>`;
+      else if (diff < -5) timeExtra = `<div class="sched-time-actual" style="color:#22c55e"><i class="fa-solid fa-arrow-right"></i> ${actualStr} (${diff}m)</div>`;
     }
 
     const dest = fl.airport?.destination;
@@ -3883,7 +3886,7 @@ function renderScheduleTable() {
       const regClean = reg.replace('-', '');
       const match = FLEET_BY_REG[regClean] || FLEET_BY_REG[reg];
       if (match) {
-        fleetMatch = `<span class="sched-fleet-match">✓ ${escapeHtml(match.c || match.t)}</span>`;
+        fleetMatch = `<span class="sched-fleet-match"><i class="fa-solid fa-check"></i> ${escapeHtml(match.c || match.t)}</span>`;
         // Fleet enrichment inline
         const parts = [];
         if (match.seats && typeof match.seats === 'object') {
@@ -3908,7 +3911,7 @@ function renderScheduleTable() {
       const impacts = analyzeSwapImpact(eqChange.oldAc, eqChange.newAc, reg);
       const hasDown = impacts.some(i => i.cls === 'downgrade');
       const hasUp = impacts.some(i => i.cls === 'upgrade');
-      const icon = hasDown ? '🔴' : hasUp ? '🟢' : '⚠️';
+      const icon = hasDown ? '<i class="fa-solid fa-circle" style="color:#ef4444"></i>' : hasUp ? '<i class="fa-solid fa-circle" style="color:#22c55e"></i>' : '<i class="fa-solid fa-triangle-exclamation"></i>';
       const regLink = reg !== '—' ? ` <span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(reg)}" style="font-size:8px">${escapeHtml(reg)}</span>` : '';
       equipBadge = `<div class="equip-change-badge" style="background:${hasDown ? 'rgba(239,68,68,.15);color:#ef4444' : hasUp ? 'rgba(34,197,94,.15);color:#22c55e' : ''}">${icon} ${escapeHtml(oldType)} → ${escapeHtml(newType)}${regLink}</div>`;
       if (impacts.length) {
@@ -3937,14 +3940,14 @@ function renderScheduleTable() {
     const origCode = fl.airport?.origin?.code?.iata || '?';
     const destCode = fl.airport?.destination?.code?.iata || '?';
     const watchRoute = `${origCode}→${destCode}`;
-    const watchBtn = ident !== '—' ? `<button class="watch-btn${isWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(ident)}" data-route="${escapeHtml(watchRoute)}" data-status="${escapeHtml(status.text)}" data-stop-prop="1" aria-label="${isWatched ? 'Unwatch flight' : 'Watch flight'}" title="${isWatched ? 'Unwatch' : 'Watch'} this flight">${isWatched ? '👁️' : '👁'}</button>` : '';
+    const watchBtn = ident !== '—' ? `<button class="watch-btn${isWatched ? ' watching' : ''}" data-action="toggle-watch-flight" data-flight="${escapeHtml(ident)}" data-route="${escapeHtml(watchRoute)}" data-status="${escapeHtml(status.text)}" data-stop-prop="1" aria-label="${isWatched ? 'Unwatch flight' : 'Watch flight'}" title="${isWatched ? 'Unwatch' : 'Watch'} this flight">${isWatched ? '<i class="fa-solid fa-eye"></i>' : '<i class="fa-regular fa-eye"></i>'}</button>` : '';
 
     return `<tr>
       <td>${escapeHtml(timeStr)}${timeExtra}</td>
       <td style="font-weight:600;color:var(--dl-accent)">${escapeHtml(ident)}</td>
       <td>${routeStr}</td>
       <td title="${escapeHtml(acText)}">${escapeHtml(acCode)}${acShort ? `<div style="font-size:9px;color:var(--dl-muted)">${escapeHtml(acShort)}</div>` : ''}${equipBadge}</td>
-      <td style="font-family:var(--mono);font-size:10px">${reg !== '—' ? `<span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(reg)}">${escapeHtml(reg)}</span>` : '—'}${schedSpecial ? ' <span class="special-badge">⭐ ' + escapeHtml(schedSpecial.name) + '</span>' : ''}${fleetEnrich}</td>
+      <td style="font-family:var(--mono);font-size:10px">${reg !== '—' ? `<span class="ac-reg-link" data-action="aircraft-detail" data-reg="${escapeHtml(reg)}">${escapeHtml(reg)}</span>` : '—'}${schedSpecial ? ' <span class="special-badge"><i class="fa-solid fa-star"></i> ' + escapeHtml(schedSpecial.name) + '</span>' : ''}${fleetEnrich}</td>
       <td>${escapeHtml(gate)}</td>
       <td><span class="sched-status ${escapeHtml(status.cls)}">${escapeHtml(status.text)}</span>${faaContext}</td>
       <td>${fleetMatch}</td>
@@ -4058,7 +4061,7 @@ document.getElementById('global-search-input').addEventListener('input', debounc
       const dest = (fl.airport?.destination?.code?.iata || '').toUpperCase();
       const orig = (fl.airport?.origin?.code?.iata || '').toUpperCase();
       if (ident.includes(q) || reg.includes(q) || dest.includes(q) || orig.includes(q)) {
-        matches.push({ type: 'sched', label: `📅 ${fl.identification?.number?.default||'?'} ${orig||'?'}→${dest||'?'} ${fl.aircraft?.registration||''}` });
+        matches.push({ type: 'sched', label: `<i class="fa-solid fa-calendar-days"></i> ${fl.identification?.number?.default||'?'} ${orig||'?'}→${dest||'?'} ${fl.aircraft?.registration||''}` });
       }
     });
   }
@@ -4067,7 +4070,7 @@ document.getElementById('global-search-input').addEventListener('input', debounc
   const flightPattern = /^(DA[L]?\s*\d{1,4}|\d{1,4})$/i;
   const normalizedQ = q.replace(/\s+/g, '');
   const looksLikeFlight = flightPattern.test(normalizedQ);
-  const fr24Option = looksLikeFlight ? `<div class="search-result" style="border-top:1px solid var(--dl-border);color:var(--dl-accent);font-size:10px" data-action="lookup-fr24" data-query="${escapeHtml(normalizedQ)}" data-close-global="1">🔍 Look up ${escapeHtml(normalizedQ.startsWith('DL') || normalizedQ.startsWith('DAL') ? normalizedQ : 'DL' + normalizedQ)} via FlightRadar24...</div>` : '';
+  const fr24Option = looksLikeFlight ? `<div class="search-result" style="border-top:1px solid var(--dl-border);color:var(--dl-accent);font-size:10px" data-action="lookup-fr24" data-query="${escapeHtml(normalizedQ)}" data-close-global="1"><i class="fa-solid fa-magnifying-glass"></i> Look up ${escapeHtml(normalizedQ.startsWith('DL') || normalizedQ.startsWith('DAL') ? normalizedQ : 'DL' + normalizedQ)} via FlightRadar24...</div>` : '';
 
   if (matches.length === 0) {
     results.innerHTML = '<div style="padding:10px 12px;color:var(--dl-muted);font-size:10px">No results for "' + escapeHtml(q) + '"</div>' + fr24Option;
@@ -4247,7 +4250,7 @@ function updateEquipChangeSummary() {
     let detail = '';
     if (downs) detail += ` · <span style="color:#ef4444">${downs} downgrade${downs > 1 ? 's' : ''}</span>`;
     if (ups) detail += ` · <span style="color:#22c55e">${ups} upgrade${ups > 1 ? 's' : ''}</span>`;
-    el.innerHTML = `⚠️ ${equipmentChanges.length} equipment swap${equipmentChanges.length > 1 ? 's' : ''} detected${detail}`;
+    el.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> ${equipmentChanges.length} equipment swap${equipmentChanges.length > 1 ? 's' : ''} detected${detail}`;
   } else {
     el.style.display = 'none';
   }
@@ -4292,17 +4295,17 @@ function updateHubHealth() {
   const hhNavLinks = '<span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span>';
 
   if (!hasData) {
-    bar.innerHTML = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span><span style="color:var(--dl-muted)">Load schedule data for hub health</span>' + hhNavLinks;
+    bar.innerHTML = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. <i class="fa-solid fa-circle" style="color:#22c55e"></i> &gt;70% · <i class="fa-solid fa-circle" style="color:#eab308"></i> 50–70% · <i class="fa-solid fa-circle" style="color:#ef4444"></i> &lt;50%</span></span><span style="color:var(--dl-muted)">Load schedule data for hub health</span>' + hhNavLinks;
     return;
   }
 
-  let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span>';
+  let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. <i class="fa-solid fa-circle" style="color:#22c55e"></i> &gt;70% · <i class="fa-solid fa-circle" style="color:#eab308"></i> 50–70% · <i class="fa-solid fa-circle" style="color:#ef4444"></i> &lt;50%</span></span>';
   hubs.forEach((hub, i) => {
     const pct = hubHealthData[hub];
     if (pct === undefined) {
-      html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <span style="color:var(--dl-muted)">⚪ —</span></span>`;
+      html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <span style="color:var(--dl-muted)"><i class="fa-solid fa-circle"></i> —</span></span>`;
     } else {
-      const emoji = pct > 70 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
+      const emoji = pct > 70 ? '<i class="fa-solid fa-circle" style="color:#22c55e"></i>' : pct >= 50 ? '<i class="fa-solid fa-circle" style="color:#eab308"></i>' : '<i class="fa-solid fa-circle" style="color:#ef4444"></i>';
       const color = pct > 70 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
       html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> ${emoji} <span class="hh-pct" style="color:${color}">${pct}%</span></span>`;
     }
@@ -4336,7 +4339,7 @@ function updateIrops() {
   }
 
   if (allSchedFlts.length === 0) {
-    content.innerHTML = '<div class="irops-empty">Load schedule data from the Schedule tab to see IROPS metrics<br><button class="retry-btn" style="margin-top:8px" data-action="irops-load">📅 Load Schedule Data</button></div>';
+    content.innerHTML = '<div class="irops-empty">Load schedule data from the Schedule tab to see IROPS metrics<br><button class="retry-btn" style="margin-top:8px" data-action="irops-load"><i class="fa-solid fa-calendar-days"></i> Load Schedule Data</button></div>';
     return;
   }
 
@@ -4422,7 +4425,7 @@ async function fetchIropsFromAPI() {
     renderIropsFromAPI(data);
   } catch (e) {
     console.error('IROPS API failed, falling back to manual:', e);
-    content.innerHTML = '<div class="irops-empty">Load schedule data from the Schedule tab to see IROPS metrics<br><button class="retry-btn" style="margin-top:8px" data-action="irops-load">📅 Load Schedule Data</button></div>';
+    content.innerHTML = '<div class="irops-empty">Load schedule data from the Schedule tab to see IROPS metrics<br><button class="retry-btn" style="margin-top:8px" data-action="irops-load"><i class="fa-solid fa-calendar-days"></i> Load Schedule Data</button></div>';
   }
 }
 
@@ -4451,11 +4454,11 @@ function renderIropsFromAPI(data) {
     const bar = document.getElementById('hub-health-bar');
     const hubs = ['ATL','LGA','JFK','BOS','DTW','MSP','SLC','LAX','SEA'];
     const hhNavLinks = '<span style="margin-left:auto;display:flex;align-items:center;gap:6px"><a href="#" data-action="show-disclaimer" data-prevent-default="1" style="color:var(--dl-muted);text-decoration:none">About</a><span style="color:var(--dl-border)">·</span><a href="/fleet" style="color:var(--dl-muted);text-decoration:none">Fleet Database</a><span style="color:var(--dl-border)">·</span><a href="https://github.com/craighton/widgetwatch/issues" target="_blank" rel="noopener noreferrer" style="color:var(--dl-muted);text-decoration:none">Support / Feedback</a></span>';
-    let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. 🟢 &gt;70% · 🟡 50–70% · 🔴 &lt;50%</span></span>';
+    let html = '<span class="hh-label">Hub Health</span><span class="hh-explainer">ON-TIME %</span><span class="hh-info">?<span class="hh-tooltip">% of operated flights departing within 30 min of schedule. <i class="fa-solid fa-circle" style="color:#22c55e"></i> &gt;70% · <i class="fa-solid fa-circle" style="color:#eab308"></i> 50–70% · <i class="fa-solid fa-circle" style="color:#ef4444"></i> &lt;50%</span></span>';
     hubs.forEach((hub, i) => {
       const m = data.hubMetrics[hub];
       if (!m || !m.total) {
-        html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <span style="color:var(--dl-muted)">⚪ —</span></span>`;
+        html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <span style="color:var(--dl-muted)"><i class="fa-solid fa-circle"></i> —</span></span>`;
       } else {
         // OTP = on-time flights / operated flights (within 30 min of schedule)
         const operated = m.operated || (m.total - m.cancellations);
@@ -4465,19 +4468,19 @@ function renderIropsFromAPI(data) {
           // Mostly/fully canceled hub — show as critical
           const cancelPct = Math.round(cancelRate * 100);
           hubHealthData[hub] = 0;
-          html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> 🔴 <span class="hh-pct" style="color:#ef4444">${cancelPct}% CX</span></span>`;
+          html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <i class="fa-solid fa-circle" style="color:#ef4444"></i> <span class="hh-pct" style="color:#ef4444">${cancelPct}% CX</span></span>`;
           if (i < hubs.length - 1) html += '<span class="hh-sep">│</span>';
           return;
         }
         if (!operated || operated < 5) {
           delete hubHealthData[hub]; // clear stale data when sample too small
-          html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <span style="color:var(--dl-muted)">⚪ —</span></span>`;
+          html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> <span style="color:var(--dl-muted)"><i class="fa-solid fa-circle"></i> —</span></span>`;
           if (i < hubs.length - 1) html += '<span class="hh-sep">│</span>';
           return;
         }
         const onTime = m.onTime !== undefined ? m.onTime : Math.max(0, operated - m.delayed30);
         const pct = Math.round((onTime / operated) * 100);
-        const emoji = pct > 70 ? '🟢' : pct >= 50 ? '🟡' : '🔴';
+        const emoji = pct > 70 ? '<i class="fa-solid fa-circle" style="color:#22c55e"></i>' : pct >= 50 ? '<i class="fa-solid fa-circle" style="color:#eab308"></i>' : '<i class="fa-solid fa-circle" style="color:#ef4444"></i>';
         const color = pct > 70 ? '#22c55e' : pct >= 50 ? '#f59e0b' : '#ef4444';
         hubHealthData[hub] = pct;
         html += `<span class="hh-hub"><a href="/hubs/${hub.toLowerCase()}" class="hh-code" style="color:inherit;text-decoration:none" title="${hub} Hub Guide">${hub}</a> ${emoji} <span class="hh-pct" style="color:${color}">${pct}%</span></span>`;
@@ -4606,12 +4609,12 @@ function renderWatchPanel() {
   const watched = getWatchedFlights();
   const list = document.getElementById('watch-panel-list');
   if (watched.length === 0) {
-    list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">No watched flights<br>Click 👁️ on any flight to watch it</div>';
+    list.innerHTML = '<div style="padding:20px;text-align:center;color:var(--dl-muted);font-size:10px">No watched flights<br>Click <i class="fa-solid fa-eye"></i> on any flight to watch it</div>';
     return;
   }
   list.innerHTML = watched.map(w => `<div class="watch-flight-item">
     <div class="watch-flight-info"><span class="wf-num">${escapeHtml(w.flight)}</span> <span class="wf-route">${escapeHtml(w.route)}</span></div>
-    <div style="display:flex;align-items:center;gap:4px"><span class="watch-flight-status" style="font-size:9px;color:var(--dl-muted)">${escapeHtml(w.status)}</span><button class="watch-remove" data-action="toggle-watch-flight" data-flight="${escapeHtml(w.flight)}" data-stop-prop="1" aria-label="Remove watched flight" title="Remove">✕</button></div>
+    <div style="display:flex;align-items:center;gap:4px"><span class="watch-flight-status" style="font-size:9px;color:var(--dl-muted)">${escapeHtml(w.status)}</span><button class="watch-remove" data-action="toggle-watch-flight" data-flight="${escapeHtml(w.flight)}" data-stop-prop="1" aria-label="Remove watched flight" title="Remove"><i class="fa-solid fa-xmark"></i></button></div>
   </div>`).join('');
 }
 
@@ -4651,7 +4654,7 @@ function checkWatchedFlightChanges(flights) {
     if (oldStatus && newStatus !== oldStatus && isSignificantStatusChange(oldStatus, newStatus)) {
       const orig = fl.airport?.origin?.code?.iata || '?';
       const dest = fl.airport?.destination?.code?.iata || '?';
-      const msg = `🔔 ${ident} ${orig}→${dest}: ${newStatus} (was: ${oldStatus})`;
+      const msg = `<i class="fa-solid fa-bell"></i> ${ident} ${orig}→${dest}: ${newStatus} (was: ${oldStatus})`;
       if (document.hidden) {
         // Page not visible — fire native notification
         if ('Notification' in window && Notification.permission === 'granted') {
@@ -4703,7 +4706,7 @@ function toggleSidebarFilters() {
   const btn = document.getElementById('sidebar-filters-toggle');
   if (!panel || !btn) return;
   panel.classList.toggle('show');
-  btn.textContent = panel.classList.contains('show') ? 'Filters ▴' : 'Filters ▾';
+  btn.innerHTML = panel.classList.contains('show') ? 'Filters <i class="fa-solid fa-caret-up"></i>' : 'Filters <i class="fa-solid fa-caret-down"></i>';
 }
 
 function toggleScheduleMoreFilters() {
@@ -4712,7 +4715,7 @@ function toggleScheduleMoreFilters() {
   if (!panel || !btn) return;
   const isHidden = panel.style.display === 'none' || panel.style.display === '';
   panel.style.display = isHidden ? 'flex' : 'none';
-  btn.textContent = isHidden ? 'Less Filters ▴' : 'More Filters ▾';
+  btn.innerHTML = isHidden ? 'Less Filters <i class="fa-solid fa-caret-up"></i>' : 'More Filters <i class="fa-solid fa-caret-down"></i>';
 }
 
 // Keyboard support: Enter/Space triggers click on [data-action][role="button"] elements
@@ -4790,8 +4793,8 @@ document.addEventListener('click', function(e) {
       shareUrl.hash = '';
       navigator.clipboard.writeText(shareUrl.toString()).then(() => {
         actionEl.classList.add('copied');
-        actionEl.textContent = '✓ Copied!';
-        setTimeout(() => { actionEl.classList.remove('copied'); actionEl.textContent = '📤 Share'; }, 2000);
+        actionEl.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => { actionEl.classList.remove('copied'); actionEl.innerHTML = '<i class="fa-solid fa-share-from-square"></i> Share'; }, 2000);
       }).catch(() => {
         // Fallback for older browsers
         const ta = document.createElement('textarea');
@@ -4801,15 +4804,15 @@ document.addEventListener('click', function(e) {
         document.execCommand('copy');
         document.body.removeChild(ta);
         actionEl.classList.add('copied');
-        actionEl.textContent = '✓ Copied!';
-        setTimeout(() => { actionEl.classList.remove('copied'); actionEl.textContent = '📤 Share'; }, 2000);
+        actionEl.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+        setTimeout(() => { actionEl.classList.remove('copied'); actionEl.innerHTML = '<i class="fa-solid fa-share-from-square"></i> Share'; }, 2000);
       });
       break;
     }
     case 'enable-push':
       if ('Notification' in window) {
         Notification.requestPermission().then(p => {
-          if (p === 'granted') showWatchNotification('🔔 Push notifications enabled for watched flights');
+          if (p === 'granted') showWatchNotification('<i class="fa-solid fa-bell"></i> Push notifications enabled for watched flights');
         });
       }
       try { localStorage.setItem('bb_push_prompted', '1'); } catch(e) {}
@@ -4888,8 +4891,8 @@ document.addEventListener('click', function(e) {
         const shareUrl = new URL(window.location);
         shareUrl.searchParams.set('aircraft', shareReg);
         navigator.clipboard.writeText(shareUrl.toString()).then(function() {
-          actionEl.textContent = '✓ Copied!';
-          setTimeout(function() { actionEl.textContent = '📤 Share'; }, 2000);
+          actionEl.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+          setTimeout(function() { actionEl.innerHTML = '<i class="fa-solid fa-share-from-square"></i> Share'; }, 2000);
         }).catch(function() {
           const ta = document.createElement('textarea');
           ta.value = shareUrl.toString();
@@ -4897,8 +4900,8 @@ document.addEventListener('click', function(e) {
           ta.select();
           document.execCommand('copy');
           document.body.removeChild(ta);
-          actionEl.textContent = '✓ Copied!';
-          setTimeout(function() { actionEl.textContent = '📤 Share'; }, 2000);
+          actionEl.innerHTML = '<i class="fa-solid fa-check"></i> Copied!';
+          setTimeout(function() { actionEl.innerHTML = '<i class="fa-solid fa-share-from-square"></i> Share'; }, 2000);
         });
       }
       break;
@@ -5013,7 +5016,7 @@ function hideChangelog() {
 <div id="changelog-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;align-items:center;justify-content:center;padding:20px">
   <div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;max-width:640px;width:100%;max-height:80vh;display:flex;flex-direction:column">
     <div style="padding:16px 20px;border-bottom:1px solid var(--dl-border);display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
-      <h2 style="color:var(--dl-blue);font-size:13px;margin:0;text-transform:uppercase;letter-spacing:1px">📋 Changelog</h2>
+      <h2 style="color:var(--dl-blue);font-size:13px;margin:0;text-transform:uppercase;letter-spacing:1px"><i class="fa-solid fa-clipboard-list"></i> Changelog</h2>
       <button data-action="hide-changelog" style="background:none;border:none;color:var(--dl-muted);font-size:18px;cursor:pointer;line-height:1;padding:0 4px">&times;</button>
     </div>
     <div id="changelog-body" style="padding:16px 20px;overflow-y:auto;font-size:11px;line-height:1.7;color:var(--dl-text)">
@@ -5024,7 +5027,7 @@ function hideChangelog() {
 <!-- DISCLAIMER MODAL -->
 <div id="disclaimer-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:10000;align-items:center;justify-content:center;padding:20px">
   <div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;max-width:600px;width:100%;padding:24px;max-height:80vh;overflow-y:auto">
-    <h2 style="color:var(--dl-blue);font-size:14px;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px">⚖️ About Widget Watch</h2>
+    <h2 style="color:var(--dl-blue);font-size:14px;margin-bottom:16px;text-transform:uppercase;letter-spacing:1px"><i class="fa-solid fa-scale-balanced"></i> About Widget Watch</h2>
     <div style="font-size:11px;line-height:1.7;color:var(--dl-text)">
       <p style="margin-bottom:12px"><strong style="color:var(--dl-yellow)">Widget Watch is an independent, fan-built project and is not affiliated with, endorsed by, or connected to Delta Air Lines, Inc.</strong> "Delta Air Lines" and the Delta logo are trademarks of Delta Air Lines, Inc. An independent tool built for the Delta community.</p>
       <p style="margin-bottom:12px"><strong>Data Sources & Attribution:</strong></p>
@@ -5063,7 +5066,7 @@ function hideChangelog() {
     bmacShownThisSession = true;
     var t = document.createElement('div'); t.id = 'bmac-toast';
     t.style.cssText = 'position:fixed;bottom:16px;right:16px;background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:14px 16px;z-index:9999;font-size:12px;color:var(--dl-text);box-shadow:0 4px 20px rgba(0,0,0,.5);max-width:340px;line-height:1.5;animation:fadeIn .3s ease';
-    t.innerHTML = message + ' <button data-action="close-bmac" aria-label="Dismiss" style="background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px;position:absolute;top:6px;right:8px">✕</button>';
+    t.innerHTML = message + ' <button data-action="close-bmac" aria-label="Dismiss" style="background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px;position:absolute;top:6px;right:8px"><i class="fa-solid fa-xmark"></i></button>';
     document.body.appendChild(t);
     setTimeout(function(){ if(t.parentElement) { t.style.opacity='0'; t.style.transition='opacity .3s'; setTimeout(function(){ if(t.parentElement) t.remove() }, 300); } }, duration || 12000);
   }
@@ -5074,7 +5077,7 @@ function hideChangelog() {
     // Delay slightly so the watch notification shows first
     setTimeout(function() {
       bmacShownThisSession = false; // Allow this special one even if another showed
-      showBmacToast('Your flight ' + escapeHtml(flight) + ' landed! 🎉', 15000);
+      showBmacToast('Your flight ' + escapeHtml(flight) + ' landed! <i class="fa-solid fa-champagne-glasses"></i>', 15000);
     }, 3000);
   };
 
@@ -5113,14 +5116,14 @@ function showAircraftDetail(reg) {
   if (!ac) {
     modal.style.display = 'flex';
     modal.innerHTML = '<div class="ac-modal-card"><div class="ac-modal-header">' +
-      '<button class="ac-modal-close" data-action="close-aircraft-modal" aria-label="Close">✕</button>' +
+      '<button class="ac-modal-close" data-action="close-aircraft-modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>' +
       '<div class="ac-modal-reg">' + escapeHtml(reg) + '</div>' +
       '<div class="ac-modal-type" style="color:var(--dl-muted)">Not in mainline fleet database</div>' +
       '</div><div class="ac-modal-body">' +
       '<div style="text-align:center;padding:20px;color:var(--dl-muted);font-size:11px">' +
       'This aircraft is not in the Delta mainline fleet database.<br>It may be a Delta Connection (regional) aircraft.</div>' +
       '</div><div class="ac-modal-footer">' +
-      '<a class="ac-action-btn" href="https://www.planespotters.net/search?q=' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>' +
+      '<a class="ac-action-btn" href="https://www.planespotters.net/search?q=' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">Planespotters <i class="fa-solid fa-arrow-up-right-from-square"></i></a>' +
       '</div></div>';
     return;
   }
@@ -5146,12 +5149,12 @@ function buildAircraftDetailHTML(ac, reg) {
 
   // ── Header ──
   html += '<div class="ac-modal-header">';
-  html += '<button class="ac-modal-close" data-action="close-aircraft-modal" aria-label="Close">✕</button>';
+  html += '<button class="ac-modal-close" data-action="close-aircraft-modal" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>';
   html += '<div class="ac-modal-reg">' + escapeHtml(reg) + '</div>';
   html += '<div class="ac-modal-type">' + escapeHtml(ac.t);
   if (ac.a) html += ' <span class="ac-modal-acnum">AC# ' + escapeHtml(ac.a) + '</span>';
   html += '</div>';
-  if (special) html += '<span class="special-badge" style="margin-top:4px;display:inline-block">⭐ ' + escapeHtml(special.name) + '</span> ';
+  if (special) html += '<span class="special-badge" style="margin-top:4px;display:inline-block"><i class="fa-solid fa-star"></i> ' + escapeHtml(special.name) + '</span> ';
   html += '</div>';
 
   // ── Body ──
@@ -5231,11 +5234,11 @@ function buildAircraftDetailHTML(ac, reg) {
     var watchFlt = liveFlight.flightIATA || liveFlight.callsign || '';
     var watchRoute = (liveFlight.origin || '?') + '→' + (liveFlight.dest || '?');
     var watched = watchFlt ? isFlightWatched(watchFlt) : false;
-    html += '<button class="ac-action-btn watch-btn' + (watched ? ' watching' : '') + '" data-action="toggle-watch-flight" data-flight="' + escapeHtml(watchFlt) + '" data-route="' + escapeHtml(watchRoute) + '" data-status="airborne">' + (watched ? '👁️ Watching' : '👁 Watch') + '</button>';
+    html += '<button class="ac-action-btn watch-btn' + (watched ? ' watching' : '') + '" data-action="toggle-watch-flight" data-flight="' + escapeHtml(watchFlt) + '" data-route="' + escapeHtml(watchRoute) + '" data-status="airborne">' + (watched ? '<i class="fa-solid fa-eye"></i> Watching' : '<i class="fa-solid fa-eye"></i> Watch') + '</button>';
   }
-  html += '<a class="ac-action-btn" href="https://www.planespotters.net/search?q=' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">Planespotters ↗</a>';
-  html += '<a class="ac-action-btn" href="https://flightaware.com/resources/registration/' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">FlightAware ↗</a>';
-  html += '<button class="ac-action-btn" data-action="share-aircraft" data-reg="' + escapeHtml(reg) + '">📤 Share</button>';
+  html += '<a class="ac-action-btn" href="https://www.planespotters.net/search?q=' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">Planespotters <i class="fa-solid fa-arrow-up-right-from-square"></i></a>';
+  html += '<a class="ac-action-btn" href="https://flightaware.com/resources/registration/' + encodeURIComponent(reg) + '" target="_blank" rel="noopener noreferrer">FlightAware <i class="fa-solid fa-arrow-up-right-from-square"></i></a>';
+  html += '<button class="ac-action-btn" data-action="share-aircraft" data-reg="' + escapeHtml(reg) + '"><i class="fa-solid fa-share-from-square"></i> Share</button>';
   html += '</div>';
 
   html += '</div>'; // end card
@@ -5258,20 +5261,20 @@ function lookupFR24Flight(query) {
     document.body.appendChild(modal);
   }
   modal.style.display = 'flex';
-  modal.innerHTML = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:24px;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative"><div style="text-align:center;padding:20px;color:var(--dl-muted)"><div style="font-size:24px;margin-bottom:8px">🔍</div>Looking up ' + escapeHtml(q) + '...</div></div>';
+  modal.innerHTML = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:24px;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative"><div style="text-align:center;padding:20px;color:var(--dl-muted)"><div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-magnifying-glass"></i></div>Looking up ' + escapeHtml(q) + '...</div></div>';
 
   fetch('/api/fr24-flight?flight=' + encodeURIComponent(q))
     .then(r => r.json())
     .then(data => {
       if (!data.success || !data.flight) {
-        modal.innerHTML = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:24px;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative"><button data-action="close-fr24-modal" aria-label="Close" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px">✕</button><div style="text-align:center;padding:20px"><div style="font-size:24px;margin-bottom:8px">✈️</div><div style="color:var(--dl-muted);font-size:11px">' + escapeHtml(data.error || 'No data found for ' + q) + '</div><div style="margin-top:12px;font-size:9px;color:var(--dl-muted)">The flight may not be active right now.<br>Check the Schedule tab for gate status.</div></div></div>';
+        modal.innerHTML = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:24px;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative"><button data-action="close-fr24-modal" aria-label="Close" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px"><i class="fa-solid fa-xmark"></i></button><div style="text-align:center;padding:20px"><div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-plane"></i></div><div style="color:var(--dl-muted);font-size:11px">' + escapeHtml(data.error || 'No data found for ' + q) + '</div><div style="margin-top:12px;font-size:9px;color:var(--dl-muted)">The flight may not be active right now.<br>Check the Schedule tab for gate status.</div></div></div>';
         return;
       }
       renderFR24Modal(data.flight, data.source, data.cached);
     })
     .catch(err => {
       console.error('FR24 lookup error:', err);
-      modal.innerHTML = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:24px;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative"><button data-action="close-fr24-modal" aria-label="Close" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px">✕</button><div style="text-align:center;padding:20px;color:var(--dl-muted)"><div style="font-size:24px;margin-bottom:8px">⚠️</div>Failed to look up flight. Try again later.</div></div>';
+      modal.innerHTML = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:24px;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative"><button data-action="close-fr24-modal" aria-label="Close" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px"><i class="fa-solid fa-xmark"></i></button><div style="text-align:center;padding:20px;color:var(--dl-muted)"><div style="font-size:24px;margin-bottom:8px"><i class="fa-solid fa-triangle-exclamation"></i></div>Failed to look up flight. Try again later.</div></div>';
     });
 }
 
@@ -5313,7 +5316,7 @@ function renderFR24Modal(f, source, cached) {
   var html = '<div style="background:var(--dl-panel);border:1px solid var(--dl-border);border-radius:8px;padding:0;max-width:420px;width:90%;color:var(--dl-text);font-family:var(--mono);position:relative;overflow:hidden">';
   // Header
   html += '<div style="background:linear-gradient(135deg,rgba(0,58,112,.3),rgba(0,28,70,.2));padding:16px 20px;border-bottom:1px solid var(--dl-border)">';
-  html += '<button data-action="close-fr24-modal" aria-label="Close" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px">✕</button>';
+  html += '<button data-action="close-fr24-modal" aria-label="Close" style="position:absolute;top:8px;right:12px;background:none;border:none;color:var(--dl-muted);cursor:pointer;font-size:16px"><i class="fa-solid fa-xmark"></i></button>';
   html += '<div style="font-size:16px;font-weight:700;color:var(--dl-accent)">' + escapeHtml(f.flightNumber || '?') + '</div>';
   if (f.callsign) html += '<div style="font-size:10px;color:var(--dl-muted)">' + escapeHtml(f.callsign) + '</div>';
   html += '<div style="margin-top:6px"><span style="display:inline-block;padding:2px 8px;border-radius:3px;font-size:9px;font-weight:600;background:' + statusColor + '22;color:' + statusColor + ';border:1px solid ' + statusColor + '44">' + escapeHtml(statusLabel.toUpperCase()) + '</span></div>';
@@ -5327,7 +5330,7 @@ function renderFR24Modal(f, source, cached) {
   var destName = (f.destination && f.destination.name) ? f.destination.name : '';
   html += '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">';
   html += '<div style="text-align:center"><div style="font-size:18px;font-weight:700">' + escapeHtml(origLabel) + '</div><div style="font-size:9px;color:var(--dl-muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(origName) + '</div></div>';
-  html += '<div style="flex:1;text-align:center;color:var(--dl-muted);font-size:16px">✈ →</div>';
+  html += '<div style="flex:1;text-align:center;color:var(--dl-muted);font-size:16px"><i class="fa-solid fa-plane"></i> <i class="fa-solid fa-arrow-right"></i></div>';
   html += '<div style="text-align:center"><div style="font-size:18px;font-weight:700">' + escapeHtml(destLabel) + '</div><div style="font-size:9px;color:var(--dl-muted);max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + escapeHtml(destName) + '</div></div>';
   html += '</div>';
   // Aircraft
@@ -5347,7 +5350,7 @@ function renderFR24Modal(f, source, cached) {
   // Footer
   html += '<div style="padding:10px 20px;border-top:1px solid var(--dl-border);display:flex;justify-content:space-between;align-items:center">';
   html += '<div style="font-size:8px;color:var(--dl-muted)">Powered by Flightradar24 Official API' + (cached ? ' • cached' : '') + '</div>';
-  html += '<button class="share-btn" data-action="share-flight" data-flight="' + escapeHtml(f.flightNumber || '') + '" aria-label="Share flight link" title="Copy shareable link">📤 Share</button>';
+  html += '<button class="share-btn" data-action="share-flight" data-flight="' + escapeHtml(f.flightNumber || '') + '" aria-label="Share flight link" title="Copy shareable link"><i class="fa-solid fa-share-from-square"></i> Share</button>';
   html += '</div>';
   html += '</div>';
 

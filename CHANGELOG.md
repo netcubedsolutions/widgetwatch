@@ -1,5 +1,16 @@
 # Changelog
 
+## [1.4.0] - 2026-04-03
+
+### Changed
+- Replaced all Unicode/emoji icons throughout the UI with Font Awesome 6 (`fa-solid` / `fa-regular` / `fa-brands`) icons
+  - Tab bar, bottom nav, onboarding modal, control buttons, section headings, table sort indicators, status badges, modal close buttons, share/watch/retry buttons, source items, hub health bar, flight phase indicators, squawk decoder, and all JS-generated HTML
+  - Sort indicator logic updated from `textContent` manipulation to `innerHTML` with `data-label` attributes for stable FA icon injection
+  - `textContent` assignments that included emoji converted to `innerHTML` (refresh button, sidebar filter toggles, schedule/radar title updates)
+- Font Awesome 6.7.2 stylesheet added to `index.html` and `fleet.html` via cdnjs CDN
+
+---
+
 ## [1.3.1] - 2026-03-27
 
 ### Added
